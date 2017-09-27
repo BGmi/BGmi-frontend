@@ -1,6 +1,6 @@
 {
   "name": "bgmi-admin",
-  "version": "1.2.0",
+  "version": "1.9.0",
   "description": "web gui for bgmi",
   "author": "Trim21 <trim21me@gmail.com>",
   "main": "src/main.js",
@@ -17,6 +17,7 @@
     "es6-promise": "^4.1.1",
     "font-awesome": "^4.7.0",
     "iview": "^2.3.0-beta.1",
+    "material-design-iconic-font": "^2.2.0",
     "v-click-outside": "^0.1.1",
     "vue": "^2.4.2",
     "vue-cookie": "^1.1.4",

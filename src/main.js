@@ -36,10 +36,10 @@ Vue.use(NotificationPlugin)
 Vue.use(vClickOutside)
 Vue.use(VueMaterial)
 Vue.material.registerTheme('default', {
-  primary: {color: 'cyan', hue: 500, textColor: 'white'},
+  primary: { color: 'cyan', hue: 500, textColor: 'white' },
   accent: 'red',
   warn: 'red',
-  background: {color: 'grey', hue: 200}
+  background: { color: 'grey', hue: 200 }
 })
 if (process.env.NODE_ENV === 'development') {
   Vue.http.options.root = 'http://localhost:8888'
@@ -55,7 +55,7 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: {App},
+  components: { App },
   data: {
     Chartist
   }

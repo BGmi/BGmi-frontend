@@ -7,7 +7,7 @@
       <div class="main-panel">
         <navigation @toggleSideBar="toggleSideBar"></navigation>
         <router-view></router-view>
-        <div class="close-layer" v-if="navOpened" @click="onCloseLayerClick"></div>
+        <!--<div class="close-layer" v-if="navOpened" @click="onCloseLayerClick"></div>-->
       </div>
     </div>
   </div>

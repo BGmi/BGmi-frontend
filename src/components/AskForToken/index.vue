@@ -1,16 +1,13 @@
 <template>
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header" data-background-color="purple"><h4 class="title">Input Your Token</h4>
-          </div>
-          <div class="card-content">
-            <form>
-              <div class="row">
-                <div class="container">
-                  <div class="col-md-12">
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-content">
+              <form>
+                <div class="row">
+                  <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
 
                     <md-input-container>
                       <label>bgmi-token</label>
@@ -20,12 +17,14 @@
                 </div>
 
                 <div class="row">
-                  <div style="align-content: flex-end" class="col-md-2 col-md-offset-10 col-xs-4 col-xs-offset-8">
-                    <md-button @click="onClose()" class="md-button">submit</md-button>
+                  <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                    <div style="align-content: flex-end" class="col-md-2 col-md-offset-10 col-xs-4 col-xs-offset-8">
+                      <md-button @click="onClose()" class="md-button">submit</md-button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>
