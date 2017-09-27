@@ -1,0 +1,52 @@
+<template>
+  <div class="sidebar" data-color="blue">
+    <a href="/" target="_self">
+      <div class="logo">
+        <img class="center-block img-circle img-responsive" src="/static/images/logo.jpg" alt="/">
+      </div>
+    </a>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <item title="Bangumi" icon="video_library" to="bangumi"></item>
+        <item title="Calendar" icon="event" to="calendar"></item>
+        <item title="Subscribe" icon="subscriptions" to="subscribe"></item>
+        <item title="Filter" icon="filter_list" to="filter"></item>
+        <item title="Search" icon="search" to="search"></item>
+        <item title="Config" icon="settings" to="config"></item>
+        <li>
+          <hr>
+        </li>
+        <item title="Feed" icon="rss_feed" href="/rss"></item>
+        <li>
+          <hr>
+        </li>
+        <item title="About" icon="help_outline" to="about"></item>
+        <item title="Bug Report" icon="report" href="https://github.com/BGmi/BGmi/issues"></item>
+        <item title="Based On BGmi" href="https://github.com/BGmi/BGmi"></item>
+      </ul>
+    </div>
+    <div class="sidebar-background"></div>
+  </div>
+</template>
+<script>
+import Item from './item'
+
+export default {
+  props: {
+    open: Boolean
+  },
+  components: {
+    Item
+  }
+}
+</script>
+
+<style type="text/scss" lang="scss" rel="stylesheet/scss">
+.sidebar-background {
+  background-image: url('~images/sidebar-2.jpg')
+}
+
+a {
+  text-decoration: none
+}
+</style>
