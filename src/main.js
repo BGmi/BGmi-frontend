@@ -6,6 +6,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 // Libraries
+import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import './assets/sass/material-dashboard.scss'
 import 'es6-promise/auto'

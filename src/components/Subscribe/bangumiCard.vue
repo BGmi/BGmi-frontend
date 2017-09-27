@@ -4,7 +4,7 @@
       <img :src="src"/>
       <md-spinner :md-progress="0" :md-size="150" md-indeterminate v-if="loading"></md-spinner>
     </p>
-    <div class="content"><h4 class="category text-black">{{bangumi.name}}</h4>
+    <div class="content"><p class="category text-black">{{bangumi.name}}</p>
 
       <md-button class="md-raised" :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}"
                  @click="changeStatus()">
@@ -108,7 +108,7 @@
     width: 100%;
   }
 
-  h4 {
+  p {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

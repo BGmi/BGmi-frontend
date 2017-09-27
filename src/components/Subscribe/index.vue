@@ -11,7 +11,7 @@
     <md-tab v-for="(value,key) in bangumiCalendar" :key="key" :id="key" :md-label="key">
       <md-layout :md-gutter="8">
 
-        <md-layout md-flex-xsmall="100" md-flex-small="50" md-flex-medium="30" md-flex-large="25"
+        <md-layout md-flex-xsmall="50" md-flex-small="50" md-flex-medium="30" md-flex-large="25"
                    md-flex-xlarge="20"
                    v-for="(bangumi,key) in value"
                    :key="key">

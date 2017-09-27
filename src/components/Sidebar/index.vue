@@ -2,7 +2,7 @@
   <div class="sidebar" data-color="blue">
     <a href="/" target="_self">
       <div class="logo">
-        <img class="center-block img-circle img-responsive" src="/static/images/logo.jpg" alt="/">
+        <img class="center-block img-circle" src="/static/images/logo.jpg" alt="/">
       </div>
     </a>
     <div class="sidebar-wrapper">
@@ -29,24 +29,24 @@
   </div>
 </template>
 <script>
-import Item from './item'
+  import Item from './item'
 
-export default {
-  props: {
-    open: Boolean
-  },
-  components: {
-    Item
+  export default {
+    props: {
+      open: Boolean
+    },
+    components: {
+      Item
+    }
   }
-}
 </script>
 
 <style type="text/scss" lang="scss" rel="stylesheet/scss">
-.sidebar-background {
-  background-image: url('~images/sidebar-2.jpg')
-}
+  .sidebar-background {
+    background-image: url('~images/sidebar-2.jpg')
+  }
 
-a {
-  text-decoration: none
-}
+  a {
+    text-decoration: none
+  }
 </style>

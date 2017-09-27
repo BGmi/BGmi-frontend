@@ -7,7 +7,6 @@
       <div class="main-panel">
         <navigation @toggleSideBar="toggleSideBar"></navigation>
         <router-view></router-view>
-        <!-- <md-footer></md-footer> -->
         <div class="close-layer" v-if="navOpened" @click="onCloseLayerClick"></div>
       </div>
     </div>
@@ -16,14 +15,12 @@
 
 <script>
   import Navigation from '@/components/Navigation'
-  import MdFooter from '@/components/Footer'
   import Sidebar from '@/components/Sidebar'
 
   export default {
     name: 'app',
     components: {
       Navigation,
-      MdFooter,
       Sidebar
     },
 
@@ -50,41 +47,19 @@
       }
     },
 
-    mounted () {
-      this.initMaterial()
-    },
-
-    updated () {
-      this.initMaterial()
-    },
-
-//    watch: {
-//      '$route' (to, from) {
-//        if (to.meta.requiresAuth) {
-//          if (!this.$store.state.isLogin) {
-//            this.$refs.askToken.open()
-//          }
-//        }
-//      }
-//    },
+//  mounted () {
+//    this.initMaterial()
+//  },
+//
+//  updated () {
+//    this.initMaterial()
+//  },
+//
 
     methods: {
-      openDialog (ref) {
-        this.$refs[ref].open()
-      },
-      closeDialog (ref) {
-        this.$refs[ref].close()
-        alert(this.token)
-      },
-      onOpen () {
-        console.log('Opened')
-      },
-      onClose (type) {
-        console.log('Closed', type)
-      },
-      initMaterial () {
-        $.material.init() // eslint-disable-line
-      },
+//    initMaterial () {
+//      $.material.init() // eslint-disable-line
+//    },
       toggleSideBar () {
         this.sidebarToggled = !this.sidebarToggled
       },

@@ -1,16 +1,14 @@
 <template>
 
-  <div class="content">
+  <div class="container">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header" data-background-color="purple"><h4 class="title">Material Dashboard Heading</h4>
-              <p class="category">Created using Roboto Font Family</p></div>
             <div class="card-content">
               <div id="typography">
                 <div class="title">
-                  <md-button class="btn btn-default" href="/calendar.ics"><h4>ICS Calendar for iOS / Android</h4>
+                  <md-button class="md-info" href="/calendar.ics">ICS Calendar
                   </md-button>
                 </div>
                 <div class="row" v-if="!tabData">

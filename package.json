@@ -15,6 +15,7 @@
     "bootstrap": "^3.3.7",
     "chartist": "^0.11.0",
     "es6-promise": "^4.1.1",
+    "font-awesome": "^4.7.0",
     "iview": "^2.3.0-beta.1",
     "v-click-outside": "^0.1.1",
     "vue": "^2.4.2",

@@ -1,45 +1,40 @@
 <template>
-  <div class="content">
+  <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header" data-background-color="purple"><h4 class="title">Edit Config</h4>
-            <p class="category">Config your BGmi</p></div>
           <div class="card-content">
-            <form>
-              <div class="row">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-9">
-                      <div class="row" v-if="!configs">
-                        <div class="col-md-2 col-md-offset-5">
-                          <md-spinner class="tim-note" md-indeterminate></md-spinner>
-                        </div>
+            <div class="row">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="row" v-if="!configs">
+                      <div class="col-md-2 col-md-offset-5">
+                        <md-spinner class="tim-note" md-indeterminate></md-spinner>
                       </div>
-                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" v-for="(config, key) in configs" :key="key">
-                        <div class="row">
-                          <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                            <md-input-container>
-                              <label>{{config.name}}</label>
-                              <md-input :disabled="!configs[key].writable" v-model="config.value"></md-input>
-                            </md-input-container>
-                          </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" v-for="(config, key) in configs" :key="key">
+                      <div class="row">
+                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                          <md-input-container>
+                            <label>{{config.name}}</label>
+                            <md-input :disabled="!configs[key].writable" v-model="config.value"></md-input>
+                          </md-input-container>
+                        </div>
 
-                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                            <md-checkbox id="my-test2" v-if="configs[key].writable"
-                                         :value="config.value===originConfigs[key].value"
-                                         :disabled="config.value===originConfigs[key].value" name="my-test2"
-                                         @input="submit(config.name, config.value)" class="md-primary">
-                            </md-checkbox>
-                          </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                          <md-checkbox id="my-test2" v-if="configs[key].writable"
+                                       :value="config.value===originConfigs[key].value"
+                                       :disabled="config.value===originConfigs[key].value" name="my-test2"
+                                       @input="submit(config.name, config.value)" class="md-primary">
+                          </md-checkbox>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="clearfix"></div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
