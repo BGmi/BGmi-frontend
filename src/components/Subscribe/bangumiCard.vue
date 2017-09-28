@@ -108,10 +108,5 @@
     width: 100%;
   }
 
-  p {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
 
 </style>

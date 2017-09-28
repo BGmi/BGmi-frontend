@@ -1,7 +1,8 @@
 <template>
   <div class="notifications">
     <transition-group name="list">
-      <md-notification v-for="(n, index) in notifications" :key="n" :message="n.message" :icon="n.icon" :type="n.type"
+      <md-notification v-for="(n, index) in notifications" :key="index" :message="n.message" :icon="n.icon"
+                       :type="n.type"
                        :placement="n.placement" @onClose="removeNotification(index)"></md-notification>
     </transition-group>
   </div>

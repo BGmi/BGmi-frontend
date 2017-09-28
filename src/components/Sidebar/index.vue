@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" data-color="blue">
+  <md-whiteframe md-tag="div" class="sidebar" data-color="blue">
     <a href="/" target="_self">
       <div class="logo">
         <img class="center-block img-circle" src="/static/images/logo.jpg" alt="/">
@@ -26,15 +26,17 @@
       </ul>
     </div>
     <div class="sidebar-background"></div>
-  </div>
+  </md-whiteframe>
 </template>
 <script>
   import Item from './item'
 
   export default {
+    name: 'sidebar',
     props: {
       open: Boolean
     },
+    methods: {},
     components: {
       Item
     }

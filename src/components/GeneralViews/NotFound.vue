@@ -1,30 +1,5 @@
 <template>
   <div class="contact-us full-screen">
-    <!--<nav class="navbar navbar-ct-default" role="navigation-demo">-->
-      <!--<div class="container">-->
-        <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
-        <!--<div class="navbar-header">-->
-          <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">-->
-            <!--<span class="sr-only">Toggle navigation</span>-->
-            <!--<span class="icon-bar"></span>-->
-            <!--<span class="icon-bar"></span>-->
-            <!--<span class="icon-bar"></span>-->
-          <!--</button>-->
-          <!--<router-link :to="{path:'/'}" class="navbar-brand">Site title</router-link>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-        <!--<div class="collapse navbar-collapse" id="navigation-example-2">-->
-          <!--<ul class="nav navbar-nav navbar-right">-->
-            <!--<li>-->
-              <!--<router-link :to="{path:'/'}">Home</router-link>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-      <!--</div>-->
-      <!--&lt;!&ndash; /.container&ndash;&gt;-->
-    <!--</nav>-->
     <div class="wrapper wrapper-full-page section content">
       <div class="">
         <div class="container">
