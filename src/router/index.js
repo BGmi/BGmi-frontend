@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Player from '@/components/Player'
+import Player from '@/components/Bangumi/Player'
 import Bangumi from '@/components/Bangumi'
 import Calendar from '@/components/Calendar'
 import Typography from '@/components/Typography'
@@ -21,7 +21,7 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/',
+      path: '/player/:bangumi_name/:episode',
       name: 'Player',
       component: Player
     }, {
@@ -56,7 +56,7 @@ const router = new Router({
       component: Typography
     },
     {
-      path: '/Bangumi',
+      path: '/',
       name: 'Bangumi',
       component: Bangumi
     },

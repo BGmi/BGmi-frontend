@@ -41,8 +41,8 @@
     created () {
       this.$http.get('api/cal').then(
         res => {
-          this.tabData = res.body
-          for (let key in res.body) {
+          this.tabData = res.body.data
+          for (let key in res.body.data) {
             this.tabData[key] = res.body[key].sort(x => -x.status)
           }
         },

@@ -37,8 +37,8 @@
     created () {
       this.$http.get('api/cal').then(
         res => {
-          this.bangumiCalendar = res.body
-          for (let key in res.body) {
+          this.bangumiCalendar = res.body.data
+          for (let key in res.body.data) {
             this.bangumiCalendar[key] = res.body[key].sort(x => -x.status)
           }
         },

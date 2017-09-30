@@ -3,8 +3,11 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 const state = {
+  bangumi: {},
   isLogin: false,
-  token: false
+  token: false,
+  danmaku_api: '',
+  coverRoot: '/bangumi/cover'
 }
 
 /* eslint-disable no-new */
@@ -16,6 +19,14 @@ const store = new Vuex.Store({
     login (state, token) {
       state.isLogin = true
       state.token = token
+    },
+    storeBangumi (state, bangumi) {
+      state.bangumi = bangumi
+    },
+    init (state, initData) {
+      state.coverRoot = initData.cover_url
+      state.danmaku_api = initData.danmaku_api
+      state.bangumi = initData.data
     }
   }
 })

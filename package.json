@@ -13,7 +13,10 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "dplayer": "^1.16.0",
+    "md5": "^2.2.1",
     "roboto-fontface": "^0.8.0",
+    "svg-morpheus": "^0.3.0",
     "vue": "^2.4.2",
     "vue-cookie": "^1.1.4",
     "vue-material": "^0.7.5",
