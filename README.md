@@ -6,13 +6,13 @@ based on [lucduong/vue-material-dashboard](https://github.com/lucduong/vue-mater
 
 ## feature
 - bangumi
+    - player
     - add
     - delete
 - bgmi
     - config
 ## todo: 
 - bangumi
-    - player
     - search
     - filter
 
