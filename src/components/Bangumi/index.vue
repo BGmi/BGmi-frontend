@@ -6,13 +6,14 @@
           <div class="card">
             <div class="card-content">
               <div class="row">
-                <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
-                  <md-card v-for="(bg, key) in bangumi" :key="key">
+                <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4" v-for="(bg, key) in bangumi" :key="key">
+                  <md-card>
                     <md-card-media>
-                      <img :src="`${imgRoot}${bg.cover}`">
+                      <div
+                        style="background-size: cover; height: 30vh; background-repeat: no-repeat; background-position:center center;"
+                        :style="{backgroundImage:`url('${imgRoot}${bg.cover}')`} "></div>
                     </md-card-media>
                     <md-card-header>
-                      <!--<div class="md-title">{{bg.bangumi_name}}</div>-->
                       <div class="md-subhead">{{bg.bangumi_name}}</div>
                     </md-card-header>
                     <md-card-actions>
@@ -23,14 +24,11 @@
                         </md-button>
                       </router-link>
                     </md-card-actions>
-
                   </md-card>
                 </div>
-
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
