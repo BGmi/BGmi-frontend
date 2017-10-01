@@ -9,7 +9,6 @@
               </md-button>
             </div>
           </div>
-
           <div class="row">
             <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
               <div v-if="!tabData" class="col-md-2 col-md-offset-5">
@@ -30,11 +29,6 @@
     components: {},
     data () {
       return {
-        tabs: [
-          {id: 'home', name: 'Home', icon: 'bug_report', active: true},
-          {id: 'website', name: 'Website', icon: 'code', active: false},
-          {id: 'server', name: 'Server', icon: 'cloud', active: false}
-        ],
         tabData: false
       }
     },
@@ -43,7 +37,9 @@
         res => {
           this.tabData = res.body.data
           for (let key in res.body.data) {
-            this.tabData[key] = res.body[key].sort(x => -x.status)
+            if (res.body.data.hasOwnProperty(key)) {
+              this.tabData[key] = res.body.data[key].sort(x => -x.status)
+            }
           }
         },
         res => {

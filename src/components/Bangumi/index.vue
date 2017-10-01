@@ -45,7 +45,7 @@
     imgRoot = '/bangumi/cover/'
   }
   export default {
-    name: 'dashboard',
+    name: 'bangumi',
     components: {},
 
     data () {
@@ -61,11 +61,14 @@
       }
     },
     created () {
-      this.$http.get('api/index').then(
-        res => {
-          this.$store.commit('init', res.body)
-          this.bangumi = res.body.data
-        })
+      if (!this.$store.state.bangumi.length) {
+        this.$http.get('api/index').then(
+          res => {
+            this.bangumi = res.body.data
+          })
+      } else {
+        this.bangumi = this.$store.state.bangumi
+      }
     }
   }
 </script>

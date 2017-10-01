@@ -35,14 +35,6 @@
         return this.sidebarToggled
       }
     },
-    created () {
-      this.$http.get('api/index').then(
-        res => {
-          this.$store.commit('init', res.body)
-        },
-        res => {}
-      )
-    },
     methods: {
       toggleSideBar () {
         this.sidebarToggled = !this.sidebarToggled
