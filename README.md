@@ -15,5 +15,6 @@ based on [lucduong/vue-material-dashboard](https://github.com/lucduong/vue-mater
 - bangumi
     - search
     - filter
+- loading gif in some button
 
 
