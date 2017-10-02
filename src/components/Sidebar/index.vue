@@ -16,7 +16,7 @@
         <li>
           <hr>
         </li>
-        <item title="Feed" icon="rss_feed" href="/rss"></item>
+        <item title="Feed" icon="rss_feed" href="/resource/feed.xml"></item>
         <li>
           <hr>
         </li>

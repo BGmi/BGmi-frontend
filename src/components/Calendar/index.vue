@@ -5,8 +5,7 @@
         <div class="card-content">
           <div class="row">
             <div class="col-md-12 col-lg-12">
-              <md-button class="md-info" href="/calendar.ics">ICS Calendar
-              </md-button>
+              <md-button class="md-info" href="/resource/calendar.ics">ICS Calendar </md-button>
             </div>
           </div>
           <div class="row">
