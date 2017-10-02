@@ -17,7 +17,6 @@
     "config",
     "static",
     "dist",
-    "dist.tar.gz",
     ".eslintrc.js",
     ".eslintignore",
     ".babelrc"
