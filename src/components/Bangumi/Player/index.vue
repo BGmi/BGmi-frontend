@@ -52,6 +52,7 @@
             this.bangumi = bangumi
             this.$nextTick(
               () => {
+                console.log(`/bangumi${bangumi.player[this.$route.params.episode].path}`)
                 /* eslint-disable no-unused-vars */
                 let dp = new DPlayer({
                   theme: '#FF3333',
@@ -59,7 +60,7 @@
                   screenshot: true,
                   video: {
                     url: `/bangumi${bangumi.player[this.$route.params.episode].path}`,
-                    pic: this.$store.state.coverRoot + bangumi.cover
+                    pic: this.$store.state.coverRoot + '/' + bangumi.cover
                   },
                   danmaku: {
                     id: md5(bangumi.bangumi_name) + this.$route.params.episode,
