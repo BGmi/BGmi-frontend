@@ -4,7 +4,18 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
+            <div class="card-header" data-background-color="purple">
+              <h5 class="title">{{$route.params.bangumi_name}}</h5>
+              <!--<p class="category">Created using Roboto Font Family</p>-->
+            </div>
             <div class="card-content">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="dplayer-container">
+                    <div :id="bangumi.bangumi_name"></div>
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-md-12">
                   <router-link :to="`/player/${bangumi.bangumi_name}/${key}`"
@@ -13,13 +24,6 @@
                       {{key}}
                     </md-button>
                   </router-link>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="dplayer-container">
-                    <div :id="bangumi.bangumi_name"></div>
-                  </div>
                 </div>
               </div>
             </div>
