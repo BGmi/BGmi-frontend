@@ -24,7 +24,7 @@
 </template>
 <script>
   export default {
-    name: 'subscribe',
+    name: 'calendar',
     components: {},
     data () {
       return {

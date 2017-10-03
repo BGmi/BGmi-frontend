@@ -61,35 +61,25 @@
         this.$http.post(`api/${action}`, {name: this.bangumi.name}).then(
           res => {
             this.bangumi.status = action === 'add' ? 1 : null
-            for (let key in res.body) {
-              if (res.body.hasOwnProperty(key)) {
-                this.$notifications.notify({
-                  type: res.body.status,
-                  icon: 'notifications',
-                  message: res.body.message,
-                  placement: {
-                    from: 'top',
-                    align: 'right'
-                  }
-                })
+            this.$notifications.notify({
+              type: res.body.status,
+              message: res.body.message,
+              placement: {
+                from: 'top',
+                align: 'right'
               }
-            }
+            })
           },
           res => {
             this.bangumi.status = action === 'add' ? 1 : null
-            for (let key in res.body) {
-              if (res.body.hasOwnProperty(key)) {
-                this.$notifications.notify({
-                  type: 'danger',
-                  icon: 'notifications',
-                  message: res.body.message,
-                  placement: {
-                    from: 'top',
-                    align: 'right'
-                  }
-                })
+            this.$notifications.notify({
+              type: 'danger',
+              message: res.body.message,
+              placement: {
+                from: 'top',
+                align: 'right'
               }
-            }
+            })
           })
       }
     }

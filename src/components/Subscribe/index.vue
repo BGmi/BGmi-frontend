@@ -15,7 +15,6 @@
                    :key="key">
           <bangumi-card :bangumi.sync="bangumi"></bangumi-card>
         </md-layout>
-
       </md-layout>
     </md-tab>
   </md-tabs>
@@ -25,7 +24,7 @@
   import BangumiCard from './bangumiCard'
 
   export default {
-    name: 'calendar',
+    name: 'subscribe',
     components: {
       BangumiCard
     },
@@ -39,7 +38,7 @@
         res => {
           this.bangumiCalendar = res.body.data
           for (let key in res.body.data) {
-            this.bangumiCalendar[key] = res.body[key].sort(x => -x.status)
+            this.bangumiCalendar[key] = res.body.data[key].sort(x => -x.status)
           }
         },
         res => {
