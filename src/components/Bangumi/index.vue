@@ -3,11 +3,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <div class="card">
-            <div class="card-content">
+          <!--<div class="card">-->
+          <!--<div class="card-content">-->
               <div class="row">
-                <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4" v-for="(bg, key) in bangumi" :key="key">
-                  <md-card>
+                <div class="col-md-6 col-xs-12 col-lg-4 col-sm-6" v-for="(bg, key) in bangumi" :key="key">
+                  <md-card md-theme="white">
                     <md-card-media>
                       <div
                         style="background-size: cover; height: 30vh; background-repeat: no-repeat; background-position:center center;"
@@ -25,9 +25,10 @@
                       </router-link>
                     </md-card-actions>
                   </md-card>
+                  <br>
                 </div>
-              </div>
-            </div>
+                <!--</div>-->
+                <!--</div>-->
           </div>
         </div>
       </div>

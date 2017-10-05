@@ -4,14 +4,57 @@
       <img :src="src"/>
       <md-spinner :md-progress="0" :md-size="150" md-indeterminate v-if="loading"></md-spinner>
     </p>
-    <div class="content"><p class="category text-black">{{bangumi.name}}</p>
+    <div class="content">
+      <p class="category text-black">{{bangumi.name}}</p>
 
-      <md-button class="md-raised" :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}"
-                 @click="changeStatus()">
-        <div v-if='!bangumi.status'>add</div>
-        <div v-else>delete</div>
+      <md-button v-if='!bangumi.status' class="md-raised"
+                 :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}"
+                 @click.stop.prevent="changeStatus()">
+        <div>add</div>
       </md-button>
 
+      <md-button v-else-if="!expand" class="md-raised"
+                 @click.stop.prevent="expandDetail()">
+        <div>detail</div>
+      </md-button>
+      <md-button v-else @click="pack">
+        pack
+      </md-button>
+      <div v-if="expand">
+        <div class="row">
+          <div class="col-md-12" v-clock>
+            <md-input-container md-clearable>
+              <label>Include</label>
+              <md-input v-model="filter.include"></md-input>
+            </md-input-container>
+
+            <md-input-container md-clearable>
+              <label>Regex</label>
+              <md-input v-model="filter.regex"></md-input>
+            </md-input-container>
+
+            <md-input-container md-clearable>
+              <label>Exclude</label>
+              <md-input v-model="filter.exclude"></md-input>
+            </md-input-container>
+
+            <md-input-container>
+              <label>Episode</label>
+              <md-input type="number" v-model="mark"></md-input>
+            </md-input-container>
+
+            <md-checkbox
+              v-for="(value, key) in followed"
+              v-model="followed[key]"
+              :key="key">
+              {{key}}
+            </md-checkbox>
+          </div>
+          <md-button @click="save()">
+            save
+          </md-button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -27,13 +70,42 @@
     data () {
       return {
         imgRoot,
+        expand: false,
         loading: true,
-        src: ''
+        filter: {
+          name: this.bangumi.name,
+          regex: 'asd',
+          followed: [],
+          subtitle_group: [],
+          exclude: null,
+          bangumi_name: 'NEW GAME!!',
+          include: null
+        },
+        src: '',
+        followed: {},
+        mark: this.bangumi.episode
       }
     },
     computed: {
       imgSrc () {
         return `${this.imgRoot}${this.bangumi.cover}`
+      },
+      filter_args () {
+        const obj = {name: this.bangumi.name}
+        obj.include = this.filter.include
+        obj.exclude = this.filter.exclude
+        obj.regex = this.filter.regex
+        let a = []
+        for (let key in this.followed) {
+          if (this.followed.hasOwnProperty(key)) {
+            if (this.followed[key]) {
+              console.log(key)
+              a.push(key)
+            }
+          }
+        }
+        obj.subtitle = a.join(',')
+        return obj
       }
     },
     props: {
@@ -51,16 +123,56 @@
       newImg.src = this.imgSrc
     },
     methods: {
+      save () {
+        console.log(this.filter_args)
+        Promise.all([this.$http.post('api/filter', this.filter_args),
+          this.$http.post('api/mark', {name: this.bangumi.name, episode: this.mark})])
+          .then(
+            res => {
+              this.$notifications.notify({
+                type: 'success',
+                message: 'save filter successfully',
+                placement: {
+                  from: 'top',
+                  align: 'right'
+                }
+              })
+            },
+            res => {
+            }
+          )
+      },
+      pack () {
+        this.expand = false
+      },
+      fetchFilter (data) {
+        this.filter = data
+        data.subtitle_group.forEach(
+          item => {
+            this.followed[item] = data.followed.indexOf(item) > -1
+          }
+        )
+        this.expand = true
+      },
+      expandDetail () {
+        this.$http.post('api/filter', {name: this.bangumi.name}).then(
+          res => {
+            this.fetchFilter(res.body.data)
+          }
+        )
+      },
       changeStatus () {
         let action = ''
         if (!this.bangumi.status) {
           action = 'add'
         } else {
           action = 'delete'
+          this.expand = false
         }
         this.$http.post(`api/${action}`, {name: this.bangumi.name}).then(
           res => {
-            this.bangumi.status = action === 'add' ? 1 : null
+//            this.bangumi = this.data
+            this.bangumi.status = (action === 'add' ? 1 : 0)
             this.$notifications.notify({
               type: res.body.status,
               message: res.body.message,
@@ -98,5 +210,7 @@
     width: 100%;
   }
 
-
+  [v-clock] {
+    display: none;
+  }
 </style>

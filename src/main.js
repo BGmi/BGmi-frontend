@@ -32,6 +32,12 @@ Vue.material.registerTheme('default', {
   warn: 'red',
   background: {color: 'grey', hue: 200}
 })
+Vue.material.registerTheme('white', {
+  primary: 'black',
+  accent: 'red',
+  warn: 'red',
+  background: 'white'
+})
 if (process.env.NODE_ENV === 'development') {
   Vue.http.options.root = 'http://localhost:8888'
 } else {

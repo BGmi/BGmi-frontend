@@ -6,7 +6,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-content">
-              <div class="row">
+              <!--<div class="row">-->
                 <div class="tim-typo">
                   <h3>关于</h3>
                 </div>
@@ -53,6 +53,25 @@
                 <div class="tim-typo">
                   <a href="https://github.com/BGmi/BGmi/graphs/contributors">github/BGmi/BGmi/contributors</a>
                 </div>
+              <div class="tim-typo">
+                <h3>Bug Report</h3>
+                <!--</div>-->
+                <!--<div class="tim-typo">-->
+                <ul>
+                  <li>
+                    <a href="https://github.com/BGmi/BGmi/issues">BGmi Bug Report</a>
+
+                  </li>
+                  <li>
+                    <a href="https://github.com/BGmi/BGmi-frontend/issues">BGmi-frontend Bug Repose</a>
+
+                  </li>
+                  <li>
+                    <a href="https://github.com/BGmi/BGmi/issues">Don't know which one</a>
+
+                  </li>
+                </ul>
+                <!--</div>-->
               </div>
             </div>
           </div>

@@ -4,17 +4,12 @@
       <div class="card">
         <div class="card-content">
           <div class="row">
-            <div class="col-md-12 col-lg-12">
-              <md-button class="md-info" href="/resource/calendar.ics">ICS Calendar </md-button>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
               <div v-if="!tabData" class="col-md-2 col-md-offset-5">
                 <md-spinner class="tim-note" md-indeterminate></md-spinner>
               </div>
               <div v-else v-for="(bangumis, key) in tabData" :key="key">
-                <p v-html="bangumiToHtml(key,tabData[key])"></p></div>
+                <p id="cal" v-html="bangumiToHtml(key,tabData[key])"></p></div>
             </div>
           </div>
         </div>

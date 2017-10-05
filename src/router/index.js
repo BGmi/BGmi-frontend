@@ -5,7 +5,7 @@ import Bangumi from '@/components/Bangumi'
 import Calendar from '@/components/Calendar'
 import Typography from '@/components/Typography'
 import Subscribe from '@/components/Subscribe'
-import Filter from '@/components/Filter' // todo: api front
+import Resource from '@/components/Resource'
 import Search from '@/components/Search' // todo: api front
 import Config from '@/components/Config'
 // hr
@@ -34,9 +34,9 @@ const router = new Router({
       component: AskForToken
     },
     {
-      path: '/filter',
-      name: 'Filter',
-      component: Filter
+      path: '/resource',
+      name: 'Resource',
+      component: Resource
     },
     {
       path: '/search',
