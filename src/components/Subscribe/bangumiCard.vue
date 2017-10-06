@@ -22,7 +22,7 @@
       </md-button>
       <div v-if="expand">
         <div class="row">
-          <div class="col-md-12" v-clock>
+          <div class="col-md-12" v-cloak>
             <md-input-container md-clearable>
               <label>Include</label>
               <md-input v-model="filter.include"></md-input>
@@ -210,7 +210,7 @@
     width: 100%;
   }
 
-  [v-clock] {
+  [v-cloak] {
     display: none;
   }
 </style>

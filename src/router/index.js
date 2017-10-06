@@ -8,18 +8,24 @@ import Subscribe from '@/components/Subscribe'
 import Resource from '@/components/Resource'
 import Search from '@/components/Search' // todo: api front
 import Config from '@/components/Config'
+import Admin from '@/components/Admin'
 // hr
 import About from '@/components/About'
 // GeneralViews
 import NotFound from '@/components/GeneralViews/NotFound.vue'
 import AskForToken from '@/components/AskForToken'
-// vuex
+// Vuex
 import store from '@/store'
 
 Vue.use(Router)
 
 const router = new Router({
   routes: [
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: Admin
+    },
     {
       path: '/player/:bangumi_name/:episode',
       name: 'Player',

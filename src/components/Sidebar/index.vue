@@ -9,14 +9,16 @@
       <ul class="nav">
         <item title="Bangumi" icon="video_library" to="/"></item>
         <item title="Calendar" icon="event" to="/calendar"></item>
-        <item title="Subscribe" icon="subscriptions" to="/subscribe"></item>
+        <item title="Resource" icon="rss_feed" to="/resource"></item>
         <!--<item title="Search" icon="search" to="/search"></item>-->
         <!--<item title="Config" icon="settings" to="/config"></item>-->
         <li>
           <hr>
         </li>
+        <!--<item title="Admin" icon="settings" to="/admin" @click></item>-->
+        <item title="Subscribe" icon="subscriptions" to="/subscribe"></item>
         <!--<item title="Feed" icon="rss_feed" href="/resource/feed.xml"></item>-->
-        <item title="Resource" icon="rss_feed" to="/resource"></item>
+
         <li>
           <hr>
         </li>
@@ -36,7 +38,11 @@
     props: {
       open: Boolean
     },
-    methods: {},
+    methods: {
+      expand () {
+        console.log('expand')
+      }
+    },
     components: {
       Item
     }

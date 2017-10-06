@@ -1,23 +1,26 @@
 <template>
-  <div class="row" v-if="!bangumiCalendar">
-    <div class="col-md-2 col-md-offset-5">
-      <md-spinner class="tim-note" md-indeterminate></md-spinner>
+  <div>
+
+    <div class="row" v-if="!bangumiCalendar">
+      <div class="col-md-2 col-md-offset-5">
+        <md-spinner class="tim-note" md-indeterminate></md-spinner>
+      </div>
     </div>
-  </div>
 
-  <md-tabs v-else md-fixed>
-    <md-tab v-for="(value,key) in bangumiCalendar" :key="key" :id="key" :md-label="key">
-      <md-layout :md-gutter="8">
+    <md-tabs v-else md-fixed>
+      <md-tab v-for="(value,key) in bangumiCalendar" :key="key" :id="key" :md-label="key">
+        <md-layout :md-gutter="8">
 
-        <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="25"
-                   md-flex-xlarge="20"
-                   v-for="(bangumi,key) in value"
-                   :key="key">
-          <bangumi-card :bangumi.sync="bangumi"></bangumi-card>
+          <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="25"
+                     md-flex-xlarge="20"
+                     v-for="(bangumi,key) in value"
+                     :key="key">
+            <bangumi-card :bangumi.sync="bangumi"></bangumi-card>
+          </md-layout>
         </md-layout>
-      </md-layout>
-    </md-tab>
-  </md-tabs>
+      </md-tab>
+    </md-tabs>
+  </div>
 </template>
 
 <script>
