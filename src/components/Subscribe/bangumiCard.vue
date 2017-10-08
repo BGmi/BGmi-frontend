@@ -5,11 +5,20 @@
       <md-spinner :md-progress="0" :md-size="150" md-indeterminate v-if="loading"></md-spinner>
     </p>
     <div class="content">
-      <p class="category text-black">{{bangumi.name}}</p>
+      <!--:md-content-html="confirm.contentHtml"-->
+      <md-dialog-confirm
+        :md-title="`delete ${bangumi.name}`"
+        :md-ok-text="`ok`"
+        :md-cancel-text="`cancel`"
+        @open="onOpen"
+        @close="onClose"
+        ref="dialog5">
+      </md-dialog-confirm>
 
-      <md-button v-if='!bangumi.status' class="md-raised"
+      <p class="category text-black">{{bangumi.name}}</p>
+      <md-button v-if='!bangumi.status' class="md-raised "
                  :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}"
-                 @click.stop.prevent="changeStatus()">
+                 @click.stop.prevent="add()">
         <div>add</div>
       </md-button>
 
@@ -17,7 +26,7 @@
                  @click.stop.prevent="expandDetail()">
         <div>detail</div>
       </md-button>
-      <md-button v-else @click="pack">
+      <md-button class="md-raised" v-else @click="pack">
         pack
       </md-button>
       <div v-if="expand">
@@ -50,7 +59,10 @@
               {{key}}
             </md-checkbox>
           </div>
-          <md-button @click="save()">
+          <md-button class="md-raised md-accent" @click="del()">
+            delete
+          </md-button>
+          <md-button class="md-raised" @click="save()">
             save
           </md-button>
         </div>
@@ -161,18 +173,12 @@
           }
         )
       },
-      changeStatus () {
-        let action = ''
-        if (!this.bangumi.status) {
-          action = 'add'
-        } else {
-          action = 'delete'
-          this.expand = false
-        }
+      add () {
+        const action = 'add'
+
         this.$http.post(`api/${action}`, {name: this.bangumi.name}).then(
           res => {
-//            this.bangumi = this.data
-            this.bangumi.status = (action === 'add' ? 1 : 0)
+            this.bangumi.status = 1
             this.$notifications.notify({
               type: res.body.status,
               message: res.body.message,
@@ -183,7 +189,7 @@
             })
           },
           res => {
-            this.bangumi.status = action === 'add' ? 1 : null
+//            this.bangumi.status = 1
             this.$notifications.notify({
               type: 'danger',
               message: res.body.message,
@@ -193,6 +199,47 @@
               }
             })
           })
+      },
+      openDialog (ref) {
+        this.$refs[ref].open()
+      },
+      closeDialog (ref) {
+        this.$refs[ref].close()
+      },
+      onOpen () {
+        console.log('Opened')
+      },
+      onClose (type) {
+        if (type === 'ok') {
+          this.expand = false
+          const action = 'delete'
+          this.$http.post(`api/${action}`, {name: this.bangumi.name}).then(
+            res => {
+              this.bangumi.status = 0
+              this.$notifications.notify({
+                type: res.body.status,
+                message: res.body.message,
+                placement: {
+                  from: 'top',
+                  align: 'right'
+                }
+              })
+            },
+            res => {
+//              this.bangumi.status = 0
+              this.$notifications.notify({
+                type: 'danger',
+                message: res.body.message,
+                placement: {
+                  from: 'top',
+                  align: 'right'
+                }
+              })
+            })
+        }
+      },
+      del () {
+        this.$refs['dialog5'].open()
       }
     }
   }
