@@ -9,12 +9,12 @@ based on [lucduong/vue-material-dashboard](https://github.com/lucduong/vue-mater
     - player
     - add
     - delete
+    - filter
 - bgmi
     - config
 ## todo: 
 - bangumi
-    - search
-    - filter
+    - search (no http api now)
 - loading gif in some button
 
 
