@@ -33,6 +33,11 @@
         <div class="row">
           <div class="col-md-12" v-cloak>
             <md-input-container md-clearable>
+              <label>Status</label>
+              <md-input type="number" v-model="bangumi.status"></md-input>
+            </md-input-container>
+
+            <md-input-container md-clearable>
               <label>Include</label>
               <md-input v-model="filter.include"></md-input>
             </md-input-container>
@@ -135,6 +140,13 @@
       newImg.src = this.imgSrc
     },
     methods: {
+      status () {
+        this.$http.post('api/status', {name: this.bangumi.name, status: this.bangumi.status}).then(
+          res => {
+            console.log(res.body.message)
+          }
+        )
+      },
       save () {
         console.log(this.filter_args)
         Promise.all([this.$http.post('api/filter', this.filter_args),
