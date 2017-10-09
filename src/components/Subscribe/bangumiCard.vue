@@ -32,9 +32,9 @@
       <div v-if="expand">
         <div class="row">
           <div class="col-md-12" v-cloak>
-            <md-input-container md-clearable>
+            <md-input-container>
               <label>Status</label>
-              <md-input type="number" v-model="bangumi.status"></md-input>
+              <md-input type="number" v-model="bangumi.status" ></md-input>
             </md-input-container>
 
             <md-input-container md-clearable>
