@@ -3,10 +3,8 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <!--<div class="card">-->
-          <!--<div class="card-content">-->
           <div class="row">
-            <div class="col-md-6 col-xs-12 col-lg-4 col-sm-6" v-for="(bg, key) in bangumi" :key="key">
+            <div class="col-md-6 col-xs-6 col-lg-4 col-sm-6" v-for="(bg, key) in bangumi" :key="key">
               <md-card md-theme="white">
                 <md-card-media>
                   <div
@@ -15,26 +13,22 @@
                 </md-card-media>
 
                 <md-card-header>
-                  <div class="md-subhead">{{bg.bangumi_name}}{{!isEmpty(bg.player)}}</div>
+                  <div class="md-title">{{bg.bangumi_name + (bg.status === 2 ? '(new)' : '')}}
+                  </div>
                 </md-card-header>
 
-                <md-card-actions>
-                  <div class="button-container">
-                    <router-link v-if="!isEmpty(bg.player)"
-                                 :to="`/player/${bg.bangumi_name}/${key}`"
-                                 v-for="(value, key) in bg.player" :key="key">
-                      <md-button>
-                        {{key}}
-                      </md-button>
-                    </router-link>
-                  </div>
-
+                <md-card-actions class="button-container">
+                  <!--<div class="button-container">-->
+                  <md-button v-if="!isEmpty(bg.player)"
+                             @click="$router.push(`/player/${bg.bangumi_name}/${value}`)"
+                             v-for="value in Object.keys(bg.player).reverse()" :key="value">
+                    {{value}}
+                  </md-button>
+                  <!--</div>-->
                 </md-card-actions>
               </md-card>
               <br>
             </div>
-            <!--</div>-->
-            <!--</div>-->
           </div>
         </div>
       </div>
@@ -78,6 +72,11 @@
         this.$http.get('api/index').then(
           res => {
             this.bangumi = res.body.data
+//            for (let obj of this.bangumi) {
+//              obj.player = Object.keys(obj.player).sort(function (a, b) {
+//                return -a + b
+//              })
+//            }
           })
       } else {
         this.bangumi = this.$store.state.bangumi
@@ -87,6 +86,10 @@
 </script>
 
 <style lang="scss" scoped>
+  .md-title {
+    white-space: nowrap;
+  }
+
   .button-container {
     min-width: 88px;
     min-height: 36px;

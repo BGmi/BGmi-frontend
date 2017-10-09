@@ -1,5 +1,5 @@
 <template>
-  <md-whiteframe md-tag="div" class="sidebar" data-color="blue">
+  <md-whiteframe md-theme="white" md-tag="div" class="sidebar" data-color="blue">
     <a href="/" target="_self">
       <div class="logo">
         <img class="center-block img-circle" src="/static/images/logo.jpg" alt="/">
