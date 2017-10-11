@@ -73,6 +73,7 @@
           </md-button>
         </div>
       </div>
+      <br>
     </div>
   </div>
 </template>
@@ -258,6 +259,9 @@
   }
 </script>
 <style scoped lang="scss">
+  .card {
+    padding: 0 0 20px 0;
+  }
 
   .img-container {
     max-width: 100%;
