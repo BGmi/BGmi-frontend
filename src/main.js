@@ -1,7 +1,7 @@
 // Libraries
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import VueCookie from 'vue-cookie'
+import VueCookies from 'vue-cookies'
 
 import VueMaterial from 'vue-material'
 import { sync } from 'vuex-router-sync'
@@ -21,7 +21,7 @@ sync(store, router)
 Vue.config.productionTip = false
 
 // Use Core Components
-Vue.use(VueCookie)
+Vue.use(VueCookies)
 Vue.use(VueResource)
 Vue.use(NotificationPlugin)
 Vue.use(VueMaterial)

@@ -10,6 +10,7 @@
         :md-title="`delete ${bangumi.name}`"
         :md-ok-text="`ok`"
         :md-cancel-text="`cancel`"
+        md-content=""
         @open="onOpen"
         @close="onClose"
         ref="dialog5">
@@ -34,7 +35,7 @@
           <div class="col-md-12" v-cloak>
             <md-input-container>
               <label>Status</label>
-              <md-input type="number" v-model="bangumi.status" ></md-input>
+              <md-input type="number" v-model="bangumi.status"></md-input>
             </md-input-container>
 
             <md-input-container md-clearable>

@@ -42,13 +42,43 @@
         token: ''
       }
     },
+    created () {
+      if (this.$cookies.isKey('auth')) {
+        let token = this.$cookies.get('auth')
+        this.$http.post('api/auth', {token: token}).then(
+          res => {
+            this.$store.commit('login', token)
+            Vue.http.headers.common['bgmi-token'] = `${token}`
+            this.$nextTick(
+              () => {
+                if (this.$route.query.redirect) {
+                  this.$router.push(this.$route.query.redirect)
+                } else {
+                  this.$router.push('/')
+                }
+              }
+            )
+          },
+          res => {
+            this.$notifications.notify({
+              type: 'danger',
+              icon: 'notifications',
+              message: 'auth wrong',
+              placement: {
+                from: 'top',
+                align: 'right'
+              }
+            })
+          })
+      }
+    },
     methods: {
       onClose () {
         this.$http.post('api/auth', {token: this.token}).then(
           res => {
             this.$store.commit('login', this.token)
             Vue.http.headers.common['bgmi-token'] = `${this.token}`
-//            this.$cookie.set('auth', res.body.token, 1)
+            this.$cookies.set('auth', this.token)
             this.$nextTick(
               () => {
                 if (this.$route.query.redirect) {

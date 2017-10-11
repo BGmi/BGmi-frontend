@@ -1,7 +1,7 @@
 <template>
   <md-whiteframe md-tag="md-toolbar" class="top-header" md-elevation="10">
 
-    <md-dialog ref="dialog1">
+    <md-dialog ref="dialog1" md-content="">
       <md-dialog-title>update</md-dialog-title>
       <md-dialog-content>
         <md-spinner md-indeterminate v-if="loading"></md-spinner>
@@ -38,10 +38,10 @@
     },
     methods: {
       saveCheck () {
-        this.$cookie.set('download', this.download, 30)
+        this.$cookies.set('download', this.download, 30)
       },
       openDialog (ref) {
-        this.download = (this.$cookie.get('download') === 'true')
+        this.download = (this.$cookies.get('download') === 'true')
         this.$refs[ref].open()
       },
       closeDialog (ref, ok) {
