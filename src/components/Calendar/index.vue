@@ -48,11 +48,20 @@
             str.push(bangumis[bangumi].status ? `<b>${bangumis[bangumi].name}</b>` : `${bangumis[bangumi].name}`)
           }
         }
-        return `<h3>${day}</h3>${str.join(' / ')}`
+        return `<h3 class="week">${day}</h3>${str.join(' / ')}`
       }
     }
   }
 </script>
 
 <style lang="scss">
+  .week {
+    text-transform: capitalize;
+    font-family: Roboto, "Noto Sans", Noto, sans-serif;
+  }
+
+  /*@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);*/
+  /*#cal {*/
+  /*font-family: ;*/
+  /*}*/
 </style>
