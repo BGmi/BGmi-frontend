@@ -8,7 +8,7 @@
               <div v-if="!tabData" class="col-md-2 col-md-offset-5">
                 <md-spinner class="tim-note" md-indeterminate></md-spinner>
               </div>
-              <div v-else v-for="(bangumis, key) in tabData" :key="key">
+              <div v-else v-for="(key, index) in weekday" :key="key">
                 <p id="cal" v-html="bangumiToHtml(key,tabData[key])"></p></div>
             </div>
           </div>
@@ -23,7 +23,8 @@
     components: {},
     data () {
       return {
-        tabData: false
+        tabData: false,
+        weekday: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
       }
     },
     created () {
@@ -43,11 +44,13 @@
     methods: {
       bangumiToHtml (day, bangumis) {
         let str = []
+
         for (let bangumi in bangumis) {
           if (bangumis.hasOwnProperty(bangumi)) {
             str.push(bangumis[bangumi].status ? `<b>${bangumis[bangumi].name}</b>` : `${bangumis[bangumi].name}`)
           }
         }
+
         return `<h3 class="week">${day}</h3>${str.join(' / ')}`
       }
     }
