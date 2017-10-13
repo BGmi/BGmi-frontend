@@ -10,7 +10,7 @@
         :md-title="`delete ${bangumi.name}`"
         :md-ok-text="`ok`"
         :md-cancel-text="`cancel`"
-        md-content=""
+        :md-content="` `"
         @open="onOpen"
         @close="onClose"
         ref="dialog5">
