@@ -10,7 +10,7 @@
                   <div class="tim-typo">
                     <a href="/resource/feed.xml">
                       <md-button>
-                        <h3>Rss Feed</h3>
+                        <h5>Rss Feed</h5>
                       </md-button>
                     </a>
                   </div>
@@ -21,7 +21,7 @@
                   <div class="tim-typo">
                     <a href="/resource/calendar.ics">
                       <md-button>
-                        <h3>ICS Calendar for mobile phone</h3>
+                        <h5>ICS Calendar for mobile phone</h5>
                       </md-button>
                     </a>
                   </div>

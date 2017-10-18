@@ -63,7 +63,7 @@
 
                   </li>
                   <li>
-                    <a href="https://github.com/BGmi/BGmi-frontend/issues">BGmi-frontend Bug Repose</a>
+                    <a href="https://github.com/BGmi/BGmi-frontend/issues">BGmi-frontend Bug Report</a>
 
                   </li>
                   <li>

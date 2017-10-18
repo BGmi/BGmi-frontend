@@ -84,7 +84,7 @@
 
 <style lang="scss" scoped>
   .bangumi-cover {
-    height: 200px;
+    height: 260px;
     background-size: cover;
     background-position: center center;
   }
