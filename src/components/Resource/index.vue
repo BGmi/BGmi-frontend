@@ -33,12 +33,11 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
   export default {
-    name: 'filter',
+    name: 'resource',
     components: {},
     created () { },
     data () {

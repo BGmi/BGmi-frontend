@@ -94,4 +94,8 @@
   .dplayer-icon svg {
     height: 24px !important;
   }
+
+  .dplayer.dplayer-fulled {
+
+  }
 </style>

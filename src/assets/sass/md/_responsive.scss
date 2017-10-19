@@ -128,10 +128,7 @@
   .main-panel {
     width: 100%;
   }
-  .navbar-transparent {
-    padding-top: 15px;
-    background-color: rgba(0, 0, 0, 0.45);
-  }
+
   body {
     position: relative;
   }
@@ -140,26 +137,8 @@
     @include transition (0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1));
     left: 0;
   }
-  .navbar .container {
-    left: 0;
-    width: 100%;
-    @include transition (0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1));
-    position: relative;
-  }
-  .navbar .navbar-collapse.collapse,
-  .navbar .navbar-collapse.collapse.in,
-  .navbar .navbar-collapse.collapsing {
-    display: none !important;
-  }
 
-  .navbar-nav > li {
-    float: none;
-    position: relative;
-    display: block;
-  }
-
-  .sidebar,
-  .off-canvas-sidebar {
+  .sidebar {
     position: fixed;
     display: block;
     top: 0;
@@ -239,7 +218,6 @@
   }
 
   .nav-open {
-    .off-canvas-sidebar,
     .sidebar {
       @include transform-translate-x(0);
     }
@@ -453,12 +431,6 @@
 }
 
 //overwrite table responsive for 768px screens
-
-@media (min-width: 768px) {
-  .navbar > .container-fluid .navbar-brand {
-    margin-left: 0;
-  }
-}
 
 @media (min-width: 992px) {
   .table-full-width {

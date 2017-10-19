@@ -138,18 +138,6 @@
       .container & {
         border-radius: 4px;
       }
-      .navbar & {
-        border-radius: 0;
-        left: 0;
-        position: absolute;
-        right: 0;
-        top: 85px;
-        width: 100%;
-        z-index: 3;
-      }
-      .navbar:not(.navbar-transparent) & {
-        top: 70px;
-      }
 
       .alert-icon {
         font-size: 30px;

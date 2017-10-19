@@ -40,6 +40,7 @@
   } else {
     imgRoot = '/bangumi/cover/'
   }
+
   export default {
     name: 'bangumi',
     components: {},
