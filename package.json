@@ -10,6 +10,7 @@
     "build": "node build/build.js",
     "lint": "eslint --fix --ext .js,.vue src"
   },
+  "license": "MIT",
   "files": [
     "src",
     "build",
