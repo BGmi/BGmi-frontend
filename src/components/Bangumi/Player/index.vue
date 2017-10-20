@@ -60,7 +60,7 @@
                   screenshot: true,
                   video: {
                     url: `/bangumi${bangumi.player[this.$route.params.episode].path}`,
-                    pic: this.$store.state.coverRoot + '/' + bangumi.cover
+                    pic: '/' + bangumi.cover
                   },
                   danmaku: {
                     id: md5(bangumi.bangumi_name) + this.$route.params.episode,
