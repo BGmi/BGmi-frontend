@@ -62,34 +62,35 @@
         for (let bangumi of data) {
           if (bangumi.bangumi_name === this.$route.params.bangumi_name) {
             this.bangumi = bangumi
+            console.log(bangumi.cover)
             this.$nextTick(
               () => {
-                console.log(`/bangumi${bangumi.player[this.$route.params.episode].path}`)
-                /* eslint-disable no-unused-vars */
-                let dp = new DPlayer({
+                const option = {
                   theme: '#FF3333',
                   element: document.getElementById(bangumi.bangumi_name),
                   screenshot: true,
                   video: {
                     url: `/bangumi${bangumi.player[this.$route.params.episode].path}`,
-                    pic: '/' + bangumi.cover
+                    pic: bangumi.cover.substr(1)
                   },
                   danmaku: {
                     id: md5(bangumi.bangumi_name) + this.$route.params.episode,
                     api: 'https://api.prprpr.me/dplayer/'
                   }
-                })
-                dp.on('error', () => {
-                  this.$notifications.notify({
-                    type: 'danger',
-                    message: 'This episode has not been fully downloaded or html5 does not support ' +
-                    'this video encoding, please download to the local.',
-                    placement: {
-                      from: 'top',
-                      align: 'right'
-                    }
-                  })
-                })
+                }
+                /* eslint-disable no-unused-vars */
+                let dp = new DPlayer(option)
+//                dp.on('error', () => {
+//                  this.$notifications.notify({
+//                    type: 'danger',
+//                    message: 'This episode has not been fully downloaded or html5 does not support ' +
+//                    'this video encoding, please download to the local.',
+//                    placement: {
+//                      from: 'top',
+//                      align: 'right'
+//                    }
+//                  })
+//                })
               }
             )
             break
@@ -116,9 +117,5 @@
 <style>
   .dplayer-icon svg {
     height: 24px !important;
-  }
-
-  .dplayer.dplayer-fulled {
-
   }
 </style>
