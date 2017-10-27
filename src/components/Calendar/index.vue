@@ -18,53 +18,53 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'calendar',
-  components: {},
-  data () {
-    return {
-      tabData: false,
-      weekday: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-    }
-  },
-  created () {
-    this.$http.get('api/cal').then(
-      res => {
-        this.tabData = res.body.data
-        for (let key in res.body.data) {
-          if (res.body.data.hasOwnProperty(key)) {
-            this.tabData[key] = res.body.data[key].sort(x => -x.status)
+  export default {
+    name: 'calendar',
+    components: {},
+    data () {
+      return {
+        tabData: false,
+        weekday: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+      }
+    },
+    created () {
+      this.$http.get('api/cal').then(
+        res => {
+          this.tabData = res.body.data
+          for (let key in res.body.data) {
+            if (res.body.data.hasOwnProperty(key)) {
+              this.tabData[key] = res.body.data[key].sort(x => -x.status)
+            }
+          }
+        },
+        res => {
+          console.log(res.body)
+        })
+    },
+    methods: {
+      bangumiToHtml (day, bangumis) {
+        let str = []
+
+        for (let bangumi in bangumis) {
+          if (bangumis.hasOwnProperty(bangumi)) {
+            str.push(bangumis[bangumi].status ? `<b>${bangumis[bangumi].name}</b>` : `${bangumis[bangumi].name}`)
           }
         }
-      },
-      res => {
-        console.log(res.body)
-      }
-    )
-  },
-  methods: {
-    bangumiToHtml (day, bangumis) {
-      let str = []
 
-      for (let bangumi in bangumis) {
-        if (bangumis.hasOwnProperty(bangumi)) {
-          str.push(
-            bangumis[bangumi].status
-              ? `<b>${bangumis[bangumi].name}</b>`
-              : `${bangumis[bangumi].name}`
-          )
-        }
+        return `<h3 class="week">${day}</h3>${str.join(' / ')}`
       }
-
-      return `<h3 class="week">${day}</h3>${str.join(' / ')}`
     }
   }
-}
 </script>
 
 <style lang="scss">
-.week {
-  text-transform: capitalize;
-  font-family: Roboto, "Noto Sans", Noto, sans-serif;
-}
+  .week {
+    text-transform: capitalize;
+    font-family: Roboto, "Noto Sans", Noto, sans-serif;
+  }
+
+  /*@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);*/
+  /*#cal {*/
+  /*font-family: ;*/
+  /*}*/
 </style>
