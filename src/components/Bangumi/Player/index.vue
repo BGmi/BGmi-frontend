@@ -20,7 +20,7 @@
                 <div class="col-md-12">
                   <router-link :to="`/player/${bangumi.bangumi_name}/${key}`"
                                v-for="(value, key) in bangumi.player" :key="key">
-                    <md-button>
+                    <md-button @click="changeEpisode(key)">
                       {{key}}
                     </md-button>
                   </router-link>
@@ -46,6 +46,9 @@
       }
     },
     methods: {
+      changeEpisode (episode) {
+        this.init(this.$store.state.bangumi)
+      },
       init (data) {
         for (let bangumi of data) {
           if (bangumi.bangumi_name === this.$route.params.bangumi_name) {
