@@ -1,5 +1,4 @@
 <template>
-
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -57,9 +56,7 @@
                 {{version}}
               </div>
               <div class="tim-typo">
-                <h3>Bug Report {{version}}</h3>
-                <!--</div>-->
-                <!--<div class="tim-typo">-->
+                <h3>Bug Report</h3>
                 <ul>
                   <li>
                     <a href="https://github.com/BGmi/BGmi/issues">BGmi Bug Report</a>
@@ -74,7 +71,6 @@
 
                   </li>
                 </ul>
-                <!--</div>-->
               </div>
             </div>
           </div>
@@ -88,9 +84,7 @@
   export default {
     name: 'about',
     date () {
-      return {
-        version: process.env.NODE_ENV
-      }
+      return {}
     }
   }
 </script>

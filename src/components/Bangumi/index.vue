@@ -11,8 +11,8 @@
                 </md-card-media>
 
                 <md-card-header>
-                  <div class="md-title">{{bg.bangumi_name + (bg.status === 2 ? '(new)' : '')}}
-                  </div>
+                  <div class="md-title">{{bg.bangumi_name + (bg.status === 2 ? '(new)' : '')}}</div>
+                  <div class="md-subhead">latest:{{bg.episode}}</div>
                 </md-card-header>
 
                 <md-card-actions>
@@ -70,11 +70,6 @@
         this.$http.get('api/index').then(
           res => {
             this.bangumi = res.body.data
-            //            for (let obj of this.bangumi) {
-            //              obj.player = Object.keys(obj.player).sort(function (a, b) {
-            //                return -a + b
-            //              })
-            //            }
           })
       } else {
         this.bangumi = this.$store.state.bangumi
