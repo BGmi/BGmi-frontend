@@ -8,6 +8,7 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <item title="Bangumi" icon="video_library" to="/"></item>
+        <item title="Bangumi Files" icon="folder" href="/bangumi/"></item>
         <item title="Calendar" icon="event" to="/calendar"></item>
         <item title="Resource" icon="rss_feed" to="/resource"></item>
         <li>
@@ -26,27 +27,26 @@
 </template>
 
 <script>
-import Item from './item'
+  import Item from './item'
 
-export default {
-  name: 'sidebar',
-  props: {
-    open: Boolean
-  },
-  methods: {
-  },
-  components: {
-    Item
+  export default {
+    name: 'sidebar',
+    props: {
+      open: Boolean
+    },
+    methods: {},
+    components: {
+      Item
+    }
   }
-}
 </script>
 
 <style type="text/scss" lang="scss" rel="stylesheet/scss">
-.sidebar-background {
-  background-image: url('~images/sidebar-2.jpg')
-}
+  .sidebar-background {
+    background-image: url('~images/sidebar-2.jpg')
+  }
 
-a {
-  text-decoration: none
-}
+  a {
+    text-decoration: none
+  }
 </style>

@@ -1,12 +1,21 @@
 <template>
   <div class="content">
     <div class="container-fluid">
+      <md-dialog md-open-from="#custom" md-close-to="#custom" ref="dialog1">
+        <md-dialog-title>Lorem ipsum dolor sit amet</md-dialog-title>
+
+        <md-dialog-content>Nemo, nobis necessitatibus ut illo, ducimus ex.</md-dialog-content>
+
+        <md-dialog-actions>
+          <md-button class="md-primary" @click="closeDialog('dialog1')">Cancel</md-button>
+          <md-button class="md-primary" @click="closeDialog('dialog1')">Ok</md-button>
+        </md-dialog-actions>
+      </md-dialog>
       <div class="row">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header" data-background-color="purple">
               <h5 class="title">{{$route.params.bangumi_name}}</h5>
-              <!--<p class="category">Created using Roboto Font Family</p>-->
             </div>
             <div class="card-content">
               <div class="row">
@@ -69,6 +78,17 @@
                     id: md5(bangumi.bangumi_name) + this.$route.params.episode,
                     api: 'https://api.prprpr.me/dplayer/'
                   }
+                })
+                dp.on('error', () => {
+                  this.$notifications.notify({
+                    type: 'danger',
+                    message: 'This episode has not been fully downloaded or html5 does not support ' +
+                    'this video encoding, please download to the local.',
+                    placement: {
+                      from: 'top',
+                      align: 'right'
+                    }
+                  })
                 })
               }
             )
