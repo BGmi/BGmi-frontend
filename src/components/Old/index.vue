@@ -36,9 +36,9 @@
 <script>
   let imgRoot = ''
   if (process.env.NODE_ENV === 'development') {
-    imgRoot = 'http://localhost:8888/bangumi/cover/'
+    imgRoot = 'http://localhost:8888'
   } else {
-    imgRoot = '/bangumi/cover/'
+    imgRoot = ''
   }
 
   export default {
