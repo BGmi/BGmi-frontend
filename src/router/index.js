@@ -2,13 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Player from '@/components/Bangumi/Player'
 import Bangumi from '@/components/Bangumi'
+import Old from '@/components/Old'
 import Calendar from '@/components/Calendar'
 import Typography from '@/components/Typography'
 import Subscribe from '@/components/Subscribe'
 import Resource from '@/components/Resource'
 import Search from '@/components/Search' // todo: api front
 import Config from '@/components/Config'
-import Admin from '@/components/Admin'
 // hr
 import About from '@/components/About'
 // GeneralViews
@@ -22,9 +22,9 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/admin',
-      name: 'Admin',
-      component: Admin
+      path: '/old',
+      name: 'Old',
+      component: Old
     },
     {
       path: '/player/:bangumi_name/:episode',
