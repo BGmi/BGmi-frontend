@@ -1,20 +1,17 @@
 <template>
   <div>
-
     <div class="row" v-if="!bangumiCalendar">
       <div class="col-md-2 col-md-offset-5">
         <md-spinner class="tim-note" md-indeterminate></md-spinner>
       </div>
     </div>
-
     <md-tabs v-else md-fixed>
       <md-tab v-for="(key, value) in weekKey " :key="key" :id="key" :md-label="key">
         <md-layout :md-gutter="8">
-
           <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="25"
                      md-flex-xlarge="20"
-                     v-for="(bangumi,k) in bangumiCalendar[key]"
-                     :key="k">
+                     v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()]"
+                     :key="subKey">
             <bangumi-card :bangumi.sync="bangumi"></bangumi-card>
           </md-layout>
         </md-layout>
@@ -34,13 +31,31 @@
     data () {
       return {
         bangumiCalendar: false,
-        weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        latestBgmiVersion: '',
+        bgmiVersion: ''
       }
     },
-    created () {
+    mounted () {
       this.$http.get('api/cal').then(
         res => {
           this.bangumiCalendar = res.body.data
+          this.latestBgmiVersion = res.body.latest_version
+          this.bgmiVersion = res.body.version
+          this.$nextTick(
+            () => {
+              if (this.bgmiVersion < this.latestBgmiVersion) {
+                this.$notifications.notify({
+                  type: 'danger',
+//              icon: 'notifications',
+                  message: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
+                  placement: {
+                    from: 'top',
+                    align: 'center'
+                  }
+                })
+              }
+            })
           for (let key in this.weekKey) {
             if (this.bangumiCalendar.hasOwnProperty(key)) {
               this.bangumiCalendar[key] = res.body.data[key].sort(x => -x.status)
