@@ -71,7 +71,7 @@
                   screenshot: true,
                   video: {
                     url: `/bangumi${bangumi.player[this.$route.params.episode].path}`,
-                    pic: this.$store.state.coverRoot.substr(1) + '/' + bangumi.cover
+                    pic: bangumi.cover
                   },
                   danmaku: {
                     id: md5(bangumi.bangumi_name) + this.$route.params.episode,
@@ -99,15 +99,11 @@
       }
     },
     created () {
-      if (!this.$store.state.bangumi.length) {
-        this.$http.get('api/index').then(
-          res => {
-            this.$store.commit('init', res.body)
-            this.init(res.body.data)
-          })
-      } else {
-        this.init(this.$store.state.bangumi)
-      }
+      this.$http.get('api/index').then(
+        res => {
+          this.$store.commit('init', res.body)
+          this.init(res.body.data)
+        })
     },
     mounted () {
       /* eslint-disable no-unused-vars */
