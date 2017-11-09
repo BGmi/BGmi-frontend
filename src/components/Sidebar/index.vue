@@ -2,7 +2,7 @@
   <div class="sidebar" data-color="blue">
     <div class="logo">
       <a href="/" target="_self">
-        <img class="center-block img-circle" src="/static/images/logo.jpg" alt="/">
+        <img class="center-block img-circle" src="/static/images/logo144.jpg" alt="/">
       </a>
     </div>
     <div class="sidebar-wrapper">
