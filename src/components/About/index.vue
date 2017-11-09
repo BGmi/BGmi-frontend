@@ -54,8 +54,6 @@
                 </div>
               <div class="tim-typo">
                 <h3>Bug Report</h3>
-                <!--</div>-->
-                <!--<div class="tim-typo">-->
                 <ul>
                   <li>
                     <a href="https://github.com/BGmi/BGmi/issues">BGmi Bug Report</a>
@@ -80,12 +78,13 @@
 
 </template>
 <script>
-  export default {
-    name: 'about',
-    date () {
-      return {}
-    }
+export default {
+  name: 'about',
+  date () {
+    return {}
   }
+}
 </script>
 <style lang="scss">
+
 </style>
