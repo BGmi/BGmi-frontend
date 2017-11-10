@@ -38,13 +38,9 @@ Vue.material.registerTheme('white', {
   warn: 'red',
   background: 'white'
 })
-if (process.env.NODE_ENV === 'development') {
-  Vue.http.options.root = 'http://localhost:8888'
-} else {
-  Vue.http.options.root = '/'
-}
+Vue.http.options.root = '/'
 
-Vue.http.headers.common['bgmi-token'] = '233'
+// Vue.http.headers.common['bgmi-token'] = '233'
 
 /* eslint-disable no-new */
 new Vue({

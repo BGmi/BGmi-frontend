@@ -34,12 +34,7 @@
 </template>
 
 <script>
-  let imgRoot = ''
-  if (process.env.NODE_ENV === 'development') {
-    imgRoot = 'http://localhost:8888'
-  } else {
-    imgRoot = ''
-  }
+  const imgRoot = ''
 
   export default {
     name: 'bangumi',
