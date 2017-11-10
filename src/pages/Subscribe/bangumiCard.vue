@@ -59,9 +59,10 @@
             </md-input-container>
 
             <md-checkbox
-              v-for="(value, key) in followed"
-              v-model="followed[key]"
-              :key="key">
+              v-for="( key,value) in filter.subtitle_group"
+              v-model="followed"
+              :key="key"
+              :md-value="key">
               {{key}}
             </md-checkbox>
           </div>
@@ -101,7 +102,7 @@
           include: null
         },
         src: '',
-        followed: {},
+        followed: [],
         mark: this.bangumi.episode
       }
     },
@@ -114,16 +115,7 @@
         obj.include = this.filter.include
         obj.exclude = this.filter.exclude
         obj.regex = this.filter.regex
-        let a = []
-        for (let key in this.followed) {
-          if (this.followed.hasOwnProperty(key)) {
-            if (this.followed[key]) {
-              console.log(key)
-              a.push(key)
-            }
-          }
-        }
-        obj.subtitle = a.join(',')
+        obj.subtitle = this.followed.join(',')
         return obj
       }
     },
@@ -173,11 +165,7 @@
       },
       fetchFilter (data) {
         this.filter = data
-        data.subtitle_group.forEach(
-          item => {
-            this.followed[item] = data.followed.indexOf(item) > -1
-          }
-        )
+        this.followed = data.followed
         this.expand = true
       },
       expandDetail () {
@@ -189,7 +177,6 @@
       },
       add () {
         const action = 'add'
-
         this.$http.post(`api/${action}`, {name: this.bangumi.name}).then(
           res => {
             this.bangumi.status = 1

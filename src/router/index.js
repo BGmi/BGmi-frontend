@@ -1,19 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Player from '@/components/Bangumi/Player'
-import Bangumi from '@/components/Bangumi'
-import Old from '@/components/Old'
-import Calendar from '@/components/Calendar'
-import Typography from '@/components/Typography'
-import Subscribe from '@/components/Subscribe'
-import Resource from '@/components/Resource'
-import Search from '@/components/Search' // todo: api front
-import Config from '@/components/Config'
+import Player from '@/pages/Bangumi/Player'
+import Bangumi from '@/pages/Bangumi'
+import Old from '@/pages/Old'
+import Calendar from '@/pages/Calendar'
+import Subscribe from '@/pages/Subscribe'
+import Resource from '@/pages/Resource'
+import Search from '@/pages/Search' // todo: api front
+import Config from '@/pages/Config'
 // hr
-import About from '@/components/About'
+import About from '@/pages/About'
 // GeneralViews
-import NotFound from '@/components/GeneralViews/NotFound.vue'
-import AskForToken from '@/components/AskForToken'
+import NotFound from '@/pages/GeneralViews/NotFound.vue'
+import AskForToken from '@/pages/AskForToken'
 // Vuex
 import store from '@/store'
 
@@ -57,11 +56,6 @@ const router = new Router({
       meta: {requiresAuth: true}
     },
     {
-      path: '/typography',
-      name: 'Typography',
-      component: Typography
-    },
-    {
       path: '/',
       name: 'Bangumi',
       component: Bangumi
@@ -96,9 +90,5 @@ router.beforeEach((to, from, next) => {
     next() // 确保一定要调用 next()
   }
 })
-
-// router.afterEach(route => {
-//   route.app.
-// })
 
 export default router

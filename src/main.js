@@ -11,7 +11,6 @@ import router from './router'
 import NotificationPlugin from '@/core/components/mdNotifications/install'
 // StyleSheet
 import 'vue-material/dist/vue-material.css'
-// import 'font-awesome/css/font-awesome.min.css'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import './assets/sass/material-dashboard.scss'

@@ -44,7 +44,7 @@
 
 <style type="text/scss" lang="scss" rel="stylesheet/scss">
   .sidebar-background {
-    background-image: url('~images/sidebar-2.jpg')
+    background-image: url('/static/images/sidebar-2.jpg')
   }
 
   a {

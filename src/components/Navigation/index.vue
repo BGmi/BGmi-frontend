@@ -1,5 +1,5 @@
 <template>
-  <md-whiteframe md-tag="md-toolbar" class="top-header" md-elevation="10">
+  <md-whiteframe id="my-nav" md-tag="md-toolbar" class="top-header" md-elevation="10">
 
     <md-dialog ref="dialog1" md-content="">
       <md-dialog-title>update</md-dialog-title>
@@ -90,5 +90,11 @@
   }
 </script>
 <style lang="scss">
-
+  /*.top-header {*/
+    /*width: 100%;*/
+    /*height: 48px;*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*z-index: 233;*/
+  /*}*/
 </style>
