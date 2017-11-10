@@ -18,9 +18,10 @@
                 <md-card-actions>
                   <div class="button-container">
                     <md-button v-if="!isEmpty(bg.player)" @click="$router.push(`/player/${bg.bangumi_name}/${value}`)"
-                               v-for="value in Object.keys(bg.player).reverse()" :key="value">
+                               v-for="value in Object.keys(bg.player).reverse().slice(0, 4)" :key="value">
                       {{value}}
                     </md-button>
+                    <!--<div class="md-button" style="max-width: 0"></div>-->
                   </div>
                 </md-card-actions>
               </md-card>
@@ -76,33 +77,8 @@
 
   .button-container {
     min-width: 88px;
-    min-height: 36px;
-    margin: 6px 8px;
-    padding: 0 16px;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    outline: none;
-    background: none;
-    border: 0;
-    border-radius: 2px;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    color: currentColor;
-    font-family: inherit;
-    font-size: 14px;
-    font-style: inherit;
-    font-variant: inherit;
-    font-weight: 500;
-    letter-spacing: inherit;
-    line-height: 36px;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
-    vertical-align: top;
+    min-height: 40px;
+    line-height: 40px;
     white-space: nowrap;
   }
 </style>
