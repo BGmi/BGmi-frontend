@@ -28,12 +28,13 @@ Vue.use(VueMaterial)
 Vue.material.registerTheme('default', {
   primary: {color: 'cyan', hue: 500, textColor: 'white'},
   accent: 'red',
-  warn: 'red',
+  warn: 'white',
   background: {color: 'grey', hue: 200}
 })
+
 Vue.material.registerTheme('white', {
   primary: 'black',
-  accent: 'red',
+  accent: 'white',
   warn: 'red',
   background: 'white'
 })

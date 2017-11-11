@@ -1,11 +1,9 @@
 <template>
   <div class="card card-profile">
-    <p class="img-container">
-      <img :src="src"/>
-      <md-spinner :md-progress="0" :md-size="150" md-indeterminate v-if="loading"></md-spinner>
-    </p>
+    <md-card-media>
+      <div class="bangumi-cover" :style="{backgroundImage:`url('${imgSrc}')`} "></div>
+    </md-card-media>
     <div class="content">
-      <!--:md-content-html="confirm.contentHtml"-->
       <md-dialog-confirm
         :md-title="`delete ${bangumi.name}`"
         :md-ok-text="`ok`"
@@ -91,7 +89,6 @@
       return {
         imgRoot,
         expand: false,
-        loading: true,
         filter: {
           name: this.bangumi.name,
           regex: 'asd',
@@ -124,14 +121,6 @@
         type: Object,
         required: true
       }
-    },
-    mounted () {
-      const newImg = new Image()
-      newImg.onload = () => {
-        this.loading = false
-        this.src = newImg.src
-      }
-      newImg.src = this.imgSrc
     },
     methods: {
       status () {
@@ -250,11 +239,17 @@
     padding: 0 0 20px 0;
   }
 
-  .img-container {
-    max-width: 100%;
-    height: 0;
-    padding-bottom: 50%;
-    overflow: hidden;
+  /*.img-container {*/
+  /*max-width: 100%;*/
+  /*height: 0;*/
+  /*padding-bottom: 50%;*/
+  /*overflow: hidden;*/
+  /*}*/
+
+  .bangumi-cover {
+    height: 120px;
+    background-size: cover;
+    background-position: center center;
   }
 
   .img-container img {

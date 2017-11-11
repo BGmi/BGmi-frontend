@@ -28,7 +28,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <router-link :to="`/player/${bangumi.bangumi_name}/${key}`"
-                               v-for="(value, key) in bangumi.player" :key="key">
+                               v-for="(value , key) in bangumi.player" :key="key">
                     <md-button @click="changeEpisode(key)">
                       {{key}}
                     </md-button>
@@ -51,7 +51,8 @@
   export default {
     data () {
       return {
-        bangumi: {}
+        bangumi: {},
+        danmakuApi: ''
       }
     },
     methods: {
@@ -72,25 +73,18 @@
                   video: {
                     url: `/bangumi${bangumi.player[this.$route.params.episode].path}`,
                     pic: bangumi.cover
-                  },
-                  danmaku: {
+                  }
+                }
+
+                if (data.danmaku_api) {
+                  option.danmaku = {
                     id: md5(bangumi.bangumi_name) + this.$route.params.episode,
                     api: 'https://api.prprpr.me/dplayer/'
                   }
                 }
+
                 /* eslint-disable no-unused-vars */
                 let dp = new DPlayer(option)
-//                dp.on('error', () => {
-//                  this.$notifications.notify({
-//                    type: 'danger',
-//                    message: 'This episode has not been fully downloaded or html5 does not support ' +
-//                    'this video encoding, please download to the local.',
-//                    placement: {
-//                      from: 'top',
-//                      align: 'right'
-//                    }
-//                  })
-//                })
               }
             )
             break
@@ -104,9 +98,6 @@
           this.$store.commit('init', res.body)
           this.init(res.body.data)
         })
-    },
-    mounted () {
-      /* eslint-disable no-unused-vars */
     }
   }
 </script>

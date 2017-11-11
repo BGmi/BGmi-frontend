@@ -1,4 +1,5 @@
 <template>
+  <!--<md-theme md-name="nav">-->
   <md-whiteframe id="my-nav" md-tag="md-toolbar" class="top-header" md-elevation="10">
 
     <md-dialog ref="dialog1" md-content="">
@@ -15,14 +16,16 @@
         <md-button class="md-primary" @click="closeDialog('dialog1', true)">Ok</md-button>
       </md-dialog-actions>
     </md-dialog>
-
-    <h2 class="md-title" style="flex: 1">{{$route.name}}</h2>
+    <!--<router-link to="/" style="flex: 1">-->
+    <h2 class="md-title" style="flex: 1" @click="$router.push('/')">{{$route.name}}</h2>
+    <!--</router-link>-->
     <md-button v-if="$route.name=='Subscribe'" @click="openDialog('dialog1')">update</md-button>
     <md-button class="md-icon-button hidden-lg hidden-md" type="button" data-toggle="collapse"
                @click="toggleSideBar">
       <md-icon>menu</md-icon>
     </md-button>
   </md-whiteframe>
+  <!--</md-theme>-->
 </template>
 
 <script>
@@ -91,10 +94,10 @@
 </script>
 <style lang="scss">
   /*.top-header {*/
-    /*width: 100%;*/
-    /*height: 48px;*/
-    /*position: fixed;*/
-    /*top: 0;*/
-    /*z-index: 233;*/
+  /*width: 100%;*/
+  /*height: 48px;*/
+  /*position: fixed;*/
+  /*top: 0;*/
+  /*z-index: 233;*/
   /*}*/
 </style>
