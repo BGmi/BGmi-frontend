@@ -7,7 +7,8 @@ const state = {
   isLogin: false,
   token: false,
   danmaku_api: '',
-  coverRoot: '/bangumi/cover'
+  coverRoot: '/bangumi/cover',
+  bgmiVersion: ''
 }
 
 /* eslint-disable no-new */
@@ -26,6 +27,7 @@ const store = new Vuex.Store({
     init (state, initData) {
       state.coverRoot = initData.cover_url
       state.danmaku_api = initData.danmaku_api
+      state.bgmiVersion = initData.version
       state.bangumi = initData.data
     }
   }

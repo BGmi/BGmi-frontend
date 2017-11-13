@@ -17,7 +17,11 @@
       </md-dialog-actions>
     </md-dialog>
     <!--<router-link to="/" style="flex: 1">-->
-    <h2 class="md-title" style="flex: 1" @click="$router.push('/')">{{$route.name}}</h2>
+    <div style="flex: 1">
+      <md-button @click="$router.push('/')">
+        <h2 class="md-title">{{$route.name}}</h2>
+      </md-button>
+    </div>
     <!--</router-link>-->
     <md-button v-if="$route.name=='Subscribe'" @click="openDialog('dialog1')">update</md-button>
     <md-button class="md-icon-button hidden-lg hidden-md" type="button" data-toggle="collapse"
