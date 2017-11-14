@@ -152,7 +152,7 @@
     overflow-y: visible;
     border-top: none;
     text-align: left;
-    padding-right: 0px;
+    padding-right: 0;
     padding-left: 0;
 
     @include transform-translate-x(260px);
@@ -161,7 +161,7 @@
       position: relative;
       z-index: 4;
       overflow-y: scroll;
-      height: calc(100vh - 61px);
+      height: calc(100vh - 44px);
       width: 100%;
     }
     &::before {
