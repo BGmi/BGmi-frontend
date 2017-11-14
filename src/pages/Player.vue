@@ -20,7 +20,7 @@
                 <div class="col-md-12">
                   <router-link :to="`/player/${bangumi.bangumi_name}/${key}`"
                                v-for="(value, key) in bangumi.player" :key="key">
-                    <md-button @click="changeEpisode(key)">
+                    <md-button>
                       {{key}}
                     </md-button>
                   </router-link>
@@ -47,6 +47,11 @@
       return {
         bangumi: {},
         danmakuApi: ''
+      }
+    },
+    watch: {
+      '$route.params.episode' () {
+        this.changeEpisode(this.$route.params.episode)
       }
     },
     methods: {
