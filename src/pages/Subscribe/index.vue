@@ -37,34 +37,25 @@
       }
     },
     mounted () {
-      this.$http.get('api/cal').then(
-        res => {
-          this.bangumiCalendar = res.body.data
-          this.latestBgmiVersion = res.body.latest_version
-          this.bgmiVersion = res.body.version
-          this.$nextTick(
-            () => {
-              if (this.bgmiVersion < this.latestBgmiVersion) {
-                this.$notifications.notify({
-                  type: 'danger',
+      this.$store.dispatch('getCalendar', (cal) => {
+        this.bangumiCalendar = cal
+        this.latestBgmiVersion = this.$store.state.latestBgmiVersion
+        this.bgmiVersion = this.$store.state.bgmiVersion
+        this.$nextTick(
+          () => {
+            if (this.bgmiVersion < this.latestBgmiVersion) {
+              this.$notifications.notify({
+                type: 'danger',
 //              icon: 'notifications',
-                  message: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
-                  placement: {
-                    from: 'top',
-                    align: 'center'
-                  }
-                })
-              }
-            })
-          for (let key in this.weekKey) {
-            if (this.bangumiCalendar.hasOwnProperty(key)) {
-              this.bangumiCalendar[key] = res.body.data[key].sort(x => -x.status)
+                message: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
+                placement: {
+                  from: 'top',
+                  align: 'center'
+                }
+              })
             }
-          }
-        },
-        res => {
-          console.log(res.body)
-        })
+          })
+      })
     }
   }
 </script>

@@ -28,18 +28,14 @@
       }
     },
     created () {
-      this.$http.get('api/cal').then(
-        res => {
-          this.tabData = res.body.data
-          for (let key in res.body.data) {
-            if (res.body.data.hasOwnProperty(key)) {
-              this.tabData[key] = res.body.data[key].sort(x => -x.status)
-            }
-          }
-        },
-        res => {
-          console.log(res.body)
-        })
+      this.$store.dispatch('getCalendar', (cal) => {
+        this.tabData = cal
+//        for (let key in cal) {
+//          if (cal.hasOwnProperty(key)) {
+//            this.tabData[key] = cal[key].sort(x => -x.status)
+//          }
+//        }
+      })
     },
     methods: {
       bangumiToHtml (day, bangumis) {

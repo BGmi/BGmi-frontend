@@ -56,10 +56,9 @@
       }
     },
     mounted () {
-      this.$http.get('api/index').then(
-        res => {
-          this.bangumi = res.body.data
-        })
+      this.$store.dispatch('getIndexBangumi', (bangumi) => {
+        this.bangumi = bangumi
+      })
     }
   }
 </script>

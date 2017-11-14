@@ -99,11 +99,9 @@
       }
     },
     created () {
-      this.$http.get('api/index').then(
-        res => {
-          this.$store.commit('bangumiIndex', res.body.data)
-          this.init(res.body.data)
-        })
+      this.$store.dispatch('getIndexBangumi', (bangumi) => {
+        this.init(bangumi)
+      })
     }
   }
 </script>

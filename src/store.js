@@ -3,12 +3,17 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 const state = {
-  bangumi: {},
+  bangumi: [],
+  hasBangumiIndexFetched: false,
+  bangumiOld: [],
+  hasBangumiOldFetched: false,
   isLogin: false,
   token: false,
   danmaku_api: '',
   coverRoot: '/bangumi/cover',
-  bgmiVersion: ''
+  bgmiVersion: '',
+  cal: {},
+  calFetched: false
 }
 
 /* eslint-disable no-new */
@@ -31,6 +36,43 @@ const store = new Vuex.Store({
     },
     bangumiIndex (state, bangumi) {
       state.bangumi = bangumi
+      state.hasBangumiIndexFetched = true
+    },
+    calendar (state, cal) {
+      state.cal = cal
+      state.calFetched = true
+    }
+  },
+  actions: {
+    getCalendar ({commit, state}, cb) {
+      if (state.calFetched) {
+        cb(state.cal)
+      } else {
+        Vue.http.get('api/cal').then(res => {
+          commit('calendar', res.body.data)
+          cb(res.body.data)
+        })
+      }
+    },
+    getIndexBangumi ({commit, state}, cb) {
+      // check locally
+      if (state.hasBangumiIndexFetched) {
+        cb(state.bangumi)
+      } else {
+        // fetch api/index
+        Vue.http.get('api/index').then(
+          res => {
+            commit('bangumiIndex', res.body.data)
+            cb(res.body.data)
+          })
+      }
+    },
+    getOldBangumi ({commit}) {
+      // fetch api/index
+      Vue.http.get('api/old').then(
+        res => {
+          commit('bangumiIndex', res.body.data)
+        })
     }
   }
 })
