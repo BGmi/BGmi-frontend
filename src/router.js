@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Player from '@/pages/Bangumi/Player'
-import Bangumi from '@/pages/Bangumi'
-import Old from '@/pages/Old'
-import Calendar from '@/pages/Calendar'
-import Subscribe from '@/pages/Subscribe'
-import Resource from '@/pages/Resource'
-import Search from '@/pages/Search' // todo: api front
-import Config from '@/pages/Config'
+import Player from './pages/Player.vue'
+import Bangumi from './pages/Bangumi.vue'
+import Old from './pages/Old/index.vue'
+import Calendar from './pages/Calendar.vue'
+import Resource from './pages/Resource.vue'
+// import Search from '@/pages/Search' // todo: api front
+import Config from './pages/Config/index.vue'
+import Subscribe from './pages/Subscribe/index.vue'
 // hr
-import About from '@/pages/About'
+import About from './pages/About.vue'
 // GeneralViews
-import NotFound from '@/pages/GeneralViews/NotFound.vue'
-import AskForToken from '@/pages/AskForToken'
+import NotFound from './pages/GeneralViews/NotFound.vue'
+import AskForToken from './pages/AskForToken.vue'
 // Vuex
-import store from '@/store'
+import store from './store'
 
 Vue.use(Router)
 
@@ -43,12 +43,12 @@ const router = new Router({
       name: 'Resource',
       component: Resource
     },
-    {
-      path: '/search',
-      name: 'Search',
-      component: Search,
-      meta: {requiresAuth: true}
-    },
+    // {
+    //   path: '/search',
+    //   name: 'Search',
+    //   component: Search,
+    //   meta: {requiresAuth: true}
+    // },
     {
       path: '/subscribe',
       name: 'Subscribe',

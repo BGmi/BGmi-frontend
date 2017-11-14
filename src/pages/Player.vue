@@ -1,16 +1,6 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <md-dialog md-open-from="#custom" md-close-to="#custom" ref="dialog1">
-        <md-dialog-title>Lorem ipsum dolor sit amet</md-dialog-title>
-
-        <md-dialog-content>Nemo, nobis necessitatibus ut illo, ducimus ex.</md-dialog-content>
-
-        <md-dialog-actions>
-          <md-button class="md-primary" @click="closeDialog('dialog1')">Cancel</md-button>
-          <md-button class="md-primary" @click="closeDialog('dialog1')">Ok</md-button>
-        </md-dialog-actions>
-      </md-dialog>
       <div class="row">
         <div class="col-md-12">
           <div class="card">
@@ -21,18 +11,22 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="dplayer-container">
-                    <div :id="bangumi.bangumi_name"></div>
+                    <div :id="bangumi.bangumi_name">
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <router-link :to="`/player/${bangumi.bangumi_name}/${key}`"
-                               v-for="(value , key) in bangumi.player" :key="key">
+                               v-for="(value, key) in bangumi.player" :key="key">
                     <md-button @click="changeEpisode(key)">
                       {{key}}
                     </md-button>
                   </router-link>
+                  <a :href="`/bangumi/${bangumi.bangumi_name}/`">
+                    <md-button>{{`/bangumi/${bangumi.bangumi_name}/`}}</md-button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -63,15 +57,27 @@
         for (let bangumi of data) {
           if (bangumi.bangumi_name === this.$route.params.bangumi_name) {
             this.bangumi = bangumi
-            console.log(bangumi.cover)
             this.$nextTick(
               () => {
+                let episode = `/bangumi${bangumi.player[this.$route.params.episode].path}`
+                if (episode.toLowerCase().includes('hevc') || episode.toLowerCase().includes('x265')) {
+                  this.$notifications.notify({
+                    type: 'danger',
+                    icon: 'notifications',
+                    message: 'this episode may be encoded as x265, which is not currently supported by browsers.',
+                    placement: {
+                      from: 'top',
+                      align: 'right'
+                    }
+                  })
+                }
+
                 const option = {
                   theme: '#FF3333',
                   element: document.getElementById(bangumi.bangumi_name),
                   screenshot: true,
                   video: {
-                    url: `/bangumi${bangumi.player[this.$route.params.episode].path}`,
+                    url: episode,
                     pic: bangumi.cover
                   }
                 }
@@ -95,7 +101,7 @@
     created () {
       this.$http.get('api/index').then(
         res => {
-          this.$store.commit('init', res.body)
+          this.$store.commit('bangumiIndex', res.body.data)
           this.init(res.body.data)
         })
     }

@@ -40,6 +40,15 @@ Vue.material.registerTheme('white', {
 })
 Vue.http.options.root = '/'
 
+Vue.http.interceptors.push((request, next) => {
+  // console.log(this)
+  // continue to next interceptor
+  next((response) => {
+    store.commit('init', response.body)
+    return response
+  })
+})
+
 // Vue.http.headers.common['bgmi-token'] = '233'
 
 /* eslint-disable no-new */

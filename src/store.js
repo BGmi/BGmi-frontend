@@ -28,7 +28,9 @@ const store = new Vuex.Store({
       state.coverRoot = initData.cover_url
       state.danmaku_api = initData.danmaku_api
       state.bgmiVersion = initData.version
-      state.bangumi = initData.data
+    },
+    bangumiIndex (state, bangumi) {
+      state.bangumi = bangumi
     }
   }
 })

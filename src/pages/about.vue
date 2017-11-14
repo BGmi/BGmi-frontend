@@ -5,35 +5,29 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-content">
-              <!--<div class="row">-->
               <div class="tim-typo">
-                <h3>关于</h3>
+                <h2>关于</h2>
               </div>
+
               <div class="tim-typo">
                 <h3>BGmi</h3>
-              </div>
-              <div class="tim-typo">
                 <p>version: {{$store.state.bgmiVersion}}</p>
-              </div>
-              <div class="tim-typo">
-                <h3>BGmi-frontend</h3>
-              </div>
-              <div class="tim-typo">
-                <p>version: {{version}}</p>
-              </div>
-              <div class="tim-typo">
 
-                <h4> BGmi HTTP Service 基于 <a href="https://github.com/BGmi/BGmi"
-                                             target="_blank">BGmi</a> 构建。<br>
-                </h4>
+                <p> BGmi HTTP Service 基于 <a href="https://github.com/BGmi/BGmi"
+                                            target="_blank">BGmi</a> 构建。<br>
+                </p>
                 其中，BGmi 的数据来源于<a href="https://bangumi.moe" target="_blank">萌番组<sup>大好きだよ</sup></a>或者
                 <a href="https://mikanani.me/" target="_blank">蜜柑计划 - Mikan Project</a>。
               </div>
 
               <div class="tim-typo">
-                <h3>致谢</h3>
+                <h3>BGmi-frontend</h3>
+                <p>version: {{version}}</p>
               </div>
+
+
               <div class="tim-typo">
+                <h3>致谢</h3>
                 <ul>
                   <li>
                     <a href="https://bangumi.moe" target="_blank">萌番组</a><br>
@@ -52,18 +46,17 @@
                   </li>
                 </ul>
               </div>
+
               <div class="tim-typo">
                 <h3>BGmi Creator</h3>
+                <a href="https://github.com/RicterZ" target="_blank">github/RicterZ</a>
               </div>
-              <div class="tim-typo">
-                <a href="https://github.com/RicterZ" target="_blank">github/RicterZ</a><br>
-              </div>
+
               <div class="tim-typo">
                 <h3>Contributors</h3>
-              </div>
-              <div class="tim-typo">
                 <a href="https://github.com/BGmi/BGmi/graphs/contributors">github/BGmi/BGmi/contributors</a>
               </div>
+
               <div class="tim-typo">
                 <h3>Bug Report</h3>
                 <ul>
@@ -89,8 +82,6 @@
 
 </template>
 <script>
-  //  const version = process.env.VERSION
-  //  console.log(process.env.VERSION)
   export default {
     name: 'about',
     data () {
