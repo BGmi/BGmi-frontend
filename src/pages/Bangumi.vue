@@ -5,7 +5,7 @@
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-6 col-xs-12 col-lg-4 col-sm-6" v-for="(bg, key) in bangumi" :key="key">
-              <md-card md-theme="white">
+              <md-card md-theme="white" style="overflow: hidden">
                 <md-card-media>
                   <div class="bangumi-cover" :style="{backgroundImage:`url('${bg.cover}')`} "></div>
                 </md-card-media>
