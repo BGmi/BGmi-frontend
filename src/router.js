@@ -26,7 +26,7 @@ const router = new Router({
       component: Old
     },
     {
-      path: '/player/:bangumi_name/:episode',
+      path: '/player/:bangumi_name(.*)/:episode',
       name: 'Player',
       component: Player
     }, {
