@@ -49,7 +49,7 @@ const store = new Vuex.Store({
     saveHistory (state, bangumi) {
       let item = {
         name: bangumi.bangumi_name,
-        episode: bangumi.episode
+        episode: bangumi.episode.toString()
       }
       let history = state.history // type: Object
       if (history.hasOwnProperty(item.name)) {

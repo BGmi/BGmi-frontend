@@ -19,7 +19,7 @@
                   <div class="button-container">
                     <md-button v-if="!isEmpty(bg.player)" @click="$router.push(`/player/${bg.bangumi_name}/${value}`)"
                                v-for="value in Object.keys(bg.player).reverse().slice(0, 4)"
-                               v-bind:class="{gray:$store.state.history[bg.bangumi_name][value]}"
+                               v-bind:class="{gray:hasWatched(bg.bangumi_name,value)}"
                                :key="value">
                       {{value}}
                     </md-button>
@@ -48,6 +48,14 @@
     },
 
     methods: {
+      hasWatched (bangumiName, episode) {
+        bangumiName = bangumiName.toString()
+        episode = episode.toString()
+        if (this.$store.state.history.hasOwnProperty(bangumiName) &&
+          this.$store.state.history[bangumiName].hasOwnProperty(episode)) {
+          return this.$store.state.history[bangumiName][episode]
+        }
+      },
       isEmpty (obj) {
         for (let prop in obj) {
           if (obj.hasOwnProperty(prop)) {
