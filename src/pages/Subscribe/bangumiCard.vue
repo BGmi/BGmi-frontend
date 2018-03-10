@@ -132,7 +132,6 @@
         )
       },
       save () {
-        console.log(this.filter_args)
         let p = []
         if (!this.script) {
           p = [this.$http.post('api/filter', this.filter_args),
@@ -208,9 +207,6 @@
       },
       closeDialog (ref) {
         this.$refs[ref].close()
-      },
-      onOpen () {
-        console.log('Opened')
       },
       onClose (type) {
         if (type === 'ok') {

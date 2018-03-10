@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+const localStorage = window.localStorage
+
 Vue.use(Vuex)
+
 const state = {
   bangumi: [],
   hasBangumiIndexFetched: false,
@@ -13,7 +16,8 @@ const state = {
   coverRoot: '/bangumi/cover',
   bgmiVersion: '',
   cal: {},
-  calFetched: false
+  calFetched: false,
+  history: JSON.parse(localStorage.getItem('history')) || {}
 }
 
 /* eslint-disable no-new */
@@ -41,6 +45,21 @@ const store = new Vuex.Store({
     calendar (state, cal) {
       state.cal = cal
       state.calFetched = true
+    },
+    saveHistory (state, bangumi) {
+      let item = {
+        name: bangumi.bangumi_name,
+        episode: bangumi.episode
+      }
+      let history = state.history // type: Object
+      if (history.hasOwnProperty(item.name)) {
+        history[item.name][item.episode] = true
+      } else {
+        history[item.name] = {}
+        history[item.name][item.episode] = true
+      }
+      state.history = history // type: Object
+      localStorage.setItem('history', JSON.stringify(history))
     }
   },
   actions: {

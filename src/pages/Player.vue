@@ -58,10 +58,14 @@
       changeEpisode (episode) {
         this.init(this.$store.state.bangumi)
       },
-      init (data) {
+      init: function (data) {
         for (let bangumi of data) {
           if (bangumi.bangumi_name === this.$route.params.bangumi_name) {
             this.bangumi = bangumi
+            this.$store.commit('saveHistory', {
+              bangumi_name: bangumi.bangumi_name,
+              episode: this.$route.params.episode
+            })
             this.$nextTick(
               () => {
                 let episode = `/bangumi${bangumi.player[this.$route.params.episode].path}`

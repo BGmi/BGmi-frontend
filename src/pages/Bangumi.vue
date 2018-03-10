@@ -18,7 +18,9 @@
                 <md-card-actions>
                   <div class="button-container">
                     <md-button v-if="!isEmpty(bg.player)" @click="$router.push(`/player/${bg.bangumi_name}/${value}`)"
-                               v-for="value in Object.keys(bg.player).reverse().slice(0, 4)" :key="value">
+                               v-for="value in Object.keys(bg.player).reverse().slice(0, 4)"
+                               v-bind:class="{gray:$store.state.history[bg.bangumi_name][value]}"
+                               :key="value">
                       {{value}}
                     </md-button>
                     <!--<div class="md-button" style="max-width: 0"></div>-->
@@ -79,5 +81,9 @@
     min-height: 40px;
     line-height: 40px;
     white-space: nowrap;
+  }
+
+  .gray {
+    color: lightgray;
   }
 </style>
