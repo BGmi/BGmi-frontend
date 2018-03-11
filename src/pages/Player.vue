@@ -20,7 +20,9 @@
                 <div class="col-md-12">
                   <router-link :to="`/player/${bangumi.bangumi_name}/${key}`"
                                v-for="(value, key) in bangumi.player" :key="key">
-                    <md-button>
+                    <md-button
+                      :class="{lightGray:hasWatched(bangumi.bangumi_name,key),
+                      'md-raised':$route.params.episode.toString()===key.toString()}">
                       {{key}}
                     </md-button>
                   </router-link>
@@ -41,6 +43,7 @@
   import DPlayer from 'dplayer'
   import md5 from 'md5'
   import 'dplayer/dist/DPlayer.min.css'
+  import { hasWatched } from '../utils'
 
   export default {
     data () {
@@ -55,6 +58,7 @@
       }
     },
     methods: {
+      hasWatched,
       changeEpisode (episode) {
         this.init(this.$store.state.bangumi)
       },
@@ -117,5 +121,9 @@
 <style>
   .dplayer-icon svg {
     height: 24px !important;
+  }
+
+  .lightGray {
+    color: lightgray;
   }
 </style>

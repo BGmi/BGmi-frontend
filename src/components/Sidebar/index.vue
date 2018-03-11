@@ -7,20 +7,20 @@
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <item title="Bangumi" icon="video_library" to="/"></item>
+        <item title="Bangumi" icon="video_library" to="/"/>
         <!--<item title="Old Bangumi" icon="collections" to="/old"></item>-->
-        <item title="Bangumi Files" icon="folder" href="/bangumi/"></item>
-        <item title="Calendar" icon="event" to="/calendar"></item>
-        <item title="Resource" icon="rss_feed" to="/resource"></item>
+        <item title="Bangumi Files" icon="folder" href="/bangumi/"/>
+        <item title="Calendar" icon="event" to="/calendar"/>
+        <item title="Resource" icon="rss_feed" to="/resource"/>
         <li>
           <hr>
         </li>
-        <item title="Subscribe" icon="subscriptions" to="/subscribe"></item>
+        <item title="Subscribe" icon="subscriptions" to="/subscribe"/>
         <li>
           <hr>
         </li>
-        <item title="About" icon="info" to="/about"></item>
-        <item title="Based On BGmi" href="https://github.com/BGmi/BGmi"></item>
+        <item title="About" icon="info" to="/about"/>
+        <item title="Based On BGmi" href="https://github.com/BGmi/BGmi"/>
       </ul>
     </div>
     <div class="sidebar-background"></div>

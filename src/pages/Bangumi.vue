@@ -37,6 +37,8 @@
 </template>
 
 <script>
+  import { hasWatched, isEmpty } from '../utils'
+
   export default {
     name: 'bangumi',
     components: {},
@@ -48,22 +50,8 @@
     },
 
     methods: {
-      hasWatched (bangumiName, episode) {
-        bangumiName = bangumiName.toString()
-        episode = episode.toString()
-        if (this.$store.state.history.hasOwnProperty(bangumiName) &&
-          this.$store.state.history[bangumiName].hasOwnProperty(episode)) {
-          return this.$store.state.history[bangumiName][episode]
-        }
-      },
-      isEmpty (obj) {
-        for (let prop in obj) {
-          if (obj.hasOwnProperty(prop)) {
-            return false
-          }
-        }
-        return true
-      }
+      hasWatched,
+      isEmpty
     },
     mounted () {
       this.$store.dispatch('getIndexBangumi', (bangumi) => {
