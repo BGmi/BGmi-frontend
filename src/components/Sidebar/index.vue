@@ -8,7 +8,7 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <item title="Bangumi" icon="video_library" to="/"></item>
-        <!--<item title="Old Bangumi" icon="collections" to="/old"></item>-->
+        <item title="Old Bangumi" icon="collections" to="/old"></item>
         <item title="Bangumi Files" icon="folder" href="/bangumi/"></item>
         <item title="Calendar" icon="event" to="/calendar"></item>
         <item title="Resource" icon="rss_feed" to="/resource"></item>
