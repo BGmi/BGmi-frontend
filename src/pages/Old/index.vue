@@ -16,8 +16,8 @@
                 </md-card-header>
 
                 <md-card-actions>
-                  <div class="button-container">
-                    <md-button v-if="!isEmpty(bg.player)" @click="$router.push(`/player/${bg.bangumi_name}/${value}`)"
+                  <div class="button-container" v-if="!isEmpty(bg.player)">
+                    <md-button@click="$router.push(`/player/${bg.bangumi_name}/${value}`)"
                                v-for="value in Object.keys(bg.player).reverse()" :key="value">
                       {{value}}
                     </md-button>
