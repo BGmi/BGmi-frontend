@@ -13,7 +13,7 @@ npm run dev
 # build
 npm run dist
 ```
-已经设置好了`proxyTable`,当`bgmi_http`运行在默认端口的情况下,在`bgmi run dev`后不需要再手动设置后端api地址和解决跨域等问题.
+已经设置好了`proxyTable`,当`bgmi_http`运行在默认端口的情况下,在`npm run dev`后不需要再手动设置后端api地址和解决跨域等问题.
 
 
 
