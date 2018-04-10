@@ -58,7 +58,7 @@
       }
     },
     mounted () {
-      this.$http.get('api/old').then(
+      this.$http.get('old').then(
         res => {
           this.bangumi = res.body.data
         })

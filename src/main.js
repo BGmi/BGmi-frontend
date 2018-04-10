@@ -38,9 +38,9 @@ Vue.material.registerTheme('white', {
   warn: 'red',
   background: 'white'
 })
-Vue.http.options.root = '/'
-// /-> /api/index
-// /dir/ -> /dir/api/index
+Vue.http.options.root = '/api/'
+// /api/-> /api/index
+// /dir/api/ -> /dir/api/index
 
 Vue.http.interceptors.push((request, next) => {
   // console.log(this)

@@ -45,7 +45,7 @@
     created () {
       if (this.$cookies.isKey('auth')) {
         let token = this.$cookies.get('auth')
-        this.$http.post('api/auth', {token: token}).then(
+        this.$http.post('auth', {token: token}).then(
           res => {
             this.$store.commit('login', token)
             Vue.http.headers.common['bgmi-token'] = `${token}`
@@ -74,7 +74,7 @@
     },
     methods: {
       onClose () {
-        this.$http.post('api/auth', {token: this.token}).then(
+        this.$http.post('auth', {token: this.token}).then(
           res => {
             this.$store.commit('login', this.token)
             Vue.http.headers.common['bgmi-token'] = `${this.token}`

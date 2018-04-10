@@ -54,7 +54,7 @@
       closeDialog (ref, ok) {
         if (ok) {
           this.loading = true
-          this.$http.post('api/update', {name: '', download: this.download}).then(
+          this.$http.post('update', {name: '', download: this.download}).then(
             res => {
               this.$refs[ref].close()
               this.loading = false

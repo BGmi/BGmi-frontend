@@ -32,8 +32,8 @@ npm run dist
 
 修改`nain.js`中的`Vue.http.options.root`
 ```
-Vue.http.options.root = '/'-> /api/index
-Vue.http.options.root = '/dir/' -> /dir/api/index
+Vue.http.options.root = '/api/'-> /api/index
+Vue.http.options.root = '/bgmi/api/' -> /bgmi/api/index
 ```
 
 ```

@@ -67,7 +67,7 @@ const store = new Vuex.Store({
       if (state.calFetched) {
         cb(state.cal)
       } else {
-        Vue.http.get('api/cal').then(res => {
+        Vue.http.get('cal').then(res => {
           commit('calendar', res.body.data)
           cb(res.body.data)
         })
@@ -79,7 +79,7 @@ const store = new Vuex.Store({
         cb(state.bangumi)
       } else {
         // fetch api/index
-        Vue.http.get('api/index').then(
+        Vue.http.get('index').then(
           res => {
             commit('bangumiIndex', res.body.data)
             cb(res.body.data)
@@ -88,7 +88,7 @@ const store = new Vuex.Store({
     },
     getOldBangumi ({commit}) {
       // fetch api/index
-      Vue.http.get('api/old').then(
+      Vue.http.get('old').then(
         res => {
           commit('bangumiIndex', res.body.data)
         })
