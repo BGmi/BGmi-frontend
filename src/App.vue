@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div class="wrapper" :class="{ 'nav-open' : navOpened }">
-      <sidebar :open="navOpened"></sidebar>
-      <md-notifications></md-notifications>
+      <sidebar :open="navOpened"/>
+      <md-notifications/>
       <div class="main-panel">
-        <navigation @toggleSideBar="toggleSideBar"></navigation>
-        <router-view></router-view>
+        <navigation @toggleSideBar="toggleSideBar"/>
+        <router-view/>
         <div class="close-layer" v-if="navOpened" @click="onCloseLayerClick"></div>
       </div>
     </div>

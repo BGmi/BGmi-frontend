@@ -49,7 +49,7 @@
     name: 'config',
     components: {},
     mounted () {
-      this.$http.get(`api/config`).then(
+      this.$http.get(`config`).then(
         res => {
           this.configs = res.body.data
           this.originConfigs = JSON.parse(JSON.stringify(this.configs))
@@ -68,7 +68,7 @@
     methods: {
       submit (name, value) {
         const vm = this
-        this.$http.post(`api/config`, {name, value}).then(
+        this.$http.post(`config`, {name, value}).then(
           res => {
             vm.configs = res.body.data
             vm.originConfigs = JSON.parse(JSON.stringify(vm.configs))

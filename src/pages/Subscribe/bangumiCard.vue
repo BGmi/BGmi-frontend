@@ -125,21 +125,20 @@
     },
     methods: {
       status () {
-        this.$http.post('api/status', {name: this.bangumi.name, status: this.bangumi.status}).then(
+        this.$http.post('status', {name: this.bangumi.name, status: this.bangumi.status}).then(
           res => {
             console.log(res.body.message)
           }
         )
       },
       save () {
-        console.log(this.filter_args)
         let p = []
         if (!this.script) {
-          p = [this.$http.post('api/filter', this.filter_args),
-            this.$http.post('api/mark', {name: this.bangumi.name, episode: this.mark})]
+          p = [this.$http.post('filter', this.filter_args),
+            this.$http.post('mark', {name: this.bangumi.name, episode: this.mark})]
         } else {
           p = [
-            this.$http.post('api/mark', {name: this.bangumi.name, episode: this.mark})]
+            this.$http.post('mark', {name: this.bangumi.name, episode: this.mark})]
         }
         Promise.all(p)
           .then(
@@ -167,7 +166,7 @@
       },
       expandDetail () {
         if (this.bangumi.id) {
-          this.$http.post('api/filter', {name: this.bangumi.name}).then(
+          this.$http.post('filter', {name: this.bangumi.name}).then(
             res => {
               this.fetchFilter(res.body.data)
             }
@@ -179,7 +178,7 @@
       },
       add () {
         const action = 'add'
-        this.$http.post(`api/${action}`, {name: this.bangumi.name}).then(
+        this.$http.post(`${action}`, {name: this.bangumi.name}).then(
           res => {
             this.bangumi.status = 1
             this.$notifications.notify({
@@ -209,14 +208,11 @@
       closeDialog (ref) {
         this.$refs[ref].close()
       },
-      onOpen () {
-        console.log('Opened')
-      },
       onClose (type) {
         if (type === 'ok') {
           this.expand = false
           const action = 'delete'
-          this.$http.post(`api/${action}`, {name: this.bangumi.name}).then(
+          this.$http.post(`${action}`, {name: this.bangumi.name}).then(
             res => {
               this.bangumi.status = 0
               this.$notifications.notify({

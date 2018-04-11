@@ -26,10 +26,10 @@ Vue.use(NotificationPlugin)
 Vue.use(VueMaterial)
 
 Vue.material.registerTheme('default', {
-  primary: {color: 'cyan', hue: 500, textColor: 'white'},
+  primary: { color: 'cyan', hue: 500, textColor: 'white' },
   accent: 'red',
   warn: 'white',
-  background: {color: 'grey', hue: 200}
+  background: { color: 'grey', hue: 200 }
 })
 
 Vue.material.registerTheme('white', {
@@ -38,7 +38,9 @@ Vue.material.registerTheme('white', {
   warn: 'red',
   background: 'white'
 })
-Vue.http.options.root = '/'
+Vue.http.options.root = '/api/'
+// /api/-> /api/index
+// /dir/api/ -> /dir/api/index
 
 Vue.http.interceptors.push((request, next) => {
   // console.log(this)
@@ -57,5 +59,5 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: {App}
+  components: { App }
 })

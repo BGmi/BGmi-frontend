@@ -15,12 +15,12 @@
         <li>
           <hr>
         </li>
-        <item title="Subscribe" icon="subscriptions" to="/subscribe"></item>
+        <item title="Subscribe" icon="subscriptions" to="/subscribe"/>
         <li>
           <hr>
         </li>
-        <item title="About" icon="info" to="/about"></item>
-        <item title="Based On BGmi" href="https://github.com/BGmi/BGmi"></item>
+        <item title="About" icon="info" to="/about"/>
+        <item title="Based On BGmi" href="https://github.com/BGmi/BGmi"/>
       </ul>
     </div>
     <div class="sidebar-background"></div>

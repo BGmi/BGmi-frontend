@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+const localStorage = window.localStorage
+
 Vue.use(Vuex)
+
 const state = {
   bangumi: [],
   hasBangumiIndexFetched: false,
@@ -13,7 +16,8 @@ const state = {
   coverRoot: '/bangumi/cover',
   bgmiVersion: '',
   cal: {},
-  calFetched: false
+  calFetched: false,
+  history: JSON.parse(localStorage.getItem('history')) || {}
 }
 
 /* eslint-disable no-new */
@@ -41,6 +45,21 @@ const store = new Vuex.Store({
     calendar (state, cal) {
       state.cal = cal
       state.calFetched = true
+    },
+    saveHistory (state, bangumi) {
+      let item = {
+        name: bangumi.bangumi_name,
+        episode: bangumi.episode.toString()
+      }
+      let history = state.history // type: Object
+      if (history.hasOwnProperty(item.name)) {
+        history[item.name][item.episode] = true
+      } else {
+        history[item.name] = {}
+        history[item.name][item.episode] = true
+      }
+      state.history = history // type: Object
+      localStorage.setItem('history', JSON.stringify(history))
     }
   },
   actions: {
@@ -48,7 +67,7 @@ const store = new Vuex.Store({
       if (state.calFetched) {
         cb(state.cal)
       } else {
-        Vue.http.get('api/cal').then(res => {
+        Vue.http.get('cal').then(res => {
           commit('calendar', res.body.data)
           cb(res.body.data)
         })
@@ -60,7 +79,7 @@ const store = new Vuex.Store({
         cb(state.bangumi)
       } else {
         // fetch api/index
-        Vue.http.get('api/index').then(
+        Vue.http.get('index').then(
           res => {
             commit('bangumiIndex', res.body.data)
             cb(res.body.data)
@@ -69,7 +88,7 @@ const store = new Vuex.Store({
     },
     getOldBangumi ({commit}) {
       // fetch api/index
-      Vue.http.get('api/old').then(
+      Vue.http.get('old').then(
         res => {
           commit('bangumiIndex', res.body.data)
         })
