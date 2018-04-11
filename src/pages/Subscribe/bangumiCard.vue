@@ -81,7 +81,7 @@
   // if (process.env.NODE_ENV === 'development') {
   //   imgRoot = 'http://localhost:8888/bangumi/cover/'
   // } else {
-  imgRoot = '/bangumi/cover/'
+  imgRoot = './bangumi/cover/'
   // }
 
   export default {
@@ -91,12 +91,12 @@
         expand: false,
         filter: {
           name: this.bangumi.name,
-          regex: 'asd',
+          regex: '',
           followed: [],
           subtitle_group: [],
-          exclude: null,
-          bangumi_name: 'NEW GAME!!',
-          include: null
+          exclude: '',
+          bangumi_name: '',
+          include: ''
         },
         script: false,
         src: '',
