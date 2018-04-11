@@ -22,21 +22,6 @@ var proxyTable = config.dev.proxyTable
 
 var app = express()
 
-var jsonServer = require('json-server')
-var apiServer = jsonServer.create()
-var apiRouter = jsonServer.router('mock/db.json')
-var apiMiddlewares = jsonServer.defaults()
-
-apiServer.use(apiMiddlewares)
-apiServer.use(apiRouter)
-apiServer.listen(port + 1, function (err) {
-  if (err) {
-    console.log(err)
-    return
-  }
-  console.log('Listening at http://localhost:' + (port + 1) + '\n')
-})
-
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {

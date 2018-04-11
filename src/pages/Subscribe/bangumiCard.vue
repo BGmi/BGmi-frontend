@@ -1,7 +1,7 @@
 <template>
   <div class="card card-profile">
     <md-card-media>
-      <div class="bangumi-cover" :style="{backgroundImage:`url('${imgSrc}')`} "></div>
+      <div class="bangumi-cover" :style="{backgroundImage:`url('${imgSrc}')`}"></div>
     </md-card-media>
     <div class="content">
       <md-dialog-confirm
@@ -29,7 +29,7 @@
         pack
       </md-button>
       <div v-if="expand">
-        <div class="row"
+        <div class="row">
         <div class="col-md-12" v-cloak>
           <md-input-container v-if="!script">
             <label>Status</label>

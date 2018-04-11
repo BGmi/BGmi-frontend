@@ -13,4 +13,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 dist.tar.gz
-
+package-lock.json
+yarn.lock
