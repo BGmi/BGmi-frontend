@@ -2,7 +2,7 @@
   <div class="sidebar" data-color="blue">
     <div class="logo">
       <a href="/" target="_self">
-        <img class="center-block img-circle" src="/static/images/logo144.jpg" alt="/">
+        <img class="center-block img-circle" src="../../../static/images/logo144.jpg" alt="/">
       </a>
     </div>
     <div class="sidebar-wrapper">
@@ -44,7 +44,7 @@
 
 <style type="text/scss" lang="scss" rel="stylesheet/scss">
   .sidebar-background {
-    background-image: url('/static/images/sidebar-2.jpg')
+    background-image: url('../../../static/images/sidebar-2.jpg')
   }
 
   a {
