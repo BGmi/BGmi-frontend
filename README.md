@@ -21,33 +21,47 @@ npm run dist
 
 ### 我不想给bgmi分配一个域名,想把它放在我网站的一个子目录下怎么办?
 
-不知道子目录具体是什么的情况下设置起来非常的麻烦,想要把所有的绝对路径改成相对路径不是简单的修改一两个设置就能解决的问题,但是如果知道子目录名的话就非常简单,只需要简单的修改一个设置..
-
-所以如果你有这样的需求的话,请自己编译自己的前端.(不需要修改具体的代码,只需要修改一行配置)
-
-安装`nodejs`和`npm`修改 [config/index.js#L29](https://github.com/Trim21/BGmi-frontend/blob/master/config/index.js#L29)中的`assetsPublicPath`为你想要的字目录,比如`/bgmi/`,然后运行
-
-
-修改`api`请求的目录:
-
-修改`nain.js`中的`Vue.http.options.root`
+nginx.conf
 ```
-Vue.http.options.root = '/api/'-> /api/index
-Vue.http.options.root = '/bgmi/api/' -> /bgmi/api/index
-```
+server {
+  listen 80;
+  server_name _;
 
-```
-git clone git@github.com:BGmi/BGmi-frontend.git
-cd BGmi-frontend
-vim config/index.js +29
-npm i
-npm run build
-```
-`dist`文件夹里就是编译好的前端文件
-如果你愿意帮忙配置的话请给我发一个pr,我很乐意merge
+  root /where/ever;
+  autoindex on;
+  charset utf-8;
 
-node 8.x.x
-npm 5.x.x
+  location /bgmi/bangumi {
+    # ~/.bgmi/bangumi
+    expires 30d;
+    alias /home/ubuntu/.bgmi/bangumi;
+  }
+
+  location /bgmi/api {
+    proxy_pass http://127.0.0.1:8888;
+    # Requests to api/update may take more than 60s
+    proxy_connect_timeout 500s;
+    proxy_read_timeout 500s;
+    proxy_send_timeout 500s;
+  }
+
+  location /bgmi/resource {
+    proxy_pass http://127.0.0.1:8888;
+  }
+
+  location /bgmi/ {
+    # ~/.bgmi/front_static/;
+    expires 7d;
+    alias /home/ubuntu/.bgmi/front_static/;
+  }
+
+  location /bgmi/jsonrpc {
+    # aria2c rpc
+    proxy_pass http://127.0.0.1:6800;
+  }
+}
+```
+ thanks to [@wengyusu](https://github.com/wengyusu)
 
 ### 我想发一个PR 有什么需要注意的?
 
