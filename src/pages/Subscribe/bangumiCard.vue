@@ -4,25 +4,15 @@
       <div class="bangumi-cover" :style="{backgroundImage:`url('${imgSrc}')`}"></div>
     </md-card-media>
     <div class="content">
-      <md-dialog-confirm
-        :md-title="`delete ${bangumi.name}`"
-        :md-ok-text="`ok`"
-        :md-cancel-text="`cancel`"
-        :md-content="` `"
-        @open="onOpen"
-        @close="onClose"
-        ref="dialog5">
+      <md-dialog-confirm :md-title="`delete ${bangumi.name}`" :md-ok-text="`ok`" :md-cancel-text="`cancel`" :md-content="` `" @close="onClose" ref="dialog5">
       </md-dialog-confirm>
 
       <p class="category text-black">{{bangumi.name}}</p>
-      <md-button v-if='!bangumi.status' class="md-raised "
-                 :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}"
-                 @click.stop.prevent="add()">
+      <md-button v-if='!bangumi.status' class="md-raised " :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}" @click.stop.prevent="add()">
         <div>add</div>
       </md-button>
 
-      <md-button v-else-if="!expand" class="md-raised"
-                 @click.stop.prevent="expandDetail()">
+      <md-button v-else-if="!expand" class="md-raised" @click.stop.prevent="expandDetail()">
         <div>detail</div>
       </md-button>
       <md-button class="md-raised" v-else @click="pack">
@@ -30,59 +20,50 @@
       </md-button>
       <div v-if="expand">
         <div class="row">
-        <div class="col-md-12" v-cloak>
-          <md-input-container v-if="!script">
-            <label>Status</label>
-            <md-input type="number" v-model="bangumi.status"/>
-          </md-input-container>
+          <div class="col-md-12" v-cloak>
+            <md-input-container v-if="!script">
+              <label>Status</label>
+              <md-input type="number" v-model="bangumi.status" />
+            </md-input-container>
 
-          <md-input-container md-clearable v-if="!script">
-            <label>Include</label>
-            <md-input v-model="filter.include"/>
-          </md-input-container>
+            <md-input-container md-clearable v-if="!script">
+              <label>Include</label>
+              <md-input v-model="filter.include" />
+            </md-input-container>
 
-          <md-input-container md-clearable v-if="!script">
-            <label>Regex</label>
-            <md-input v-model="filter.regex"/>
-          </md-input-container>
+            <md-input-container md-clearable v-if="!script">
+              <label>Regex</label>
+              <md-input v-model="filter.regex" />
+            </md-input-container>
 
-          <md-input-container md-clearable v-if="!script">
-            <label>Exclude</label>
-            <md-input v-model="filter.exclude"/>
-          </md-input-container>
+            <md-input-container md-clearable v-if="!script">
+              <label>Exclude</label>
+              <md-input v-model="filter.exclude" />
+            </md-input-container>
 
-          <md-input-container>
-            <label>Episode</label>
-            <md-input type="number" v-model="mark"/>
-          </md-input-container>
+            <md-input-container>
+              <label>Episode</label>
+              <md-input type="number" v-model="mark" />
+            </md-input-container>
 
-          <md-checkbox
-            v-for="( key,value) in filter.subtitle_group"
-            v-model="followed"
-            :key="key"
-            :md-value="key">
-            {{key}}
-          </md-checkbox>
+            <md-checkbox v-for="key in filter.subtitle_group" v-model="followed" :key="key" :md-value="key">
+              {{key}}
+            </md-checkbox>
+          </div>
+          <md-button class="md-raised md-accent" @click="del()">
+            delete
+          </md-button>
+          <md-button class="md-raised" @click="save()">
+            save
+          </md-button>
         </div>
-        <md-button class="md-raised md-accent" @click="del()">
-          delete
-        </md-button>
-        <md-button class="md-raised" @click="save()">
-          save
-        </md-button>
       </div>
+      <br>
     </div>
-    <br>
-  </div>
   </div>
 </template>
 <script>
-  let imgRoot = ''
-  // if (process.env.NODE_ENV === 'development') {
-  //   imgRoot = 'http://localhost:8888/bangumi/cover/'
-  // } else {
-  imgRoot = './bangumi/cover/'
-  // }
+  let imgRoot = './bangumi/cover/'
 
   export default {
     data () {
@@ -244,28 +225,21 @@
   }
 </script>
 <style scoped lang="scss">
-  .card {
-    padding: 0 0 20px 0;
-  }
+.card {
+  padding: 0 0 20px 0;
+}
 
-  /*.img-container {*/
-  /*max-width: 100%;*/
-  /*height: 0;*/
-  /*padding-bottom: 50%;*/
-  /*overflow: hidden;*/
-  /*}*/
+.bangumi-cover {
+  height: 120px;
+  background-size: cover;
+  background-position: center center;
+}
 
-  .bangumi-cover {
-    height: 120px;
-    background-size: cover;
-    background-position: center center;
-  }
+.img-container img {
+  width: 100%;
+}
 
-  .img-container img {
-    width: 100%;
-  }
-
-  [v-cloak] {
-    display: none;
-  }
+[v-cloak] {
+  display: none;
+}
 </style>

@@ -16,7 +16,9 @@
                 <p> BGmi HTTP Service 基于 <a href="https://github.com/BGmi/BGmi"
                                             target="_blank">BGmi</a> 构建。<br>
                 </p>
-                其中，BGmi 的数据来源于<a href="https://bangumi.moe" target="_blank">萌番组<sup>大好きだよ</sup></a>或者
+                其中，BGmi 的数据来源于
+                <a href="https://bangumi.moe" target="_blank">萌番组<sup>大好きだよ</sup></a>
+                或者
                 <a href="https://mikanani.me/" target="_blank">蜜柑计划 - Mikan Project</a>。
               </div>
 

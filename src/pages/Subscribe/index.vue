@@ -6,7 +6,7 @@
       </div>
     </div>
     <md-tabs v-else md-fixed>
-      <md-tab v-for="(key, value) in weekKey " :key="key" :id="key" :md-label="key">
+      <md-tab v-for="key in weekKey " :key="key" :id="key" :md-label="key">
         <md-layout :md-gutter="8">
           <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="25"
                      md-flex-xlarge="20"
