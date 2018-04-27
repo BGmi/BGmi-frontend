@@ -46,7 +46,7 @@
             if (this.bgmiVersion < this.latestBgmiVersion) {
               this.$notifications.notify({
                 type: 'danger',
-//              icon: 'notifications',
+                //              icon: 'notifications',
                 message: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
                 placement: {
                   from: 'top',

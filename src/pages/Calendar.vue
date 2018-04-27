@@ -30,11 +30,11 @@
     created () {
       this.$store.dispatch('getCalendar', (cal) => {
         this.tabData = cal
-//        for (let key in cal) {
-//          if (cal.hasOwnProperty(key)) {
-//            this.tabData[key] = cal[key].sort(x => -x.status)
-//          }
-//        }
+      //        for (let key in cal) {
+      //          if (cal.hasOwnProperty(key)) {
+      //            this.tabData[key] = cal[key].sort(x => -x.status)
+      //          }
+      //        }
       })
     },
     methods: {

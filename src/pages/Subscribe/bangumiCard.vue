@@ -191,7 +191,7 @@
             })
           },
           res => {
-//            this.bangumi.status = 1
+          //            this.bangumi.status = 1
             this.$notifications.notify({
               type: 'danger',
               message: res.body.message,
@@ -225,7 +225,7 @@
               })
             },
             res => {
-//              this.bangumi.status = 0
+            //              this.bangumi.status = 0
               this.$notifications.notify({
                 type: 'danger',
                 message: res.body.message,

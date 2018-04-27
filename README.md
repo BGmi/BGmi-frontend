@@ -54,3 +54,8 @@ npm 5.x.x
 PR到[BGmi/BGmi-frontend](https://github.com/BGmi/BGmi-frontend)
 
 其他的..暂时没有
+
+
+## 已知的无法解决的问题
+
+[#23](https://github.com/BGmi/BGmi-frontend/issues/23)
