@@ -53,14 +53,9 @@
   }
 </script>
 
-<style lang="scss">
+<style>
 .week {
   text-transform: capitalize;
   font-family: Roboto, "Noto Sans", Noto, sans-serif;
 }
-
-/*@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);*/
-/*#cal {*/
-/*font-family: ;*/
-/*}*/
 </style>

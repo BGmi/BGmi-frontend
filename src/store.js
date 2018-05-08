@@ -63,7 +63,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    getCalendar ({commit, state}, cb) {
+    getCalendar ({ commit, state }, cb) {
       if (state.calFetched) {
         cb(state.cal)
       } else {
@@ -73,7 +73,7 @@ const store = new Vuex.Store({
         })
       }
     },
-    getIndexBangumi ({commit, state}, cb) {
+    getIndexBangumi ({ commit, state }, cb) {
       // check locally
       if (state.hasBangumiIndexFetched) {
         cb(state.bangumi)
@@ -86,11 +86,11 @@ const store = new Vuex.Store({
           })
       }
     },
-    getOldBangumi ({commit}) {
-      // fetch api/index
+    getOldBangumi ({ commit }, cb) {
+      // fetch api/old
       Vue.http.get('old').then(
         res => {
-          commit('bangumiIndex', res.body.data)
+          cb(res.body.data)
         })
     }
   }

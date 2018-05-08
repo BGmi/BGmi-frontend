@@ -1,40 +1,31 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-6 col-xs-12 col-lg-4 col-sm-6" v-for="(bg, key) in bangumi" :key="key">
-              <md-card md-theme="white">
-                <md-card-media>
-                  <div class="bangumi-cover" :style="{backgroundImage:`url('${imgRoot}${bg.cover}')`} "></div>
-                </md-card-media>
+  <v-container fill-height grid-list-lg text-xs-center>
+    <v-layout row wrap>
+      <v-flex v-for="(bg, key) in bangumi" :key="key" xs12 sm6 md4 lg3>
+        <v-card md-theme="white" style="overflow: hidden">
+          <v-card-media :src='`.${bg.cover}`' height="200px">
+            <!-- <div class="bangumi-cover" :style="{backgroundImage:`url('.${bg.cover}')`} "></div> -->
+          </v-card-media>
 
-                <md-card-header>
-                  <div class="md-title">{{bg.bangumi_name + (bg.status === 2 ? '(new)' : '')}}</div>
-                  <div class="md-subhead">latest:{{bg.episode}}</div>
-                </md-card-header>
-
-                <md-card-actions>
-                  <div class="button-container" v-if="!isEmpty(bg.player)">
-                    <md-button@click="$router.push(`/player/${bg.bangumi_name}/${value}`)"
-                               v-for="value in Object.keys(bg.player).reverse()" :key="value">
-                      {{value}}
-                    </md-button>
-                  </div>
-                </md-card-actions>
-              </md-card>
-              <br>
+          <v-card-title>
+            <div>
+              <div class="headline">{{bg.bangumi_name + (bg.status === 2 ? '(new)' : '')}}</div>
+              <span class="grey--text">latest:{{bg.episode}}</span>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          </v-card-title>
+
+          <v-card-actions class="button-container">
+            <v-btn flat v-if="!isEmpty(bg.player)" @click="$router.push(`/player/${bg.bangumi_name}/${value}`)" v-for="value in Object.keys(bg.player).reverse().slice(0, 3)" v-bind:class="{gray:hasWatched(bg.bangumi_name,value)}" :key="value"> {{value}} </v-btn>
+          </v-card-actions>
+          <br>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-  const imgRoot = ''
+  import { hasWatched, isEmpty } from '../utils'
 
   export default {
     name: 'bangumi',
@@ -42,70 +33,33 @@
 
     data () {
       return {
-        imgRoot,
         bangumi: []
       }
     },
 
     methods: {
-      isEmpty (obj) {
-        for (let prop in obj) {
-          if (obj.hasOwnProperty(prop)) {
-            return false
-          }
-        }
-        return true
-      }
+      hasWatched,
+      isEmpty
     },
     mounted () {
-      this.$http.get('old').then(
-        res => {
-          this.bangumi = res.body.data
-        })
+      this.$store.dispatch('getOldBangumi', (bangumi) => {
+        this.bangumi = bangumi
+      })
     }
   }
 </script>
 
-<style lang="scss" scoped>
-  .bangumi-cover {
-    height: 260px;
-    background-size: cover;
-    background-position: center center;
-  }
+<style scoped>
+.headline {
+  white-space: nowrap;
+}
 
-  .md-title {
-    white-space: nowrap;
-  }
+.button-container {
+  height: 36px;
+  /* white-space: nowrap; */
+}
 
-  .button-container {
-    min-width: 88px;
-    min-height: 36px;
-    margin: 6px 8px;
-    padding: 0 16px;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    outline: none;
-    background: none;
-    border: 0;
-    border-radius: 2px;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    color: currentColor;
-    font-family: inherit;
-    font-size: 14px;
-    font-style: inherit;
-    font-variant: inherit;
-    font-weight: 500;
-    letter-spacing: inherit;
-    line-height: 36px;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
-    vertical-align: top;
-    white-space: nowrap;
-  }
-</style>
+.gray {
+  color: lightgray;
+}
+</stylescoped>

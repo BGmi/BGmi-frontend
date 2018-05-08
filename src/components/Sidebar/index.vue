@@ -54,6 +54,6 @@
   }
 </script>
 
-<style type="text/scss" lang="scss" rel="stylesheet/scss">
+<style>
 
 </style>

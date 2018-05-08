@@ -25,10 +25,7 @@
                       <div class="row">
 
                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                          <md-checkbox id="my-test2" v-if="configs[key].writable"
-                                       :value="config.value===originConfigs[key].value"
-                                       :disabled="config.value===originConfigs[key].value" name="my-test2"
-                                       @input="submit(config.name, config.value)" class="md-primary">
+                          <md-checkbox id="my-test2" v-if="configs[key].writable" :value="config.value===originConfigs[key].value" :disabled="config.value===originConfigs[key].value" name="my-test2" @input="submit(config.name, config.value)" class="md-primary">
                           </md-checkbox>
                         </div>
                       </div>
@@ -97,6 +94,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

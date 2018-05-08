@@ -24,8 +24,7 @@
     </div>
     <!--</router-link>-->
     <md-button v-if="$route.name=='Subscribe'" @click="openDialog('dialog1')">update</md-button>
-    <md-button class="md-icon-button hidden-lg hidden-md" type="button" data-toggle="collapse"
-               @click="toggleSideBar">
+    <md-button class="md-icon-button hidden-lg hidden-md" type="button" data-toggle="collapse" @click="toggleSideBar">
       <md-icon>menu</md-icon>
     </md-button>
   </md-whiteframe>
@@ -96,12 +95,6 @@
     }
   }
 </script>
-<style lang="scss">
-  /*.top-header {*/
-  /*width: 100%;*/
-  /*height: 48px;*/
-  /*position: fixed;*/
-  /*top: 0;*/
-  /*z-index: 233;*/
-  /*}*/
+<style>
+
 </style>

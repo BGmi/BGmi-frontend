@@ -20,8 +20,5 @@
     }
   }
 </script>
-<style lang="scss">
-// a {
-//   text-decoration: none !important;
-// }
+<style>
 </style>
