@@ -1,15 +1,16 @@
 <template>
-  <div id="app">
-    <div class="wrapper" :class="{ 'nav-open' : navOpened }">
-      <sidebar :open="navOpened"/>
-      <md-notifications/>
-      <div class="main-panel">
-        <navigation @toggleSideBar="toggleSideBar"/>
-        <router-view/>
-        <div class="close-layer" v-if="navOpened" @click="onCloseLayerClick"></div>
-      </div>
-    </div>
-  </div>
+  <v-app id="inspire">
+    <sidebar v-model='drawer' />
+    <v-toolbar :class="{'elevation-0': $route.name==='Subscribe'}" color="indigo" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Application{{$route.name}}</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <transition>
+        <router-view></router-view>
+      </transition>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
@@ -25,6 +26,7 @@
 
     data () {
       return {
+        drawer: null,
         token: '',
         sidebarToggled: false
       }
@@ -53,11 +55,9 @@
   }
 </script>
 
-<style lang="scss">
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
+<style>
+::-webkit-scrollbar {
+  display: none;
+}
 </style>
 

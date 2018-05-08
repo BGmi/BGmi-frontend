@@ -1,34 +1,27 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-content">
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <v-card class="elevation-12">
+          <v-toolbar dark color="primary">
+            <v-toolbar-title>Auth</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <v-form>
+              <label></label>
+              <v-text-field v-model="token" label="token" type="text" @keyup.enter.native="onClose()"></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color=primary @click="onClose()">submit</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 
-              <div class="row">
-                <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
-                  <md-input-container>
-                    <label>token</label>
-                    <md-input v-model="token" @keyup.enter.native="onClose()"></md-input>
-                  </md-input-container>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
-                  <div style="align-content: flex-end" class="col-md-2 col-md-offset-10 col-xs-4 col-xs-offset-8">
-                    <md-button @click="onClose()">submit</md-button>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 <script>
   import Vue from 'vue'
@@ -44,6 +37,7 @@
     },
     created () {
       if (this.$cookies.isKey('auth')) {
+      // if (this.$cookies.isKey('auth22')) {
         let token = this.$cookies.get('auth')
         this.$http.post('auth', {token: token}).then(
           res => {

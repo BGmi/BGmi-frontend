@@ -1,21 +1,21 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      <div class="card">
-        <div class="card-content">
-          <div class="row">
-            <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
-              <div v-if="!tabData" class="col-md-2 col-md-offset-5">
-                <md-spinner class="tim-note" md-indeterminate></md-spinner>
-              </div>
-              <div v-else v-for="(key, index) in weekday" :key="key">
-                <p id="cal" v-html="bangumiToHtml(key,tabData[key])"></p></div>
+  <v-container fluid fill-height>
+    <v-layout justify-center>
+      <v-flex>
+        <v-card md-theme="white" style="overflow: hidden">
+          <v-card-title>
+            <div v-if="!tabData" class="col-md-2 col-md-offset-5">
+              <md-spinner class="tim-note" md-indeterminate></md-spinner>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            <div v-else v-for="(key, index) in weekday" :key="index">
+              <p id="cal" v-html="bangumiToHtml(key,tabData[key])"></p>
+            </div>
+          </v-card-title>
+          <br>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
   export default {
@@ -54,13 +54,13 @@
 </script>
 
 <style lang="scss">
-  .week {
-    text-transform: capitalize;
-    font-family: Roboto, "Noto Sans", Noto, sans-serif;
-  }
+.week {
+  text-transform: capitalize;
+  font-family: Roboto, "Noto Sans", Noto, sans-serif;
+}
 
-  /*@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);*/
-  /*#cal {*/
-  /*font-family: ;*/
-  /*}*/
+/*@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);*/
+/*#cal {*/
+/*font-family: ;*/
+/*}*/
 </style>

@@ -1,66 +1,69 @@
 <template>
-  <div class="card card-profile">
-    <md-card-media>
-      <div class="bangumi-cover" :style="{backgroundImage:`url('${imgSrc}')`}"></div>
-    </md-card-media>
-    <div class="content">
-      <md-dialog-confirm :md-title="`delete ${bangumi.name}`" :md-ok-text="`ok`" :md-cancel-text="`cancel`" :md-content="` `" @close="onClose" ref="dialog5">
-      </md-dialog-confirm>
-
-      <p class="category text-black">{{bangumi.name}}</p>
-      <md-button v-if='!bangumi.status' class="md-raised " :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}" @click.stop.prevent="add()">
-        <div>add</div>
-      </md-button>
-
-      <md-button v-else-if="!expand" class="md-raised" @click.stop.prevent="expandDetail()">
+  <v-card>
+    <v-card-media :src=imgSrc height="100px"></v-card-media>
+    <v-card-text>
+      <p class="category text-black headline">{{bangumi.name}}</p>
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color=info v-if='!bangumi.status' class="md-raised " :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}" @click.stop.prevent="add()">
+        add
+      </v-btn>
+      <v-btn color=success v-else-if="!expand" class="md-raised" @click.stop.prevent="expandDetail()">
         <div>detail</div>
-      </md-button>
-      <md-button class="md-raised" v-else @click="pack">
+      </v-btn>
+      <v-btn class="md-raised" v-else @click="pack">
         pack
-      </md-button>
-      <div v-if="expand">
-        <div class="row">
-          <div class="col-md-12" v-cloak>
-            <md-input-container v-if="!script">
-              <label>Status</label>
-              <md-input type="number" v-model="bangumi.status" />
-            </md-input-container>
-
-            <md-input-container md-clearable v-if="!script">
-              <label>Include</label>
-              <md-input v-model="filter.include" />
-            </md-input-container>
-
-            <md-input-container md-clearable v-if="!script">
-              <label>Regex</label>
-              <md-input v-model="filter.regex" />
-            </md-input-container>
-
-            <md-input-container md-clearable v-if="!script">
-              <label>Exclude</label>
-              <md-input v-model="filter.exclude" />
-            </md-input-container>
-
-            <md-input-container>
-              <label>Episode</label>
-              <md-input type="number" v-model="mark" />
-            </md-input-container>
-
-            <md-checkbox v-for="key in filter.subtitle_group" v-model="followed" :key="key" :md-value="key">
-              {{key}}
-            </md-checkbox>
-          </div>
-          <md-button class="md-raised md-accent" @click="del()">
+      </v-btn>
+    </v-card-actions>
+    <!-- dialog -->
+    <v-dialog v-model="expand">
+      <v-card class="elevation-12">
+        <v-toolbar dark color="primary">
+          <v-toolbar-title>Filter</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-card-text>
+          <v-form>
+            <v-text-field type="number" v-model="bangumi.status" label=Status></v-text-field>
+            <v-text-field v-model="filter.include" label=Include></v-text-field>
+            <v-text-field v-model="filter.regex" label=Regex></v-text-field>
+            <v-text-field v-model="filter.exclude" label=Exclude></v-text-field>
+            <v-text-field type="number" label=Episode v-model="mark"></v-text-field>
+          </v-form>
+        </v-card-text>
+        <v-card-text v-show="showSubtitle">
+          <v-checkbox v-for="key in filter.subtitle_group" v-model="followed" :label="key" :key=key :value="key"></v-checkbox>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="showSubtitle=!showSubtitle">
+            显示字幕组
+          </v-btn>
+          <v-btn color=error @click="del()">
             delete
-          </md-button>
-          <md-button class="md-raised" @click="save()">
+          </v-btn>
+          <v-btn color=primary @click="save()">
             save
-          </md-button>
-        </div>
-      </div>
-      <br>
-    </div>
-  </div>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialog5" max-width="500px">
+      <v-card>
+        <v-card-title>
+          确认删除?
+        </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click.stop="onClose('not-ok')">Cancel</v-btn>
+          <v-btn color="primary" flat @click.stop="onClose('ok')">Delete</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- dialog end -->
+
+  </v-card>
 </template>
 <script>
   let imgRoot = './bangumi/cover/'
@@ -68,6 +71,8 @@
   export default {
     data () {
       return {
+        dialog5: false,
+        showSubtitle: false,
         imgRoot,
         expand: false,
         filter: {
@@ -161,6 +166,7 @@
         const action = 'add'
         this.$http.post(`${action}`, {name: this.bangumi.name}).then(
           res => {
+            this.expand = true
             this.bangumi.status = 1
             this.$notifications.notify({
               type: res.body.status,
@@ -183,13 +189,8 @@
             })
           })
       },
-      openDialog (ref) {
-        this.$refs[ref].open()
-      },
-      closeDialog (ref) {
-        this.$refs[ref].close()
-      },
       onClose (type) {
+        this.dialog5 = false
         if (type === 'ok') {
           this.expand = false
           const action = 'delete'
@@ -219,27 +220,15 @@
         }
       },
       del () {
-        this.$refs['dialog5'].open()
+        this.dialog5 = true
       }
     }
   }
 </script>
-<style scoped lang="scss">
-.card {
-  padding: 0 0 20px 0;
-}
-
-.bangumi-cover {
-  height: 120px;
-  background-size: cover;
-  background-position: center center;
-}
-
-.img-container img {
-  width: 100%;
-}
-
-[v-cloak] {
-  display: none;
+<style scoped>
+.headline {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

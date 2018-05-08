@@ -1,38 +1,19 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-content">
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                  <div class="tim-typo">
-                    <a href="/resource/feed.xml">
-                      <md-button>
-                        <h5>Rss Feed</h5>
-                      </md-button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                  <div class="tim-typo">
-                    <a href="/resource/calendar.ics">
-                      <md-button>
-                        <h5>ICS Calendar for mobile phone</h5>
-                      </md-button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-container>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <a href="/resource/feed.xml" target="_blank">
+          Rss Feed
+        </a>
+      </v-flex>
+      <v-flex xs12>
+        <a href="/resource/calendar.ics" target="_blank">
+          ICS Calendar for mobile phone
+        </a>
+      </v-flex>
+    </v-layout>
+  </v-container>
+
 </template>
 
 <script>
@@ -47,6 +28,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
