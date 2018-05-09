@@ -22,8 +22,10 @@
             </div>
           </v-card-text>
           <v-card-actions>
-            <router-link tag="v-btn" :class="{lightGray:hasWatched(bangumi.bangumi_name,key),
-                                  'btn--flat':parseInt($route.params.episode.toString())!==parseInt(key.toString()) }" :to="`/player/${bangumi.bangumi_name}/${key}`" v-for="(value, key) in bangumi.player" :key="key">
+            <router-link tag="v-btn" 
+                         :class="{lightGray:hasWatched(bangumi.bangumi_name,key),
+                                  'btn--flat':parseInt($route.params.episode.toString())!==parseInt(key.toString())}"
+                         :to="`/player/${bangumi.bangumi_name}/${key}`" v-for="(key, index) in episodes" :key="index">
               {{key}}
             </router-link>
           </v-card-actions>
@@ -108,6 +110,12 @@ export default {
     this.$store.dispatch('getIndexBangumi', (bangumi) => {
       this.init(bangumi)
     })
+  },
+  computed: {
+    episodes () {
+      if (!this.bangumi.hasOwnProperty('player')) return []
+      return Object.keys(this.bangumi.player).reverse()
+    }
   }
 }
 </script>
