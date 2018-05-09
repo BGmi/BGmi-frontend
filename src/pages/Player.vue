@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <v-layout justify-center>
-      <v-flex lg10 xl8>
+      <v-flex xs12 lg10 xl8>
         <v-card>
           <v-toolbar dark color="primary">
             <v-toolbar-title>
