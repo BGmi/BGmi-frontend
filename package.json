@@ -8,7 +8,7 @@
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "lint": "eslint --fix --ext .js,.vue src"
   },
   "license": "MIT",
@@ -83,7 +83,7 @@
     "vue-loader": "^13.7.1",
     "vue-style-loader": "^3.1.2",
     "vue-template-compiler": "^2.5.14",
-    "webpack": "^3.11.0",
+    "webpack": "^2.0.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-dev-middleware": "^1.12.2",
     "webpack-hot-middleware": "^2.21.2",
