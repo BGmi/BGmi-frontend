@@ -1,6 +1,6 @@
 {
   "name": "bgmi-frontend",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "web gui for bgmi",
   "author": "Trim21 <trim21me@gmail.com>",
   "main": "src/main.js",
@@ -8,7 +8,7 @@
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
-    "prepublish":"npm run build",
+    "prepublish": "npm run build",
     "lint": "eslint --fix --ext .js,.vue src"
   },
   "license": "MIT",
