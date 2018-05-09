@@ -1,5 +1,5 @@
 <template>
-  <v-tabs v-model="active" color=indigo dark align-with-title>
+  <v-tabs color=indigo dark fixed-tabs>
     <v-tab v-for="key in weekKey " :key="`tab-header-${key}`" :id="key" ripple>
       {{ key }}
     </v-tab>
