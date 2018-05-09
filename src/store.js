@@ -42,6 +42,10 @@ const store = new Vuex.Store({
       state.bangumi = bangumi
       state.hasBangumiIndexFetched = true
     },
+    clearBangumiIndex (state, bangumi) {
+      state.bangumi = []
+      state.hasBangumiIndexFetched = false
+    },
     calendar (state, cal) {
       state.cal = cal
       state.calFetched = true

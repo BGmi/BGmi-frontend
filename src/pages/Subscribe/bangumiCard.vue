@@ -18,7 +18,7 @@
     </v-card-actions>
     <!-- dialog -->
     <v-dialog v-model="expand">
-      <v-card class="elevation-12">
+      <v-card>
         <v-toolbar dark color="primary">
           <v-toolbar-title>Filter</v-toolbar-title>
           <v-spacer></v-spacer>
@@ -62,7 +62,6 @@
       </v-card>
     </v-dialog>
     <!-- dialog end -->
-
   </v-card>
 </template>
 <script>
@@ -126,9 +125,11 @@
           p = [
             this.$http.post('mark', {name: this.bangumi.name, episode: this.mark})]
         }
+        this.expand = false
         Promise.all(p)
           .then(
             res => {
+              this.expand = false
               this.$notifications.notify({
                 type: 'success',
                 message: 'save filter successfully',
@@ -163,10 +164,11 @@
         }
       },
       add () {
+        this.$store.commit('clearBangumiIndex')
         const action = 'add'
         this.$http.post(`${action}`, {name: this.bangumi.name}).then(
           res => {
-            this.expand = true
+            // this.expand = true
             this.bangumi.status = 1
             this.$notifications.notify({
               type: res.body.status,
@@ -192,6 +194,7 @@
       onClose (type) {
         this.dialog5 = false
         if (type === 'ok') {
+          this.$store.commit('clearBangumiIndex')
           this.expand = false
           const action = 'delete'
           this.$http.post(`${action}`, {name: this.bangumi.name}).then(

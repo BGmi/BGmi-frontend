@@ -22,16 +22,11 @@
     ".babelrc"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.7",
     "dplayer": "^1.22.2",
     "material-design-icons-iconfont": "^3.0.3",
     "md5": "^2.2.1",
-    "roboto-fontface": "^0.8.0",
     "vue": "^2.4.2",
     "vue-cookies": "^1.5.6",
-    "vue-lazyload": "^1.2.2",
-    "vue-material": "^0.8.1",
-    "vue-propsync": "^0.1.3",
     "vue-resource": "^1.5.0",
     "vue-router": "^2.8.1",
     "vuetify": "^1.0.17",

@@ -80,6 +80,11 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  if (to.name !== 'Player') {
+    document.title = `BGmi - ${to.name}`
+  } else {
+    document.title = `BGmi - ${to.params.bangumi_name} - ${to.params.episode}`
+  }
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.state.isLogin) {
       next({

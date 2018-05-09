@@ -1,13 +1,18 @@
 <template>
   <v-navigation-drawer v-model=visible fixed app>
     <v-list>
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-avatar>
-            <img src="../../../static/images/logo144.jpg">
-          </v-avatar>
-        </v-list-tile-content>
+      <v-list-tile to=/>
+      <v-list-tile-action>
+        <v-avatar>
+          <img src="../../../static/images/logo144.jpg">
+        </v-avatar>
+        <!-- <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact"> -->
+      </v-list-tile-action>
+      <v-list-tile-content>
+        <v-list-tile-title>BGmi</v-list-tile-title>
+      </v-list-tile-content>
       </v-list-tile>
+      <v-divider></v-divider>
       <item title="Bangumi" icon="video_library" to="/"></item>
       <!-- <item title="Old Bangumi" icon="collections" to="/old"></item> -->
       <item title="Bangumi Files" icon="folder" href="/bangumi/"></item>

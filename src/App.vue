@@ -3,12 +3,12 @@
     <sidebar v-model='drawer' />
     <v-toolbar :class="{'elevation-0': $route.name==='Subscribe'}" color="indigo" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Application{{$route.name}}</v-toolbar-title>
+      <v-toolbar-title>BGmi - {{$route.name}}</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <transition>
+      <!-- <transition> -->
         <router-view></router-view>
-      </transition>
+      <!-- </transition> -->
     </v-content>
   </v-app>
 </template>
@@ -45,13 +45,7 @@
         this.toggleSideBar()
       }
     },
-    watch: {
-      '$route' () {
-        if (this.sidebarToggled) {
-          this.toggleSideBar()
-        }
-      }
-    }
+    watch: { }
   }
 </script>
 

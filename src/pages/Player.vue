@@ -95,7 +95,6 @@ export default {
                   api: 'https://api.prprpr.me/dplayer/'
                 }
               }
-
               /* eslint-disable no-unused-vars */
               let dp = new DPlayer(option)
             }
