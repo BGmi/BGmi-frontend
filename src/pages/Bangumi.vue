@@ -59,7 +59,7 @@
   /* white-space: nowrap; */
 }
 
-.gray {
+#inspire.application .gray.btn {
   color: lightgray;
 }
-</stylescoped>
+</style>
