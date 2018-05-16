@@ -78,7 +78,7 @@
           res => {
             this.$store.commit('login', this.token)
             Vue.http.headers.common['bgmi-token'] = `${this.token}`
-            this.$cookies.set('auth', this.token)
+            this.$cookies.set('auth', this.token, '1y')
             this.$nextTick(
               () => {
                 if (this.$route.query.redirect) {

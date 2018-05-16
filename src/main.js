@@ -5,7 +5,6 @@ import VueCookies from 'vue-cookies'
 
 import VueMaterial from 'vue-material'
 import { sync } from 'vuex-router-sync'
-import VueLazyload from 'vue-lazyload'
 
 import App from './App.vue'
 import store from './store'
@@ -26,15 +25,8 @@ Vue.use(VueCookies)
 Vue.use(VueResource)
 Vue.use(NotificationPlugin)
 Vue.use(VueMaterial)
-Vue.use(VueLazyload)
 
 // or with options
-// Vue.use(VueLazyload, {
-//   preLoad: 1.3,
-//   error: 'dist/error.png',
-//   loading: 'dist/loading.gif',
-//   attempt: 1
-// })
 Vue.material.registerTheme('default', {
   primary: { color: 'cyan', hue: 500, textColor: 'white' },
   accent: 'red',
