@@ -39,7 +39,7 @@ export default {
   data () {
     let rememberMe = '1y'
     if (this.$cookies.isKey('rememberMe')) {
-      rememberMe = this.$cookies.get('rememberMe')
+      rememberMe = this.$cookies.get('rememberMe') === 'false' ? false : this.$cookies.get('rememberMe')
     }
     return {
       rememberMe,
