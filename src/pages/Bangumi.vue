@@ -15,7 +15,11 @@
           </v-card-title>
 
           <v-card-actions class="button-container">
-            <v-btn flat v-if="!isEmpty(bg.player)" @click="$router.push(`/player/${bg.bangumi_name}/${value}`)" v-for="value in Object.keys(bg.player).reverse().slice(0, 3)" v-bind:class="{gray:hasWatched(bg.bangumi_name,value)}" :key="value"> {{value}} </v-btn>
+            <v-btn flat v-if="!isEmpty(bg.player)"
+                   @click="$router.push(`/player/${category}/${normalizePath(bg.bangumi_name)}/${value}`)"
+                   v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
+                   v-bind:class="{gray:hasWatched(bg.bangumi_name,value)}" :key="value"> {{value}}
+            </v-btn>
           </v-card-actions>
           <br>
         </v-card>
@@ -25,41 +29,55 @@
 </template>
 
 <script>
-  import { hasWatched, isEmpty } from '../utils'
+import { hasWatched, isEmpty, normalizePath } from '../utils'
 
-  export default {
-    name: 'bangumi',
-    components: {},
+export default {
+  name: 'bangumi',
+  components: {},
 
-    data () {
-      return {
-        bangumi: []
-      }
-    },
-
-    methods: {
-      hasWatched,
-      isEmpty
-    },
-    mounted () {
-      this.$store.dispatch('getIndexBangumi', (bangumi) => {
-        this.bangumi = bangumi
+  data () {
+    return {
+      bangumi: []
+    }
+  },
+  props: {
+    category: ''
+  },
+  methods: {
+    hasWatched,
+    isEmpty,
+    normalizePath,
+    initData () {
+      this.$store.dispatch('getBangumi', {
+        category: this.category,
+        cb: (bangumi) => {
+          this.bangumi = bangumi
+        }
       })
     }
+  },
+  watch: {
+    category () {
+      this.initData()
+    }
+  },
+  mounted () {
+    this.initData()
   }
+}
 </script>
 
 <style scoped>
-.headline {
-  white-space: nowrap;
-}
+  .headline {
+    white-space: nowrap;
+  }
 
-.button-container {
-  height: 36px;
-  /* white-space: nowrap; */
-}
+  .button-container {
+    height: 36px;
+    /* white-space: nowrap; */
+  }
 
-#inspire.application .gray.btn {
-  color: lightgray;
-}
+  #inspire.application .gray.btn {
+    color: lightgray;
+  }
 </style>

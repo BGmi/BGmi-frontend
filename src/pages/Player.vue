@@ -22,7 +22,7 @@
             </div>
           </v-card-text>
           <v-card-actions>
-            <router-link tag="v-btn" 
+            <router-link tag="v-btn"
                          :class="{lightGray:hasWatched(bangumi.bangumi_name,key),
                                   'btn--flat':parseInt($route.params.episode.toString())!==parseInt(key.toString())}"
                          :to="`/player/${bangumi.bangumi_name}/${key}`" v-for="(key, index) in episodes" :key="index">
@@ -39,7 +39,7 @@
 import DPlayer from 'dplayer'
 import md5 from 'md5'
 import 'dplayer/dist/DPlayer.min.css'
-import { hasWatched } from '../utils'
+import { hasWatched, normalizePath } from '../utils'
 
 export default {
   data () {
@@ -56,11 +56,17 @@ export default {
   methods: {
     hasWatched,
     changeEpisode (episode) {
-      this.init(this.$store.state.bangumi)
+      this.init()
     },
-    init: function (data) {
+    init () {
+      let cb = (bangumi) => {
+        this.initData(bangumi)
+      }
+      this.$store.dispatch('getBangumi', { category: this.$route.params.category, cb })
+    },
+    initData (data) {
       for (let bangumi of data) {
-        if (bangumi.bangumi_name === this.$route.params.bangumi_name) {
+        if (normalizePath(bangumi.bangumi_name) === this.$route.params.bangumi_name) {
           this.bangumi = bangumi
           this.$store.commit('saveHistory', {
             bangumi_name: bangumi.bangumi_name,
@@ -107,9 +113,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('getIndexBangumi', (bangumi) => {
-      this.init(bangumi)
-    })
+    this.init()
   },
   computed: {
     episodes () {
@@ -120,7 +124,7 @@ export default {
 }
 </script>
 <style>
-.lightGray {
-  color: lightgray !important;
-}
+  .lightGray {
+    color: lightgray !important;
+  }
 </style>

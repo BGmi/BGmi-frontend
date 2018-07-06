@@ -18,7 +18,13 @@ function isEmpty (obj) {
   return true
 }
 
+function normalizePath (url) {
+  url = url.replace(/[:*?"<>|']/g, '')
+  return url
+}
+
 export {
+  normalizePath,
   isEmpty,
   hasWatched
 }

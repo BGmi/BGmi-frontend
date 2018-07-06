@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Player from './pages/Player.vue'
 import Bangumi from './pages/Bangumi.vue'
-// import Old from './pages/Old/index.vue'
 import Calendar from './pages/Calendar.vue'
 import Resource from './pages/Resource.vue'
 // // import Search from '@/pages/Search' // todo: api front
@@ -21,13 +20,20 @@ Vue.use(Router)
 const router = new Router({
   mode: 'hash',
   routes: [
-    // {
-    //   path: '/old',
-    //   name: 'Old',
-    //   component: Old
-    // },
     {
-      path: '/player/:bangumi_name(.*)/:episode',
+      path: '/',
+      name: 'Bangumi',
+      component: Bangumi,
+      props: { category: 'index' }
+    },
+    {
+      path: '/:category(old)',
+      name: 'Old',
+      component: Bangumi,
+      props: { category: 'old' }
+    },
+    {
+      path: '/player/:category(index|old)/:bangumi_name(.*)/:episode',
       name: 'Player',
       component: Player
     },
@@ -57,11 +63,6 @@ const router = new Router({
       name: 'Subscribe',
       component: Subscribe,
       meta: { requiresAuth: true }
-    },
-    {
-      path: '/',
-      name: 'Bangumi',
-      component: Bangumi
     },
     {
       path: '/about',
