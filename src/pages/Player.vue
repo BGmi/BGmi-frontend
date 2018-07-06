@@ -5,11 +5,12 @@
         <v-card>
           <v-toolbar dark color="primary">
             <v-toolbar-title>
-              {{$route.params.bangumi_name}}
+              {{bangumi.bangumi_name}}
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-tooltip right>
-              <v-btn slot="activator" icon large :href="`./bangumi/${bangumi.bangumi_name}/`" target="_blank">
+              <v-btn slot="activator" icon large :href="dirPath"
+                     target="_blank">
                 <v-icon large>folder_open</v-icon>
               </v-btn>
               <span>Bangumi Files</span>
@@ -25,7 +26,8 @@
             <router-link tag="v-btn"
                          :class="{lightGray:hasWatched(bangumi.bangumi_name,key),
                                   'btn--flat':parseInt($route.params.episode.toString())!==parseInt(key.toString())}"
-                         :to="`/player/${bangumi.bangumi_name}/${key}`" v-for="(key, index) in episodes" :key="index">
+                         :to="`/player/${$route.params.category}/${normalizePath(bangumi.bangumi_name)}/${key}`"
+                         v-for="(key, index) in episodes" :key="index">
               {{key}}
             </router-link>
           </v-card-actions>
@@ -40,24 +42,24 @@ import DPlayer from 'dplayer'
 import md5 from 'md5'
 import 'dplayer/dist/DPlayer.min.css'
 import { hasWatched, normalizePath } from '../utils'
+import path from 'path'
 
 export default {
   data () {
     return {
       bangumi: {},
+      videoFileUrl: '',
       danmakuApi: ''
     }
   },
   watch: {
     '$route.params.episode' () {
-      this.changeEpisode(this.$route.params.episode)
+      this.init()
     }
   },
   methods: {
+    normalizePath,
     hasWatched,
-    changeEpisode (episode) {
-      this.init()
-    },
     init () {
       let cb = (bangumi) => {
         this.initData(bangumi)
@@ -75,6 +77,7 @@ export default {
           this.$nextTick(
             () => {
               let episode = `/bangumi${bangumi.player[this.$route.params.episode].path}`
+              this.videoFileUrl = episode
               if (episode.toLowerCase().includes('hevc') || episode.toLowerCase().includes('x265')) {
                 this.$notifications.notify({
                   type: 'danger',
@@ -116,6 +119,9 @@ export default {
     this.init()
   },
   computed: {
+    dirPath () {
+      return path.dirname(this.videoFileUrl) + '/'
+    },
     episodes () {
       if (!this.bangumi.hasOwnProperty('player')) return []
       return Object.keys(this.bangumi.player).reverse()
