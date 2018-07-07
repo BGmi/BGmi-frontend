@@ -36,7 +36,7 @@
     </v-layout>
     <v-snackbar
       v-model="snackbar"
-      timeout="5000"
+      :timeout="5000"
       top
       vertical
     >
@@ -95,21 +95,10 @@ export default {
               let episode = `/bangumi${bangumi.player[this.$route.params.episode].path}`
               /* */
               let filePath = bangumi.player[this.$route.params.episode].path.toLowerCase()
-              if (filePath.indexOf('hevc') !== -1 || filePath.indexOf('x265')) {
+              if (filePath.includes('hevc') || filePath.includes('x265')) {
                 this.snackbar = true
               }
               this.videoFileUrl = episode
-              if (episode.toLowerCase().includes('hevc') || episode.toLowerCase().includes('x265')) {
-                this.$notifications.notify({
-                  type: 'danger',
-                  icon: 'notifications',
-                  message: 'this episode may be encoded as x265, which is not currently supported by browsers.',
-                  placement: {
-                    from: 'top',
-                    align: 'right'
-                  }
-                })
-              }
 
               const option = {
                 theme: '#FF3333',
