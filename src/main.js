@@ -8,7 +8,6 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 
-import NotificationPlugin from '@/core/components/mdNotifications/install'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
@@ -18,8 +17,6 @@ Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(VueCookies)
 Vue.use(VueResource)
-Vue.use(NotificationPlugin)
-// Vue.use(VueMaterial)
 
 Vue.http.options.root = './api/'
 // /api/-> /api/index
