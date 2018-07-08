@@ -12,6 +12,10 @@
     "lint": "eslint --fix --ext .js,.vue src"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BGmi/BGmi-frontend/"
+  },
   "files": [
     "src",
     "build",
@@ -24,6 +28,7 @@
   ],
   "dependencies": {
     "dplayer": "^1.22.2",
+    "eslint-plugin-react": "^7.10.0",
     "material-design-icons-iconfont": "^3.0.3",
     "md5": "^2.2.1",
     "vue": "^2.4.2",
@@ -52,16 +57,16 @@
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.10",
     "cssnano": "^3.10.0",
-    "eslint": "^3.19.0",
-    "eslint-config-standard": "^6.2.1",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.9.0",
-    "eslint-plugin-html": "^3.2.2",
+    "eslint-plugin-html": "^3.0.5",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
-    "eslint-plugin-vue": "^2.1.0",
+    "eslint-plugin-vue": "^4.5.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.14.1",
     "extract-text-webpack-plugin": "^2.1.2",
