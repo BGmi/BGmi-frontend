@@ -5,12 +5,12 @@
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Auth</v-toolbar-title>
-            <v-spacer></v-spacer>
+            <v-spacer/>
           </v-toolbar>
           <v-card-text>
             <v-form>
-              <label></label>
-              <v-text-field v-model="token" label="token" type="text" @keyup.enter.native="onClose()"></v-text-field>
+              <label/>
+              <v-text-field v-model="token" label="token" type="text" @keyup.enter.native="onClose()"/>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -19,8 +19,8 @@
                       :items="rememberMeTimeItems"
                       item-text="time"
                       item-value="value"
-                      label="Remember Me"></v-select>
-            <v-spacer></v-spacer>
+                      label="Remember Me"/>
+            <v-spacer/>
             <v-btn color=primary @click="onClose()">Login</v-btn>
           </v-card-actions>
         </v-card>

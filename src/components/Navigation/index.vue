@@ -5,7 +5,7 @@
     <md-dialog ref="dialog1" md-content="">
       <md-dialog-title>update</md-dialog-title>
       <md-dialog-content>
-        <md-spinner md-indeterminate v-if="loading"></md-spinner>
+        <md-spinner md-indeterminate v-if="loading"/>
         <div v-else>
           <p>Update bangumi, select download to download new episode</p>
           <md-checkbox @input="saveCheck()" v-model="download">download</md-checkbox>
@@ -19,7 +19,7 @@
     <!--<router-link to="/" style="flex: 1">-->
     <div style="flex: 1">
       <md-button @click="$router.push('/')">
-        <h2 class="md-title">{{$route.name}}</h2>
+        <h2 class="md-title">{{ $route.name }}</h2>
       </md-button>
     </div>
     <!--</router-link>-->
@@ -32,60 +32,60 @@
 </template>
 
 <script>
-  export default {
-    components: {},
-    data () {
-      return {
-        loading: false,
-        download: true
-      }
+export default {
+  components: {},
+  data () {
+    return {
+      loading: false,
+      download: true
+    }
+  },
+  created () {
+  },
+  methods: {
+    saveCheck () {
+      this.$cookies.set('download', this.download, 30)
     },
-    created () {
+    openDialog (ref) {
+      this.download = (this.$cookies.get('download') === 'true')
+      this.$refs[ref].open()
     },
-    methods: {
-      saveCheck () {
-        this.$cookies.set('download', this.download, 30)
-      },
-      openDialog (ref) {
-        this.download = (this.$cookies.get('download') === 'true')
-        this.$refs[ref].open()
-      },
-      closeDialog (ref, ok) {
-        if (ok) {
-          this.loading = true
-          this.$http.post('update', {name: '', download: this.download}).then(
-            res => {
-              this.$refs[ref].close()
-              this.loading = false
-              let message = '<ul>'
-              if (res.body.data.downloaded.length) {
-                res.body.data.downloaded.forEach(
-                  item => {
-                    message += '<li>' + item.title + '</li>'
-                  }
-                )
-                message += '</ul>'
-                this.$notify({
-                  type: 'success',
-                  test: message
-                })
-              } else {
-                this.$.notify({
-                  type: 'success',
-                  text: 'nothing new'
-                })
-              }
+    closeDialog (ref, ok) {
+      if (ok) {
+        this.loading = true
+        this.$http.post('update', {name: '', download: this.download}).then(
+          res => {
+            this.$refs[ref].close()
+            this.loading = false
+            let message = '<ul>'
+            if (res.body.data.downloaded.length) {
+              res.body.data.downloaded.forEach(
+                item => {
+                  message += '<li>' + item.title + '</li>'
+                }
+              )
+              message += '</ul>'
+              this.$notify({
+                type: 'success',
+                test: message
+              })
+            } else {
+              this.$.notify({
+                type: 'success',
+                text: 'nothing new'
+              })
             }
-          )
-        } else {
-          this.$refs[ref].close()
-        }
-      },
-      toggleSideBar () {
-        this.$emit('toggleSideBar')
+          }
+        )
+      } else {
+        this.$refs[ref].close()
       }
+    },
+    toggleSideBar () {
+      this.$emit('toggleSideBar')
     }
   }
+}
 </script>
 <style>
 

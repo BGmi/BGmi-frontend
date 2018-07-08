@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex xs10>
         <div class=display-1>BGmi:</div>
-        <p class=subheading>version: {{$store.state.bgmiVersion}}</p>
+        <p class=subheading>version: {{ $store.state.bgmiVersion }}</p>
         <p> BGmi HTTP Service 基于
           <a href="https://github.com/BGmi/BGmi" target="_blank">BGmi</a> 构建。<br>
         </p>
@@ -17,7 +17,7 @@
         <br>
         <br>
         <div class=display-1>BGmi-frontend:</div>
-        <p class=subheading>version: {{version}}</p>
+        <p class=subheading>version: {{ version }}</p>
 
         <h3>致谢</h3>
         <ul>
@@ -58,15 +58,14 @@
   </v-container>
 </template>
 <script>
-  export default {
-    name: 'about',
-    data () {
-      return {
-        version: process.env.VERSION
-      }
+export default {
+  name: 'About',
+  data () {
+    return {
+      version: process.env.VERSION
     }
   }
+}
 </script>
 <style>
-
 </style>

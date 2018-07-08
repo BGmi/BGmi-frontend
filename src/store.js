@@ -98,11 +98,10 @@ const store = new Vuex.Store({
       } else {
         throw new Error('wrong bangumi category')
       }
-      Vue.http.get(category).then(
-        res => {
-          commit('storeBangumi', { category, bangumi: res.body.data })
-          cb(res.body.data)
-        })
+      Vue.http.get(category).then(res => {
+        commit('storeBangumi', { category, bangumi: res.body.data })
+        cb(res.body.data)
+      })
     }
   }
 })

@@ -12,15 +12,15 @@
           <v-list-tile-title>BGmi</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-divider></v-divider>
-      <item title="Bangumi" icon="video_library" to="/"></item>
-      <item title="Old Bangumi" icon="collections" to="/old"></item>
-      <item title="Bangumi Files" icon="folder" href="/bangumi/"></item>
-      <item title="Calendar" icon="event" to="/calendar"></item>
-      <item title="Resource" icon="rss_feed" to="/resource"></item>
-      <v-divider></v-divider>
+      <v-divider/>
+      <item title="Bangumi" icon="video_library" to="/"/>
+      <item title="Old Bangumi" icon="collections" to="/old"/>
+      <item title="Bangumi Files" icon="folder" href="/bangumi/"/>
+      <item title="Calendar" icon="event" to="/calendar"/>
+      <item title="Resource" icon="rss_feed" to="/resource"/>
+      <v-divider/>
       <item title="Subscribe" icon="subscriptions" to="/subscribe"/>
-      <v-divider></v-divider>
+      <v-divider/>
       <item title="About" icon="info" to="/about"/>
       <item title="Based On BGmi" href="https://github.com/BGmi/BGmi"/>
     </v-list>
@@ -31,7 +31,7 @@
 import Item from './item'
 
 export default {
-  name: 'sidebar',
+  name: 'Sidebar',
   data () {
     return {
       visible: this.value

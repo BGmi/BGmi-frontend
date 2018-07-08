@@ -17,17 +17,16 @@
 </template>
 
 <script>
-  export default {
-    name: 'resource',
-    components: {},
-    created () { },
-    data () {
-      return {}
-    },
-    methods: {}
-  }
+export default {
+  name: 'Resource',
+  components: {},
+  created () { },
+  data () {
+    return {}
+  },
+  methods: {}
+}
 </script>
 
 <style scoped>
-
 </style>

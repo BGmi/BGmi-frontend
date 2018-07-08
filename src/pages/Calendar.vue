@@ -5,10 +5,10 @@
         <v-card md-theme="white" style="overflow: hidden">
           <v-card-title>
             <div v-if="!tabData" class="col-md-2 col-md-offset-5">
-              <md-spinner class="tim-note" md-indeterminate></md-spinner>
+              <md-spinner class="tim-note" md-indeterminate/>
             </div>
             <div v-else v-for="(key, index) in weekday" :key="index">
-              <p id="cal" v-html="bangumiToHtml(key,tabData[key])"></p>
+              <p id="cal" v-html="bangumiToHtml(key,tabData[key])"/>
             </div>
           </v-card-title>
           <br>
@@ -18,39 +18,39 @@
   </v-container>
 </template>
 <script>
-  export default {
-    name: 'calendar',
-    components: {},
-    data () {
-      return {
-        tabData: false,
-        weekday: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-      }
-    },
-    created () {
-      this.$store.dispatch('getCalendar', (cal) => {
-        this.tabData = cal
-      //        for (let key in cal) {
-      //          if (cal.hasOwnProperty(key)) {
-      //            this.tabData[key] = cal[key].sort(x => -x.status)
-      //          }
-      //        }
-      })
-    },
-    methods: {
-      bangumiToHtml (day, bangumis) {
-        let str = []
+export default {
+  name: 'Calendar',
+  components: {},
+  data () {
+    return {
+      tabData: false,
+      weekday: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+    }
+  },
+  created () {
+    this.$store.dispatch('getCalendar', (cal) => {
+      this.tabData = cal
+    //        for (let key in cal) {
+    //          if (cal.hasOwnProperty(key)) {
+    //            this.tabData[key] = cal[key].sort(x => -x.status)
+    //          }
+    //        }
+    })
+  },
+  methods: {
+    bangumiToHtml (day, bangumis) {
+      let str = []
 
-        for (let bangumi in bangumis) {
-          if (bangumis.hasOwnProperty(bangumi)) {
-            str.push(bangumis[bangumi].status ? `<b>${bangumis[bangumi].name}</b>` : `${bangumis[bangumi].name}`)
-          }
+      for (let bangumi in bangumis) {
+        if (bangumis.hasOwnProperty(bangumi)) {
+          str.push(bangumis[bangumi].status ? `<b>${bangumis[bangumi].name}</b>` : `${bangumis[bangumi].name}`)
         }
-
-        return `<h3 class="week">${day}</h3>${str.join(' / ')}`
       }
+
+      return `<h3 class="week">${day}</h3>${str.join(' / ')}`
     }
   }
+}
 </script>
 
 <style>

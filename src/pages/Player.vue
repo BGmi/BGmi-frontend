@@ -5,9 +5,9 @@
         <v-card>
           <v-toolbar dark color="primary">
             <v-toolbar-title>
-              {{bangumi.bangumi_name}}
+              {{ bangumi.bangumi_name }}
             </v-toolbar-title>
-            <v-spacer></v-spacer>
+            <v-spacer/>
             <v-tooltip right>
               <v-btn slot="activator" icon large :href="dirPath"
                      target="_blank">
@@ -18,8 +18,7 @@
           </v-toolbar>
           <v-card-text>
             <div class="dplayer-container">
-              <div :id="bangumi.bangumi_name">
-              </div>
+              <div :id="bangumi.bangumi_name"/>
             </div>
           </v-card-text>
           <v-card-actions>
@@ -28,7 +27,7 @@
                                   'btn--flat':parseInt($route.params.episode.toString())!==parseInt(key.toString())}"
                          :to="`/player/${$route.params.category}/${normalizePath(bangumi.bangumi_name)}/${key}`"
                          v-for="(key, index) in episodes" :key="index">
-              {{key}}
+              {{ key }}
             </router-link>
           </v-card-actions>
         </v-card>

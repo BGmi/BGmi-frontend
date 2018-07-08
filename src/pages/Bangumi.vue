@@ -9,8 +9,8 @@
 
           <v-card-title>
             <div>
-              <div class="headline">{{bg.bangumi_name + (bg.status === 2 ? '(new)' : '')}}</div>
-              <span class="grey--text">latest:{{bg.episode}}</span>
+              <div class="headline">{{ bg.bangumi_name + (bg.status === 2 ? '(new)' : '') }}</div>
+              <span class="grey--text">latest:{{ bg.episode }}</span>
             </div>
           </v-card-title>
 
@@ -18,7 +18,7 @@
             <v-btn flat v-if="!isEmpty(bg.player)"
                    @click="$router.push(`/player/${category}/${normalizePath(bg.bangumi_name)}/${value}`)"
                    v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
-                   v-bind:class="{gray:hasWatched(bg.bangumi_name,value)}" :key="value"> {{value}}
+                   :class="{gray:hasWatched(bg.bangumi_name,value)}" :key="value"> {{ value }}
             </v-btn>
           </v-card-actions>
           <br>
@@ -32,7 +32,7 @@
 import { hasWatched, isEmpty, normalizePath } from '../utils'
 
 export default {
-  name: 'bangumi',
+  name: 'Bangumi',
   components: {},
 
   data () {
@@ -41,7 +41,7 @@ export default {
     }
   },
   props: {
-    category: ''
+    category: { default: 'index', type: String, required: true }
   },
   methods: {
     hasWatched,
