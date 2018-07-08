@@ -19,7 +19,7 @@ deploy:
     secure: FgbnyV21DAHPvnJAQTkmljm+xQ1NSo8dHogmCA+vwKD6yEAHl6gixdCtjYLfk9YiFiSsf/dP0nzdRsRI2ADp0x0mKtAgCWnvbFdBpNSzW4HLjrYn3ksfX3mZQZ1Z/5BJaoQehpfOhDTJlisJpqzC1OodHU56rNoGX86i5L8gX+y+9T/WhdGh+VzcuONiSqgDtHFDUT6OsZUm3oPVnsQ7rV+CxCLteUTbVf4GXns34lBFUK19RVe99PAztYBfBcRcyNCdtylgARPsdlpEI29tS2Ka02zEaCOB1aNINAYzU/REf0S1F8CS+48LMiPbIYKxKZjoARCmswS78cmWfSzZ32m9yYOjYY6b43G/0sPxwvgTOPumZCYTUysHz+dSvvq9ApHgEC0rVTfR5rl0XcQT9q5UQ4RJJp0Qe8qW84cpfUTqHlsA5b7bXuSV/Z2q/ipV4uK0qyDFQqf5VnLqckgUdJEIOlKndCKQGf4YrNjebf8wXyQIo2iOD5yAjStlKRv/BJ3a30UiP7JZ1SXX1LOJi/M647E1GdWiAKAiPw5IhNXfBzk/JEXlS8w9KsHLLB0vO6b6GUl/vB1FozlibETBtXORmIDZ65hzuoTSUu3DmWSH3zadpZnaXgmc7ILL15PWgDAP5qG7vUFTQUd1nXp8kBiIjhL3zWI8395x8iyqgLk=
 
 install:
-  - export PATH=`echo $PATH | sed 's/:.\/node_modules\/.bin//g'` 
+  - export PATH=`echo $PATH | sed 's/:.\/node_modules\/.bin//g'`
   - npm i npm -g
   - pwd
   - ls
@@ -27,4 +27,5 @@ install:
   - npm list
 
 script:
+    - npm run checkLint
     - npm run build
