@@ -65,22 +65,14 @@
                   }
                 )
                 message += '</ul>'
-                this.$notifications.notify({
+                this.$notify({
                   type: 'success',
-                  message,
-                  placement: {
-                    from: 'top',
-                    align: 'right'
-                  }
+                  test: message
                 })
               } else {
-                this.$notifications.notify({
+                this.$.notify({
                   type: 'success',
-                  message: 'nothing new',
-                  placement: {
-                    from: 'top',
-                    align: 'right'
-                  }
+                  text: 'nothing new'
                 })
               }
             }

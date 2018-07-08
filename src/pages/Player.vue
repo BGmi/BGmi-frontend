@@ -34,21 +34,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="5000"
-      top
-      vertical
-    >
-      如果不能正常播放视频,可能是因为这个视频的编码方式暂时不受浏览器支持,请使用其他播放器播放.
-      <v-btn
-        color="blue"
-        @click="snackbar = false"
-        flat
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -62,7 +47,6 @@ import path from 'path'
 export default {
   data () {
     return {
-      snackbar: false,
       bangumi: {},
       videoFileUrl: '',
       danmakuApi: ''
@@ -96,7 +80,10 @@ export default {
               /* */
               let filePath = bangumi.player[this.$route.params.episode].path.toLowerCase()
               if (filePath.includes('hevc') || filePath.includes('x265')) {
-                this.snackbar = true
+                this.$notify({
+                  type: 'warn',
+                  text: '如果不能正常播放视频,可能是因为这个视频的编码方式暂时不受浏览器支持,请使用其他播放器播放.'
+                })
               }
               this.videoFileUrl = episode
 

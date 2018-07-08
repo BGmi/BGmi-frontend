@@ -71,43 +71,18 @@ export default {
   },
   created () {
     if (this.$cookies.isKey('auth')) {
-      // if (this.$cookies.isKey('auth22')) {
       let token = this.$cookies.get('auth')
+      this.auth(token)
+    }
+  },
+  methods: {
+    auth (token) {
       this.$http.post('auth', { token: token }).then(
         res => {
           this.$store.commit('login', token)
           Vue.http.headers.common['bgmi-token'] = `${token}`
-          this.$nextTick(
-            () => {
-              if (this.$route.query.redirect) {
-                this.$router.push(this.$route.query.redirect)
-              } else {
-                this.$router.push('/')
-              }
-            }
-          )
-        },
-        res => {
-          this.$notifications.notify({
-            type: 'danger',
-            icon: 'notifications',
-            message: 'auth wrong',
-            placement: {
-              from: 'top',
-              align: 'right'
-            }
-          })
-        })
-    }
-  },
-  methods: {
-    onClose () {
-      this.$http.post('auth', { token: this.token }).then(
-        res => {
-          this.$store.commit('login', this.token)
-          Vue.http.headers.common['bgmi-token'] = `${this.token}`
           if (this.rememberMe) {
-            this.$cookies.set('auth', this.token, this.rememberMe)
+            this.$cookies.set('auth', token, this.rememberMe)
           }
           this.$cookies.set('rememberMe', this.rememberMe)
           this.$nextTick(
@@ -121,16 +96,14 @@ export default {
           )
         },
         res => {
-          this.$notifications.notify({
-            type: 'danger',
-            icon: 'notifications',
-            message: 'auth wrong',
-            placement: {
-              from: 'top',
-              align: 'right'
-            }
+          this.$notify({
+            type: 'error',
+            text: 'auth wrong'
           })
         })
+    },
+    onClose () {
+      this.auth(this.token)
     }
   }
 }

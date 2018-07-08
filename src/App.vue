@@ -6,6 +6,7 @@
       <v-toolbar-title>BGmi - {{$route.name}}</v-toolbar-title>
     </v-toolbar>
     <v-content>
+      <notifications></notifications>
       <!-- <transition> -->
         <router-view></router-view>
       <!-- </transition> -->
@@ -53,5 +54,33 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+#inspire .vue-notification {
+  padding: 10px;
+  margin: 0 5px 5px;
+
+  font-size: 16px;
+
+  color: #ffffff !important;
+  background: #44A4FC !important;
+  border-left: 5px solid #187FE7 !important;
+}
+
+#inspire .vue-notification.warn {
+  background: #ffb648 !important;
+  border-left-color: #f48a06 !important;
+}
+
+#inspire .vue-notification.error {
+  background: #E54D42 !important;
+  border-left-color: #B82E24 !important;
+}
+
+#inspire .vue-notification.success {
+  background: #68CD86 !important;
+  border-left-color: #42A85F !important;
+}
+
+
 </style>
 

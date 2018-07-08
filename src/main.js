@@ -10,6 +10,7 @@ import router from './router'
 
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import Notifications from 'vue-notification'
 
 Vue.config.productionTip = false
 
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(VueCookies)
 Vue.use(VueResource)
+Vue.use(Notifications)
 
 Vue.http.options.root = './api/'
 // /api/-> /api/index

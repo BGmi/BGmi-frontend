@@ -130,13 +130,9 @@
           .then(
             res => {
               this.expand = false
-              this.$notifications.notify({
+              this.$notify({
                 type: 'success',
-                message: 'save filter successfully',
-                placement: {
-                  from: 'top',
-                  align: 'right'
-                }
+                text: 'save filter successfully'
               })
             },
             res => {
@@ -170,24 +166,16 @@
           res => {
             // this.expand = true
             this.bangumi.status = 1
-            this.$notifications.notify({
+            this.$notify({
               type: res.body.status,
-              message: res.body.message,
-              placement: {
-                from: 'top',
-                align: 'right'
-              }
+              text: res.body.message
             })
           },
           res => {
           //            this.bangumi.status = 1
-            this.$notifications.notify({
-              type: 'danger',
-              message: res.body.message,
-              placement: {
-                from: 'top',
-                align: 'right'
-              }
+            this.$notify({
+              type: 'error',
+              text: res.body.message
             })
           })
       },
@@ -200,24 +188,16 @@
           this.$http.post(`${action}`, {name: this.bangumi.name}).then(
             res => {
               this.bangumi.status = 0
-              this.$notifications.notify({
+              this.$snotify({
                 type: res.body.status,
-                message: res.body.message,
-                placement: {
-                  from: 'top',
-                  align: 'right'
-                }
+                text: res.body.message
               })
             },
             res => {
             //              this.bangumi.status = 0
-              this.$notifications.notify({
-                type: 'danger',
-                message: res.body.message,
-                placement: {
-                  from: 'top',
-                  align: 'right'
-                }
+              this.$notify({
+                type: 'error',
+                text: res.body.message
               })
             })
         }
