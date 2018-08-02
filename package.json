@@ -28,7 +28,7 @@
     ".babelrc"
   ],
   "dependencies": {
-    "dplayer": "^1.22.2",
+    "dplayer": "^1.23.0",
     "eslint-plugin-react": "^7.10.0",
     "material-design-icons-iconfont": "^3.0.3",
     "md5": "^2.2.1",

@@ -48,6 +48,7 @@ export default {
     return {
       bangumi: {},
       videoFileUrl: '',
+      $dplayer: null,
       danmakuApi: ''
     }
   },
@@ -96,14 +97,15 @@ export default {
                 }
               }
 
-              if (data.danmaku_api) {
+              if (this.$store.state.danmaku_api) {
                 option.danmaku = {
                   id: md5(bangumi.bangumi_name) + this.$route.params.episode,
-                  api: 'https://api.prprpr.me/dplayer/'
+                  api: this.$store.state.danmaku_api
                 }
               }
-              /* eslint-disable no-unused-vars */
-              let dp = new DPlayer(option)
+              console.log(option)
+
+              this.$dplayer = new DPlayer(Object.assign({}, option))
             }
           )
           break
