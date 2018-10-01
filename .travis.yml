@@ -24,7 +24,7 @@ install:
   - pwd
   - ls
   - npm ci
-  - npm list
+  - npm list || true
 
 script:
     - npm run checkLint
