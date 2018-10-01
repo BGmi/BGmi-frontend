@@ -11,7 +11,7 @@ npm i
 # develop
 npm run dev
 # build
-npm run dist
+npm run build
 ```
 已经设置好了`proxyTable`,当`bgmi_http`运行在默认端口的情况下,在`npm run dev`后不需要再手动设置后端api地址和解决跨域等问题.
 
@@ -68,3 +68,8 @@ server {
 PR到[BGmi/BGmi-frontend](https://github.com/BGmi/BGmi-frontend)
 
 其他的..暂时没有
+
+
+## 已知的无法解决的问题
+
+[#23](https://github.com/BGmi/BGmi-frontend/issues/23)

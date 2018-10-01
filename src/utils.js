@@ -3,8 +3,7 @@ import store from './store'
 function hasWatched (bangumiName, episode) {
   bangumiName = bangumiName.toString()
   episode = episode.toString()
-  if (store.state.history.hasOwnProperty(bangumiName) &&
-    store.state.history[bangumiName].hasOwnProperty(episode)) {
+  if (store.state.history.hasOwnProperty(bangumiName) && store.state.history[bangumiName].hasOwnProperty(episode)) {
     return store.state.history[bangumiName][episode]
   }
 }
@@ -18,7 +17,13 @@ function isEmpty (obj) {
   return true
 }
 
+function normalizePath (url) {
+  url = url.replace(/[:*?"<>|']/g, '')
+  return url
+}
+
 export {
+  normalizePath,
   isEmpty,
   hasWatched
 }

@@ -1,85 +1,83 @@
 <template>
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-6 col-xs-12 col-lg-4 col-sm-6" v-for="(bg, key) in bangumi" :key="key">
-              <md-card md-theme="white" style="overflow: hidden">
-                <md-card-media>
-                  <div class="bangumi-cover" :style="{backgroundImage:`url('.${bg.cover}')`} "></div>
-                </md-card-media>
+  <v-container fill-height grid-list-lg text-xs-center>
+    <v-layout row wrap>
+      <v-flex v-for="(bg, key) in bangumi" :key="key" xs12 sm6 md4 lg3>
+        <v-card md-theme="white" style="overflow: hidden">
+          <v-card-media :src='`.${bg.cover}`' height="200px">
+            <!-- <div class="bangumi-cover" :style="{backgroundImage:`url('.${bg.cover}')`} "></div> -->
+          </v-card-media>
 
-                <md-card-header>
-                  <div class="md-title">{{bg.bangumi_name + (bg.status === 2 ? '(new)' : '')}}</div>
-                  <div class="md-subhead">latest:{{bg.episode}}</div>
-                </md-card-header>
-
-                <md-card-actions>
-                  <div class="button-container">
-                    <md-button v-if="!isEmpty(bg.player)" @click="$router.push(`/player/${bg.bangumi_name}/${value}`)"
-                               v-for="value in Object.keys(bg.player).reverse().slice(0, 4)"
-                               v-bind:class="{gray:hasWatched(bg.bangumi_name,value)}"
-                               :key="value">
-                      {{value}}
-                    </md-button>
-                    <!--<div class="md-button" style="max-width: 0"></div>-->
-                  </div>
-                </md-card-actions>
-              </md-card>
-              <br>
+          <v-card-title>
+            <div>
+              <div class="headline">{{ bg.bangumi_name + (bg.status === 2 ? '(new)' : '') }}</div>
+              <span class="grey--text">latest:{{ bg.episode }}</span>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          </v-card-title>
+
+          <v-card-actions class="button-container">
+            <v-btn flat v-if="!isEmpty(bg.player)"
+                   @click="$router.push(`/player/${category}/${normalizePath(bg.bangumi_name)}/${value}`)"
+                   v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
+                   :class="{gray:hasWatched(bg.bangumi_name,value)}" :key="value"> {{ value }}
+            </v-btn>
+          </v-card-actions>
+          <br>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-  import { hasWatched, isEmpty } from '../utils'
+import { hasWatched, isEmpty, normalizePath } from '../utils'
 
-  export default {
-    name: 'bangumi',
-    components: {},
+export default {
+  name: 'Bangumi',
+  components: {},
 
-    data () {
-      return {
-        bangumi: []
-      }
-    },
-
-    methods: {
-      hasWatched,
-      isEmpty
-    },
-    mounted () {
-      this.$store.dispatch('getIndexBangumi', (bangumi) => {
-        this.bangumi = bangumi
+  data () {
+    return {
+      bangumi: []
+    }
+  },
+  props: {
+    category: { default: 'index', type: String, required: true }
+  },
+  methods: {
+    hasWatched,
+    isEmpty,
+    normalizePath,
+    initData () {
+      this.$store.dispatch('getBangumi', {
+        category: this.category,
+        cb: (bangumi) => {
+          this.bangumi = bangumi
+        }
       })
     }
+  },
+  watch: {
+    category () {
+      this.initData()
+    }
+  },
+  mounted () {
+    this.initData()
   }
+}
 </script>
 
-<style lang="scss" scoped>
-  .bangumi-cover {
-    height: 260px;
-    background-size: cover;
-    background-position: center center;
-  }
-
-  .md-title {
+<style scoped>
+  .headline {
     white-space: nowrap;
   }
 
   .button-container {
-    min-width: 88px;
-    min-height: 40px;
-    line-height: 40px;
-    white-space: nowrap;
+    height: 36px;
+    /* white-space: nowrap; */
   }
 
-  .gray {
+  #inspire.application .gray.btn {
     color: lightgray;
   }
 </style>

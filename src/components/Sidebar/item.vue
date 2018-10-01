@@ -1,30 +1,24 @@
 <template>
-  <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact">
-    <a :href="to">
-      <i class="material-icons text-gray">{{icon}}</i>
-      <p>{{title}}</p>
-    </a>
-  </router-link>
-  <li v-else>
-    <a :href="href" target="_blank">
-      <i class="material-icons text-gray">{{icon}}</i>
-      <p>{{title}}</p>
-    </a>
-  </li>
+  <v-list-tile :to=to :href=href exact='exact'>
+    <!-- <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact"> -->
+    <v-list-tile-action>
+      <v-icon>{{ icon }}</v-icon>
+    </v-list-tile-action>
+    <v-list-tile-content>
+      <v-list-tile-title>{{ title }}</v-list-tile-title>
+    </v-list-tile-content>
+  </v-list-tile>
 </template>
 
 <script>
-  export default {
-    props: {
-      icon: String,
-      title: String,
-      href: String,
-      to: String
-    }
+export default {
+  props: {
+    icon: { default: '', type: String },
+    title: { default: '', type: String },
+    href: { default: '', type: String },
+    to: { default: '', type: String }
   }
+}
 </script>
-<style lang="scss">
-  a {
-    text-decoration: none !important;
-  }
+<style>
 </style>

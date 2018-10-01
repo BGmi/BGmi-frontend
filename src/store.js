@@ -30,8 +30,14 @@ const store = new Vuex.Store({
       state.isLogin = true
       state.token = token
     },
-    storeBangumi (state, bangumi) {
-      state.bangumi = bangumi
+    storeBangumi (state, { category, bangumi }) {
+      if (category === 'index') {
+        state.bangumi = bangumi
+        state.hasBangumiIndexFetched = true
+      } else if (category === 'old') {
+        state.bangumiOld = bangumi
+        state.hasBangumiOldFetched = true
+      }
     },
     init (state, initData) {
       state.coverRoot = initData.cover_url
@@ -41,6 +47,10 @@ const store = new Vuex.Store({
     bangumiIndex (state, bangumi) {
       state.bangumi = bangumi
       state.hasBangumiIndexFetched = true
+    },
+    clearBangumiIndex (state, bangumi) {
+      state.bangumi = []
+      state.hasBangumiIndexFetched = false
     },
     calendar (state, cal) {
       state.cal = cal
@@ -63,7 +73,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    getCalendar ({commit, state}, cb) {
+    getCalendar ({ commit, state }, cb) {
       if (state.calFetched) {
         cb(state.cal)
       } else {
@@ -73,25 +83,25 @@ const store = new Vuex.Store({
         })
       }
     },
-    getIndexBangumi ({commit, state}, cb) {
+    getBangumi ({ commit, state }, { category, cb }) {
       // check locally
-      if (state.hasBangumiIndexFetched) {
-        cb(state.bangumi)
+      if (category === 'index') {
+        if (state.hasBangumiIndexFetched) {
+          cb(state.bangumi)
+          return
+        }
+      } else if (category === 'old') {
+        if (state.hasBangumiOldFetched) {
+          cb(state.bangumiOld)
+          return
+        }
       } else {
-        // fetch api/index
-        Vue.http.get('index').then(
-          res => {
-            commit('bangumiIndex', res.body.data)
-            cb(res.body.data)
-          })
+        throw new Error('wrong bangumi category')
       }
-    },
-    getOldBangumi ({commit}) {
-      // fetch api/index
-      Vue.http.get('old').then(
-        res => {
-          commit('bangumiIndex', res.body.data)
-        })
+      Vue.http.get(category).then(res => {
+        commit('storeBangumi', { category, bangumi: res.body.data })
+        cb(res.body.data)
+      })
     }
   }
 })

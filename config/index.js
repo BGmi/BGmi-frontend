@@ -32,12 +32,14 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://localhost:8888',
+        // target: 'https://bgmi.ricterz.me',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api',
         }
       },
       '/bangumi/': {
+        // target: 'https://bgmi.ricterz.me',
         target: 'http://localhost:8888',
         changeOrigin: true,
         pathRewrite: {

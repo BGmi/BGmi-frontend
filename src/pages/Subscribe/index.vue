@@ -1,64 +1,54 @@
 <template>
-  <div>
-    <div class="row" v-if="!bangumiCalendar">
-      <div class="col-md-2 col-md-offset-5">
-        <md-spinner class="tim-note" md-indeterminate></md-spinner>
-      </div>
-    </div>
-    <md-tabs v-else md-fixed>
-      <md-tab v-for="(key, value) in weekKey " :key="key" :id="key" :md-label="key">
-        <md-layout :md-gutter="8">
-          <md-layout md-flex-xsmall="100" md-flex-small="100" md-flex-medium="33" md-flex-large="25"
-                     md-flex-xlarge="20"
-                     v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()]"
-                     :key="subKey">
-            <bangumi-card :bangumi.sync="bangumi"></bangumi-card>
-          </md-layout>
-        </md-layout>
-      </md-tab>
-    </md-tabs>
-  </div>
+  <v-tabs color=indigo dark fixed-tabs>
+    <v-tab v-for="key in weekKey " :key="`tab-header-${key}`" :id="key" ripple>
+      {{ key }}
+    </v-tab>
+    <v-tab-item v-for="key in weekKey " :key="`tab-item-${key}`">
+      <v-container fill-height grid-list-lg text-xs-center>
+        <v-layout row wrap>
+          <v-flex xs12 sm6 md4 lg3 v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()]" :key="subKey">
+            <bangumi-card :bangumi.sync="bangumi"/>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-tab-item>
+  </v-tabs>
 </template>
 
 <script>
-  import BangumiCard from './bangumiCard'
+import BangumiCard from './bangumiCard'
 
-  export default {
-    name: 'subscribe',
-    components: {
-      BangumiCard
-    },
-    data () {
-      return {
-        bangumiCalendar: false,
-        weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        latestBgmiVersion: '',
-        bgmiVersion: ''
-      }
-    },
-    mounted () {
-      this.$store.dispatch('getCalendar', (cal) => {
-        this.bangumiCalendar = cal
-        this.latestBgmiVersion = this.$store.state.latestBgmiVersion
-        this.bgmiVersion = this.$store.state.bgmiVersion
-        this.$nextTick(
-          () => {
-            if (this.bgmiVersion < this.latestBgmiVersion) {
-              this.$notifications.notify({
-                type: 'danger',
-//              icon: 'notifications',
-                message: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
-                placement: {
-                  from: 'top',
-                  align: 'center'
-                }
-              })
-            }
-          })
-      })
+export default {
+  name: 'Subscribe',
+  components: {
+    BangumiCard
+  },
+  data () {
+    return {
+      bangumiCalendar: false,
+      weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      latestBgmiVersion: '',
+      bgmiVersion: ''
     }
+  },
+  mounted () {
+    this.$store.dispatch('getCalendar', (cal) => {
+      this.bangumiCalendar = cal
+      this.latestBgmiVersion = this.$store.state.latestBgmiVersion
+      this.bgmiVersion = this.$store.state.bgmiVersion
+      this.$nextTick(
+        () => {
+          if (this.bgmiVersion < this.latestBgmiVersion) {
+            this.$notify({
+              type: 'error',
+              text: `Please upgrade your BGmi to ${this.latestBgmiVersion}`
+            })
+          }
+        })
+    })
   }
+}
 </script>
-<style scoped lang="scss">
+<style scoped>
 
 </style>
