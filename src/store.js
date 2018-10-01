@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { axiosInstance } from './http'
 
 const localStorage = window.localStorage
 
@@ -77,9 +78,9 @@ const store = new Vuex.Store({
       if (state.calFetched) {
         cb(state.cal)
       } else {
-        Vue.http.get('cal').then(res => {
-          commit('calendar', res.body.data)
-          cb(res.body.data)
+        axiosInstance.get('cal').then(res => {
+          commit('calendar', res.data.data)
+          cb(res.data.data)
         })
       }
     },
@@ -98,9 +99,9 @@ const store = new Vuex.Store({
       } else {
         throw new Error('wrong bangumi category')
       }
-      Vue.http.get(category).then(res => {
-        commit('storeBangumi', { category, bangumi: res.body.data })
-        cb(res.body.data)
+      axiosInstance.get(category).then(res => {
+        commit('storeBangumi', { category, bangumi: res.data.data })
+        cb(res.data.data)
       })
     }
   }

@@ -40,30 +40,28 @@ export default {
       download: true
     }
   },
-  created () {
-  },
+  created () {},
   methods: {
     saveCheck () {
       this.$cookies.set('download', this.download, 30)
     },
     openDialog (ref) {
-      this.download = (this.$cookies.get('download') === 'true')
+      this.download = this.$cookies.get('download') === 'true'
       this.$refs[ref].open()
     },
     closeDialog (ref, ok) {
       if (ok) {
         this.loading = true
-        this.$http.post('update', {name: '', download: this.download}).then(
-          res => {
+        this.$http
+          .post('update', { name: '', download: this.download })
+          .then(res => {
             this.$refs[ref].close()
             this.loading = false
             let message = '<ul>'
-            if (res.body.data.downloaded.length) {
-              res.body.data.downloaded.forEach(
-                item => {
-                  message += '<li>' + item.title + '</li>'
-                }
-              )
+            if (res.data.data.downloaded.length) {
+              res.data.data.downloaded.forEach(item => {
+                message += '<li>' + item.title + '</li>'
+              })
               message += '</ul>'
               this.$notify({
                 type: 'success',
@@ -75,8 +73,7 @@ export default {
                 text: 'nothing new'
               })
             }
-          }
-        )
+          })
       } else {
         this.$refs[ref].close()
       }
@@ -88,5 +85,4 @@ export default {
 }
 </script>
 <style>
-
 </style>

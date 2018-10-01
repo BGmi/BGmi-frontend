@@ -30,40 +30,39 @@
 
 </template>
 <script>
-import Vue from 'vue'
-
 export default {
   name: 'AskForToken',
-  mounted () {
-  },
+  mounted () {},
   data () {
     let rememberMe = '1y'
     if (this.$cookies.isKey('rememberMe')) {
-      rememberMe = this.$cookies.get('rememberMe') === 'false' ? false : this.$cookies.get('rememberMe')
+      rememberMe =
+        this.$cookies.get('rememberMe') === 'false'
+          ? false
+          : this.$cookies.get('rememberMe')
     }
     return {
       rememberMe,
       rememberMeTimeItems: [
         {
-          'time': 'No',
-          'value': false
+          time: 'No',
+          value: false
         },
         {
-          'time': '1 year',
-          'value': '1y'
+          time: '1 year',
+          value: '1y'
         },
         {
-          'time': '1 month',
-          'value': '1m'
-
+          time: '1 month',
+          value: '1m'
         },
         {
-          'time': '1 week',
-          'value': '7d'
+          time: '1 week',
+          value: '7d'
         },
         {
-          'time': '1 day',
-          'value': '1d'
+          time: '1 day',
+          value: '1d'
         }
       ],
       token: ''
@@ -80,27 +79,26 @@ export default {
       this.$http.post('auth', { token: token }).then(
         res => {
           this.$store.commit('login', token)
-          Vue.http.headers.common['bgmi-token'] = `${token}`
+          this.$http.defaults.headers.common['bgmi-token'] = `${token}`
           if (this.rememberMe) {
             this.$cookies.set('auth', token, this.rememberMe)
           }
           this.$cookies.set('rememberMe', this.rememberMe)
-          this.$nextTick(
-            () => {
-              if (this.$route.query.redirect) {
-                this.$router.push(this.$route.query.redirect)
-              } else {
-                this.$router.push('/')
-              }
+          this.$nextTick(() => {
+            if (this.$route.query.redirect) {
+              this.$router.push(this.$route.query.redirect)
+            } else {
+              this.$router.push('/')
             }
-          )
+          })
         },
         res => {
           this.$notify({
             type: 'error',
             text: 'auth wrong'
           })
-        })
+        }
+      )
     },
     onClose () {
       this.auth(this.token)
