@@ -104,8 +104,11 @@ export default {
                 }
               }
               console.log(option)
-
-              this.$dplayer = new DPlayer(Object.assign({}, option))
+              if (this.$dplayer) {
+                this.$dplayer.switchVideo(option.video, option.danmaku)
+              } else {
+                this.$dplayer = new DPlayer(Object.assign({}, option))
+              }
             }
           )
           break
