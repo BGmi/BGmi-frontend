@@ -138,5 +138,4 @@ export default {
 .card__actions {
   display: block;
 }
-
 </style>
