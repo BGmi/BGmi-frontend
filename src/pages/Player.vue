@@ -64,7 +64,7 @@ export default {
       let cb = (bangumi) => {
         this.initData(bangumi)
       }
-      this.$store.dispatch('getBangumi', { category: this.$route.params.category, cb })
+      this.$store.dispatch('getBangumi', {category: this.$route.params.category, cb})
     },
     initData (data) {
       for (let bangumi of data) {
@@ -104,8 +104,11 @@ export default {
                 }
               }
               console.log(option)
-
-              this.$dplayer = new DPlayer(Object.assign({}, option))
+              if (this.$dplayer) {
+                this.$dplayer.switchVideo(option.video, option.danmaku)
+              } else {
+                this.$dplayer = new DPlayer(Object.assign({}, option))
+              }
             }
           )
           break
@@ -127,8 +130,12 @@ export default {
   }
 }
 </script>
-<style>
-  .lightGray {
-    color: lightgray !important;
-  }
+<style scoped>
+.lightGray {
+  color: lightgray !important;
+}
+
+.card__actions {
+  display: block;
+}
 </style>

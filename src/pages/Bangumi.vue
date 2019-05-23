@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height grid-list-lg text-xs-center>
+  <v-container fill-height grid-list-lg>
     <v-layout row wrap>
       <v-flex v-for="(bg, key) in bangumi" :key="key" xs12 sm6 md4 lg3>
         <v-card md-theme="white" style="overflow: hidden">
