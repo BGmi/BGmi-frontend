@@ -19,12 +19,12 @@
           md-theme="white"
           style="overflow: hidden"
         >
-          <v-card-media
+          <v-img
             :src='`.${bg.cover}`'
             height="200px"
           >
             <!-- <div class="bangumi-cover" :style="{backgroundImage:`url('.${bg.cover}')`} "></div> -->
-          </v-card-media>
+          </v-img>
 
           <v-card-title>
             <div>

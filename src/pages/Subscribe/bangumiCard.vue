@@ -1,9 +1,9 @@
 <template>
   <v-card>
-    <v-card-media
+    <v-img
       :src=imgSrc
       height="100px"
-    ></v-card-media>
+    ></v-img>
     <v-card-text>
       <p class="category text-black headline">{{bangumi.name}}</p>
     </v-card-text>

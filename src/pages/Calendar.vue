@@ -14,10 +14,6 @@
               v-if="!tabData"
               class="col-md-2 col-md-offset-5"
             >
-              <md-spinner
-                class="tim-note"
-                md-indeterminate
-              ></md-spinner>
             </div>
             <div
               v-else
@@ -36,8 +32,20 @@
     </v-layout>
   </v-container>
 </template>
-<script>
-export default {
+<script lang='ts'>
+/* eslint-disable camelcase */
+import Vue from 'vue'
+interface CalendarItem {
+  cover: string
+  episode: null
+  has_data_source: number
+  id: number
+  name: string
+  status: null | number
+  subject_id: number
+  update_time: string
+}
+export default Vue.extend({
   name: 'calendar',
   components: {},
   data () {
@@ -47,7 +55,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('getCalendar', (cal) => {
+    this.$store.dispatch('getCalendar', (cal: any) => {
       this.tabData = cal
       //        for (let key in cal) {
       //          if (cal.hasOwnProperty(key)) {
@@ -57,7 +65,7 @@ export default {
     })
   },
   methods: {
-    bangumiToHtml (day, bangumis) {
+    bangumiToHtml (day: string, bangumis: CalendarItem[]) {
       let str = []
 
       for (let bangumi in bangumis) {
@@ -69,7 +77,7 @@ export default {
       return `<h3 class="week">${day}</h3>${str.join(' / ')}`
     }
   }
-}
+})
 </script>
 
 <style>

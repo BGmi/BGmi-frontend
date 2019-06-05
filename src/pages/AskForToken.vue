@@ -122,8 +122,8 @@ export default Vue.extend({
             this.$router.push(this.redirectTo)
           })
         },
-        res => {
-          this.$notifications({
+        () => {
+          this.$notify({
             type: 'error',
             text: 'auth wrong'
           })
