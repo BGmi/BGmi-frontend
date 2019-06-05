@@ -175,11 +175,7 @@ export default {
       this.$http.post('status', {
         name: this.bangumi.name,
         status: this.bangumi.status
-      }).then(
-        res => {
-          console.log(res.data.message)
-        }
-      )
+      })
     },
     save () {
       let p = []

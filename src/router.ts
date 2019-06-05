@@ -4,15 +4,10 @@ import Player from './pages/Player.vue'
 import Bangumi from './pages/Bangumi.vue'
 import Calendar from './pages/Calendar.vue'
 import Resource from './pages/Resource.vue'
-// // import Search from '@/pages/Search' // todo: api front
-// import Config from './pages/Config/index.vue'
 import Subscribe from './pages/Subscribe/index.vue'
-// // hr
 import About from './pages/About.vue'
-// // GeneralViews
 import NotFound from './pages/GeneralViews/NotFound.vue'
 import AskForToken from './pages/AskForToken.vue'
-// Vuex
 import store from './store'
 
 Vue.use(Router)

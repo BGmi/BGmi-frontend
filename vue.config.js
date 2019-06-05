@@ -6,6 +6,10 @@ const pkg = require('./package.json')
 process.env.VUE_APP_VERSION = pkg.version
 
 module.exports = {
+  publicPath: './',
+  configureWebpack: {
+    performance: { hints: false }
+  },
   devServer: {
     // 设置主机地址
     host: 'localhost',

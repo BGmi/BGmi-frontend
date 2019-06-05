@@ -103,7 +103,6 @@ export default {
                   api: this.$store.state.danmaku_api
                 }
               }
-              console.log(option)
               if (this.$dplayer) {
                 this.$dplayer.switchVideo(option.video, option.danmaku)
               } else {
