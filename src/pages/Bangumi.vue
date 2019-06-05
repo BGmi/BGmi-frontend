@@ -1,9 +1,28 @@
 <template>
-  <v-container fill-height grid-list-lg>
-    <v-layout row wrap>
-      <v-flex v-for="(bg, key) in bangumi" :key="key" xs12 sm6 md4 lg3>
-        <v-card md-theme="white" style="overflow: hidden">
-          <v-card-media :src='`.${bg.cover}`' height="200px">
+  <v-container
+    fill-height
+    grid-list-lg
+  >
+    <v-layout
+      row
+      wrap
+    >
+      <v-flex
+        v-for="(bg, key) in bangumi"
+        :key="key"
+        xs12
+        sm6
+        md4
+        lg3
+      >
+        <v-card
+          md-theme="white"
+          style="overflow: hidden"
+        >
+          <v-card-media
+            :src='`.${bg.cover}`'
+            height="200px"
+          >
             <!-- <div class="bangumi-cover" :style="{backgroundImage:`url('.${bg.cover}')`} "></div> -->
           </v-card-media>
 
@@ -15,11 +34,15 @@
           </v-card-title>
 
           <v-card-actions class="button-container">
-            <v-btn flat v-if="!isEmpty(bg.player)"
-                   @click="$router.push(`/player/${category}/${normalizePath(bg.bangumi_name)}/${value}`)"
-                   v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
-                   :class="{gray:hasWatched(bg.bangumi_name,value)}" :key="value"> {{ value }}
-            </v-btn>
+            <div v-if="!isEmpty(bg.player)">
+              <v-btn
+                flat
+                @click="$router.push(`/player/${category}/${normalizePath(bg.bangumi_name)}/${value}`)"
+                v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
+                :class="{gray:hasWatched(bg.bangumi_name,value)}"
+                :key="value"
+              > {{ value }} </v-btn>
+            </div>
           </v-card-actions>
           <br>
         </v-card>
@@ -68,16 +91,16 @@ export default {
 </script>
 
 <style scoped>
-  .headline {
-    white-space: nowrap;
-  }
+.headline {
+  white-space: nowrap;
+}
 
-  .button-container {
-    height: 36px;
-    /* white-space: nowrap; */
-  }
+.button-container {
+  height: 36px;
+  /* white-space: nowrap; */
+}
 
-  #inspire.application .gray.btn {
-    color: lightgray;
-  }
+#inspire.application .gray.btn {
+  color: lightgray;
+}
 </style>

@@ -1,10 +1,10 @@
 <template>
-  <v-navigation-drawer v-model=visible fixed app>
+  <v-navigation-drawer app fixed v-model=visible>
     <v-list>
       <v-list-tile to='/'>
         <v-list-tile-action>
           <v-avatar>
-            <img src="../../../static/images/logo144.jpg">
+            <img alt="logo" src="../../assets/logo144.jpg">
           </v-avatar>
           <!-- <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact"> -->
         </v-list-tile-action>
@@ -12,17 +12,17 @@
           <v-list-tile-title>BGmi</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-divider/>
-      <item title="Bangumi" icon="video_library" to="/"/>
-      <item title="Old Bangumi" icon="collections" to="/old"/>
-      <item title="Bangumi Files" icon="folder" href="/bangumi/"/>
-      <item title="Calendar" icon="event" to="/calendar"/>
-      <item title="Resource" icon="rss_feed" to="/resource"/>
-      <v-divider/>
-      <item title="Subscribe" icon="subscriptions" to="/subscribe"/>
-      <v-divider/>
-      <item title="About" icon="info" to="/about"/>
-      <item title="Based On BGmi" href="https://github.com/BGmi/BGmi"/>
+      <v-divider></v-divider>
+      <item icon="video_library" title="Bangumi" to="/"></item>
+      <!-- <item title="Old Bangumi" icon="collections" to="/old"></item> -->
+      <item href="/bangumi/" icon="folder" title="Bangumi Files"></item>
+      <item icon="event" title="Calendar" to="/calendar"></item>
+      <item icon="rss_feed" title="Resource" to="/resource"></item>
+      <v-divider></v-divider>
+      <item icon="subscriptions" title="Subscribe" to="/subscribe"/>
+      <v-divider></v-divider>
+      <item icon="info" title="About" to="/about"/>
+      <item href="https://github.com/BGmi/BGmi" title="Based On BGmi"/>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -31,7 +31,7 @@
 import Item from './item'
 
 export default {
-  name: 'Sidebar',
+  name: 'sidebar',
   data () {
     return {
       visible: this.value

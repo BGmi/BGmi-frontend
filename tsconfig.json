@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "allowJs": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": [
+      "webpack-env",
+      "mocha",
+      "chai",
+      "./node_modules/vue/types"
+    ],
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "tests/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

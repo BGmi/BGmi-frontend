@@ -1,20 +1,10 @@
-# bgmi-frontend
+# bgmi-typrscript
 
-基于Vue2.x
-
+## Project setup
 ```
-# clone
-git clone git@github.com:BGmi/BGmi-frontend.git
-cd BGmi-frontend
-# install dependences
-npm i
-# develop
-npm run dev
-# build
-npm run build
+npm install
 ```
 已经设置好了`proxyTable`,当`bgmi_http`运行在默认端口的情况下,在`npm run dev`后不需要再手动设置后端api地址和解决跨域等问题.
-
 
 
 ## Q&A:
@@ -65,11 +55,30 @@ server {
 
 ### 我想发一个PR 有什么需要注意的?
 
-PR到[BGmi/BGmi-frontend](https://github.com/BGmi/BGmi-frontend)
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-其他的..暂时没有
+### Compiles and minifies for production
+```
+npm run build
+```
 
+### Run your tests
+```
+npm run test
+```
 
-## 已知的无法解决的问题
+### Lints and fixes files
+```
+npm run lint
+```
 
-[#23](https://github.com/BGmi/BGmi-frontend/issues/23)
+### Run your unit tests
+```
+npm run test:unit
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

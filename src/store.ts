@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { axiosInstance } from './http'
-
-const localStorage = window.localStorage
-
 Vue.use(Vuex)
 
 const state = {
@@ -18,7 +15,7 @@ const state = {
   bgmiVersion: '',
   cal: {},
   calFetched: false,
-  history: JSON.parse(localStorage.getItem('history')) || {}
+  history: JSON.parse(localStorage.getItem('history') || '{}')
 }
 
 /* eslint-disable no-new */

@@ -1,27 +1,50 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout align-center justify-center>
-      <v-flex xs12 sm10 md6>
+  <v-container
+    fill-height
+    fluid
+  >
+    <v-layout
+      align-center
+      justify-center
+    >
+      <v-flex
+        md6
+        sm10
+        xs12
+      >
         <v-card class="elevation-12">
-          <v-toolbar dark color="primary">
+          <v-toolbar
+            color="primary"
+            dark
+          >
             <v-toolbar-title>Auth</v-toolbar-title>
-            <v-spacer/>
+            <v-spacer />
           </v-toolbar>
           <v-card-text>
             <v-form>
-              <label/>
-              <v-text-field v-model="token" label="token" type="text" @keyup.enter.native="onClose()"/>
+              <label />
+              <v-text-field
+                v-model="token"
+                label="token"
+                type="text"
+                @keyup.enter.native="onClose()"
+              />
             </v-form>
           </v-card-text>
           <v-card-actions>
             <!--<v-switch v-model="rememberMe" label="remember me"></v-switch>-->
-            <v-select v-model="rememberMe"
-                      :items="rememberMeTimeItems"
-                      item-text="time"
-                      item-value="value"
-                      label="Remember Me"/>
-            <v-spacer/>
-            <v-btn color=primary @click="onClose()">Login</v-btn>
+            <v-select
+              :items="rememberMeTimeItems"
+              item-text="time"
+              item-value="value"
+              label="Remember Me"
+              v-model="rememberMe"
+            ></v-select>
+            <v-spacer></v-spacer>
+            <v-btn
+              @click="onClose()"
+              color=primary
+            >Login</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -29,10 +52,11 @@
   </v-container>
 
 </template>
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'AskForToken',
-  mounted () {},
   data () {
     let rememberMe = '1y'
     if (this.$cookies.isKey('rememberMe')) {
@@ -41,7 +65,16 @@ export default {
           ? false
           : this.$cookies.get('rememberMe')
     }
+    let redirectTo: string = '/'
+    if (this.$route.query.redirect) {
+      if (Array.isArray(this.$route.query.redirect)) {
+        redirectTo = this.$route.query.redirect[0] || ''
+      } else {
+        redirectTo = this.$route.query.redirect
+      }
+    }
     return {
+      redirectTo,
       rememberMe,
       rememberMeTimeItems: [
         {
@@ -68,32 +101,29 @@ export default {
       token: ''
     }
   },
+
   created () {
     if (this.$cookies.isKey('auth')) {
-      let token = this.$cookies.get('auth')
-      this.auth(token)
+      this.token = this.$cookies.get('auth')
+      this.tryAuth()
     }
   },
   methods: {
-    auth (token) {
-      this.$http.post('auth', { token: token }).then(
-        res => {
-          this.$store.commit('login', token)
-          this.$http.defaults.headers.common['bgmi-token'] = `${token}`
+    tryAuth () {
+      this.$http.post('auth', { token: this.token }).then(
+        () => {
+          this.$store.commit('login', this.token)
+          this.$http.defaults.headers['bgmi-token'] = `${this.token}`
           if (this.rememberMe) {
-            this.$cookies.set('auth', token, this.rememberMe)
+            this.$cookies.set('auth', this.token, this.rememberMe)
           }
           this.$cookies.set('rememberMe', this.rememberMe)
           this.$nextTick(() => {
-            if (this.$route.query.redirect) {
-              this.$router.push(this.$route.query.redirect)
-            } else {
-              this.$router.push('/')
-            }
+            this.$router.push(this.redirectTo)
           })
         },
         res => {
-          this.$notify({
+          this.$notifications({
             type: 'error',
             text: 'auth wrong'
           })
@@ -101,8 +131,8 @@ export default {
       )
     },
     onClose () {
-      this.auth(this.token)
+      this.tryAuth()
     }
   }
-}
+})
 </script>

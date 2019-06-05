@@ -1,27 +1,32 @@
 <template>
   <v-app id="inspire">
     <sidebar v-model='drawer' />
-    <v-toolbar :class="{'elevation-0': $route.name==='Subscribe'}" color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
+    <v-toolbar
+      :class="{'elevation-0': $route.name==='Subscribe'}"
+      color="indigo"
+      dark
+      fixed
+      app
+    >
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>BGmi - {{ $route.name }}</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <notifications/>
+      <notifications />
       <!-- <transition> -->
-      <router-view/>
+      <router-view />
       <!-- </transition> -->
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Navigation from '@/components/Navigation'
-import Sidebar from '@/components/Sidebar'
+// import Navigation from './components/Navigation.vue'
+import Sidebar from './components/Sidebar/index.vue'
 
 export default {
   name: 'App',
   components: {
-    Navigation,
     Sidebar
   },
 
@@ -62,8 +67,8 @@ export default {
   font-size: 16px;
 
   color: #ffffff !important;
-  background: #44A4FC !important;
-  border-left: 5px solid #187FE7 !important;
+  background: #44a4fc !important;
+  border-left: 5px solid #187fe7 !important;
 }
 
 #inspire .vue-notification.warn {
@@ -72,13 +77,12 @@ export default {
 }
 
 #inspire .vue-notification.error {
-  background: #E54D42 !important;
-  border-left-color: #B82E24 !important;
+  background: #e54d42 !important;
+  border-left-color: #b82e24 !important;
 }
 
 #inspire .vue-notification.success {
-  background: #68CD86 !important;
-  border-left-color: #42A85F !important;
+  background: #68cd86 !important;
+  border-left-color: #42a85f !important;
 }
-
 </style>

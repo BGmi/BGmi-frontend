@@ -64,7 +64,7 @@ export default {
       let cb = (bangumi) => {
         this.initData(bangumi)
       }
-      this.$store.dispatch('getBangumi', {category: this.$route.params.category, cb})
+      this.$store.dispatch('getBangumi', { category: this.$route.params.category, cb })
     },
     initData (data) {
       for (let bangumi of data) {
