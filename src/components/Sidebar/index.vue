@@ -1,10 +1,17 @@
 <template>
-  <v-navigation-drawer app fixed v-model=visible>
+  <v-navigation-drawer
+    app
+    fixed
+    v-model=visible
+  >
     <v-list>
       <v-list-tile to='/'>
         <v-list-tile-action>
           <v-avatar>
-            <img alt="logo" src="../../assets/logo144.jpg">
+            <img
+              alt="logo"
+              :src="`${publicPath}static/logo144.jpg`"
+            >
           </v-avatar>
           <!-- <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact"> -->
         </v-list-tile-action>
@@ -13,16 +20,43 @@
         </v-list-tile-content>
       </v-list-tile>
       <v-divider></v-divider>
-      <item icon="video_library" title="Bangumi" to="/"></item>
+      <item
+        icon="video_library"
+        title="Bangumi"
+        to="/"
+      ></item>
       <!-- <item title="Old Bangumi" icon="collections" to="/old"></item> -->
-      <item href="/bangumi/" icon="folder" title="Bangumi Files"></item>
-      <item icon="event" title="Calendar" to="/calendar"></item>
-      <item icon="rss_feed" title="Resource" to="/resource"></item>
+      <item
+        href="/bangumi/"
+        icon="folder"
+        title="Bangumi Files"
+      ></item>
+      <item
+        icon="event"
+        title="Calendar"
+        to="/calendar"
+      ></item>
+      <item
+        icon="rss_feed"
+        title="Resource"
+        to="/resource"
+      ></item>
       <v-divider></v-divider>
-      <item icon="subscriptions" title="Subscribe" to="/subscribe"/>
+      <item
+        icon="subscriptions"
+        title="Subscribe"
+        to="/subscribe"
+      />
       <v-divider></v-divider>
-      <item icon="info" title="About" to="/about"/>
-      <item href="https://github.com/BGmi/BGmi" title="Based On BGmi"/>
+      <item
+        icon="info"
+        title="About"
+        to="/about"
+      />
+      <item
+        href="https://github.com/BGmi/BGmi"
+        title="Based On BGmi"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -34,7 +68,8 @@ export default {
   name: 'sidebar',
   data () {
     return {
-      visible: this.value
+      visible: this.value,
+      publicPath: process.env.BASE_URL
     }
   },
   props: {
@@ -59,5 +94,4 @@ export default {
 </script>
 
 <style>
-
 </style>
