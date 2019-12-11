@@ -34,7 +34,7 @@ jobs:
       - uses: actions/cache@v1
         id: cache
         with:
-          path: ./mode_modules
+          path: ./node_modules
           key: ${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install Dependencies
