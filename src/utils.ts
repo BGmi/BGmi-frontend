@@ -1,16 +1,19 @@
 import store from './store'
 
+// import * as _ from ''
+
 function hasWatched (bangumiName: string, episode: string) {
   bangumiName = bangumiName.toString()
   episode = episode.toString()
-  if (store.state.history.hasOwnProperty(bangumiName) && store.state.history[bangumiName].hasOwnProperty(episode)) {
+  if (Object.prototype.hasOwnProperty.call(store.state.history, bangumiName) &&
+    Object.prototype.hasOwnProperty.call(store.state.history[bangumiName], episode)) {
     return store.state.history[bangumiName][episode]
   }
 }
 
 function isEmpty (obj: any) {
-  for (let prop in obj) {
-    if (obj.hasOwnProperty(prop)) {
+  for (const prop in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, prop)) {
       return false
     }
   }

@@ -127,7 +127,7 @@
   </v-card>
 </template>
 <script>
-let imgRoot = './bangumi/cover/'
+const imgRoot = './bangumi/cover/'
 
 export default {
   data () {
