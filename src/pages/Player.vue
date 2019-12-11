@@ -61,13 +61,16 @@ export default {
     normalizePath,
     hasWatched,
     init () {
-      let cb = (bangumi) => {
+      const cb = (bangumi) => {
         this.initData(bangumi)
       }
-      this.$store.dispatch('getBangumi', { category: this.$route.params.category, cb })
+      this.$store.dispatch('getBangumi', {
+        category: this.$route.params.category,
+        cb
+      })
     },
     initData (data) {
-      for (let bangumi of data) {
+      for (const bangumi of data) {
         if (normalizePath(bangumi.bangumi_name) === this.$route.params.bangumi_name) {
           this.bangumi = bangumi
           this.$store.commit('saveHistory', {
@@ -76,9 +79,9 @@ export default {
           })
           this.$nextTick(
             () => {
-              let episode = `/bangumi${bangumi.player[this.$route.params.episode].path}`
+              const episode = `/bangumi${bangumi.player[this.$route.params.episode].path}`
               /* */
-              let filePath = bangumi.player[this.$route.params.episode].path.toLowerCase()
+              const filePath = bangumi.player[this.$route.params.episode].path.toLowerCase()
               if (filePath.includes('hevc') || filePath.includes('x265')) {
                 this.$notify({
                   type: 'warn',
@@ -123,7 +126,7 @@ export default {
       return path.dirname(this.videoFileUrl) + '/'
     },
     episodes () {
-      if (!this.bangumi.hasOwnProperty('player')) return []
+      if (!Object.prototype.hasOwnProperty.call(this.bangumi, 'player')) return []
       return Object.keys(this.bangumi.player).reverse()
     }
   }

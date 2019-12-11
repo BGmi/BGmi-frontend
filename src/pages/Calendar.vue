@@ -35,6 +35,7 @@
 <script lang='ts'>
 /* eslint-disable camelcase */
 import Vue from 'vue'
+
 interface CalendarItem {
   cover: string
   episode: null
@@ -45,6 +46,7 @@ interface CalendarItem {
   subject_id: number
   update_time: string
 }
+
 export default Vue.extend({
   name: 'calendar',
   components: {},
@@ -66,15 +68,15 @@ export default Vue.extend({
   },
   methods: {
     bangumiToHtml (day: string, bangumis: CalendarItem[]) {
-      let str = []
+      const str = []
 
-      for (let bangumi in bangumis) {
-        if (bangumis.hasOwnProperty(bangumi)) {
-          str.push(bangumis[bangumi].status ? `<b>${bangumis[bangumi].name}</b>` : `${bangumis[bangumi].name}`)
+      for (const bangumi in bangumis) {
+        if (Object.prototype.hasOwnProperty.call(bangumis, bangumi)) {
+          str.push(bangumis[bangumi].status ? `<b>${ bangumis[bangumi].name }</b>` : `${ bangumis[bangumi].name }`)
         }
       }
 
-      return `<h3 class="week">${day}</h3>${str.join(' / ')}`
+      return `<h3 class="week">${ day }</h3>${ str.join(' / ') }`
     }
   }
 })

@@ -28,7 +28,9 @@
 
           <v-card-title>
             <div>
-              <div class="headline">{{ bg.bangumi_name + (bg.status === 2 ? '(new)' : '') }}</div>
+              <div class="headline">{{ bg.bangumi_name + (bg.status === 2 ?
+                '(new)' : '') }}
+              </div>
               <span class="grey--text">latest:{{ bg.episode }}</span>
             </div>
           </v-card-title>
@@ -41,7 +43,8 @@
                 v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
                 :class="{gray:hasWatched(bg.bangumi_name,value)}"
                 :key="value"
-              > {{ value }} </v-btn>
+              > {{ value }}
+              </v-btn>
             </div>
           </v-card-actions>
           <br>
@@ -52,7 +55,8 @@
 </template>
 
 <script>
-import { hasWatched, isEmpty, normalizePath } from '../utils'
+import { hasWatched, normalizePath } from '../utils'
+import { isEmpty } from 'lodash/isEmpty'
 
 export default {
   name: 'Bangumi',

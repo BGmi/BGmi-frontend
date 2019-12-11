@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { axiosInstance } from './http'
+
 Vue.use(Vuex)
 
 const state = {
@@ -55,12 +56,12 @@ const store = new Vuex.Store({
       state.calFetched = true
     },
     saveHistory (state, bangumi) {
-      let item = {
+      const item = {
         name: bangumi.bangumi_name,
         episode: bangumi.episode.toString()
       }
-      let history = state.history // type: Object
-      if (history.hasOwnProperty(item.name)) {
+      const history = state.history // type: Object
+      if (Object.prototype.hasOwnProperty.call(history, item.name)) {
         history[item.name][item.episode] = true
       } else {
         history[item.name] = {}
