@@ -40,7 +40,7 @@
     "eslint": "5.16.0",
     "eslint-plugin-html": "5.0.5",
     "eslint-plugin-typescript": "0.14.0",
-    "eslint-plugin-vue": "5.2.2",
+    "eslint-plugin-vue": "6.0.1",
     "less": "3.10.3",
     "less-loader": "5.0.0",
     "typescript": "3.4.5",
