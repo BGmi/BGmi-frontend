@@ -56,7 +56,7 @@
 
 <script>
 import { hasWatched, normalizePath } from '../utils'
-import { isEmpty } from 'lodash/isEmpty'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   name: 'Bangumi',

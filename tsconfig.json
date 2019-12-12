@@ -15,6 +15,7 @@
       "webpack-env",
       "mocha",
       "chai",
+      "vuetify",
       "./node_modules/vue/types"
     ],
     "lib": [
@@ -22,7 +23,12 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts",

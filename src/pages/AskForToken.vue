@@ -13,16 +13,16 @@
         xs12
       >
         <v-card class="elevation-12">
-          <v-toolbar
-            color="primary"
-            dark
+          <v-app-bar app
+                     color="primary"
+                     dark
           >
             <v-toolbar-title>Auth</v-toolbar-title>
-            <v-spacer />
-          </v-toolbar>
+            <v-spacer/>
+          </v-app-bar>
           <v-card-text>
             <v-form>
-              <label />
+              <label/>
               <v-text-field
                 v-model="token"
                 label="token"
@@ -44,7 +44,8 @@
             <v-btn
               @click="onClose()"
               color=primary
-            >Login</v-btn>
+            >Login
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -113,7 +114,7 @@ export default Vue.extend({
       this.$http.post('auth', { token: this.token }).then(
         () => {
           this.$store.commit('login', this.token)
-          this.$http.defaults.headers['bgmi-token'] = `${this.token}`
+          this.$http.defaults.headers['bgmi-token'] = `${ this.token }`
           if (this.rememberMe) {
             this.$cookies.set('auth', this.token, this.rememberMe)
           }

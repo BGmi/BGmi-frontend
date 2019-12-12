@@ -1,13 +1,13 @@
 <template>
-  <v-list-tile :to=to :href=href exact='exact'>
+  <v-list-item :to=to :href=href exact='exact'>
     <!-- <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact"> -->
-    <v-list-tile-action>
+    <v-list-item-action>
       <v-icon>{{ icon }}</v-icon>
-    </v-list-tile-action>
-    <v-list-tile-content>
-      <v-list-tile-title>{{ title }}</v-list-tile-title>
-    </v-list-tile-content>
-  </v-list-tile>
+    </v-list-item-action>
+    <v-list-item-content>
+      <v-list-item>{{ title }}</v-list-item>
+    </v-list-item-content>
+  </v-list-item>
 </template>
 
 <script>

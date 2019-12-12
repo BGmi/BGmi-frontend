@@ -28,5 +28,10 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
 new Vue({
   router,
   store,
+  vuetify: new Vuetify({
+    icons: {
+      iconfont: 'mdiSvg'
+    }
+  }),
   render: h => h(App)
 }).$mount('#app')

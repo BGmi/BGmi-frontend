@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-layout>
-      <v-flex xs10>
+    <v-row>
+      <v-col xs="10">
         <div class=display-1>BGmi:</div>
         <p class=subheading>version: {{$store.state.bgmiVersion}}</p>
         <p> BGmi HTTP Service 基于
@@ -12,7 +12,8 @@
         <a href="https://bangumi.moe" target="_blank">萌番组
           <sup>大好きだよ</sup>
         </a>/
-        <a href="https://mikanani.me/" target="_blank">蜜柑计划 - Mikan Project</a>/
+        <a href="https://mikanani.me/" target="_blank">蜜柑计划 - Mikan
+          Project</a>/
         <a href="http://share.dmhy.org/" target="_blank">動漫花園資源網</a>
 
         <br>
@@ -57,8 +58,8 @@
               Bug Report</a>
           </li>
         </ul>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script lang="ts">

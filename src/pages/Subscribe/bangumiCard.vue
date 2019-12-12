@@ -37,13 +37,14 @@
     <!-- dialog -->
     <v-dialog v-model="expand">
       <v-card>
-        <v-toolbar
+        <v-app-bar
           color="primary"
           dark
+          app
         >
           <v-toolbar-title>Filter</v-toolbar-title>
           <v-spacer></v-spacer>
-        </v-toolbar>
+        </v-app-bar>
         <v-card-text>
           <v-form>
             <v-text-field
@@ -119,7 +120,8 @@
             @click.stop="onClose('ok')"
             color="primary"
             flat
-          >Delete</v-btn>
+          >Delete
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

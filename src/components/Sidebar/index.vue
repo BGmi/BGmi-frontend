@@ -5,8 +5,8 @@
     v-model=visible
   >
     <v-list>
-      <v-list-tile to='/'>
-        <v-list-tile-action>
+      <v-list-item to='/'>
+        <v-list-item-action>
           <v-avatar>
             <img
               alt="logo"
@@ -14,42 +14,42 @@
             >
           </v-avatar>
           <!-- <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact"> -->
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>BGmi</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>BGmi</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-divider></v-divider>
       <item
-        icon="video_library"
+        :icon="icons.mdiLibraryVideo"
         title="Bangumi"
         to="/"
-      ></item>
+      />
       <!-- <item title="Old Bangumi" icon="collections" to="/old"></item> -->
       <item
         href="/bangumi/"
-        icon="folder"
+        :icon="icons.mdiFolder"
         title="Bangumi Files"
-      ></item>
+      />
       <item
-        icon="event"
-        title="Calendar"
+        :icon="icons.mdiCalendar"
+        title="calendar"
         to="/calendar"
-      ></item>
+      />
       <item
-        icon="rss_feed"
+        :icon="icons.mdiRss"
         title="Resource"
         to="/resource"
-      ></item>
+      />
       <v-divider></v-divider>
       <item
-        icon="subscriptions"
+        :icon="icons.mdiYoutubeSubscription"
         title="Subscribe"
         to="/subscribe"
       />
       <v-divider></v-divider>
       <item
-        icon="info"
+        :icon="icons.mdiInformation"
         title="About"
         to="/about"
       />
@@ -62,12 +62,31 @@
 </template>
 
 <script>
+import {
+  mdiFolder,
+  mdiCalendar,
+  mdiRss,
+  mdiYoutubeSubscription,
+  mdiInformation,
+  mdiEventbrite,
+  mdiLibraryVideo,
+} from '@mdi/js'
+
 import Item from './item'
 
 export default {
   name: 'sidebar',
   data () {
     return {
+      icons: {
+        mdiCalendar,
+        mdiRss,
+        mdiYoutubeSubscription,
+        mdiInformation,
+        mdiEventbrite,
+        mdiLibraryVideo,
+        mdiFolder,
+      },
       visible: this.value,
       publicPath: process.env.BASE_URL
     }

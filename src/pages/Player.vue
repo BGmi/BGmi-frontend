@@ -3,7 +3,7 @@
     <v-layout justify-center>
       <v-flex xs12 lg10 xl8>
         <v-card>
-          <v-toolbar dark color="primary">
+          <v-app-bar app dark color="primary">
             <v-toolbar-title>
               {{ bangumi.bangumi_name }}
             </v-toolbar-title>
@@ -15,7 +15,7 @@
               </v-btn>
               <span>Bangumi Files</span>
             </v-tooltip>
-          </v-toolbar>
+          </v-app-bar>
           <v-card-text>
             <div class="dplayer-container">
               <div :id="bangumi.bangumi_name"/>
