@@ -55,30 +55,10 @@ server {
 
 ### 我想发一个PR 有什么需要注意的?
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+PR到[BGmi/BGmi-frontend](https://github.com/BGmi/BGmi-frontend)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+其他的..暂时没有
 
-### Run your tests
-```
-npm run test
-```
+## 已知的无法解决的问题
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[#23](https://github.com/BGmi/BGmi-frontend/issues/23)

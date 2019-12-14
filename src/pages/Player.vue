@@ -4,9 +4,7 @@
       <v-flex xs12 lg10 xl8>
         <v-card>
           <v-app-bar app dark color="primary">
-            <v-toolbar-title>
-              {{ bangumi.bangumi_name }}
-            </v-toolbar-title>
+            <v-toolbar-title>{{ bangumi.bangumi_name }}</v-toolbar-title>
             <v-spacer/>
             <v-tooltip right>
               <v-btn slot="activator" icon large :href="dirPath"

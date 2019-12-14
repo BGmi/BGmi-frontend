@@ -39,8 +39,8 @@
               item-value="value"
               label="Remember Me"
               v-model="rememberMe"
-            ></v-select>
-            <v-spacer></v-spacer>
+            />
+            <v-spacer/>
             <v-btn
               @click="onClose()"
               color=primary
