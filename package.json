@@ -60,7 +60,7 @@
     "husky": "3.1.0",
     "less": "3.10.3",
     "less-loader": "5.0.0",
-    "typescript": "3.7.3",
+    "typescript": "3.7.4",
     "vue-template-compiler": "2.6.11"
   }
 }
