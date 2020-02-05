@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "github>Trim21/renovate-config",
+    "schedule:monthly"
+  ],
+  "packageRules": [
+    {
+      "packageNames": [
+        "mdi"
+      ],
+      "packagePatterns": [
+        "^@mdi/"
+      ],
+      "groupName": "mdi monorepo"
+    }
+  ]
+}
