@@ -22,7 +22,7 @@
     "lodash": "4.17.15",
     "material-design-icons-iconfont": "5.0.1",
     "md5": "2.2.1",
-    "register-service-worker": "1.6.2",
+    "register-service-worker": "1.7.1",
     "vue": "2.6.11",
     "vue-cookies": "1.5.13",
     "vue-notification": "1.3.20",
