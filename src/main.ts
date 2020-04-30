@@ -1,21 +1,17 @@
 import Vue from 'vue'
 import { AxiosResponse } from 'axios'
 import VueCookies from 'vue-cookies'
-import Vuetify from 'vuetify'
-
+import Notifications from 'vue-notification'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
+import vuetify from '@/vuetify'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Notifications from 'vue-notification'
 import { axiosInstance } from './http'
-// import './registerServiceWorker'
 
 Vue.config.productionTip = false
 // Use Core Components
-Vue.use(Vuetify)
 Vue.use(VueCookies)
 Vue.use(Notifications)
 
@@ -28,10 +24,6 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
 new Vue({
   router,
   store,
-  vuetify: new Vuetify({
-    icons: {
-      iconfont: 'mdiSvg'
-    }
-  }),
+  vuetify,
   render: h => h(App)
 }).$mount('#app')

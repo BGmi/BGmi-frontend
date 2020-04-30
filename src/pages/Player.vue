@@ -1,19 +1,19 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container>
     <v-layout justify-center>
       <v-flex xs12 lg10 xl8>
         <v-card>
-          <v-app-bar app dark color="primary">
+          <v-toolbar app dark color="primary">
             <v-toolbar-title>{{ bangumi.bangumi_name }}</v-toolbar-title>
             <v-spacer/>
             <v-tooltip right>
               <v-btn slot="activator" icon large :href="dirPath"
                      target="_blank">
-                <v-icon large>folder_open</v-icon>
+                <v-icon large>{{ mdiFolderOpen }}</v-icon>
               </v-btn>
               <span>Bangumi Files</span>
             </v-tooltip>
-          </v-app-bar>
+          </v-toolbar>
           <v-card-text>
             <div class="dplayer-container">
               <div :id="bangumi.bangumi_name"/>
@@ -37,13 +37,16 @@
 <script>
 import DPlayer from 'dplayer'
 import md5 from 'md5'
-import 'dplayer/dist/DPlayer.min.css'
-import { hasWatched, normalizePath } from '../utils'
+import {
+  mdiFolderOpen
+} from '@mdi/js'
+import { hasWatched, normalizePath } from '@/utils'
 import path from 'path'
 
 export default {
   data () {
     return {
+      mdiFolderOpen,
       bangumi: {},
       videoFileUrl: '',
       $dplayer: null,

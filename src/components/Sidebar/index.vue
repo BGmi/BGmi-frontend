@@ -1,7 +1,6 @@
 <template>
   <v-navigation-drawer
     app
-    fixed
     v-model=visible
   >
     <v-list>

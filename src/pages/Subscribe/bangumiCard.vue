@@ -37,14 +37,14 @@
     <!-- dialog -->
     <v-dialog v-model="expand">
       <v-card>
-        <v-app-bar
+        <v-toolbar
           color="primary"
           dark
           app
         >
           <v-toolbar-title>Filter</v-toolbar-title>
           <v-spacer></v-spacer>
-        </v-app-bar>
+        </v-toolbar>
         <v-card-text>
           <v-form>
             <v-text-field
