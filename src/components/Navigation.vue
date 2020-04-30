@@ -1,6 +1,6 @@
 <template>
   <!--<md-theme md-name="nav">-->
-  <md-whiteframe id="my-nav" md-tag="md-toolbar" class="top-header" md-elevation="10">
+  <v-whiteframe id="my-nav" md-tag="md-toolbar" class="top-header" md-elevation="10">
 
     <md-dialog ref="dialog1" md-content="">
       <md-dialog-title>update</md-dialog-title>
@@ -24,10 +24,10 @@
     </div>
     <!--</router-link>-->
     <md-button v-if="$route.name === 'Subscribe'" @click="openDialog('dialog1')">update</md-button>
-    <md-button class="md-icon-button hidden-lg hidden-md" type="button" data-toggle="collapse" @click="toggleSideBar">
-      <md-icon>menu</md-icon>
-    </md-button>
-  </md-whiteframe>
+    <v-button class="md-icon-button hidden-lg hidden-md" type="button" data-toggle="collapse" @click="toggleSideBar">
+      <v-icon>menu</v-icon>
+    </v-button>
+  </v-whiteframe>
   <!--</md-theme>-->
 </template>
 

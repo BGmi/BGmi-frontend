@@ -6,16 +6,13 @@
       :class="{'elevation-0': $route.name==='Subscribe'}"
       color="indigo"
       dark
-      fixed
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
       <v-toolbar-title>BGmi - {{ $route.name }}</v-toolbar-title>
     </v-app-bar>
     <v-content>
       <notifications/>
-      <!-- <transition> -->
       <router-view/>
-      <!-- </transition> -->
     </v-content>
   </v-app>
 </template>

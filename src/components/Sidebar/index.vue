@@ -1,7 +1,6 @@
 <template>
   <v-navigation-drawer
     app
-    fixed
     v-model=visible
   >
     <v-list>
@@ -54,6 +53,7 @@
         to="/about"
       />
       <item
+        :icon="icons.mdiDotsVertical"
         href="https://github.com/BGmi/BGmi"
         title="Based On BGmi"
       />
@@ -68,8 +68,8 @@ import {
   mdiRss,
   mdiYoutubeSubscription,
   mdiInformation,
-  mdiEventbrite,
-  mdiLibraryVideo,
+  mdiDotsVertical,
+  mdiPlayBoxMultiple,
 } from '@mdi/js'
 
 import Item from './item'
@@ -83,8 +83,8 @@ export default {
         mdiRss,
         mdiYoutubeSubscription,
         mdiInformation,
-        mdiEventbrite,
-        mdiLibraryVideo,
+        mdiDotsVertical,
+        mdiLibraryVideo: mdiPlayBoxMultiple,
         mdiFolder,
       },
       visible: this.value,

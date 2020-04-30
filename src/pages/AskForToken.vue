@@ -13,13 +13,13 @@
         xs12
       >
         <v-card class="elevation-12">
-          <v-app-bar app
+          <v-toolbar app
                      color="primary"
                      dark
           >
             <v-toolbar-title>Auth</v-toolbar-title>
             <v-spacer/>
-          </v-app-bar>
+          </v-toolbar>
           <v-card-text>
             <v-form>
               <label/>

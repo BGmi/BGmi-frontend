@@ -3,6 +3,9 @@
     "github>Trim21/renovate-config",
     "schedule:monthly"
   ],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "packageNames": [
