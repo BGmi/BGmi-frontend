@@ -1,4 +1,4 @@
-# bgmi-typrscript
+# bgmi-frontend
 
 ## Project setup
 ```
