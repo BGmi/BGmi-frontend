@@ -6,15 +6,14 @@
   "lockFileMaintenance": {
     "enabled": true
   },
+  "separateMajorMinor": false,
   "packageRules": [
     {
-      "packageNames": [
-        "mdi"
-      ],
-      "packagePatterns": [
-        "^@mdi/"
-      ],
-      "groupName": "mdi monorepo"
+      "groupName": "dependencies",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
     }
   ]
 }
