@@ -10,6 +10,10 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
