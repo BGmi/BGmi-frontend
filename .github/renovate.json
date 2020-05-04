@@ -1,19 +1,8 @@
 {
   "extends": [
-    "github>Trim21/renovate-config",
-    "github>Trim21/renovate-config:monthly"
-  ],
-  "lockFileMaintenance": {
-    "enabled": true
-  },
-  "separateMajorMinor": false,
-  "packageRules": [
-    {
-      "groupName": "dependencies",
-      "depTypeList": [
-        "dependencies",
-        "devDependencies"
-      ]
-    }
+    "@trim21",
+    "@trim21:js",
+    "@trim21:app",
+    "@trim21:monthly"
   ]
 }
