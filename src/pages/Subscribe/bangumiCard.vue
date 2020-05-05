@@ -201,7 +201,7 @@ export default {
             this.expand = false
             this.$notify({
               type: 'success',
-              message: 'save filter successfully',
+              text: 'save filter successfully',
               placement: {
                 from: 'top',
                 align: 'right'
@@ -241,7 +241,7 @@ export default {
           this.bangumi.status = 1
           this.$notify({
             type: res.data.status,
-            message: res.data.message,
+            text: res.data.message,
             placement: {
               from: 'top',
               align: 'right'
@@ -252,7 +252,7 @@ export default {
           //            this.bangumi.status = 1
           this.$notify({
             type: 'danger',
-            message: res.data.message,
+            text: res.data.message,
             placement: {
               from: 'top',
               align: 'right'
@@ -271,7 +271,7 @@ export default {
             this.bangumi.status = 0
             this.$notify({
               type: res.data.status,
-              message: res.data.message,
+              text: res.data.message,
               placement: {
                 from: 'top',
                 align: 'right'
@@ -282,7 +282,7 @@ export default {
             //              this.bangumi.status = 0
             this.$notify({
               type: 'danger',
-              message: res.data.message,
+              text: res.data.message,
               placement: {
                 from: 'top',
                 align: 'right'

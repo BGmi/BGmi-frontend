@@ -65,7 +65,7 @@ export default {
               message += '</ul>'
               this.$notify({
                 type: 'success',
-                test: message
+                text: message
               })
             } else {
               this.$.notify({

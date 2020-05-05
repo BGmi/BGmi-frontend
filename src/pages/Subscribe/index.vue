@@ -64,7 +64,7 @@ export default {
             this.$notify({
               type: 'danger',
               //              icon: 'notifications',
-              message: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
+              text: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
               placement: {
                 from: 'top',
                 align: 'center'
