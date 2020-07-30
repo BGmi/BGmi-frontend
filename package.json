@@ -1,6 +1,6 @@
 {
   "name": "bgmi-frontend",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "web gui for bgmi",
   "author": "Trim21 <trim21me@gmail.com>",
   "scripts": {
