@@ -5,7 +5,6 @@
   "author": "Trim21 <trim21me@gmail.com>",
   "scripts": {
     "now-build": "npm run build",
-    "version": "npm run build",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
