@@ -16,7 +16,15 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
 
-      - run: npm ci
+      - uses: actions/cache@v1
+        id: cache
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-12-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
 
       - run: npm run build
 
