@@ -24,31 +24,31 @@ import Sidebar from './components/Sidebar/index.vue';
 export default {
   name: 'App',
   components: {
-    Sidebar
+    Sidebar,
   },
 
   data() {
     return {
       drawer: null,
       token: '',
-      sidebarToggled: false
+      sidebarToggled: false,
     };
   },
 
   computed: {
     navOpened() {
       return this.sidebarToggled;
-    }
+    },
   },
+  watch: {},
   methods: {
     toggleSideBar() {
       this.sidebarToggled = !this.sidebarToggled;
     },
     onCloseLayerClick() {
       this.toggleSideBar();
-    }
+    },
   },
-  watch: {}
 };
 </script>
 

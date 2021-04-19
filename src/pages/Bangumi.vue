@@ -1,9 +1,28 @@
 <template>
-  <v-container fill-height grid-list-lg>
-    <v-layout row wrap>
-      <v-flex v-for="(bg, key) in bangumi" :key="key" xs12 sm6 md4 lg3>
-        <v-card md-theme="white" style="overflow: hidden">
-          <v-img :src="`.${bg.cover}`" height="200px">
+  <v-container
+    fill-height
+    grid-list-lg
+  >
+    <v-layout
+      row
+      wrap
+    >
+      <v-flex
+        v-for="(bg, key) in bangumi"
+        :key="key"
+        xs12
+        sm6
+        md4
+        lg3
+      >
+        <v-card
+          md-theme="white"
+          style="overflow: hidden"
+        >
+          <v-img
+            :src="`.${bg.cover}`"
+            height="200px"
+          >
             <!-- <div class="bangumi-cover" :style="{backgroundImage:`url('.${bg.cover}')`} "></div> -->
           </v-img>
 
@@ -19,7 +38,10 @@
           <v-card-actions class="button-container">
             <div v-if="!isEmpty(bg.player)">
               <v-btn
+                v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
+                :key="value"
                 flat
+                :class="{ gray: hasWatched(bg.bangumi_name, value) }"
                 @click="
                   $router.push(
                     `/player/${category}/${normalizePath(
@@ -27,15 +49,12 @@
                     )}/${value}`
                   )
                 "
-                v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
-                :class="{ gray: hasWatched(bg.bangumi_name, value) }"
-                :key="value"
               >
                 {{ value }}
               </v-btn>
             </div>
           </v-card-actions>
-          <br />
+          <br>
         </v-card>
       </v-flex>
     </v-layout>
@@ -49,14 +68,22 @@ import isEmpty from 'lodash/isEmpty';
 export default {
   name: 'Bangumi',
   components: {},
+  props: {
+    category: { default: 'index', type: String, required: true },
+  },
 
   data() {
     return {
       bangumi: [],
     };
   },
-  props: {
-    category: { default: 'index', type: String, required: true },
+  watch: {
+    category() {
+      this.initData();
+    },
+  },
+  mounted() {
+    this.initData();
   },
   methods: {
     hasWatched,
@@ -70,14 +97,6 @@ export default {
         },
       });
     },
-  },
-  watch: {
-    category() {
-      this.initData();
-    },
-  },
-  mounted() {
-    this.initData();
   },
 };
 </script>

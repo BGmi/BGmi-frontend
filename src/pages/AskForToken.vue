@@ -1,9 +1,23 @@
 <template>
-  <v-container fill-height fluid>
-    <v-layout align-center justify-center>
-      <v-flex md6 sm10 xs12>
+  <v-container
+    fill-height
+    fluid
+  >
+    <v-layout
+      align-center
+      justify-center
+    >
+      <v-flex
+        md6
+        sm10
+        xs12
+      >
         <v-card class="elevation-12">
-          <v-toolbar app color="primary" dark>
+          <v-toolbar
+            app
+            color="primary"
+            dark
+          >
             <v-toolbar-title>Auth</v-toolbar-title>
             <v-spacer />
           </v-toolbar>
@@ -21,14 +35,19 @@
           <v-card-actions>
             <!--<v-switch v-model="rememberMe" label="remember me"></v-switch>-->
             <v-select
+              v-model="rememberMe"
               :items="rememberMeTimeItems"
               item-text="time"
               item-value="value"
               label="Remember Me"
-              v-model="rememberMe"
             />
             <v-spacer />
-            <v-btn @click="onClose()" color="primary">Login </v-btn>
+            <v-btn
+              color="primary"
+              @click="onClose()"
+            >
+              Login
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -48,7 +67,7 @@ export default Vue.extend({
           ? false
           : this.$cookies.get('rememberMe');
     }
-    let redirectTo: string = '/';
+    let redirectTo = '/';
     if (this.$route.query.redirect) {
       if (Array.isArray(this.$route.query.redirect)) {
         redirectTo = this.$route.query.redirect[0] || '';

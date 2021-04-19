@@ -1,20 +1,11 @@
 import store from './store';
 
-function hasWatched(bangumiName: string, episode: string) {
-  if (
-    Object.prototype.hasOwnProperty.call(store.state.history, bangumiName) &&
-    Object.prototype.hasOwnProperty.call(
-      store.state.history[bangumiName],
-      episode
-    )
-  ) {
-    return store.state.history[bangumiName][episode];
-  }
+function hasWatched(bangumiName: string, episode: string): boolean {
+  return store.state.history?.[bangumiName]?.[episode] ?? false;
 }
 
-function normalizePath(url: string) {
-  url = url.replace(/[:*?"<>|']/g, '');
-  return url;
+function normalizePath(url: string): string {
+  return url.replace(/[:*?"<>|']/g, '');
 }
 
 export { normalizePath, hasWatched };

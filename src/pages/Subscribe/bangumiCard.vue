@@ -1,87 +1,128 @@
 <template>
   <v-card>
-    <v-img :src="imgSrc" height="100px"></v-img>
+    <v-img
+      :src="imgSrc"
+      height="100px"
+    />
     <v-card-text>
-      <p class="category text-black headline">{{ bangumi.name }}</p>
+      <p class="category text-black headline">
+        {{ bangumi.name }}
+      </p>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
+        v-if="!bangumi.status"
         :class="{ 'md-primary': !bangumi.status, 'md-accent': bangumi.status }"
-        @click.stop.prevent="add()"
         class="md-raised"
         color="info"
-        v-if="!bangumi.status"
+        @click.stop.prevent="add()"
       >
         add
       </v-btn>
       <v-btn
-        @click.stop.prevent="expandDetail()"
+        v-else-if="!expand"
         class="md-raised"
         color="success"
-        v-else-if="!expand"
+        @click.stop.prevent="expandDetail()"
       >
         <div>detail</div>
       </v-btn>
-      <v-btn @click="pack" class="md-raised" v-else> pack </v-btn>
+      <v-btn
+        v-else
+        class="md-raised"
+        @click="pack"
+      >
+        pack
+      </v-btn>
     </v-card-actions>
     <!-- dialog -->
     <v-dialog v-model="expand">
       <v-card>
-        <v-toolbar color="primary" dark app>
+        <v-toolbar
+          color="primary"
+          dark
+          app
+        >
           <v-toolbar-title>Filter</v-toolbar-title>
-          <v-spacer></v-spacer>
+          <v-spacer />
         </v-toolbar>
         <v-card-text>
           <v-form>
             <v-text-field
+              v-model="bangumi.status"
               label="Status"
               type="number"
-              v-model="bangumi.status"
-            ></v-text-field>
+            />
             <v-text-field
-              label="Include"
               v-model="filter.include"
-            ></v-text-field>
-            <v-text-field label="Regex" v-model="filter.regex"></v-text-field>
+              label="Include"
+            />
             <v-text-field
-              label="Exclude"
+              v-model="filter.regex"
+              label="Regex"
+            />
+            <v-text-field
               v-model="filter.exclude"
-            ></v-text-field>
+              label="Exclude"
+            />
             <v-text-field
+              v-model="mark"
               label="Episode"
               type="number"
-              v-model="mark"
-            ></v-text-field>
+            />
           </v-form>
         </v-card-text>
         <v-card-text v-show="showSubtitle">
           <v-checkbox
+            v-for="key in filter.subtitle_group"
             :key="key"
+            v-model="followed"
             :label="key"
             :value="key"
-            v-for="key in filter.subtitle_group"
-            v-model="followed"
-          ></v-checkbox>
+          />
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="showSubtitle = !showSubtitle"> 显示字幕组 </v-btn>
-          <v-btn @click="del()" color="error"> delete </v-btn>
-          <v-btn @click="save()" color="primary"> save </v-btn>
+          <v-spacer />
+          <v-btn @click="showSubtitle = !showSubtitle">
+            显示字幕组
+          </v-btn>
+          <v-btn
+            color="error"
+            @click="del()"
+          >
+            delete
+          </v-btn>
+          <v-btn
+            color="primary"
+            @click="save()"
+          >
+            save
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog max-width="500px" v-model="dialog5">
+    <v-dialog
+      v-model="dialog5"
+      max-width="500px"
+    >
       <v-card>
         <v-card-title> 确认删除? </v-card-title>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click.stop="onClose('not-ok')" color="primary" flat
-            >Cancel
+          <v-spacer />
+          <v-btn
+            color="primary"
+            flat
+            @click.stop="onClose('not-ok')"
+          >
+            Cancel
           </v-btn>
-          <v-btn @click.stop="onClose('ok')" color="primary" flat
-            >Delete
+          <v-btn
+            color="primary"
+            flat
+            @click.stop="onClose('ok')"
+          >
+            Delete
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -93,6 +134,12 @@
 const imgRoot = './bangumi/cover/';
 
 export default {
+  props: {
+    bangumi: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       dialog5: false,
@@ -125,12 +172,6 @@ export default {
       obj.regex = this.filter.regex;
       obj.subtitle = this.followed.join(',');
       return obj;
-    },
-  },
-  props: {
-    bangumi: {
-      type: Object,
-      required: true,
     },
   },
   methods: {

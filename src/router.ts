@@ -19,33 +19,33 @@ const router = new Router({
       path: '/',
       name: 'Bangumi',
       component: Bangumi,
-      props: { category: 'index' }
+      props: { category: 'index' },
     },
     {
       path: '/:category(old)',
       name: 'Old',
       component: Bangumi,
-      props: { category: 'old' }
+      props: { category: 'old' },
     },
     {
       path: '/player/:category(index|old)/:bangumi_name(.*)/:episode',
       name: 'Player',
-      component: Player
+      component: Player,
     },
     {
       path: '/calendar',
       name: 'Calendar',
-      component: Calendar
+      component: Calendar,
     },
     {
       path: '/ask-for-token',
       name: 'Auth',
-      component: AskForToken
+      component: AskForToken,
     },
     {
       path: '/resource',
       name: 'Resource',
-      component: Resource
+      component: Resource,
     },
     // // {
     // //   path: '/search',
@@ -57,12 +57,12 @@ const router = new Router({
       path: '/subscribe',
       name: 'Subscribe',
       component: Subscribe,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
     },
     {
       path: '/about',
       name: 'About',
-      component: About
+      component: About,
     },
     // {
     //   path: '/config',
@@ -70,9 +70,9 @@ const router = new Router({
     //   component: Config,
     //   meta: {requiresAuth: true}
     // },
-    { path: '*', component: NotFound }
+    { path: '*', component: NotFound },
   ],
-  linkActiveClass: 'active'
+  linkActiveClass: 'active',
 });
 
 router.beforeEach((to, from, next) => {
@@ -81,11 +81,11 @@ router.beforeEach((to, from, next) => {
   } else {
     document.title = `BGmi - ${to.params.bangumi_name} - ${to.params.episode}`;
   }
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.state.isLogin) {
       next({
         path: '/ask-for-token',
-        query: { redirect: to.fullPath }
+        query: { redirect: to.fullPath },
       });
     } else {
       next();

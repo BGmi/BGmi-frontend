@@ -16,7 +16,7 @@ const state = {
   bgmiVersion: '',
   cal: {},
   calFetched: false,
-  history: JSON.parse(localStorage.getItem('history') || '{}')
+  history: JSON.parse(localStorage.getItem('history') || '{}'),
 };
 
 /* eslint-disable no-new */
@@ -47,7 +47,7 @@ const store = new Vuex.Store({
       state.bangumi = bangumi;
       state.hasBangumiIndexFetched = true;
     },
-    clearBangumiIndex(state, bangumi) {
+    clearBangumiIndex(state) {
       state.bangumi = [];
       state.hasBangumiIndexFetched = false;
     },
@@ -58,7 +58,7 @@ const store = new Vuex.Store({
     saveHistory(state, bangumi) {
       const item = {
         name: bangumi.bangumi_name,
-        episode: bangumi.episode.toString()
+        episode: bangumi.episode.toString(),
       };
       const history = state.history; // type: Object
       if (Object.prototype.hasOwnProperty.call(history, item.name)) {
@@ -69,14 +69,14 @@ const store = new Vuex.Store({
       }
       state.history = history; // type: Object
       localStorage.setItem('history', JSON.stringify(history));
-    }
+    },
   },
   actions: {
     getCalendar({ commit, state }, cb) {
       if (state.calFetched) {
         cb(state.cal);
       } else {
-        axiosInstance.get('cal').then(res => {
+        axiosInstance.get('cal').then((res) => {
           commit('calendar', res.data.data);
           cb(res.data.data);
         });
@@ -97,12 +97,12 @@ const store = new Vuex.Store({
       } else {
         throw new Error('wrong bangumi category');
       }
-      axiosInstance.get(category).then(res => {
+      axiosInstance.get(category).then((res) => {
         commit('storeBangumi', { category, bangumi: res.data.data });
         cb(res.data.data);
       });
-    }
-  }
+    },
+  },
 });
 
 export default store;

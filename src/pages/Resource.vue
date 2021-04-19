@@ -1,11 +1,20 @@
 <template>
   <v-container>
-    <v-layout row wrap>
+    <v-layout
+      row
+      wrap
+    >
       <v-flex xs12>
-        <a href="/resource/feed.xml" target="_blank"> Rss Feed </a>
+        <a
+          href="/resource/feed.xml"
+          target="_blank"
+        > Rss Feed </a>
       </v-flex>
       <v-flex xs12>
-        <a href="/resource/calendar.ics" target="_blank">
+        <a
+          href="/resource/calendar.ics"
+          target="_blank"
+        >
           ICS Calendar for mobile phone
         </a>
       </v-flex>
@@ -13,15 +22,12 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'Resource',
-  components: {},
-  created() {},
   data() {
     return {};
   },
-  methods: {},
 };
 </script>
 

@@ -4,9 +4,11 @@ module.exports = {
     node: true
   },
   extends: [
-    'plugin:vue/essential',
     '@vue/standard',
-    '@vue/typescript'
+    '@vue/typescript',
+    'plugin:vue/essential',
+    'plugin:vue/recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
   rules: {
     semi: ['error', 'always'],
@@ -16,7 +18,14 @@ module.exports = {
     'template-curly-spacing': 'off',
     'space-before-function-paren': ['error', 'never']
   },
-  parserOptions: {
-    parser: '@typescript-eslint/parser'
-  }
+  overrides: [{
+    files: ['*.vue'],
+    parser: 'vue-eslint-parser',
+    parserOptions: {
+      parser: '@typescript-eslint/parser'
+    },
+    rules: {
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+    }
+  }],
 };

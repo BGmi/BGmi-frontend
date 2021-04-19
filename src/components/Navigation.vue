@@ -6,36 +6,56 @@
     class="top-header"
     md-elevation="10"
   >
-    <md-dialog ref="dialog1" md-content="">
+    <md-dialog
+      ref="dialog1"
+      md-content=""
+    >
       <md-dialog-title>update</md-dialog-title>
       <md-dialog-content>
-        <md-spinner md-indeterminate v-if="loading" />
+        <md-spinner
+          v-if="loading"
+          md-indeterminate
+        />
         <div v-else>
           <p>Update bangumi, select download to download new episode</p>
-          <md-checkbox @input="saveCheck()" v-model="download"
-            >download</md-checkbox
+          <md-checkbox
+            v-model="download"
+            @input="saveCheck()"
           >
+            download
+          </md-checkbox>
         </div>
       </md-dialog-content>
       <md-dialog-actions v-if="!loading">
-        <md-button class="md-primary" @click="closeDialog('dialog1', false)"
-          >Cancel</md-button
+        <md-button
+          class="md-primary"
+          @click="closeDialog('dialog1', false)"
         >
-        <md-button class="md-primary" @click="closeDialog('dialog1', true)"
-          >Ok</md-button
+          Cancel
+        </md-button>
+        <md-button
+          class="md-primary"
+          @click="closeDialog('dialog1', true)"
         >
+          Ok
+        </md-button>
       </md-dialog-actions>
     </md-dialog>
     <!--<router-link to="/" style="flex: 1">-->
     <div style="flex: 1">
       <md-button @click="$router.push('/')">
-        <h2 class="md-title">{{ $route.name }}</h2>
+        <h2 class="md-title">
+          {{ $route.name }}
+        </h2>
       </md-button>
     </div>
     <!--</router-link>-->
-    <md-button v-if="$route.name === 'Subscribe'" @click="openDialog('dialog1')"
-      >update</md-button
+    <md-button
+      v-if="$route.name === 'Subscribe'"
+      @click="openDialog('dialog1')"
     >
+      update
+    </md-button>
     <v-button
       class="md-icon-button hidden-lg hidden-md"
       type="button"
@@ -57,7 +77,6 @@ export default {
       download: true,
     };
   },
-  created() {},
   methods: {
     saveCheck() {
       this.$cookies.set('download', this.download, 30);
