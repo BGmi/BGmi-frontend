@@ -9,7 +9,7 @@
       <v-btn
         :class="{ 'md-primary': !bangumi.status, 'md-accent': bangumi.status }"
         @click.stop.prevent="add()"
-        class="md-raised "
+        class="md-raised"
         color="info"
         v-if="!bangumi.status"
       >
@@ -23,9 +23,7 @@
       >
         <div>detail</div>
       </v-btn>
-      <v-btn @click="pack" class="md-raised" v-else>
-        pack
-      </v-btn>
+      <v-btn @click="pack" class="md-raised" v-else> pack </v-btn>
     </v-card-actions>
     <!-- dialog -->
     <v-dialog v-model="expand">
@@ -68,23 +66,15 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="showSubtitle = !showSubtitle">
-            显示字幕组
-          </v-btn>
-          <v-btn @click="del()" color="error">
-            delete
-          </v-btn>
-          <v-btn @click="save()" color="primary">
-            save
-          </v-btn>
+          <v-btn @click="showSubtitle = !showSubtitle"> 显示字幕组 </v-btn>
+          <v-btn @click="del()" color="error"> delete </v-btn>
+          <v-btn @click="save()" color="primary"> save </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog max-width="500px" v-model="dialog5">
       <v-card>
-        <v-card-title>
-          确认删除?
-        </v-card-title>
+        <v-card-title> 确认删除? </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn @click.stop="onClose('not-ok')" color="primary" flat
@@ -116,12 +106,12 @@ export default {
         subtitle_group: [],
         exclude: '',
         bangumi_name: '',
-        include: ''
+        include: '',
       },
       script: false,
       src: '',
       followed: [],
-      mark: this.bangumi.episode
+      mark: this.bangumi.episode,
     };
   },
   computed: {
@@ -135,19 +125,19 @@ export default {
       obj.regex = this.filter.regex;
       obj.subtitle = this.followed.join(',');
       return obj;
-    }
+    },
   },
   props: {
     bangumi: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     status() {
       this.$http.post('status', {
         name: this.bangumi.name,
-        status: this.bangumi.status
+        status: this.bangumi.status,
       });
     },
     save() {
@@ -157,31 +147,31 @@ export default {
           this.$http.post('filter', this.filter_args),
           this.$http.post('mark', {
             name: this.bangumi.name,
-            episode: this.mark
-          })
+            episode: this.mark,
+          }),
         ];
       } else {
         p = [
           this.$http.post('mark', {
             name: this.bangumi.name,
-            episode: this.mark
-          })
+            episode: this.mark,
+          }),
         ];
       }
       this.expand = false;
       Promise.all(p).then(
-        res => {
+        (res) => {
           this.expand = false;
           this.$notify({
             type: 'success',
             text: 'save filter successfully',
             placement: {
               from: 'top',
-              align: 'right'
-            }
+              align: 'right',
+            },
           });
         },
-        res => {}
+        (res) => {}
       );
     },
     pack() {
@@ -194,7 +184,7 @@ export default {
     },
     expandDetail() {
       if (this.bangumi.id) {
-        this.$http.post('filter', { name: this.bangumi.name }).then(res => {
+        this.$http.post('filter', { name: this.bangumi.name }).then((res) => {
           this.fetchFilter(res.data.data);
         });
       } else {
@@ -206,7 +196,7 @@ export default {
       this.$store.commit('clearBangumiIndex');
       const action = 'add';
       this.$http.post(`${action}`, { name: this.bangumi.name }).then(
-        res => {
+        (res) => {
           // this.expand = true
           this.bangumi.status = 1;
           this.$notify({
@@ -214,19 +204,19 @@ export default {
             text: res.data.message,
             placement: {
               from: 'top',
-              align: 'right'
-            }
+              align: 'right',
+            },
           });
         },
-        res => {
+        (res) => {
           //            this.bangumi.status = 1
           this.$notify({
             type: 'danger',
             text: res.data.message,
             placement: {
               from: 'top',
-              align: 'right'
-            }
+              align: 'right',
+            },
           });
         }
       );
@@ -238,26 +228,26 @@ export default {
         this.expand = false;
         const action = 'delete';
         this.$http.post(`${action}`, { name: this.bangumi.name }).then(
-          res => {
+          (res) => {
             this.bangumi.status = 0;
             this.$notify({
               type: res.data.status,
               text: res.data.message,
               placement: {
                 from: 'top',
-                align: 'right'
-              }
+                align: 'right',
+              },
             });
           },
-          res => {
+          (res) => {
             //              this.bangumi.status = 0
             this.$notify({
               type: 'danger',
               text: res.data.message,
               placement: {
                 from: 'top',
-                align: 'right'
-              }
+                align: 'right',
+              },
             });
           }
         );
@@ -265,8 +255,8 @@ export default {
     },
     del() {
       this.dialog5 = true;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

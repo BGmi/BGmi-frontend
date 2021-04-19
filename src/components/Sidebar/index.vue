@@ -43,7 +43,7 @@ import {
   mdiYoutubeSubscription,
   mdiInformation,
   mdiDotsVertical,
-  mdiPlayBoxMultiple
+  mdiPlayBoxMultiple,
 } from '@mdi/js';
 
 import Item from './item';
@@ -59,21 +59,21 @@ export default {
         mdiInformation,
         mdiDotsVertical,
         mdiLibraryVideo: mdiPlayBoxMultiple,
-        mdiFolder
+        mdiFolder,
       },
       visible: this.value,
-      publicPath: process.env.BASE_URL
+      publicPath: process.env.BASE_URL,
     };
   },
   props: {
     value: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {},
   components: {
-    Item
+    Item,
   },
   watch: {
     visible(val) {
@@ -81,8 +81,8 @@ export default {
     },
     value(val) {
       this.visible = val;
-    }
-  }
+    },
+  },
 };
 </script>
 

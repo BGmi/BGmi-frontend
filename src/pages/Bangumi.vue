@@ -27,9 +27,7 @@
                     )}/${value}`
                   )
                 "
-                v-for="value in Object.keys(bg.player)
-                  .reverse()
-                  .slice(0, 3)"
+                v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
                 :class="{ gray: hasWatched(bg.bangumi_name, value) }"
                 :key="value"
               >
@@ -54,11 +52,11 @@ export default {
 
   data() {
     return {
-      bangumi: []
+      bangumi: [],
     };
   },
   props: {
-    category: { default: 'index', type: String, required: true }
+    category: { default: 'index', type: String, required: true },
   },
   methods: {
     hasWatched,
@@ -67,20 +65,20 @@ export default {
     initData() {
       this.$store.dispatch('getBangumi', {
         category: this.category,
-        cb: bangumi => {
+        cb: (bangumi) => {
           this.bangumi = bangumi;
-        }
+        },
       });
-    }
+    },
   },
   watch: {
     category() {
       this.initData();
-    }
+    },
   },
   mounted() {
     this.initData();
-  }
+  },
 };
 </script>
 

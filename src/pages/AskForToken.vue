@@ -62,26 +62,26 @@ export default Vue.extend({
       rememberMeTimeItems: [
         {
           time: 'No',
-          value: false
+          value: false,
         },
         {
           time: '1 year',
-          value: '1y'
+          value: '1y',
         },
         {
           time: '1 month',
-          value: '1m'
+          value: '1m',
         },
         {
           time: '1 week',
-          value: '7d'
+          value: '7d',
         },
         {
           time: '1 day',
-          value: '1d'
-        }
+          value: '1d',
+        },
       ],
-      token: ''
+      token: '',
     };
   },
 
@@ -108,14 +108,14 @@ export default Vue.extend({
         () => {
           this.$notify({
             type: 'error',
-            text: 'auth wrong'
+            text: 'auth wrong',
           });
         }
       );
     },
     onClose() {
       this.tryAuth();
-    }
-  }
+    },
+  },
 });
 </script>

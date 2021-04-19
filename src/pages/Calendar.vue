@@ -36,7 +36,7 @@ export default Vue.extend({
   data() {
     return {
       tabData: false,
-      weekday: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+      weekday: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
     };
   },
   created() {
@@ -64,8 +64,8 @@ export default Vue.extend({
       }
 
       return `<h3 class="week">${day}</h3>${str.join(' / ')}`;
-    }
-  }
+    },
+  },
 });
 </script>
 

@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       loading: false,
-      download: true
+      download: true,
     };
   },
   created() {},
@@ -71,23 +71,23 @@ export default {
         this.loading = true;
         this.$http
           .post('update', { name: '', download: this.download })
-          .then(res => {
+          .then((res) => {
             this.$refs[ref].close();
             this.loading = false;
             let message = '<ul>';
             if (res.data.data.downloaded.length) {
-              res.data.data.downloaded.forEach(item => {
+              res.data.data.downloaded.forEach((item) => {
                 message += '<li>' + item.title + '</li>';
               });
               message += '</ul>';
               this.$notify({
                 type: 'success',
-                text: message
+                text: message,
               });
             } else {
               this.$.notify({
                 type: 'success',
-                text: 'nothing new'
+                text: 'nothing new',
               });
             }
           });
@@ -97,8 +97,8 @@ export default {
     },
     toggleSideBar() {
       this.$emit('toggleSideBar');
-    }
-  }
+    },
+  },
 };
 </script>
 <style></style>

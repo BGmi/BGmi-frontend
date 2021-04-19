@@ -78,9 +78,9 @@ export default Vue.extend({
   name: 'about',
   data() {
     return {
-      version: process.env.VUE_APP_VERSION
+      version: process.env.VUE_APP_VERSION,
     };
-  }
+  },
 });
 </script>
 <style></style>

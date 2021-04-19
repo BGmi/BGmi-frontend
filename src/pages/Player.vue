@@ -31,13 +31,11 @@
                 lightGray: hasWatched(bangumi.bangumi_name, key),
                 'btn--flat':
                   parseInt($route.params.episode.toString()) !==
-                  parseInt(key.toString())
+                  parseInt(key.toString()),
               }"
-              :to="
-                `/player/${$route.params.category}/${normalizePath(
-                  bangumi.bangumi_name
-                )}/${key}`
-              "
+              :to="`/player/${$route.params.category}/${normalizePath(
+                bangumi.bangumi_name
+              )}/${key}`"
               v-for="(key, index) in episodes"
               :key="index"
             >
@@ -64,24 +62,24 @@ export default {
       bangumi: {},
       videoFileUrl: '',
       $dplayer: null,
-      danmakuApi: ''
+      danmakuApi: '',
     };
   },
   watch: {
     '$route.params.episode'() {
       this.init();
-    }
+    },
   },
   methods: {
     normalizePath,
     hasWatched,
     init() {
-      const cb = bangumi => {
+      const cb = (bangumi) => {
         this.initData(bangumi);
       };
       this.$store.dispatch('getBangumi', {
         category: this.$route.params.category,
-        cb
+        cb,
       });
     },
     initData(data) {
@@ -93,7 +91,7 @@ export default {
           this.bangumi = bangumi;
           this.$store.commit('saveHistory', {
             bangumi_name: bangumi.bangumi_name,
-            episode: this.$route.params.episode
+            episode: this.$route.params.episode,
           });
           this.$nextTick(() => {
             const episode = `/bangumi${
@@ -107,7 +105,7 @@ export default {
               this.$notify({
                 type: 'warn',
                 text:
-                  '如果不能正常播放视频,可能是因为这个视频的编码方式暂时不受浏览器支持,请使用其他播放器播放.'
+                  '如果不能正常播放视频,可能是因为这个视频的编码方式暂时不受浏览器支持,请使用其他播放器播放.',
               });
             }
             this.videoFileUrl = episode;
@@ -118,14 +116,14 @@ export default {
               screenshot: true,
               video: {
                 url: episode,
-                pic: bangumi.cover
-              }
+                pic: bangumi.cover,
+              },
             };
 
             if (this.$store.state.danmaku_api) {
               option.danmaku = {
                 id: md5(bangumi.bangumi_name) + this.$route.params.episode,
-                api: this.$store.state.danmaku_api
+                api: this.$store.state.danmaku_api,
               };
             }
             if (this.$dplayer) {
@@ -137,7 +135,7 @@ export default {
           break;
         }
       }
-    }
+    },
   },
   created() {
     this.init();
@@ -151,8 +149,8 @@ export default {
         return [];
       }
       return Object.keys(this.bangumi.player).reverse();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

@@ -7,7 +7,7 @@ declare enum UpdateTime {
   Thu = 'Thu',
   Fri = 'Fri',
   Sat = 'Sat',
-  Sun = 'Sun'
+  Sun = 'Sun',
 }
 
 declare class Bangumi {

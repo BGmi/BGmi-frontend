@@ -48,18 +48,18 @@ import BangumiCard from './bangumiCard';
 export default {
   name: 'subscribe',
   components: {
-    BangumiCard
+    BangumiCard,
   },
   data() {
     return {
       bangumiCalendar: false,
       weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       latestBgmiVersion: '',
-      bgmiVersion: ''
+      bgmiVersion: '',
     };
   },
   mounted() {
-    this.$store.dispatch('getCalendar', cal => {
+    this.$store.dispatch('getCalendar', (cal) => {
       this.bangumiCalendar = cal;
       this.latestBgmiVersion = this.$store.state.latestBgmiVersion;
       this.bgmiVersion = this.$store.state.bgmiVersion;
@@ -71,13 +71,13 @@ export default {
             text: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
             placement: {
               from: 'top',
-              align: 'center'
-            }
+              align: 'center',
+            },
           });
         }
       });
     });
-  }
+  },
 };
 </script>
 <style scoped></style>

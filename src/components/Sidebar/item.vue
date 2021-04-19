@@ -16,8 +16,8 @@ export default {
     icon: { default: '', type: String },
     title: { default: '', type: String },
     href: { default: '', type: String },
-    to: { default: '', type: String }
-  }
+    to: { default: '', type: String },
+  },
 };
 </script>
 <style></style>
