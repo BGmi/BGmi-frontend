@@ -8,6 +8,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "eslint --fix ./src/",
+    "prettier": "prettier --write ./src/**/*",
     "test:unit": "vue-cli-service test:unit"
   },
   "files": [
