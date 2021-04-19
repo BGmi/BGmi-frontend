@@ -5,10 +5,15 @@
         <v-card>
           <v-toolbar app dark color="primary">
             <v-toolbar-title>{{ bangumi.bangumi_name }}</v-toolbar-title>
-            <v-spacer/>
+            <v-spacer />
             <v-tooltip right>
-              <v-btn slot="activator" icon large :href="dirPath"
-                     target="_blank">
+              <v-btn
+                slot="activator"
+                icon
+                large
+                :href="dirPath"
+                target="_blank"
+              >
                 <v-icon large>{{ mdiFolderOpen }}</v-icon>
               </v-btn>
               <span>Bangumi Files</span>
@@ -16,15 +21,26 @@
           </v-toolbar>
           <v-card-text>
             <div class="dplayer-container">
-              <div :id="bangumi.bangumi_name"/>
+              <div :id="bangumi.bangumi_name" />
             </div>
           </v-card-text>
           <v-card-actions>
-            <router-link tag="v-btn"
-                         :class="{lightGray:hasWatched(bangumi.bangumi_name,key),
-                                  'btn--flat':parseInt($route.params.episode.toString())!==parseInt(key.toString())}"
-                         :to="`/player/${$route.params.category}/${normalizePath(bangumi.bangumi_name)}/${key}`"
-                         v-for="(key, index) in episodes" :key="index">
+            <router-link
+              tag="v-btn"
+              :class="{
+                lightGray: hasWatched(bangumi.bangumi_name, key),
+                'btn--flat':
+                  parseInt($route.params.episode.toString()) !==
+                  parseInt(key.toString())
+              }"
+              :to="
+                `/player/${$route.params.category}/${normalizePath(
+                  bangumi.bangumi_name
+                )}/${key}`
+              "
+              v-for="(key, index) in episodes"
+              :key="index"
+            >
               {{ key }}
             </router-link>
           </v-card-actions>
@@ -35,103 +51,109 @@
 </template>
 
 <script>
-import DPlayer from 'dplayer'
-import md5 from 'md5'
-import {
-  mdiFolderOpen
-} from '@mdi/js'
-import { hasWatched, normalizePath } from '@/utils'
-import path from 'path'
+import DPlayer from 'dplayer';
+import md5 from 'md5';
+import { mdiFolderOpen } from '@mdi/js';
+import { hasWatched, normalizePath } from '@/utils';
+import path from 'path';
 
 export default {
-  data () {
+  data() {
     return {
       mdiFolderOpen,
       bangumi: {},
       videoFileUrl: '',
       $dplayer: null,
       danmakuApi: ''
-    }
+    };
   },
   watch: {
-    '$route.params.episode' () {
-      this.init()
+    '$route.params.episode'() {
+      this.init();
     }
   },
   methods: {
     normalizePath,
     hasWatched,
-    init () {
-      const cb = (bangumi) => {
-        this.initData(bangumi)
-      }
+    init() {
+      const cb = bangumi => {
+        this.initData(bangumi);
+      };
       this.$store.dispatch('getBangumi', {
         category: this.$route.params.category,
         cb
-      })
+      });
     },
-    initData (data) {
+    initData(data) {
       for (const bangumi of data) {
-        if (normalizePath(bangumi.bangumi_name) === this.$route.params.bangumi_name) {
-          this.bangumi = bangumi
+        if (
+          normalizePath(bangumi.bangumi_name) ===
+          this.$route.params.bangumi_name
+        ) {
+          this.bangumi = bangumi;
           this.$store.commit('saveHistory', {
             bangumi_name: bangumi.bangumi_name,
             episode: this.$route.params.episode
-          })
-          this.$nextTick(
-            () => {
-              const episode = `/bangumi${bangumi.player[this.$route.params.episode].path}`
-              /* */
-              const filePath = bangumi.player[this.$route.params.episode].path.toLowerCase()
-              if (filePath.includes('hevc') || filePath.includes('x265')) {
-                this.$notify({
-                  type: 'warn',
-                  text: '如果不能正常播放视频,可能是因为这个视频的编码方式暂时不受浏览器支持,请使用其他播放器播放.'
-                })
-              }
-              this.videoFileUrl = episode
-
-              const option = {
-                theme: '#FF3333',
-                element: document.getElementById(bangumi.bangumi_name),
-                screenshot: true,
-                video: {
-                  url: episode,
-                  pic: bangumi.cover
-                }
-              }
-
-              if (this.$store.state.danmaku_api) {
-                option.danmaku = {
-                  id: md5(bangumi.bangumi_name) + this.$route.params.episode,
-                  api: this.$store.state.danmaku_api
-                }
-              }
-              if (this.$dplayer) {
-                this.$dplayer.switchVideo(option.video, option.danmaku)
-              } else {
-                this.$dplayer = new DPlayer(Object.assign({}, option))
-              }
+          });
+          this.$nextTick(() => {
+            const episode = `/bangumi${
+              bangumi.player[this.$route.params.episode].path
+            }`;
+            /* */
+            const filePath = bangumi.player[
+              this.$route.params.episode
+            ].path.toLowerCase();
+            if (filePath.includes('hevc') || filePath.includes('x265')) {
+              this.$notify({
+                type: 'warn',
+                text:
+                  '如果不能正常播放视频,可能是因为这个视频的编码方式暂时不受浏览器支持,请使用其他播放器播放.'
+              });
             }
-          )
-          break
+            this.videoFileUrl = episode;
+
+            const option = {
+              theme: '#FF3333',
+              element: document.getElementById(bangumi.bangumi_name),
+              screenshot: true,
+              video: {
+                url: episode,
+                pic: bangumi.cover
+              }
+            };
+
+            if (this.$store.state.danmaku_api) {
+              option.danmaku = {
+                id: md5(bangumi.bangumi_name) + this.$route.params.episode,
+                api: this.$store.state.danmaku_api
+              };
+            }
+            if (this.$dplayer) {
+              this.$dplayer.switchVideo(option.video, option.danmaku);
+            } else {
+              this.$dplayer = new DPlayer(Object.assign({}, option));
+            }
+          });
+          break;
         }
       }
     }
   },
-  created () {
-    this.init()
+  created() {
+    this.init();
   },
   computed: {
-    dirPath () {
-      return path.dirname(this.videoFileUrl) + '/'
+    dirPath() {
+      return path.dirname(this.videoFileUrl) + '/';
     },
-    episodes () {
-      if (!Object.prototype.hasOwnProperty.call(this.bangumi, 'player')) return []
-      return Object.keys(this.bangumi.player).reverse()
+    episodes() {
+      if (!Object.prototype.hasOwnProperty.call(this.bangumi, 'player')) {
+        return [];
+      }
+      return Object.keys(this.bangumi.player).reverse();
     }
   }
-}
+};
 </script>
 <style scoped>
 .lightGray {

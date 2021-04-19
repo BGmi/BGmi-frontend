@@ -1,16 +1,16 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Player from './pages/Player.vue'
-import Bangumi from './pages/Bangumi.vue'
-import Calendar from './pages/Calendar.vue'
-import Resource from './pages/Resource.vue'
-import Subscribe from './pages/Subscribe/index.vue'
-import About from './pages/About.vue'
-import NotFound from './pages/GeneralViews/NotFound.vue'
-import AskForToken from './pages/AskForToken.vue'
-import store from './store'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Player from './pages/Player.vue';
+import Bangumi from './pages/Bangumi.vue';
+import Calendar from './pages/Calendar.vue';
+import Resource from './pages/Resource.vue';
+import Subscribe from './pages/Subscribe/index.vue';
+import About from './pages/About.vue';
+import NotFound from './pages/GeneralViews/NotFound.vue';
+import AskForToken from './pages/AskForToken.vue';
+import store from './store';
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
   mode: 'hash',
@@ -73,26 +73,26 @@ const router = new Router({
     { path: '*', component: NotFound }
   ],
   linkActiveClass: 'active'
-})
+});
 
 router.beforeEach((to, from, next) => {
   if (to.name !== 'Player') {
-    document.title = `BGmi - ${to.name}`
+    document.title = `BGmi - ${to.name}`;
   } else {
-    document.title = `BGmi - ${to.params.bangumi_name} - ${to.params.episode}`
+    document.title = `BGmi - ${to.params.bangumi_name} - ${to.params.episode}`;
   }
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.state.isLogin) {
       next({
         path: '/ask-for-token',
         query: { redirect: to.fullPath }
-      })
+      });
     } else {
-      next()
+      next();
     }
   } else {
-    next() // 确保一定要调用 next()
+    next(); // 确保一定要调用 next()
   }
-})
+});
 
-export default router
+export default router;

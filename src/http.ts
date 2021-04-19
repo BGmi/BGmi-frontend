@@ -1,2 +1,2 @@
-import axios from 'axios'
-export const axiosInstance = axios.create({ baseURL: './api/' })
+import axios from 'axios';
+export const axiosInstance = axios.create({ baseURL: './api/' });

@@ -7,22 +7,22 @@ declare enum UpdateTime {
   Thu = 'Thu',
   Fri = 'Fri',
   Sat = 'Sat',
-  Sun = 'Sun',
+  Sun = 'Sun'
 }
 
 declare class Bangumi {
-  bangumi_id: number
-  bangumi_name: string
-  name: string
-  cover: string
-  data_source: string
-  episode: number
-  exclude: string
-  include: string
-  player: { [keys: number]: { player: string } }
-  regex: string
-  status: 1
-  subtitle: string
-  update_time: UpdateTime
-  updated_time: number
+  bangumi_id: number;
+  bangumi_name: string;
+  name: string;
+  cover: string;
+  data_source: string;
+  episode: number;
+  exclude: string;
+  include: string;
+  player: { [keys: number]: { player: string } };
+  regex: string;
+  status: 1;
+  subtitle: string;
+  update_time: UpdateTime;
+  updated_time: number;
 }

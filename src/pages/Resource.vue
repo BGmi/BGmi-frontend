@@ -13,20 +13,18 @@
       </v-flex>
     </v-layout>
   </v-container>
-
 </template>
 
 <script>
 export default {
   name: 'Resource',
   components: {},
-  created () { },
-  data () {
-    return {}
+  created() {},
+  data() {
+    return {};
   },
   methods: {}
-}
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

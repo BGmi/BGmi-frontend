@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to=to :href=href exact='exact'>
+  <v-list-item :to="to" :href="href" exact="exact">
     <!-- <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact"> -->
     <v-list-item-action>
       <v-icon>{{ icon }}</v-icon>
@@ -18,7 +18,6 @@ export default {
     href: { default: '', type: String },
     to: { default: '', type: String }
   }
-}
+};
 </script>
-<style>
-</style>
+<style></style>

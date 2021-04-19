@@ -1,28 +1,15 @@
 <template>
-  <v-container
-    fill-height
-    fluid
-  >
-    <v-layout
-      align-center
-      justify-center
-    >
-      <v-flex
-        md6
-        sm10
-        xs12
-      >
+  <v-container fill-height fluid>
+    <v-layout align-center justify-center>
+      <v-flex md6 sm10 xs12>
         <v-card class="elevation-12">
-          <v-toolbar app
-                     color="primary"
-                     dark
-          >
+          <v-toolbar app color="primary" dark>
             <v-toolbar-title>Auth</v-toolbar-title>
-            <v-spacer/>
+            <v-spacer />
           </v-toolbar>
           <v-card-text>
             <v-form>
-              <label/>
+              <label />
               <v-text-field
                 v-model="token"
                 label="token"
@@ -40,38 +27,33 @@
               label="Remember Me"
               v-model="rememberMe"
             />
-            <v-spacer/>
-            <v-btn
-              @click="onClose()"
-              color=primary
-            >Login
-            </v-btn>
+            <v-spacer />
+            <v-btn @click="onClose()" color="primary">Login </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
   </v-container>
-
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default Vue.extend({
   name: 'AskForToken',
-  data () {
-    let rememberMe = '1y'
+  data() {
+    let rememberMe = '1y';
     if (this.$cookies.isKey('rememberMe')) {
       rememberMe =
         this.$cookies.get('rememberMe') === 'false'
           ? false
-          : this.$cookies.get('rememberMe')
+          : this.$cookies.get('rememberMe');
     }
-    let redirectTo: string = '/'
+    let redirectTo: string = '/';
     if (this.$route.query.redirect) {
       if (Array.isArray(this.$route.query.redirect)) {
-        redirectTo = this.$route.query.redirect[0] || ''
+        redirectTo = this.$route.query.redirect[0] || '';
       } else {
-        redirectTo = this.$route.query.redirect
+        redirectTo = this.$route.query.redirect;
       }
     }
     return {
@@ -100,40 +82,40 @@ export default Vue.extend({
         }
       ],
       token: ''
-    }
+    };
   },
 
-  created () {
+  created() {
     if (this.$cookies.isKey('auth')) {
-      this.token = this.$cookies.get('auth')
-      this.tryAuth()
+      this.token = this.$cookies.get('auth');
+      this.tryAuth();
     }
   },
   methods: {
-    tryAuth () {
+    tryAuth() {
       this.$http.post('auth', { token: this.token }).then(
         () => {
-          this.$store.commit('login', this.token)
-          this.$http.defaults.headers['bgmi-token'] = `${ this.token }`
+          this.$store.commit('login', this.token);
+          this.$http.defaults.headers['bgmi-token'] = `${this.token}`;
           if (this.rememberMe) {
-            this.$cookies.set('auth', this.token, this.rememberMe)
+            this.$cookies.set('auth', this.token, this.rememberMe);
           }
-          this.$cookies.set('rememberMe', this.rememberMe)
+          this.$cookies.set('rememberMe', this.rememberMe);
           this.$nextTick(() => {
-            this.$router.push(this.redirectTo)
-          })
+            this.$router.push(this.redirectTo);
+          });
         },
         () => {
           this.$notify({
             type: 'error',
             text: 'auth wrong'
-          })
+          });
         }
-      )
+      );
     },
-    onClose () {
-      this.tryAuth()
+    onClose() {
+      this.tryAuth();
     }
   }
-})
+});
 </script>

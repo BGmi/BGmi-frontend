@@ -1,7 +1,7 @@
-const pkg = require('./package.json')
+const pkg = require('./package.json');
 
 // 作为配置文件，直接导出配置对象即可
-process.env.VUE_APP_VERSION = pkg.version
+process.env.VUE_APP_VERSION = pkg.version;
 
 module.exports = {
   publicPath: './',
@@ -31,4 +31,4 @@ module.exports = {
       }
     }
   }
-}
+};

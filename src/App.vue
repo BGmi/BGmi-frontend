@@ -1,25 +1,25 @@
 <template>
   <v-app id="inspire">
-    <sidebar v-model='drawer'/>
+    <sidebar v-model="drawer" />
     <v-app-bar
       app
-      :class="{'elevation-0': $route.name==='Subscribe'}"
+      :class="{ 'elevation-0': $route.name === 'Subscribe' }"
       color="indigo"
       dark
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>BGmi - {{ $route.name }}</v-toolbar-title>
     </v-app-bar>
     <v-content>
-      <notifications/>
-      <router-view/>
+      <notifications />
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script>
 // import Navigation from './components/Navigation.vue'
-import Sidebar from './components/Sidebar/index.vue'
+import Sidebar from './components/Sidebar/index.vue';
 
 export default {
   name: 'App',
@@ -27,29 +27,29 @@ export default {
     Sidebar
   },
 
-  data () {
+  data() {
     return {
       drawer: null,
       token: '',
       sidebarToggled: false
-    }
+    };
   },
 
   computed: {
-    navOpened () {
-      return this.sidebarToggled
+    navOpened() {
+      return this.sidebarToggled;
     }
   },
   methods: {
-    toggleSideBar () {
-      this.sidebarToggled = !this.sidebarToggled
+    toggleSideBar() {
+      this.sidebarToggled = !this.sidebarToggled;
     },
-    onCloseLayerClick () {
-      this.toggleSideBar()
+    onCloseLayerClick() {
+      this.toggleSideBar();
     }
   },
   watch: {}
-}
+};
 </script>
 
 <style>

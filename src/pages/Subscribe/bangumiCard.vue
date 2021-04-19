@@ -1,71 +1,57 @@
 <template>
   <v-card>
-    <v-img
-      :src=imgSrc
-      height="100px"
-    ></v-img>
+    <v-img :src="imgSrc" height="100px"></v-img>
     <v-card-text>
-      <p class="category text-black headline">{{bangumi.name}}</p>
+      <p class="category text-black headline">{{ bangumi.name }}</p>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
-        :class="{'md-primary':!bangumi.status,'md-accent':bangumi.status}"
+        :class="{ 'md-primary': !bangumi.status, 'md-accent': bangumi.status }"
         @click.stop.prevent="add()"
         class="md-raised "
-        color=info
-        v-if='!bangumi.status'
+        color="info"
+        v-if="!bangumi.status"
       >
         add
       </v-btn>
       <v-btn
         @click.stop.prevent="expandDetail()"
         class="md-raised"
-        color=success
+        color="success"
         v-else-if="!expand"
       >
         <div>detail</div>
       </v-btn>
-      <v-btn
-        @click="pack"
-        class="md-raised"
-        v-else
-      >
+      <v-btn @click="pack" class="md-raised" v-else>
         pack
       </v-btn>
     </v-card-actions>
     <!-- dialog -->
     <v-dialog v-model="expand">
       <v-card>
-        <v-toolbar
-          color="primary"
-          dark
-          app
-        >
+        <v-toolbar color="primary" dark app>
           <v-toolbar-title>Filter</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-text>
           <v-form>
             <v-text-field
-              label=Status
+              label="Status"
               type="number"
               v-model="bangumi.status"
             ></v-text-field>
             <v-text-field
-              label=Include
+              label="Include"
               v-model="filter.include"
             ></v-text-field>
+            <v-text-field label="Regex" v-model="filter.regex"></v-text-field>
             <v-text-field
-              label=Regex
-              v-model="filter.regex"
-            ></v-text-field>
-            <v-text-field
-              label=Exclude
+              label="Exclude"
               v-model="filter.exclude"
             ></v-text-field>
             <v-text-field
-              label=Episode
+              label="Episode"
               type="number"
               v-model="mark"
             ></v-text-field>
@@ -73,7 +59,7 @@
         </v-card-text>
         <v-card-text v-show="showSubtitle">
           <v-checkbox
-            :key=key
+            :key="key"
             :label="key"
             :value="key"
             v-for="key in filter.subtitle_group"
@@ -82,45 +68,30 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="showSubtitle=!showSubtitle">
+          <v-btn @click="showSubtitle = !showSubtitle">
             显示字幕组
           </v-btn>
-          <v-btn
-            @click="del()"
-            color=error
-          >
+          <v-btn @click="del()" color="error">
             delete
           </v-btn>
-          <v-btn
-            @click="save()"
-            color=primary
-          >
+          <v-btn @click="save()" color="primary">
             save
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog
-      max-width="500px"
-      v-model="dialog5"
-    >
+    <v-dialog max-width="500px" v-model="dialog5">
       <v-card>
         <v-card-title>
           确认删除?
         </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            @click.stop="onClose('not-ok')"
-            color="primary"
-            flat
-          >Cancel
+          <v-btn @click.stop="onClose('not-ok')" color="primary" flat
+            >Cancel
           </v-btn>
-          <v-btn
-            @click.stop="onClose('ok')"
-            color="primary"
-            flat
-          >Delete
+          <v-btn @click.stop="onClose('ok')" color="primary" flat
+            >Delete
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -129,10 +100,10 @@
   </v-card>
 </template>
 <script>
-const imgRoot = './bangumi/cover/'
+const imgRoot = './bangumi/cover/';
 
 export default {
-  data () {
+  data() {
     return {
       dialog5: false,
       showSubtitle: false,
@@ -151,19 +122,19 @@ export default {
       src: '',
       followed: [],
       mark: this.bangumi.episode
-    }
+    };
   },
   computed: {
-    imgSrc () {
-      return `${this.imgRoot}${this.bangumi.cover}`
+    imgSrc() {
+      return `${this.imgRoot}${this.bangumi.cover}`;
     },
-    filter_args () {
-      const obj = { name: this.bangumi.name }
-      obj.include = this.filter.include
-      obj.exclude = this.filter.exclude
-      obj.regex = this.filter.regex
-      obj.subtitle = this.followed.join(',')
-      return obj
+    filter_args() {
+      const obj = { name: this.bangumi.name };
+      obj.include = this.filter.include;
+      obj.exclude = this.filter.exclude;
+      obj.regex = this.filter.regex;
+      obj.subtitle = this.followed.join(',');
+      return obj;
     }
   },
   props: {
@@ -173,72 +144,71 @@ export default {
     }
   },
   methods: {
-    status () {
+    status() {
       this.$http.post('status', {
         name: this.bangumi.name,
         status: this.bangumi.status
-      })
+      });
     },
-    save () {
-      let p = []
+    save() {
+      let p = [];
       if (!this.script) {
-        p = [this.$http.post('filter', this.filter_args),
+        p = [
+          this.$http.post('filter', this.filter_args),
           this.$http.post('mark', {
             name: this.bangumi.name,
             episode: this.mark
-          })]
+          })
+        ];
       } else {
         p = [
           this.$http.post('mark', {
             name: this.bangumi.name,
             episode: this.mark
-          })]
+          })
+        ];
       }
-      this.expand = false
-      Promise.all(p)
-        .then(
-          res => {
-            this.expand = false
-            this.$notify({
-              type: 'success',
-              text: 'save filter successfully',
-              placement: {
-                from: 'top',
-                align: 'right'
-              }
-            })
-          },
-          res => {
-          }
-        )
+      this.expand = false;
+      Promise.all(p).then(
+        res => {
+          this.expand = false;
+          this.$notify({
+            type: 'success',
+            text: 'save filter successfully',
+            placement: {
+              from: 'top',
+              align: 'right'
+            }
+          });
+        },
+        res => {}
+      );
     },
-    pack () {
-      this.expand = false
+    pack() {
+      this.expand = false;
     },
-    fetchFilter (data) {
-      this.filter = data
-      this.followed = data.followed
-      this.expand = true
+    fetchFilter(data) {
+      this.filter = data;
+      this.followed = data.followed;
+      this.expand = true;
     },
-    expandDetail () {
+    expandDetail() {
       if (this.bangumi.id) {
-        this.$http.post('filter', { name: this.bangumi.name }).then(
-          res => {
-            this.fetchFilter(res.data.data)
-          }
-        )
+        this.$http.post('filter', { name: this.bangumi.name }).then(res => {
+          this.fetchFilter(res.data.data);
+        });
       } else {
-        this.expand = true
-        this.script = true
+        this.expand = true;
+        this.script = true;
       }
     },
-    add () {
-      this.$store.commit('clearBangumiIndex')
-      const action = 'add'
+    add() {
+      this.$store.commit('clearBangumiIndex');
+      const action = 'add';
       this.$http.post(`${action}`, { name: this.bangumi.name }).then(
         res => {
           // this.expand = true
-          this.bangumi.status = 1
+          this.bangumi.status = 1;
           this.$notify({
             type: res.data.status,
             text: res.data.message,
@@ -246,7 +216,7 @@ export default {
               from: 'top',
               align: 'right'
             }
-          })
+          });
         },
         res => {
           //            this.bangumi.status = 1
@@ -257,18 +227,19 @@ export default {
               from: 'top',
               align: 'right'
             }
-          })
-        })
+          });
+        }
+      );
     },
-    onClose (type) {
-      this.dialog5 = false
+    onClose(type) {
+      this.dialog5 = false;
       if (type === 'ok') {
-        this.$store.commit('clearBangumiIndex')
-        this.expand = false
-        const action = 'delete'
+        this.$store.commit('clearBangumiIndex');
+        this.expand = false;
+        const action = 'delete';
         this.$http.post(`${action}`, { name: this.bangumi.name }).then(
           res => {
-            this.bangumi.status = 0
+            this.bangumi.status = 0;
             this.$notify({
               type: res.data.status,
               text: res.data.message,
@@ -276,7 +247,7 @@ export default {
                 from: 'top',
                 align: 'right'
               }
-            })
+            });
           },
           res => {
             //              this.bangumi.status = 0
@@ -287,15 +258,16 @@ export default {
                 from: 'top',
                 align: 'right'
               }
-            })
-          })
+            });
+          }
+        );
       }
     },
-    del () {
-      this.dialog5 = true
+    del() {
+      this.dialog5 = true;
     }
   }
-}
+};
 </script>
 <style scoped>
 .headline {

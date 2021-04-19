@@ -4,4 +4,4 @@ module.exports = {
     'src/**/*.{js,vue,ts}',
     '!src/main.ts' // No need to cover bootstrap file
   ]
-}
+};

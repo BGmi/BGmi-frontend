@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import { axiosInstance } from './http'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { axiosInstance } from './http';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const state = {
   bangumi: [],
@@ -17,7 +17,7 @@ const state = {
   cal: {},
   calFetched: false,
   history: JSON.parse(localStorage.getItem('history') || '{}')
-}
+};
 
 /* eslint-disable no-new */
 const store = new Vuex.Store({
@@ -25,84 +25,84 @@ const store = new Vuex.Store({
   // 定义状态
   /* eslint-disable no-param-reassign,no-shadow */
   mutations: {
-    login (state, token) {
-      state.isLogin = true
-      state.token = token
+    login(state, token) {
+      state.isLogin = true;
+      state.token = token;
     },
-    storeBangumi (state, { category, bangumi }) {
+    storeBangumi(state, { category, bangumi }) {
       if (category === 'index') {
-        state.bangumi = bangumi
-        state.hasBangumiIndexFetched = true
+        state.bangumi = bangumi;
+        state.hasBangumiIndexFetched = true;
       } else if (category === 'old') {
-        state.bangumiOld = bangumi
-        state.hasBangumiOldFetched = true
+        state.bangumiOld = bangumi;
+        state.hasBangumiOldFetched = true;
       }
     },
-    init (state, initData) {
-      state.coverRoot = initData.cover_url
-      state.danmaku_api = initData.danmaku_api
-      state.bgmiVersion = initData.version
+    init(state, initData) {
+      state.coverRoot = initData.cover_url;
+      state.danmaku_api = initData.danmaku_api;
+      state.bgmiVersion = initData.version;
     },
-    bangumiIndex (state, bangumi) {
-      state.bangumi = bangumi
-      state.hasBangumiIndexFetched = true
+    bangumiIndex(state, bangumi) {
+      state.bangumi = bangumi;
+      state.hasBangumiIndexFetched = true;
     },
-    clearBangumiIndex (state, bangumi) {
-      state.bangumi = []
-      state.hasBangumiIndexFetched = false
+    clearBangumiIndex(state, bangumi) {
+      state.bangumi = [];
+      state.hasBangumiIndexFetched = false;
     },
-    calendar (state, cal) {
-      state.cal = cal
-      state.calFetched = true
+    calendar(state, cal) {
+      state.cal = cal;
+      state.calFetched = true;
     },
-    saveHistory (state, bangumi) {
+    saveHistory(state, bangumi) {
       const item = {
         name: bangumi.bangumi_name,
         episode: bangumi.episode.toString()
-      }
-      const history = state.history // type: Object
+      };
+      const history = state.history; // type: Object
       if (Object.prototype.hasOwnProperty.call(history, item.name)) {
-        history[item.name][item.episode] = true
+        history[item.name][item.episode] = true;
       } else {
-        history[item.name] = {}
-        history[item.name][item.episode] = true
+        history[item.name] = {};
+        history[item.name][item.episode] = true;
       }
-      state.history = history // type: Object
-      localStorage.setItem('history', JSON.stringify(history))
+      state.history = history; // type: Object
+      localStorage.setItem('history', JSON.stringify(history));
     }
   },
   actions: {
-    getCalendar ({ commit, state }, cb) {
+    getCalendar({ commit, state }, cb) {
       if (state.calFetched) {
-        cb(state.cal)
+        cb(state.cal);
       } else {
         axiosInstance.get('cal').then(res => {
-          commit('calendar', res.data.data)
-          cb(res.data.data)
-        })
+          commit('calendar', res.data.data);
+          cb(res.data.data);
+        });
       }
     },
-    getBangumi ({ commit, state }, { category, cb }) {
+    getBangumi({ commit, state }, { category, cb }) {
       // check locally
       if (category === 'index') {
         if (state.hasBangumiIndexFetched) {
-          cb(state.bangumi)
-          return
+          cb(state.bangumi);
+          return;
         }
       } else if (category === 'old') {
         if (state.hasBangumiOldFetched) {
-          cb(state.bangumiOld)
-          return
+          cb(state.bangumiOld);
+          return;
         }
       } else {
-        throw new Error('wrong bangumi category')
+        throw new Error('wrong bangumi category');
       }
       axiosInstance.get(category).then(res => {
-        commit('storeBangumi', { category, bangumi: res.data.data })
-        cb(res.data.data)
-      })
+        commit('storeBangumi', { category, bangumi: res.data.data });
+        cb(res.data.data);
+      });
     }
   }
-})
+});
 
-export default store
+export default store;
