@@ -25,7 +25,7 @@
       >
         <div>detail</div>
       </v-btn>
-      <v-btn v-else class="md-raised" @click="pack"> pack </v-btn>
+      <v-btn v-else class="md-raised" @click="pack"> pack</v-btn>
     </v-card-actions>
     <!-- dialog -->
     <v-dialog v-model="expand">
@@ -58,15 +58,15 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn @click="showSubtitle = !showSubtitle"> 显示字幕组 </v-btn>
-          <v-btn color="error" @click="del()"> delete </v-btn>
-          <v-btn color="primary" @click="save()"> save </v-btn>
+          <v-btn @click="showSubtitle = !showSubtitle"> 显示字幕组</v-btn>
+          <v-btn color="error" @click="del()"> delete</v-btn>
+          <v-btn color="primary" @click="save()"> save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog v-model="dialog5" max-width="500px">
       <v-card>
-        <v-card-title> 确认删除? </v-card-title>
+        <v-card-title> 确认删除?</v-card-title>
         <v-card-actions>
           <v-spacer />
           <v-btn color="primary" flat @click.stop="onClose('not-ok')">
@@ -151,20 +151,17 @@ export default {
         ];
       }
       this.expand = false;
-      Promise.all(p).then(
-        (res) => {
-          this.expand = false;
-          this.$notify({
-            type: 'success',
-            text: 'save filter successfully',
-            placement: {
-              from: 'top',
-              align: 'right',
-            },
-          });
-        },
-        (res) => {}
-      );
+      Promise.all(p).then(() => {
+        this.expand = false;
+        this.$notify({
+          type: 'success',
+          text: 'save filter successfully',
+          placement: {
+            from: 'top',
+            align: 'right',
+          },
+        });
+      });
     },
     pack() {
       this.expand = false;
