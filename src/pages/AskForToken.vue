@@ -1,23 +1,9 @@
 <template>
-  <v-container
-    fill-height
-    fluid
-  >
-    <v-layout
-      align-center
-      justify-center
-    >
-      <v-flex
-        md6
-        sm10
-        xs12
-      >
+  <v-container fill-height fluid>
+    <v-layout align-center justify-center>
+      <v-flex md6 sm10 xs12>
         <v-card class="elevation-12">
-          <v-toolbar
-            app
-            color="primary"
-            dark
-          >
+          <v-toolbar app color="primary" dark>
             <v-toolbar-title>Auth</v-toolbar-title>
             <v-spacer />
           </v-toolbar>
@@ -42,12 +28,7 @@
               label="Remember Me"
             />
             <v-spacer />
-            <v-btn
-              color="primary"
-              @click="onClose()"
-            >
-              Login
-            </v-btn>
+            <v-btn color="primary" @click="onClose()"> Login </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>

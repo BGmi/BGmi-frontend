@@ -1,9 +1,6 @@
 <template>
   <v-card>
-    <v-img
-      :src="imgSrc"
-      height="100px"
-    />
+    <v-img :src="imgSrc" height="100px" />
     <v-card-text>
       <p class="category text-black headline">
         {{ bangumi.name }}
@@ -28,22 +25,12 @@
       >
         <div>detail</div>
       </v-btn>
-      <v-btn
-        v-else
-        class="md-raised"
-        @click="pack"
-      >
-        pack
-      </v-btn>
+      <v-btn v-else class="md-raised" @click="pack"> pack </v-btn>
     </v-card-actions>
     <!-- dialog -->
     <v-dialog v-model="expand">
       <v-card>
-        <v-toolbar
-          color="primary"
-          dark
-          app
-        >
+        <v-toolbar color="primary" dark app>
           <v-toolbar-title>Filter</v-toolbar-title>
           <v-spacer />
         </v-toolbar>
@@ -54,23 +41,10 @@
               label="Status"
               type="number"
             />
-            <v-text-field
-              v-model="filter.include"
-              label="Include"
-            />
-            <v-text-field
-              v-model="filter.regex"
-              label="Regex"
-            />
-            <v-text-field
-              v-model="filter.exclude"
-              label="Exclude"
-            />
-            <v-text-field
-              v-model="mark"
-              label="Episode"
-              type="number"
-            />
+            <v-text-field v-model="filter.include" label="Include" />
+            <v-text-field v-model="filter.regex" label="Regex" />
+            <v-text-field v-model="filter.exclude" label="Exclude" />
+            <v-text-field v-model="mark" label="Episode" type="number" />
           </v-form>
         </v-card-text>
         <v-card-text v-show="showSubtitle">
@@ -84,44 +58,21 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn @click="showSubtitle = !showSubtitle">
-            显示字幕组
-          </v-btn>
-          <v-btn
-            color="error"
-            @click="del()"
-          >
-            delete
-          </v-btn>
-          <v-btn
-            color="primary"
-            @click="save()"
-          >
-            save
-          </v-btn>
+          <v-btn @click="showSubtitle = !showSubtitle"> 显示字幕组 </v-btn>
+          <v-btn color="error" @click="del()"> delete </v-btn>
+          <v-btn color="primary" @click="save()"> save </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog
-      v-model="dialog5"
-      max-width="500px"
-    >
+    <v-dialog v-model="dialog5" max-width="500px">
       <v-card>
         <v-card-title> 确认删除? </v-card-title>
         <v-card-actions>
           <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            @click.stop="onClose('not-ok')"
-          >
+          <v-btn color="primary" flat @click.stop="onClose('not-ok')">
             Cancel
           </v-btn>
-          <v-btn
-            color="primary"
-            flat
-            @click.stop="onClose('ok')"
-          >
+          <v-btn color="primary" flat @click.stop="onClose('ok')">
             Delete
           </v-btn>
         </v-card-actions>

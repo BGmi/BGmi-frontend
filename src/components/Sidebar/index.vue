@@ -1,16 +1,10 @@
 <template>
-  <v-navigation-drawer
-    v-model="visible"
-    app
-  >
+  <v-navigation-drawer v-model="visible" app>
     <v-list>
       <v-list-item to="/">
         <v-list-item-action>
           <v-avatar>
-            <img
-              alt="logo"
-              :src="`${publicPath}static/logo144.jpg`"
-            >
+            <img alt="logo" :src="`${publicPath}static/logo144.jpg`" />
           </v-avatar>
           <!-- <router-link tag="li" v-if="to" :to="to" active-class="active" exact="exact"> -->
         </v-list-item-action>
@@ -19,27 +13,11 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider />
-      <item
-        :icon="icons.mdiLibraryVideo"
-        title="Bangumi"
-        to="/"
-      />
+      <item :icon="icons.mdiLibraryVideo" title="Bangumi" to="/" />
       <!-- <item title="Old Bangumi" icon="collections" to="/old"></item> -->
-      <item
-        href="/bangumi/"
-        :icon="icons.mdiFolder"
-        title="Bangumi Files"
-      />
-      <item
-        :icon="icons.mdiCalendar"
-        title="calendar"
-        to="/calendar"
-      />
-      <item
-        :icon="icons.mdiRss"
-        title="Resource"
-        to="/resource"
-      />
+      <item href="/bangumi/" :icon="icons.mdiFolder" title="Bangumi Files" />
+      <item :icon="icons.mdiCalendar" title="calendar" to="/calendar" />
+      <item :icon="icons.mdiRss" title="Resource" to="/resource" />
       <v-divider />
       <item
         :icon="icons.mdiYoutubeSubscription"
@@ -47,11 +25,7 @@
         to="/subscribe"
       />
       <v-divider />
-      <item
-        :icon="icons.mdiInformation"
-        title="About"
-        to="/about"
-      />
+      <item :icon="icons.mdiInformation" title="About" to="/about" />
       <item
         :icon="icons.mdiDotsVertical"
         href="https://github.com/BGmi/BGmi"

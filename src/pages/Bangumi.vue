@@ -1,28 +1,9 @@
 <template>
-  <v-container
-    fill-height
-    grid-list-lg
-  >
-    <v-layout
-      row
-      wrap
-    >
-      <v-flex
-        v-for="(bg, key) in bangumi"
-        :key="key"
-        xs12
-        sm6
-        md4
-        lg3
-      >
-        <v-card
-          md-theme="white"
-          style="overflow: hidden"
-        >
-          <v-img
-            :src="`.${bg.cover}`"
-            height="200px"
-          >
+  <v-container fill-height grid-list-lg>
+    <v-layout row wrap>
+      <v-flex v-for="(bg, key) in bangumi" :key="key" xs12 sm6 md4 lg3>
+        <v-card md-theme="white" style="overflow: hidden">
+          <v-img :src="`.${bg.cover}`" height="200px">
             <!-- <div class="bangumi-cover" :style="{backgroundImage:`url('.${bg.cover}')`} "></div> -->
           </v-img>
 
@@ -54,7 +35,7 @@
               </v-btn>
             </div>
           </v-card-actions>
-          <br>
+          <br />
         </v-card>
       </v-flex>
     </v-layout>

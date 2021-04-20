@@ -1,17 +1,9 @@
 <template>
   <v-container>
     <v-layout justify-center>
-      <v-flex
-        xs12
-        lg10
-        xl8
-      >
+      <v-flex xs12 lg10 xl8>
         <v-card>
-          <v-toolbar
-            app
-            dark
-            color="primary"
-          >
+          <v-toolbar app dark color="primary">
             <v-toolbar-title>{{ bangumi.bangumi_name }}</v-toolbar-title>
             <v-spacer />
             <v-tooltip right>

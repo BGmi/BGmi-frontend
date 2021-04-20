@@ -1,30 +1,11 @@
 <template>
-  <v-tabs
-    background-color="indigo"
-    dark
-    fixed-tabs
-  >
-    <v-tab
-      v-for="key in weekKey"
-      :id="key"
-      :key="`tab-header-${key}`"
-      ripple
-    >
+  <v-tabs background-color="indigo" dark fixed-tabs>
+    <v-tab v-for="key in weekKey" :id="key" :key="`tab-header-${key}`" ripple>
       {{ key }}
     </v-tab>
-    <v-tab-item
-      v-for="key in weekKey"
-      :key="`tab-item-${key}`"
-    >
-      <v-container
-        fill-height
-        grid-list-lg
-        text-xs-center
-      >
-        <v-layout
-          row
-          wrap
-        >
+    <v-tab-item v-for="key in weekKey" :key="`tab-item-${key}`">
+      <v-container fill-height grid-list-lg text-xs-center>
+        <v-layout row wrap>
           <v-flex
             v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()]"
             :key="subKey"
