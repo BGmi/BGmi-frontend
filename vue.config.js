@@ -16,14 +16,14 @@ module.exports = {
     // 设置代理
     proxy: {
       '/api': {
-        target: 'http://localhost:8888/',
+        target: process.env.BGMI_DEV_HOST || 'http://localhost:8888/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'
         }
       },
       '/bangumi/': {
-        target: 'http://localhost:8888/',
+        target: process.env.BGMI_DEV_HOST || 'http://localhost:8888/',
         changeOrigin: true,
         pathRewrite: {
           '^/': '/'

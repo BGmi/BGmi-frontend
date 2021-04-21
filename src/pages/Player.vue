@@ -4,7 +4,10 @@
       <v-flex xs12 lg10 xl8>
         <v-card>
           <v-toolbar app dark color="primary">
-            <v-toolbar-title>{{ bangumi.bangumi_name }}</v-toolbar-title>
+            <v-toolbar-title
+              >{{ bangumi.bangumi_name }} -
+              {{ bangumi.episode }}</v-toolbar-title
+            >
             <v-spacer />
             <v-tooltip right>
               <v-btn
@@ -14,11 +17,8 @@
                 :href="dirPath"
                 target="_blank"
               >
-                <v-icon large>
-                  {{ mdiFolderOpen }}
-                </v-icon>
+                <v-icon>{{ mdiFolderOpen }}</v-icon>
               </v-btn>
-              <span>Bangumi Files</span>
             </v-tooltip>
           </v-toolbar>
           <v-card-text>
@@ -28,8 +28,6 @@
           </v-card-text>
           <v-card-actions>
             <router-link
-              v-for="(key, index) in episodes"
-              :key="index"
               tag="v-btn"
               :class="{
                 lightGray: hasWatched(bangumi.bangumi_name, key),
@@ -40,8 +38,10 @@
               :to="`/player/${$route.params.category}/${normalizePath(
                 bangumi.bangumi_name
               )}/${key}`"
+              v-for="(key, index) in episodes"
+              :key="index"
             >
-              {{ key }}
+              第{{ key }}集
             </router-link>
           </v-card-actions>
         </v-card>
@@ -67,24 +67,10 @@ export default {
       danmakuApi: '',
     };
   },
-  computed: {
-    dirPath() {
-      return path.dirname(this.videoFileUrl) + '/';
-    },
-    episodes() {
-      if (!Object.prototype.hasOwnProperty.call(this.bangumi, 'player')) {
-        return [];
-      }
-      return Object.keys(this.bangumi.player).reverse();
-    },
-  },
   watch: {
     '$route.params.episode'() {
       this.init();
     },
-  },
-  created() {
-    this.init();
   },
   methods: {
     normalizePath,
@@ -151,6 +137,19 @@ export default {
           break;
         }
       }
+    },
+  },
+  created() {
+    this.init();
+  },
+  computed: {
+    dirPath() {
+      return path.dirname(this.videoFileUrl) + '/';
+    },
+    episodes() {
+      if (!Object.prototype.hasOwnProperty.call(this.bangumi, 'player'))
+        return [];
+      return Object.keys(this.bangumi.player);
     },
   },
 };
