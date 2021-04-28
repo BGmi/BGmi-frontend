@@ -10,10 +10,10 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>BGmi - {{ $route.name }}</v-toolbar-title>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <notifications />
       <router-view />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

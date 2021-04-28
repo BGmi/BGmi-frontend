@@ -1,15 +1,31 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container
+    fluid
+    fill-height
+  >
     <v-layout justify-center>
       <v-flex>
-        <v-card md-theme="white" style="overflow: hidden">
+        <v-card
+          md-theme="white"
+          style="overflow: hidden"
+        >
           <v-card-title>
-            <div v-if="!tabData" class="col-md-2 col-md-offset-5" />
-            <div v-for="(key, index) in weekday" v-else :key="index">
-              <p id="cal" v-html="bangumiToHtml(key, tabData[key])" />
+            <div
+              v-if="!tabData"
+              class="col-md-2 col-md-offset-5"
+            />
+            <div
+              v-for="(key, index) in weekday"
+              v-else
+              :key="index"
+            >
+              <p
+                id="cal"
+                v-html="bangumiToHtml(key, tabData[key])"
+              />
             </div>
           </v-card-title>
-          <br />
+          <br>
         </v-card>
       </v-flex>
     </v-layout>

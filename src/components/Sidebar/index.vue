@@ -1,30 +1,56 @@
 <template>
-  <v-navigation-drawer app v-model="visible">
+  <v-navigation-drawer
+    v-model="visible"
+    app
+  >
     <v-list>
       <v-list-item>
         <v-list-item-action>
           <v-avatar>
-            <img alt="logo" :src="`${publicPath}static/logo144.jpg`" />
+            <img
+              alt="logo"
+              :src="`${publicPath}static/logo144.jpg`"
+            >
           </v-avatar>
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>BGmi</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-divider></v-divider>
-      <item :icon="icons.mdiLibraryVideo" title="Bangumi" to="/" />
+      <v-divider />
+      <item
+        :icon="icons.mdiLibraryVideo"
+        title="Bangumi"
+        to="/"
+      />
       <!-- <item title="Old Bangumi" icon="collections" to="/old"></item> -->
-      <item href="/bangumi/" :icon="icons.mdiFolder" title="Bangumi Files" />
-      <item :icon="icons.mdiCalendar" title="Calendar" to="/calendar" />
-      <item :icon="icons.mdiRss" title="Resource" to="/resource" />
-      <v-divider></v-divider>
+      <item
+        href="/bangumi/"
+        :icon="icons.mdiFolder"
+        title="Bangumi Files"
+      />
+      <item
+        :icon="icons.mdiCalendar"
+        title="Calendar"
+        to="/calendar"
+      />
+      <item
+        :icon="icons.mdiRss"
+        title="Resource"
+        to="/resource"
+      />
+      <v-divider />
       <item
         :icon="icons.mdiYoutubeSubscription"
         title="Subscribe"
         to="/subscribe"
       />
-      <v-divider></v-divider>
-      <item :icon="icons.mdiInformation" title="About" to="/about" />
+      <v-divider />
+      <item
+        :icon="icons.mdiInformation"
+        title="About"
+        to="/about"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -43,7 +69,16 @@ import {
 import Item from './item';
 
 export default {
-  name: 'sidebar',
+  name: 'Sidebar',
+  components: {
+    Item,
+  },
+  props: {
+    value: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       icons: {
@@ -59,16 +94,6 @@ export default {
       publicPath: process.env.BASE_URL,
     };
   },
-  props: {
-    value: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  methods: {},
-  components: {
-    Item,
-  },
   watch: {
     visible(val) {
       this.$emit('input', val);
@@ -77,6 +102,7 @@ export default {
       this.visible = val;
     },
   },
+  methods: {},
 };
 </script>
 

@@ -6,22 +6,37 @@
     class="top-header"
     md-elevation="10"
   >
-    <md-dialog ref="dialog1" md-content="">
+    <md-dialog
+      ref="dialog1"
+      md-content=""
+    >
       <md-dialog-title>update</md-dialog-title>
       <md-dialog-content>
-        <md-spinner v-if="loading" md-indeterminate />
+        <md-spinner
+          v-if="loading"
+          md-indeterminate
+        />
         <div v-else>
           <p>Update bangumi, select download to download new episode</p>
-          <md-checkbox v-model="download" @input="saveCheck()">
+          <md-checkbox
+            v-model="download"
+            @input="saveCheck()"
+          >
             download
           </md-checkbox>
         </div>
       </md-dialog-content>
       <md-dialog-actions v-if="!loading">
-        <md-button class="md-primary" @click="closeDialog('dialog1', false)">
+        <md-button
+          class="md-primary"
+          @click="closeDialog('dialog1', false)"
+        >
           Cancel
         </md-button>
-        <md-button class="md-primary" @click="closeDialog('dialog1', true)">
+        <md-button
+          class="md-primary"
+          @click="closeDialog('dialog1', true)"
+        >
           Ok
         </md-button>
       </md-dialog-actions>

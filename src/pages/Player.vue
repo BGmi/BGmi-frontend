@@ -1,13 +1,21 @@
 <template>
   <v-container>
     <v-layout justify-center>
-      <v-flex xs12 lg10 xl8>
+      <v-flex
+        xs12
+        lg10
+        xl8
+      >
         <v-card>
-          <v-toolbar app dark color="primary">
-            <v-toolbar-title
-              >{{ bangumi.bangumi_name }} -
-              {{ bangumi.episode }}</v-toolbar-title
-            >
+          <v-toolbar
+            app
+            dark
+            color="primary"
+          >
+            <v-toolbar-title>
+              {{ bangumi.bangumi_name }} -
+              {{ bangumi.episode }}
+            </v-toolbar-title>
             <v-spacer />
             <v-tooltip right>
               <v-btn
@@ -28,6 +36,8 @@
           </v-card-text>
           <v-card-actions>
             <router-link
+              v-for="(key, index) in episodes"
+              :key="index"
               tag="v-btn"
               :class="{
                 lightGray: hasWatched(bangumi.bangumi_name, key),
@@ -38,8 +48,6 @@
               :to="`/player/${$route.params.category}/${normalizePath(
                 bangumi.bangumi_name
               )}/${key}`"
-              v-for="(key, index) in episodes"
-              :key="index"
             >
               第{{ key }}集
             </router-link>
@@ -67,10 +75,22 @@ export default {
       danmakuApi: '',
     };
   },
+  computed: {
+    dirPath() {
+      return path.dirname(this.videoFileUrl) + '/';
+    },
+    episodes() {
+      if (!Object.prototype.hasOwnProperty.call(this.bangumi, 'player')) { return []; }
+      return Object.keys(this.bangumi.player);
+    },
+  },
   watch: {
     '$route.params.episode'() {
       this.init();
     },
+  },
+  created() {
+    this.init();
   },
   methods: {
     normalizePath,
@@ -137,19 +157,6 @@ export default {
           break;
         }
       }
-    },
-  },
-  created() {
-    this.init();
-  },
-  computed: {
-    dirPath() {
-      return path.dirname(this.videoFileUrl) + '/';
-    },
-    episodes() {
-      if (!Object.prototype.hasOwnProperty.call(this.bangumi, 'player'))
-        return [];
-      return Object.keys(this.bangumi.player);
     },
   },
 };

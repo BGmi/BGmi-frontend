@@ -1,24 +1,42 @@
 <template>
-  <v-tabs backgroundColor="indigo" dark fixed-tabs>
-    <v-tab v-for="key in weekKey" :key="`tab-header-${key}`" :id="key" ripple>
+  <v-tabs
+    background-color="indigo"
+    dark
+    fixed-tabs
+  >
+    <v-tab
+      v-for="key in weekKey"
+      :id="key"
+      :key="`tab-header-${key}`"
+      ripple
+    >
       {{ key }}
     </v-tab>
-    <v-tab-item v-for="key in weekKey" :key="`tab-item-${key}`">
-      <v-container fill-height grid-list-lg text-xs-center>
-        <v-layout row wrap>
+    <v-tab-item
+      v-for="key in weekKey"
+      :key="`tab-item-${key}`"
+    >
+      <v-container
+        fill-height
+        grid-list-lg
+        text-xs-center
+      >
+        <v-layout
+          row
+          wrap
+        >
           <v-flex
+            v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()]"
+            :key="subKey"
             xs12
             sm6
             md4
             lg3
-            v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()].sort(
-              (a, b) => {
-                return !a.status ? 1 : -1;
-              }
-            )"
-            :key="subKey"
           >
-            <bangumi-card :bangumi.sync="bangumi"></bangumi-card>
+            <bangumi-card
+              v-bind="bangumi"
+              :status.sync="bangumi.status"
+            />
           </v-flex>
         </v-layout>
       </v-container>
@@ -30,7 +48,7 @@
 import BangumiCard from './bangumiCard';
 
 export default {
-  name: 'subscribe',
+  name: 'Subscribe',
   components: {
     BangumiCard,
   },

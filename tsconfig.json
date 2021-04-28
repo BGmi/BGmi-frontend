@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES5",
     "module": "esnext",
     "allowJs": true,
     "noImplicitAny": true,
     "strict": true,
     "importHelpers": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
@@ -32,8 +31,7 @@
     "outDir": "./dist/"
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.vue",
+    "src/",
     "tests/**/*.ts"
   ],
   "exclude": [
