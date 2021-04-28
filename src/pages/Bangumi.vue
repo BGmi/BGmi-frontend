@@ -2,27 +2,32 @@
   <v-container fill-height grid-list-lg>
     <v-layout row wrap>
       <v-flex v-for="(bg, key) in bangumi" :key="key" xs12 sm6 md4 lg3>
-        <v-card md-theme="white" style="overflow: hidden">
-          <v-img :src="`.${bg.cover}`" height="200px">
-            <!-- <div class="bangumi-cover" :style="{backgroundImage:`url('.${bg.cover}')`} "></div> -->
-          </v-img>
-
+        <v-card>
+          <div
+            style="position: absolute; z-index: 1; width: 100%"
+            class="red accent-1 white--text"
+          >
+            <center><span v-if="bg.status === 2">NEW</span></center>
+          </div>
+          <v-img :src="`.${bg.cover}`" height="200px"></v-img>
           <v-card-title>
-            <div>
-              <div class="headline">
-                {{ bg.bangumi_name + (bg.status === 2 ? '(new)' : '') }}
-              </div>
-              <span class="grey--text">latest:{{ bg.episode }}</span>
-            </div>
+            <p class="headline">{{ bg.bangumi_name }}</p>
           </v-card-title>
-
-          <v-card-actions class="button-container">
-            <div v-if="!isEmpty(bg.player)">
+          <v-card-subtitle>
+            <span v-if="bg.episode > 0">最新: 第{{ bg.episode }}集</span
+            ><span v-else>暂无更新</span>
+            <span
+              v-if="
+                bg.episode > 0 &&
+                Object.keys(bg.player).reverse()[0] !== bg.episode
+              "
+              >，正在下载</span
+            >
+          </v-card-subtitle>
+          <v-card-actions>
+            <div class="mx-auto">
               <v-btn
-                v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
-                :key="value"
-                flat
-                :class="{ gray: hasWatched(bg.bangumi_name, value) }"
+                style="margin-right: 8px"
                 @click="
                   $router.push(
                     `/player/${category}/${normalizePath(
@@ -30,9 +35,41 @@
                     )}/${value}`
                   )
                 "
+                v-for="value in Object.keys(bg.player).reverse().slice(0, 1)"
+                :class="{ gray: hasWatched(bg.bangumi_name, value) }"
+                :key="value"
               >
-                {{ value }}
+                第{{ value }}集
               </v-btn>
+              <v-menu offset-y v-if="!isEmpty(bg.player)">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    color="primary"
+                    v-bind="attrs"
+                    v-on="on"
+                    v-if="Object.keys(bg.player).length > 1"
+                    >...</v-btn
+                  >
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(value, index) in Object.keys(bg.player)
+                      .reverse()
+                      .slice(1)"
+                    :key="index"
+                    @click="
+                      $router.push(
+                        `/player/${category}/${normalizePath(
+                          bg.bangumi_name
+                        )}/${value}`
+                      )
+                    "
+                  >
+                    <v-list-item-title>第{{ value }}集</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              <v-btn v-else disabled>暂无剧集</v-btn>
             </div>
           </v-card-actions>
           <br />
@@ -49,22 +86,14 @@ import isEmpty from 'lodash/isEmpty';
 export default {
   name: 'Bangumi',
   components: {},
-  props: {
-    category: { default: 'index', type: String, required: true },
-  },
 
   data() {
     return {
       bangumi: [],
     };
   },
-  watch: {
-    category() {
-      this.initData();
-    },
-  },
-  mounted() {
-    this.initData();
+  props: {
+    category: { default: 'index', type: String, required: true },
   },
   methods: {
     hasWatched,
@@ -79,17 +108,22 @@ export default {
       });
     },
   },
+  watch: {
+    category() {
+      this.initData();
+    },
+  },
+  mounted() {
+    this.initData();
+  },
 };
 </script>
 
-<style scoped>
-.headline {
+<style scoped lang="less">
+.headline:not(:hover) {
   white-space: nowrap;
-}
-
-.button-container {
-  height: 36px;
-  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #inspire.application .gray.btn {
