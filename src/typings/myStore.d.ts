@@ -12,5 +12,5 @@ declare class AppState {
   bgmiVersion: string;
   cal: any;
   calFetched: boolean;
-  history: any;
+  history: Record<string, Record<number, boolean>>;
 }

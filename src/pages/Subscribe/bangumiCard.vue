@@ -140,9 +140,9 @@ export default Vue.extend({
   props: {
     id: { type: Number, required: true, },
     name: { type: String, required: true, },
-    status: { type: Number, required: false },
+    status: { type: Number, required: false, default: 0 },
     cover: { type: String, required: true, },
-    episode: { type: Number, required: false },
+    episode: { type: Number, required: false, default: 0 },
   },
   data() {
     return {
