@@ -9,23 +9,39 @@
           md-theme="white"
           style="overflow: hidden"
         >
-          <v-card-title>
-            <div
-              v-if="!tabData"
-              class="col-md-2 col-md-offset-5"
-            />
-            <div
-              v-for="(key, index) in weekday"
-              v-else
-              :key="index"
-            >
-              <p
-                id="cal"
-                v-html="bangumiToHtml(key, tabData[key])"
-              />
-            </div>
-          </v-card-title>
-          <br>
+          <div
+            v-if="!tabData"
+            class="col-md-2 col-md-offset-5"
+          />
+          <template
+            v-for="day in weekday"
+            v-else
+          >
+            <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+            <v-card-title>
+              <h3 class="week">
+                {{ day }}
+              </h3>
+            </v-card-title>
+            <!-- eslint-disable-next-line vue/valid-v-for -->
+            <v-card-text>
+              <template
+                v-for="(bangumi, index) of tabData[day]"
+              >
+                <!-- eslint-disable-next-line vue/require-v-for-key -->
+                <b v-if="bangumi.status">
+                  {{ bangumi.name }}
+                </b>
+                <!-- fake element `template` can't have :key -->
+                <template v-else>
+                  {{ bangumi.name }}
+                </template>
+                <template v-if="index !== tabData[day].length - 1">
+                  /
+                </template>
+              </template>
+            </v-card-text>
+          </template>
         </v-card>
       </v-flex>
     </v-layout>
@@ -51,41 +67,25 @@ export default Vue.extend({
   components: {},
   data() {
     return {
-      tabData: false,
+      tabData: {},
       weekday: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
     };
   },
   created() {
-    this.$store.dispatch('getCalendar', (cal: any) => {
+    this.$store.dispatch('getCalendar', (cal: Record<string, CalendarItem[]>) => {
       this.tabData = cal;
-      //        for (let key in cal) {
-      //          if (cal.hasOwnProperty(key)) {
-      //            this.tabData[key] = cal[key].sort(x => -x.status)
-      //          }
-      //        }
     });
   },
-  methods: {
-    bangumiToHtml(day: string, bangumis: CalendarItem[]) {
-      const str = [];
-
-      for (const bangumi in bangumis) {
-        if (Object.prototype.hasOwnProperty.call(bangumis, bangumi)) {
-          str.push(
-            bangumis[bangumi].status
-              ? `<b>${bangumis[bangumi].name}</b>`
-              : `${bangumis[bangumi].name}`
-          );
-        }
-      }
-
-      return `<h3 class="week">${day}</h3>${str.join(' / ')}`;
-    },
-  },
+  methods: {},
 });
 </script>
 
-<style>
+<style scoped>
+.v-card div.v-card__text {
+  color: black;
+  font-size: 20px;
+}
+
 .week {
   text-transform: capitalize;
   font-family: Roboto, 'Noto Sans', Noto, sans-serif;
