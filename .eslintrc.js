@@ -4,12 +4,12 @@ module.exports = {
     node: true
   },
   extends: [
+    'plugin:@typescript-eslint/recommended',
     'eslint:recommended',
     '@vue/standard',
     '@vue/typescript',
     'plugin:vue/essential',
     'plugin:vue/recommended',
-    'plugin:@typescript-eslint/recommended',
   ],
   rules: {
     semi: ['error', 'always'],

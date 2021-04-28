@@ -40,7 +40,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-#      - run: npm run test:unit
       - run: npm run lint
+        env:
+          NODE_ENV: production
 
       - run: npm run build
