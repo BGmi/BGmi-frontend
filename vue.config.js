@@ -1,11 +1,5 @@
 const pkg = require('./package.json');
-
-// TODO: add a mock server here
-function setup(app) {
-  // app.get('/api/cal', function(req, res) {
-  //   res.send('response');
-  // });
-}
+const setup = require('./tests/mock_app');
 
 // 作为配置文件，直接导出配置对象即可
 process.env.VUE_APP_VERSION = pkg.version;
