@@ -36,7 +36,7 @@
             <span
               v-if="
                 bg.episode > 0 &&
-                  Object.keys(bg.player).reverse()[0] !== bg.episode
+                  parseInt(Object.keys(bg.player).reverse()[0]) !== bg.episode
               "
             >，正在下载</span>
           </v-card-subtitle>
