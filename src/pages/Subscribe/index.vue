@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       bangumiCalendar: false,
-      weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Unknown'],
       latestBgmiVersion: '',
       bgmiVersion: '',
     };
