@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { axiosInstance } from './http';
+import { AxiosResponse } from 'axios';
+import { Calendar } from '@/typings/calendar';
 
 Vue.use(Vuex);
 
@@ -76,7 +78,7 @@ const store = new Vuex.Store({
       if (state.calFetched) {
         cb(state.cal);
       } else {
-        axiosInstance.get('cal').then((res) => {
+        axiosInstance.get('cal').then((res: AxiosResponse<{ data: Calendar }>) => {
           commit('calendar', res.data.data);
           cb(res.data.data);
         });

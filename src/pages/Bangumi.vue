@@ -103,14 +103,18 @@
 </template>
 
 <script>
-import { hasWatched, normalizePath } from '../utils';
+import { hasWatched, normalizePath } from '@/utils';
 import isEmpty from 'lodash/isEmpty';
 
 export default {
   name: 'Bangumi',
   components: {},
   props: {
-    category: { default: 'index', type: String, required: true },
+    category: {
+      default: 'index',
+      type: String,
+      required: true,
+    },
   },
 
   data() {

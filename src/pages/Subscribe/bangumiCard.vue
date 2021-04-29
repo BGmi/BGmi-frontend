@@ -127,7 +127,7 @@
     </v-dialog>
   </v-card>
 </template>
-<script>
+<script lang="ts">
 import Vue from 'vue';
 
 const imgRoot = './bangumi/cover/';

@@ -47,26 +47,28 @@
   </v-tabs>
 </template>
 
-<script>
+<script lang="ts">
 import BangumiCard from './bangumiCard';
+import { Calendar, Bangumi } from '@/typings/calendar';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
   name: 'Subscribe',
   components: {
     BangumiCard,
   },
   data() {
     return {
-      bangumiCalendar: false,
+      bangumiCalendar: null as (Calendar | null),
       weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Unknown'],
       latestBgmiVersion: '',
       bgmiVersion: '',
     };
   },
   mounted() {
-    this.$store.dispatch('getCalendar', (cal) => {
+    this.$store.dispatch('getCalendar', (cal: Calendar) => {
       for (const e of Object.values(cal)) {
-        e.sort((a) => { return !a.status ? 1 : -1; });
+        e.sort((a: Bangumi) => { return !a.status ? 1 : -1; });
       }
       this.bangumiCalendar = cal;
       this.latestBgmiVersion = this.$store.state.latestBgmiVersion;
@@ -75,17 +77,12 @@ export default {
         if (this.bgmiVersion < this.latestBgmiVersion) {
           this.$notify({
             type: 'danger',
-            //              icon: 'notifications',
             text: `Please upgrade your BGmi to ${this.latestBgmiVersion}`,
-            placement: {
-              from: 'top',
-              align: 'center',
-            },
           });
         }
       });
     });
   },
-};
+});
 </script>
 <style scoped></style>
