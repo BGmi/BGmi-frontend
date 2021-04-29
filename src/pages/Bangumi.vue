@@ -32,12 +32,10 @@
             </p>
           </v-card-title>
           <v-card-subtitle>
-            <span v-if="bg.episode > 0">最新: 第{{ bg.episode }}集</span><span v-else>暂无更新</span>
+            <span v-if="bg.episode > 0">最新: 第{{ bg.episode }}集</span>
+            <span v-else>暂无更新</span>
             <span
-              v-if="
-                bg.episode > 0 &&
-                  Object.keys(bg.player).reverse()[0] !== bg.episode
-              "
+              v-if="bg.episode > 0 &&parseInt(Object.keys(bg.player).reverse()[0]) !== bg.episode"
             >，正在下载</span>
           </v-card-subtitle>
           <v-card-actions>

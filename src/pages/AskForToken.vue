@@ -1,5 +1,5 @@
 <template>
-  <v-container
+  <v-main
     fill-height
     fluid
   >
@@ -13,14 +13,13 @@
         xs12
       >
         <v-card class="elevation-12">
-          <v-app-bar
-            app
+          <v-toolbar
             color="primary"
             dark
           >
             <v-toolbar-title>Auth</v-toolbar-title>
             <v-spacer />
-          </v-app-bar>
+          </v-toolbar>
           <v-card-text>
             <v-form>
               <label />
@@ -52,7 +51,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-  </v-container>
+  </v-main>
 </template>
 <script lang="ts">
 import Vue from 'vue';
@@ -129,7 +128,7 @@ export default Vue.extend({
             type: 'error',
             text: 'auth wrong',
           });
-        }
+        },
       );
     },
     onClose() {

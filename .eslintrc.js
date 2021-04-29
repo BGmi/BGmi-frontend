@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
@@ -15,18 +15,25 @@ module.exports = {
     semi: ['error', 'always'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'comma-dangle': 'off',
+    'comma-dangle': ['error', 'always-multiline'],
     'template-curly-spacing': 'off',
-    'space-before-function-paren': ['error', 'never']
+    'space-before-function-paren': ['error', 'never'],
   },
-  overrides: [{
-    files: ['*.vue'],
-    parser: 'vue-eslint-parser',
-    parserOptions: {
-      parser: '@typescript-eslint/parser'
+  overrides: [
+    {
+      files: ['vue.config.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
     },
-    rules: {
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-    }
-  }],
+    {
+      files: ['*.vue'],
+      parser: 'vue-eslint-parser',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+      },
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+      },
+    }],
 };

@@ -135,13 +135,13 @@ const imgRoot = './bangumi/cover/';
 export default Vue.extend({
   model: {
     prop: 'status',
-    event: 'changed'
+    event: 'changed',
   },
   props: {
-    id: { type: Number, required: true, },
-    name: { type: String, required: true, },
+    id: { type: Number, required: true },
+    name: { type: String, required: true },
     status: { type: Number, required: false, default: 0 },
-    cover: { type: String, required: true, },
+    cover: { type: String, required: true },
     episode: { type: Number, required: false, default: 0 },
   },
   data() {
@@ -243,7 +243,7 @@ export default Vue.extend({
             type: 'danger',
             text: res.data.message,
           });
-        }
+        },
       );
     },
     onClose(type) {
@@ -266,7 +266,7 @@ export default Vue.extend({
               type: 'danger',
               text: res.data.message,
             });
-          }
+          },
         );
       }
     },
