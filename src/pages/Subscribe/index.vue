@@ -65,6 +65,9 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getCalendar', (cal) => {
+      for (const e of Object.values(cal)) {
+        e.sort((a) => { return !a.status ? 1 : -1; });
+      }
       this.bangumiCalendar = cal;
       this.latestBgmiVersion = this.$store.state.latestBgmiVersion;
       this.bgmiVersion = this.$store.state.bgmiVersion;

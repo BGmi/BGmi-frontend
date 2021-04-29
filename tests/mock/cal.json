@@ -172,8 +172,8 @@
         "cover": "https/mikanani.me/images/Bangumi/201704/e46ad033.jpg"
       },
       {
-        "status": null,
-        "episode": null,
+        "status": 1,
+        "episode": 0,
         "id": 31,
         "name": "宝可梦",
         "subtitle_group": [],
