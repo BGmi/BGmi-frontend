@@ -48,9 +48,10 @@
 </template>
 
 <script lang="ts">
-import BangumiCard from './bangumiCard';
-import { Calendar, Bangumi } from '@/typings/calendar';
 import Vue from 'vue';
+
+import BangumiCard from './bangumi_card.vue';
+import { Calendar, Bangumi } from '@/typings/calendar';
 
 export default Vue.extend({
   name: 'Subscribe',

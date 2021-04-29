@@ -11,6 +11,10 @@
     "esModuleInterop": false,
     "sourceMap": true,
     "baseUrl": ".",
+    "typeRoots": [
+      "./src/typings",
+      "node_modules/@types"
+    ],
     "types": [
       "webpack-env",
       "mocha",

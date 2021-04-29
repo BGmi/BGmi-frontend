@@ -127,12 +127,13 @@
     </v-dialog>
   </v-card>
 </template>
-<script lang="ts">
+<script>
 import Vue from 'vue';
 
 const imgRoot = './bangumi/cover/';
 
 export default Vue.extend({
+  name: 'BangumiCard',
   model: {
     prop: 'status',
     event: 'changed',
