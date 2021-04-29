@@ -26,7 +26,11 @@
           wrap
         >
           <v-flex
-            v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()]"
+            v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()].sort(
+              (a, b) => {
+                return !a.status ? 1 : -1;
+              }
+            )"
             :key="subKey"
             xs12
             sm6
