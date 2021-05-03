@@ -1,14 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Player from './pages/Player.vue';
-import Bangumi from './pages/Bangumi.vue';
-import Calendar from './pages/Calendar.vue';
-import Resource from './pages/Resource.vue';
-import Subscribe from './pages/Subscribe/index.vue';
-import About from './pages/About.vue';
-import NotFound from './pages/GeneralViews/NotFound.vue';
-import AskForToken from './pages/AskForToken.vue';
-import store from './store';
+
+import Player from '@/pages/Player.vue';
+import Bangumi from '@/pages/Bangumi.vue';
+import Calendar from '@/pages/Calendar.vue';
+import Resource from '@/pages/Resource.vue';
+import Subscribe from '@/pages/Subscribe/index.vue';
+import About from '@/pages/About.vue';
+import NotFound from '@/pages/GeneralViews/NotFound.vue';
+import AskForToken from '@/pages/AskForToken.vue';
+import store from '@/store';
 
 Vue.use(Router);
 

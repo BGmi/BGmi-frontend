@@ -103,8 +103,9 @@
 </template>
 
 <script>
-import { hasWatched, normalizePath } from '@/utils';
 import isEmpty from 'lodash/isEmpty';
+
+import { hasWatched, normalizePath } from '@/utils';
 
 export default {
   name: 'Bangumi',

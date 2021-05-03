@@ -13,8 +13,7 @@
             color="primary"
           >
             <v-toolbar-title>
-              {{ bangumi.bangumi_name }} -
-              {{ bangumi.episode }}
+              {{ bangumi.bangumi_name }} - {{ $route.params.episode }}
             </v-toolbar-title>
             <v-spacer />
             <v-tooltip right>
@@ -34,20 +33,20 @@
               <div :id="bangumi.bangumi_name" />
             </div>
           </v-card-text>
-          <v-card-actions>
+
+          <v-card-actions
+            v-for="(e,index ) in chunk(episodes, 8)"
+            :key="index"
+          >
             <router-link
-              v-for="(key, index) in episodes"
-              :key="index"
+              v-for="(key, i) in e"
+              :key="i"
               tag="v-btn"
               :class="{
                 lightGray: hasWatched(bangumi.bangumi_name, key),
-                'btn--flat':
-                  parseInt($route.params.episode.toString()) !==
-                  parseInt(key.toString()),
+                'btn--flat': parseInt($route.params.episode.toString()) !== parseInt(key.toString()),
               }"
-              :to="`/player/${$route.params.category}/${normalizePath(
-                bangumi.bangumi_name
-              )}/${key}`"
+              :to="`/player/${$route.params.category}/${normalizePath(bangumi.bangumi_name)}/${key}`"
             >
               第{{ key }}集
             </router-link>
@@ -59,11 +58,14 @@
 </template>
 
 <script>
+import path from 'path';
+
 import DPlayer from 'dplayer';
 import md5 from 'md5';
 import { mdiFolderOpen } from '@mdi/js';
+import chunk from 'lodash/chunk';
+
 import { hasWatched, normalizePath } from '@/utils';
-import path from 'path';
 
 export default {
   data() {
@@ -93,6 +95,7 @@ export default {
     this.init();
   },
   methods: {
+    chunk,
     normalizePath,
     hasWatched,
     init() {
@@ -120,9 +123,7 @@ export default {
               bangumi.player[this.$route.params.episode].path
             }`;
             /* */
-            const filePath = bangumi.player[
-              this.$route.params.episode
-            ].path.toLowerCase();
+            const filePath = bangumi.player[this.$route.params.episode].path.toLowerCase();
             if (filePath.includes('hevc') || filePath.includes('x265')) {
               this.$notify({
                 type: 'warn',

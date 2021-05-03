@@ -3,6 +3,23 @@ module.exports = {
   env: {
     node: true,
   },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.d.ts', '.ts'],
+    },
+    'import/resolver': {
+      typescript: {
+        project: 'tsconfig.json',
+      },
+      alias: {
+        map: [
+          ['@/', './src/'],
+        ],
+        extensions: ['.ts', '.vue', '.js', '.d.ts'],
+      },
+    },
+  },
+  parser: '@typescript-eslint/parser',
   extends: [
     'plugin:@typescript-eslint/recommended',
     'eslint:recommended',
@@ -10,6 +27,9 @@ module.exports = {
     '@vue/typescript',
     'plugin:vue/essential',
     'plugin:vue/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
   ],
   rules: {
     semi: ['error', 'always'],
@@ -18,6 +38,20 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'template-curly-spacing': 'off',
     'space-before-function-paren': ['error', 'never'],
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        groups:
+          [
+            'builtin',
+            'external',
+            ['index', 'sibling', 'parent'],
+            'internal',
+            'object',
+          ],
+      },
+    ],
   },
   overrides: [
     {

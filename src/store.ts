@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { axiosInstance } from './http';
 import { AxiosResponse } from 'axios';
+
+import { axiosInstance } from '@/http';
 import { Calendar } from '@/typings/calendar';
 
 Vue.use(Vuex);

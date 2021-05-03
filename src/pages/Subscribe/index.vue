@@ -51,6 +51,7 @@
 import Vue from 'vue';
 
 import BangumiCard from './bangumi_card.vue';
+
 import { Calendar, Bangumi } from '@/typings/calendar';
 
 export default Vue.extend({
