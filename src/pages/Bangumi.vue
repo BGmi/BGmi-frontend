@@ -41,7 +41,7 @@
           <v-card-actions>
             <div class="mx-auto">
               <v-btn
-                v-for="value in Object.keys(bg.player).reverse().slice(0, 1)"
+                v-for="value in Object.keys(bg.player).reverse().slice(0, 3)"
                 :key="value"
                 style="margin-right: 8px"
                 :class="{ gray: hasWatched(bg.bangumi_name, value) }"
@@ -61,7 +61,7 @@
               >
                 <template #activator="{ on, attrs }">
                   <v-btn
-                    v-if="Object.keys(bg.player).length > 1"
+                    v-if="Object.keys(bg.player).length > 3"
                     color="primary"
                     v-bind="attrs"
                     v-on="on"
@@ -73,17 +73,17 @@
                   <v-list-item
                     v-for="(value, index) in Object.keys(bg.player)
                       .reverse()
-                      .slice(1)"
+                      .slice(3)"
                     :key="index"
-                    @click="
-                      $router.push(
-                        `/player/${category}/${normalizePath(
-                          bg.bangumi_name
-                        )}/${value}`
-                      )
-                    "
+                    @click="$router.push(
+                      `/player/${category}/${normalizePath(bg.bangumi_name)}/${value}`
+                    )"
                   >
-                    <v-list-item-title>第{{ value }}集</v-list-item-title>
+                    <v-list-item-title
+                      :class="{ gray: hasWatched(bg.bangumi_name, value) }"
+                    >
+                      第{{ value }}集
+                    </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -154,7 +154,7 @@ export default {
   text-overflow: ellipsis;
 }
 
-#inspire.application .gray.btn {
+.gray {
   color: lightgray;
 }
 </style>

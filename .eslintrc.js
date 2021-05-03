@@ -38,6 +38,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'template-curly-spacing': 'off',
     'space-before-function-paren': ['error', 'never'],
+    'arrow-parens': ['error', 'always'],
     'import/order': [
       'error',
       {
