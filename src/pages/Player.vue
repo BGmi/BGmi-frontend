@@ -8,7 +8,6 @@
       >
         <v-card>
           <v-toolbar
-            app
             dark
             color="primary"
           >
@@ -16,17 +15,14 @@
               {{ bangumi.bangumi_name }} - {{ $route.params.episode }}
             </v-toolbar-title>
             <v-spacer />
-            <v-tooltip right>
-              <v-btn
-                slot="activator"
-                icon
-                large
-                :href="dirPath"
-                target="_blank"
-              >
-                <v-icon>{{ mdiFolderOpen }}</v-icon>
-              </v-btn>
-            </v-tooltip>
+            <v-btn
+              icon
+              large
+              :href="dirPath"
+              target="_blank"
+            >
+              <v-icon>{{ mdiFolderOpen }}</v-icon>
+            </v-btn>
           </v-toolbar>
           <v-card-text>
             <div class="dplayer-container">
@@ -34,22 +30,19 @@
             </div>
           </v-card-text>
 
-          <v-card-actions
-            v-for="(e,index ) in chunk(episodes, 8)"
-            :key="index"
-          >
-            <router-link
-              v-for="(key, i) in e"
-              :key="i"
-              tag="v-btn"
-              :class="{
-                lightGray: hasWatched(bangumi.bangumi_name, key),
-                'btn--flat': parseInt($route.params.episode.toString()) !== parseInt(key.toString()),
-              }"
-              :to="`/player/${$route.params.category}/${normalizePath(bangumi.bangumi_name)}/${key}`"
-            >
-              第{{ key }}集
-            </router-link>
+          <v-card-actions>
+            <div>
+              <router-link
+                v-for="(key, i) in episodes"
+                :key="i"
+                tag="v-btn"
+                :class="btnClass(key)"
+                style="margin: 0.3em 0.5em"
+                :to="`/player/${$route.params.category}/${normalizePath(bangumi.bangumi_name)}/${key}`"
+              >
+                第{{ key }}集
+              </router-link>
+            </div>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -68,6 +61,7 @@ import chunk from 'lodash/chunk';
 import { hasWatched, normalizePath } from '@/utils';
 
 export default {
+  name: 'Player',
   data() {
     return {
       mdiFolderOpen,
@@ -98,6 +92,12 @@ export default {
     chunk,
     normalizePath,
     hasWatched,
+    btnClass(episode) {
+      return {
+        lightGray: hasWatched(this.bangumi.bangumi_name, episode),
+        'btn--flat': this.$route.params.episode.toString() !== episode.toString(),
+      };
+    },
     init() {
       const cb = (bangumi) => {
         this.initData(bangumi);
@@ -167,7 +167,7 @@ export default {
   color: lightgray !important;
 }
 
-.card__actions {
-  display: block;
+a {
+  text-decoration: none
 }
 </style>
