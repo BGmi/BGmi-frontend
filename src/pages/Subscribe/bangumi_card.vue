@@ -127,10 +127,22 @@
     </v-dialog>
   </v-card>
 </template>
-<script>
+<script lang="ts">
 import Vue from 'vue';
 
 const imgRoot = './bangumi/cover/';
+
+type Filter = {
+  name: string,
+  regex: string,
+  followed: [],
+  // eslint-disable-next-line camelcase
+  subtitle_group: [],
+  exclude: string,
+  // eslint-disable-next-line camelcase
+  bangumi_name: string,
+  include: string,
+}
 
 export default Vue.extend({
   name: 'BangumiCard',
@@ -166,7 +178,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    imgSrc() {
+    imgSrc(): string {
       return `${imgRoot}${this.cover}`;
     },
   },
@@ -212,7 +224,7 @@ export default Vue.extend({
     pack() {
       this.expand = false;
     },
-    fetchFilter(data) {
+    fetchFilter(data: Filter) {
       this.filter = data;
       this.followed = data.followed;
       this.expand = true;
@@ -247,7 +259,7 @@ export default Vue.extend({
         },
       );
     },
-    onClose(type) {
+    onClose(type: string) {
       this.dialog5 = false;
       if (type === 'ok') {
         this.$store.commit('clearBangumiIndex');

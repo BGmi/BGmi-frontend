@@ -55,7 +55,8 @@
   </v-navigation-drawer>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import {
   mdiFolder,
   mdiCalendar,
@@ -66,9 +67,9 @@ import {
   mdiPlayBoxMultiple,
 } from '@mdi/js';
 
-import Item from './item';
+import Item from './item.vue';
 
-export default {
+export default Vue.extend({
   name: 'Sidebar',
   components: {
     Item,
@@ -103,7 +104,7 @@ export default {
     },
   },
   methods: {},
-};
+});
 </script>
 
 <style></style>
