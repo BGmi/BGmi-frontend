@@ -8,17 +8,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "eslint --fix --ext ts,js,vue ./src/",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "prepare": "husky install"
   },
   "files": [
     "dist",
     "package.json"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
-  },
   "license": "MIT",
   "dependencies": {
     "@mdi/js": "5.9.55",
@@ -60,7 +56,7 @@
     "eslint-plugin-standard": "4.1.0",
     "eslint-plugin-typescript": "0.14.0",
     "eslint-plugin-vue": "7.9.0",
-    "husky": "4.3.8",
+    "husky": "6.0.0",
     "typescript": "4.2.4",
     "vue-template-compiler": "2.6.12"
   }
