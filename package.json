@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "@mdi/js": "5.9.55",
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "dplayer": "1.26.0",
     "lodash": "4.17.21",
     "md5": "2.3.0",
