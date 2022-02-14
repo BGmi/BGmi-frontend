@@ -114,7 +114,7 @@ export default Vue.extend({
       this.$http.post('auth', { token: this.token }).then(
         () => {
           this.$store.commit('login', this.token);
-          this.$http.defaults.headers['bgmi-token'] = `${this.token}`;
+          this.$http.defaults.headers.common['bgmi-token'] = `${this.token}`;
           if (this.rememberMe) {
             this.$cookies.set('auth', this.token, this.rememberMe);
           }
