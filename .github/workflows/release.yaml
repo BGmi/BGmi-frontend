@@ -9,25 +9,17 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v2
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
-          registry-url: https://registry.npmjs.org/
-          check-latest: true
+          node-version: '18'
+          cache: 'npm'
 
       - run: npm i npm -g
 
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: ./node_modules
-          key: npm-14-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - run: npm ci
 
       - run: npm run build
 
