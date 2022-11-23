@@ -68,6 +68,7 @@ module.exports = {
         parser: '@typescript-eslint/parser',
       },
       rules: {
+        'vue/multi-word-component-names': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
       },
     }],
