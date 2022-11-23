@@ -19,7 +19,7 @@
   "dependencies": {
     "@mdi/js": "6.9.96",
     "axios": "0.26.1",
-    "dplayer": "1.26.0",
+    "dplayer": "1.27.0",
     "lodash": "4.17.21",
     "md5": "2.3.0",
     "tslib": "2.3.1",
