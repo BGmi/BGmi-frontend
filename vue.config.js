@@ -1,7 +1,6 @@
 const { defineConfig } = require('@vue/cli-service');
 
 const pkg = require('./package.json');
-const setup = require('./tests/mock_app');
 
 // 作为配置文件，直接导出配置对象即可
 process.env.VUE_APP_VERSION = pkg.version;
@@ -17,7 +16,7 @@ module.exports = defineConfig({
     host: 'localhost',
     // 设置默认端口
     port: 8080,
-    setupMiddlewares: setup,
+    // setupMiddlewares: setup,
     // 设置代理
     proxy: {
       '/api': {
