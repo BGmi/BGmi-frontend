@@ -26,7 +26,7 @@
           wrap
         >
           <v-flex
-            v-for="(bangumi, subKey) in bangumiCalendar[key.toLowerCase()]"
+            v-for="(bangumi, subKey) in bangumiCalendar ? bangumiCalendar[lowerCaseWeekKey[key]] : []"
             :key="subKey"
             xs12
             sm6
@@ -62,7 +62,17 @@ export default Vue.extend({
   data() {
     return {
       bangumiCalendar: null as (Calendar | null),
-      weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Unknown'],
+      weekKey: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Unknown'] as const,
+      lowerCaseWeekKey: {
+        Sun: 'sun',
+        Mon: 'mon',
+        Tue: 'tue',
+        Wed: 'wed',
+        Thu: 'thu',
+        Fri: 'fri',
+        Sat: 'sat',
+        Unknown: 'unknown',
+      } as const,
       latestBgmiVersion: '',
       bgmiVersion: '',
     };

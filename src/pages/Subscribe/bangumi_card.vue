@@ -15,8 +15,8 @@
     <v-card-actions>
       <v-spacer />
       <v-btn
-        v-if="!status"
-        :class="{ 'md-primary': !status, 'md-accent': status }"
+        v-if="!dataStatus"
+        :class="{ 'md-primary': !dataStatus, 'md-accent': dataStatus }"
         class="md-raised"
         color="info"
         @click.stop.prevent="add()"
@@ -162,6 +162,7 @@ export default Vue.extend({
       dialog5: false,
       showSubtitle: false,
       expand: false,
+      dataStatus: this.$props.status,
       filter: {
         name: this.name,
         regex: '',
@@ -213,6 +214,7 @@ export default Vue.extend({
       this.expand = false;
       Promise.all(p).then(
         () => {
+          this.dataStatus = true;
           this.expand = false;
           this.$notify({
             type: 'success',
@@ -258,11 +260,16 @@ export default Vue.extend({
           });
         },
       );
+      // 添加时请求 Filter
+      this.$http.post('filter', { name: this.name }).then((res) => {
+        this.fetchFilter(res.data.data);
+      });
     },
     onClose(type: string) {
       this.dialog5 = false;
       if (type === 'ok') {
         this.$store.commit('clearBangumiIndex');
+        this.dataStatus = false;
         this.expand = false;
         const action = 'delete';
         this.$http.post(`${action}`, { name: this.name }).then(
@@ -272,8 +279,9 @@ export default Vue.extend({
               text: res.data.message,
             });
           },
+          // reject
           (res) => {
-            //              this.bangumi.status = 0
+            // this.bangumi.status = 0
             this.$emit('changed', 0);
             this.$notify({
               type: 'danger',
