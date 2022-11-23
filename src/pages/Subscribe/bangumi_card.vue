@@ -283,8 +283,6 @@ export default Vue.extend({
           (res) => {
             // this.bangumi.status = 0
             this.$emit('changed', 0);
-            console.log(res);
-
             this.$notify({
               type: 'danger',
               text: res.data.message,
