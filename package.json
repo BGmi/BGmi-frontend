@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@mdi/font": "6.9.96",
-    "@types/chai": "4.3.1",
+    "@types/chai": "4.3.4",
     "@types/lodash": "4.14.189",
     "@types/mocha": "9.1.1",
     "@types/node": "18.11.9",
@@ -44,7 +44,7 @@
     "@vue/eslint-config-standard": "8.0.1",
     "@vue/eslint-config-typescript": "11.0.2",
     "@vue/test-utils": "1.3.3",
-    "chai": "4.3.6",
+    "chai": "4.3.7",
     "codecov": "3.8.3",
     "eslint": "7.32.0",
     "eslint-import-resolver-alias": "1.1.2",
