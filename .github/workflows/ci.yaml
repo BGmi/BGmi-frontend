@@ -26,16 +26,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
+          cache: 'yarn'
 
-      - run: npm i npm -g
+      - run: yarn
 
-      - run: npm ci
-
-      - run: npm run lint
+      - run: yarn lint
         env:
           NODE_ENV: production
 
-      - run: npm test
+      - run: yarn test
 
-      - run: npm run build
+      - run: yarn build
