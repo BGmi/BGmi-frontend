@@ -36,4 +36,6 @@ jobs:
         env:
           NODE_ENV: production
 
+      - run: npm test
+
       - run: npm run build
