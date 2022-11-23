@@ -260,6 +260,10 @@ export default Vue.extend({
           });
         },
       );
+      // 添加时请求 Filter
+      this.$http.post('filter', { name: this.name }).then((res) => {
+        this.fetchFilter(res.data.data);
+      });
     },
     onClose(type: string) {
       this.dialog5 = false;
