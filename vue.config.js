@@ -9,6 +9,7 @@ module.exports = {
   configureWebpack: {
     performance: { hints: false },
   },
+  resolve: { fallback: { 'path': require.resolve('path-browserify') } },
   devServer: {
     // 设置主机地址
     host: 'localhost',
