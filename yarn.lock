@@ -8567,10 +8567,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npmmirror.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-cookies@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.npmmirror.com/vue-cookies/-/vue-cookies-1.8.0.tgz#1deb0227364f9b5b59f3519c64d86431c9a0d5f0"
-  integrity sha512-5nxAwW4kIS6uP0G9UnWcmSj2NlFpV1wkvAAwGgkWqyPDVCP1IEzFZfg7YUBLiYowZ/cFnxaXqS1nWPIBwfXGRw==
+vue-cookies@1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/vue-cookies/-/vue-cookies-1.8.2.tgz#39515fa09ebb585a50ac86c0e182a6b9307dc6ad"
+  integrity sha512-+NfoC5l+7ybuVwpnqsf52qndnoYMjEb4EFhX4/j9RzzQP00dNzuJELsWuW2p8omNUzNlSgWGVyyWoOeJr347tw==
 
 vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.10.0:
   version "7.11.0"
