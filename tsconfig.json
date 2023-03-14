@@ -1,43 +1,43 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "esnext",
-    "allowJs": true,
-    "noImplicitAny": true,
-    "strict": true,
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "esModuleInterop": false,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "typeRoots": [
-      "./src/typings",
-      "node_modules/@types"
-    ],
-    "types": [
-      "webpack-env",
-      "mocha",
-      "chai",
-      "vuetify",
-      "./node_modules/vue/types"
-    ],
+    "target": "es5",
     "lib": [
-      "esnext",
       "dom",
       "dom.iterable",
-      "scripthost"
+      "esnext"
     ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
+      "~/*": [
+        "*"
       ]
     },
-    "outDir": "./dist/"
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
   "include": [
-    "src/",
-    "tests/**/*.ts"
+    "**/*.tsx",
+    "**/*.ts",
+    "**/*.spec.ts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "dist/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
