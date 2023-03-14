@@ -19,3 +19,11 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# next.js
+next-env.d.ts
+.next
+dist
+static
+
+.env
