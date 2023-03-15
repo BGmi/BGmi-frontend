@@ -4,6 +4,9 @@ export const handleSecondaryTitle = (title: string) => {
   if (title === '/')
     return;
 
+  if (title === '/player/[bangumi]')
+    return 'Player';
+
   return `${title[1].toUpperCase()}${title.slice(2)}`;
 };
 
