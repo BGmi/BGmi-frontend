@@ -8,6 +8,9 @@
   ],
   "overrides": [
     {
+      "rules": {
+        "@fluffyfox/jsx/no-template-literal": "off"
+      },
       "files": [
         "**/*.d.ts",
         "**/*.ts",
