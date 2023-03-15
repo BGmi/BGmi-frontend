@@ -7,7 +7,7 @@ import { isBrowser } from '~/lib/utils';
 export const useColorMode = () => {
   const [colorMode, setColorMode] = useState<'light' | 'dark' | ''>('');
   // 监听 context 的变化，更新主题
-  const { colorMode: color } = useChakraColorMode();
+  const { colorMode: color, toggleColorMode } = useChakraColorMode();
 
   useIsomorphicLayoutEffect(() => {
     if (isBrowser) {
@@ -16,5 +16,5 @@ export const useColorMode = () => {
     }
   }, [color]);
 
-  return colorMode;
+  return { colorMode, toggleColorMode };
 };
