@@ -84,7 +84,7 @@ export const SidebarContent = ({ onClose, ...props }: BoxProps & { onClose?: () 
           <NavItem active={pathname === '/'} icon={BsPlayBtnFill} onClick={onClose}>Bangumi</NavItem>
         </Link>
 
-        <ChakraLink href="/bangumi">
+        <ChakraLink href="/bangumi" _hover={{ textDecoration: 'none' }}>
           <NavItem icon={BsFolderFill}>Bangumi Files</NavItem>
         </ChakraLink>
 
