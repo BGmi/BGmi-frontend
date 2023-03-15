@@ -17,7 +17,7 @@ export default function Index({ isOpen, onClose }: Props) {
     <Box>
       <SidebarContent display={{ base: 'none', md: 'unset' }} />
       <Box display={{ md: 'none' }}>
-        <Drawer isOpen={isOpen} onClose={onClose} placement="left">
+        <Drawer autoFocus={false} isOpen={isOpen} onClose={onClose} placement="left">
           <DrawerOverlay />
           <DrawerContent bg="chakra-body-bg" maxW="60">
             <SidebarContent onClose={onClose} w="full" borderRight="none" />

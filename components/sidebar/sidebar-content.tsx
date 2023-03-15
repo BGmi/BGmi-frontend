@@ -7,9 +7,7 @@ import {
   Img,
   Text
 } from '@chakra-ui/react';
-import type {
-  BoxProps
-} from '@chakra-ui/react';
+import type { BoxProps } from '@chakra-ui/react';
 
 import { BsCalendar2CheckFill, BsFillCollectionPlayFill, BsFolderFill, BsInfoSquareFill, BsMoonFill, BsPlayBtnFill, BsRssFill, BsSunFill } from 'react-icons/bs';
 import type { IconType } from 'react-icons';
@@ -80,7 +78,11 @@ export const SidebarContent = ({ onClose, ...props }: BoxProps & { onClose?: () 
       </Flex>
       <Divider />
       <Flex direction="column" as="nav" fontSize="md" color="gray.600" aria-label="main-navigation">
-        <Link href="/">
+        {/*
+          * 兼容 safari，不知道为什么会导致第一个元素被聚焦
+          * Drawer 组件已经设置了 autoFocus={false}
+        */}
+        <Link href="/" _focusVisible={{ outline: 'none' }}>
           <NavItem active={pathname === '/'} icon={BsPlayBtnFill} onClick={onClose}>Bangumi</NavItem>
         </Link>
 
