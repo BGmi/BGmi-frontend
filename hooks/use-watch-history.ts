@@ -1,7 +1,11 @@
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-export const watchHistoryAtom = atomWithStorage <Record<string, Record<string, boolean>>>('watch-history', {});
+type WatchHistory = Record<string, Record<string & {} | 'cur-watch', boolean | number>>;
+
+export const watchHistoryAtom = atomWithStorage <WatchHistory>('watch-history', {});
+
+export const useWatchHistory = () => useAtom(watchHistoryAtom);
 
 export const useHasWatched = (bangumiName: string, episode: string) => {
   const [watchHistory] = useAtom(watchHistoryAtom);
