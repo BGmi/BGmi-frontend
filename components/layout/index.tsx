@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const handleToggle = () => setOpen(o => !o);
   return (
-    <Box minH="100vh" ml={{ md: '60' }}>
+    <Box minH="calc(100vh-60)" ml={{ md: '60' }}>
       <Header sidebarToggle={handleToggle} />
       <Sidebar isOpen={open} onClose={handleToggle} />
       <Box as="main" p="4">
