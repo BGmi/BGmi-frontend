@@ -7,12 +7,12 @@ const nextConfig = {
   rewrites: async () => {
     return [
       {
-        source: nextBasePath + '/api/:slug',
-        destination: 'https://home.kahosan.top/bgmidev/api/:slug'
+        source: nextBasePath + '/api/:slug*',
+        destination: 'https://home.kahosan.top/bgmidev/api/:slug*'
       },
       {
-        source: nextBasePath + '/bangumi/:slug',
-        destination: 'https://home.kahosan.top/bgmidev/:slug'
+        source: nextBasePath + '/bangumi/:slug*',
+        destination: 'https://home.kahosan.top/bgmidev/bangumi/:slug*'
       }
     ]
   },
