@@ -11,27 +11,34 @@ export default function Header({ sidebarToggle }: { sidebarToggle: () => void })
 
   const { colorMode } = useColorMode();
   return (
-    <Flex
-      bg={colorMode === 'dark' ? 'blackAlpha.400' : 'blackAlpha.100'}
-      py="2.5"
-      pl="2"
-      alignItems="center"
-      as="header"
-      pos="sticky"
-      top="0"
-      backdropFilter="auto"
-      backdropBlur="12px"
-      display={{ md: 'none', base: 'flex' }}
+    <Box
+      pb={{ md: 'unset', base: '16' }}
+    >
+      <Flex
+        alignItems="center"
+        bg={colorMode === 'dark' ? 'blackAlpha.400' : 'blackAlpha.200'}
+        py="2.5"
+        pl="2"
+        as="header"
+        w="full"
+        pos="fixed"
+        top="0"
+        backdropFilter="auto"
+        saturate="120%"
+        backdropBlur="8px"
+        display={{ md: 'none', base: 'flex' }}
       >
-      <Box display={{ md: 'none' }}>
-        <IconButton
-          aria-label="Menu"
-          onClick={sidebarToggle}
-          icon={<FiMenu />}
-          variant="ghost"
+        <Box display={{ md: 'none' }}>
+          <IconButton
+            aria-label="Menu"
+            onClick={sidebarToggle}
+            icon={<FiMenu />}
+            variant="ghost"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           />
-      </Box>
-      <Text ml="4" fontSize="x-large">BGmi - {pathname === '/' ? 'Bangumi' : secondaryTitle}</Text>
-    </Flex>
+        </Box>
+        <Text ml="4" fontSize="x-large">BGmi - {pathname === '/' ? 'Bangumi' : secondaryTitle}</Text>
+      </Flex>
+    </Box>
   );
 }
