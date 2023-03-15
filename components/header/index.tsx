@@ -7,10 +7,9 @@ import { handleSecondaryTitle } from '~/lib/utils';
 
 export default function Header({ sidebarToggle }: { sidebarToggle: () => void }) {
   const { pathname } = useRouter();
-
   const secondaryTitle = handleSecondaryTitle(pathname);
 
-  const colorMode = useColorMode();
+  const { colorMode } = useColorMode();
   return (
     <Flex
       bg={colorMode === 'dark' ? 'blackAlpha.400' : 'blackAlpha.100'}
@@ -22,13 +21,14 @@ export default function Header({ sidebarToggle }: { sidebarToggle: () => void })
       top="0"
       backdropFilter="auto"
       backdropBlur="12px"
+      display={{ md: 'none', base: 'flex' }}
       >
-      <Box px="2" display={{ md: 'none' }}>
+      <Box display={{ md: 'none' }}>
         <IconButton
           aria-label="Menu"
           onClick={sidebarToggle}
           icon={<FiMenu />}
-          variant="outline"
+          variant="ghost"
           />
       </Box>
       <Text ml="4" fontSize="x-large">BGmi - {pathname === '/' ? 'Bangumi' : secondaryTitle}</Text>
