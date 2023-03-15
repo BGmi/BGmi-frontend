@@ -5,8 +5,7 @@ import {
   Flex,
   Icon,
   Img,
-  Text,
-  useColorMode as useChakraColorMode
+  Text
 } from '@chakra-ui/react';
 import type {
   BoxProps
@@ -17,6 +16,7 @@ import type { IconType } from 'react-icons';
 
 import { useRouter } from 'next/router';
 import Link from '../router-link';
+
 import { LogoPath } from '~/lib/contant';
 import { useColorMode } from '~/hooks/use-color-mode';
 
@@ -28,7 +28,7 @@ interface NavItemProps {
 }
 
 const NavItem = (props: NavItemProps) => {
-  const colorMode = useColorMode();
+  const { colorMode } = useColorMode();
   const hoverColor = colorMode === 'light' ? 'gray.900' : 'gray.200';
   const hoverBg = colorMode === 'light' ? 'gray.50' : 'gray.900';
   const activeBg = colorMode === 'light' ? 'gray.200' : 'gray.900';
@@ -58,13 +58,11 @@ const NavItem = (props: NavItemProps) => {
   );
 };
 
-export const SidebarContent = ({ ...props }: BoxProps & { onClose?: () => void }) => {
+export const SidebarContent = ({ onClose, ...props }: BoxProps & { onClose?: () => void }) => {
   const { pathname } = useRouter();
   const currentPath = pathname.slice(1).toLowerCase();
 
-  const colorMode = useColorMode();
-  const { toggleColorMode } = useChakraColorMode();
-
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box
       as="nav"
@@ -83,7 +81,7 @@ export const SidebarContent = ({ ...props }: BoxProps & { onClose?: () => void }
       <Divider />
       <Flex direction="column" as="nav" fontSize="md" color="gray.600" aria-label="main-navigation">
         <Link href="/">
-          <NavItem active={pathname === '/'} icon={BsPlayBtnFill} onClick={props.onClose}>Bangumi</NavItem>
+          <NavItem active={pathname === '/'} icon={BsPlayBtnFill} onClick={onClose}>Bangumi</NavItem>
         </Link>
 
         <ChakraLink href="/bangumi">
@@ -91,22 +89,22 @@ export const SidebarContent = ({ ...props }: BoxProps & { onClose?: () => void }
         </ChakraLink>
 
         <Link href="/calendar">
-          <NavItem active={currentPath === 'calendar'} icon={BsCalendar2CheckFill} onClick={props.onClose}>Calendar</NavItem>
+          <NavItem active={currentPath === 'calendar'} icon={BsCalendar2CheckFill} onClick={onClose}>Calendar</NavItem>
         </Link>
         <Link href="/resource">
-          <NavItem active={currentPath === 'resource'} icon={BsRssFill} onClick={props.onClose}>Resource</NavItem>
+          <NavItem active={currentPath === 'resource'} icon={BsRssFill} onClick={onClose}>Resource</NavItem>
         </Link>
 
         <Divider />
 
         <Link href="/subscribe">
-          <NavItem active={currentPath === 'subscribe'} icon={BsFillCollectionPlayFill} onClick={props.onClose}>Subscribe</NavItem>
+          <NavItem active={currentPath === 'subscribe'} icon={BsFillCollectionPlayFill} onClick={onClose}>Subscribe</NavItem>
         </Link>
 
         <Divider />
 
         <Link href="/about">
-          <NavItem active={currentPath === 'about'} icon={BsInfoSquareFill} onClick={props.onClose}>About</NavItem>
+          <NavItem active={currentPath === 'about'} icon={BsInfoSquareFill} onClick={onClose}>About</NavItem>
         </Link>
 
         <NavItem icon={colorMode === 'dark' ? BsSunFill : BsMoonFill} onClick={toggleColorMode}>Theme Toggle</NavItem>
