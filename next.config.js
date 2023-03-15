@@ -2,9 +2,9 @@ const nextBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  distDir: 'dist',
+  distDir: 'bundle',
   basePath: nextBasePath,
-  rewrites: async ()=> {
+  rewrites: async () => {
     return [
       {
         source: nextBasePath + '/api/:slug',
