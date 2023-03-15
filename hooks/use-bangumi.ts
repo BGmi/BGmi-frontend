@@ -1,6 +1,17 @@
 import useSWR from 'swr';
 import { fetcher } from '~/lib/fetcher';
 
+export interface BangumiData {
+  name: string
+  update_time: string
+  cover: string
+  id: number
+  bangumi_name: string
+  episode: number
+  status: number
+  updated_time: number
+  player: Record<string, Record<string & {} | 'path', string>>
+}
 export interface BangumiResponse {
   version: string
   latest_version: string
@@ -8,17 +19,7 @@ export interface BangumiResponse {
   status: string
   lang: string
   danmaku_api: string
-  data: Array<{
-    name: string
-    update_time: string
-    cover: string
-    id: number
-    bangumi_name: string
-    episode: number
-    status: number
-    updated_time: number
-    player: Record<string, Record<string, string>>
-  }>
+  data: BangumiData[]
 }
 
 export const useBangumi = () => {
