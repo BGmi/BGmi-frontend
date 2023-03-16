@@ -4,10 +4,11 @@ import {
   Divider,
   Flex,
   Icon,
-  Img,
   Text
 } from '@chakra-ui/react';
 import type { BoxProps } from '@chakra-ui/react';
+
+import Image from 'next/image';
 
 import { BsCalendar2CheckFill, BsFillCollectionPlayFill, BsFolderFill, BsInfoSquareFill, BsMoonFill, BsPlayBtnFill, BsRssFill, BsSunFill } from 'react-icons/bs';
 import type { IconType } from 'react-icons';
@@ -73,7 +74,7 @@ export const SidebarContent = ({ onClose, ...props }: BoxProps & { onClose?: () 
       {...props}
     >
       <Flex px="6" py="6" alignItems="center">
-        <Img src={LogoPath} w="12" rounded="50%" />
+        <Image src={LogoPath} width="42" height="42" style={{ borderRadius: '50%' }} alt="logo" placeholder="empty" />
         <Text fontSize="2xl" ml="4" fontWeight="semibold">BGmi</Text>
       </Flex>
       <Divider />
