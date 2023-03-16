@@ -10,9 +10,11 @@ import EpisodeCard from '~/components/episone-card';
 
 import type { BangumiData } from '~/hooks/use-bangumi';
 import { useWatchHistory } from '~/hooks/use-watch-history';
+import { useColorMode } from '~/hooks/use-color-mode';
 
 export default function Player() {
   const router = useRouter();
+  const { colorMode } = useColorMode();
   const bangumiData = JSON.parse(router.query.bangumiData as string || '{}') as BangumiData;
 
   const [watchHistory, setWatchHistory] = useWatchHistory();
@@ -58,9 +60,9 @@ export default function Player() {
         dPlayerRef.current = new DPlayer({
           container: containerRef.current,
           video: {
-            url: playUrl ? `/bangumi/${playUrl}` : '',
+            url: playUrl ? `/bangumi/${playUrl}` : ''
             // TODO 裁剪封面图
-            pic: playUrl ? bangumiData.cover : ''
+            // pic: playUrl ? bangumiData.cover : ''
           }
         });
       });
@@ -79,14 +81,19 @@ export default function Player() {
       </Heading>
       <Flex position="relative" mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>
         <Box
-          bg="blackAlpha.200"
+          p="4"
+          rounded="4"
+          bg={colorMode === 'dark' ? 'whiteAlpha.200' : 'blackAlpha.200'}
           boxShadow="base"
           transition=".5s width"
-          h={{ md: 'xl', base: '80' }}
-          w={{ xl: '70%', base: 'full' }}
-          id="DPlayer"
-          ref={containerRef}
+          minH="50%"
+          w="full"
+        >
+          <div
+            id="DPlayer"
+            ref={containerRef}
         />
+        </Box>
         <EpisodeCard boxShadow="base" onDPlay={onDPlay} playParams={playParams} />
       </Flex>
     </Box>

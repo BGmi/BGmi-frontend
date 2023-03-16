@@ -27,6 +27,7 @@ export default function EpisodeCard({ onDPlay, playParams, ...props }: Props & B
       ml={{ xl: '4', base: 'unset' }}
       mt={{ xl: 'unset', base: '4' }}
       w={{ xl: '30%', base: 'unset' }}
+      minW="20%"
       h="50%"
       {...props}
     >
