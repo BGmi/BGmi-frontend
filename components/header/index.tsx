@@ -23,6 +23,7 @@ export default function Header({ sidebarToggle }: { sidebarToggle: () => void })
         w="full"
         pos="fixed"
         top="0"
+        zIndex="9999"
         backdropFilter="auto"
         saturate="120%"
         backdropBlur="8px"
