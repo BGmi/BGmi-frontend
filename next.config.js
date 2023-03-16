@@ -7,6 +7,14 @@ const nextConfig = {
   },
   distDir: 'bundle',
   basePath: nextBasePath,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'mikanani.me',
+      },
+    ],
+  },
   rewrites: async () => {
     return [
       {
