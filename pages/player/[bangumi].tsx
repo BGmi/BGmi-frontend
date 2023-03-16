@@ -42,7 +42,7 @@ export default function Player() {
     if (bangumiData.player) {
       return {
         episode: Object.keys(bangumiData.player).map(ep => parseInt(ep, 10)),
-        playUrl: bangumiData.player,
+        playUrl: bangumiData.player, // { episode: "path": "/bangumi_file.mp4" }
         totalMark: watchHistory[bangumiData.bangumi_name] as Record<string, 'mark' | undefined>
       };
     }
@@ -58,8 +58,8 @@ export default function Player() {
         dPlayerRef.current = new DPlayer({
           container: containerRef.current,
           video: {
-            url: `/bangumi/${playUrl}`,
-            pic: bangumiData.cover
+            url: playUrl ? `/bangumi/${playUrl}` : '',
+            pic: playUrl ? bangumiData.cover : ''
           }
         });
       });
@@ -78,9 +78,10 @@ export default function Player() {
       </Heading>
       <Flex mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>
         <Box
+          bg="blackAlpha.200"
           boxShadow="base"
           transition=".5s width"
-          maxH={{ md: 'xl', base: '72' }}
+          h={{ md: 'xl', base: '72' }}
           w={{ xl: '70%', base: 'full' }}
           id="DPlayer"
           ref={containerRef}
