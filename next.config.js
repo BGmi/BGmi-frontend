@@ -2,6 +2,9 @@ const nextBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    scrollRestoration: true,
+  },
   distDir: 'bundle',
   basePath: nextBasePath,
   rewrites: async () => {
