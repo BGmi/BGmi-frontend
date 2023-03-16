@@ -59,6 +59,7 @@ export default function Player() {
           container: containerRef.current,
           video: {
             url: playUrl ? `/bangumi/${playUrl}` : '',
+            // TODO 裁剪封面图
             pic: playUrl ? bangumiData.cover : ''
           }
         });
@@ -76,12 +77,12 @@ export default function Player() {
       <Heading ml={{ lg: '10', base: '5' }} mb="6" fontSize="2xl" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
         {bangumiData.bangumi_name} {episone ? `- 第 ${episone} 集` : ''}
       </Heading>
-      <Flex mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>
+      <Flex position="relative" mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>
         <Box
           bg="blackAlpha.200"
           boxShadow="base"
           transition=".5s width"
-          h={{ md: 'xl', base: '72' }}
+          h={{ md: 'xl', base: '80' }}
           w={{ xl: '70%', base: 'full' }}
           id="DPlayer"
           ref={containerRef}
