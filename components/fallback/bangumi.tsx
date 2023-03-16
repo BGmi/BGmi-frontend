@@ -1,4 +1,5 @@
-import { Box, Grid, Skeleton, Spinner } from '@chakra-ui/react';
+import { Box, Grid, Spinner } from '@chakra-ui/react';
+import Skeleton from './skeleton';
 
 import { useColorMode } from '~/hooks/use-color-mode';
 
