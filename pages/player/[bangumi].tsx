@@ -17,37 +17,33 @@ export default function Player() {
 
   const [watchHistory, setWatchHistory] = useWatchHistory();
   // 如果没有观看历史默认选择第一集
-  const curWatch = watchHistory[bangumiData?.bangumi_name]?.['cur-watch'] as number || 1;
-
+  const episone = watchHistory[bangumiData?.bangumi_name]?.['cur-watch'] as number || 1;
   // 触发 DPlayer 重新加载
-  const [playUrl, setPlayUrl] = useState('');
-  const [episone, setEpisone] = useState(curWatch);
+  const [playUrl, setPlayUrl] = useState<string>();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const dPlayerRef = useRef<DPlayer>();
 
   const onDPlay = (url: string, ep: number) => {
     setPlayUrl(url);
-    dPlayerRef.current?.play();
 
-    setEpisone(ep);
     setWatchHistory({
       ...watchHistory,
       [bangumiData.bangumi_name]: {
         ...watchHistory[bangumiData.bangumi_name],
-        [ep]: true,
+        [ep]: 'mark',
         'cur-watch': ep
       }
     });
   };
 
   // 传给 Episode Card
-  const playInfo = useMemo(() => {
+  const playParams = useMemo(() => {
     if (bangumiData.player) {
       return {
         episode: Object.keys(bangumiData.player).map(ep => parseInt(ep, 10)),
         playUrl: bangumiData.player,
-        totalMark: watchHistory[bangumiData.bangumi_name] as Record<string, boolean>
+        totalMark: watchHistory[bangumiData.bangumi_name] as Record<string, 'mark' | undefined>
       };
     }
   }, [bangumiData.bangumi_name, bangumiData.player, watchHistory]);
@@ -55,19 +51,22 @@ export default function Player() {
   useEffect(() => {
     // ssr error self is not defined
     if (bangumiData.player) {
-      setPlayUrl(bangumiData.player[curWatch]?.path);
+      setPlayUrl(bangumiData.player?.[episone]?.path);
       import('dplayer').then((pack) => {
         const DPlayer = pack.default;
 
         dPlayerRef.current = new DPlayer({
           container: containerRef.current,
-          video: { url: `/bangumi/${playUrl}` }
+          video: {
+            url: `/bangumi/${playUrl}`,
+            pic: bangumiData.cover
+          }
         });
       });
     }
 
     return () => dPlayerRef.current?.destroy();
-  }, [bangumiData.player, curWatch, playUrl]);
+  }, [bangumiData.cover, bangumiData.player, episone, playUrl]);
 
   return (
     <Box>
@@ -78,8 +77,15 @@ export default function Player() {
         {bangumiData.bangumi_name} {episone ? `- 第 ${episone} 集` : ''}
       </Heading>
       <Flex mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>
-        <Box boxShadow="base" transition=".5s width" w={{ xl: '70%', base: 'full' }} id="DPlayer" ref={containerRef} />
-        <EpisodeCard boxShadow="base" onDPlay={onDPlay} playInfo={playInfo} />
+        <Box
+          boxShadow="base"
+          transition=".5s width"
+          maxH={{ md: 'xl', base: '72' }}
+          w={{ xl: '70%', base: 'full' }}
+          id="DPlayer"
+          ref={containerRef}
+        />
+        <EpisodeCard boxShadow="base" onDPlay={onDPlay} playParams={playParams} />
       </Flex>
     </Box>
   );

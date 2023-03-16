@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-type WatchHistory = Record<string, Record<string & {} | 'cur-watch', boolean | number>>;
+type WatchHistory = Record<string, Record<string & {} | 'cur-watch', ('mark' | undefined) | number>>;
 
 export const watchHistoryAtom = atomWithStorage <WatchHistory>('watch-history', {});
 
