@@ -1,6 +1,8 @@
 import type { BoxProps } from '@chakra-ui/react';
 import { Box, Button, Grid, GridItem, Text } from '@chakra-ui/react';
 
+import FallbackEpisodeCard from '../fallback/episone-card';
+
 import { useColorMode } from '~/hooks/use-color-mode';
 
 interface Props {
@@ -16,7 +18,7 @@ export default function EpisodeCard({ onDPlay, playParams, ...props }: Props & B
   const { colorMode } = useColorMode();
 
   if (!playParams)
-    return <div>isLoading...</div>;
+    return <FallbackEpisodeCard />;
 
   return (
     <Box
@@ -34,6 +36,7 @@ export default function EpisodeCard({ onDPlay, playParams, ...props }: Props & B
           <GridItem key={ep}>
             <Button
               px="7"
+              maxW="16"
               onClick={() => onDPlay(playParams.playUrl[ep].path, ep)}
               fontSize="sm"
               bg={playParams.totalMark?.[ep] === 'mark' ? 'blackAlpha.200' : 'Background'}
