@@ -10,6 +10,8 @@ import { theme } from '~/lib/chakra-theme';
 import { LogoPath } from '~/lib/contant';
 import { handleSecondaryTitle } from '~/lib/utils';
 
+import '~/styles/globals.css';
+
 export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
   const headTitle = `BGmi - ${pathname === '/' ? 'Bangumi' : handleSecondaryTitle(pathname)}`;

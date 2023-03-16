@@ -1,20 +1,21 @@
 import type { BoxProps } from '@chakra-ui/react';
 import { Box, Button, Grid, GridItem, Text } from '@chakra-ui/react';
+
 import { useColorMode } from '~/hooks/use-color-mode';
 
 interface Props {
   onDPlay: (url: string, ep: number) => void
-  playInfo: {
+  playParams: {
     episode: number[]
-    totalMark: Record<string, boolean>
+    totalMark: Record<string, 'mark' | undefined>
     playUrl: Record<string, Record<string & {} | 'path', string>>
   } | undefined
 }
 
-export default function EpisodeCard({ onDPlay, playInfo, ...props }: Props & BoxProps) {
+export default function EpisodeCard({ onDPlay, playParams, ...props }: Props & BoxProps) {
   const { colorMode } = useColorMode();
 
-  if (!playInfo)
+  if (!playParams)
     return <div>isLoading...</div>;
 
   return (
@@ -28,15 +29,14 @@ export default function EpisodeCard({ onDPlay, playInfo, ...props }: Props & Box
       {...props}
     >
       <Text mb="4">选集</Text>
-      <Grid templateColumns="repeat(auto-fill, minmax(3.5rem, 1fr))" gap={6}>
-        {playInfo.episode.map(ep => (
+      <Grid templateColumns="repeat(auto-fill, minmax(3.75rem, 1fr))" gap={6}>
+        {playParams.episode.map(ep => (
           <GridItem key={ep}>
             <Button
-              onClick={() => onDPlay(playInfo.playUrl[ep].path, ep)}
-              fontSize="sm"
               px="7"
-              py="2"
-              bg={playInfo.totalMark?.[ep] === true ? 'blackAlpha.200' : 'Background'}
+              onClick={() => onDPlay(playParams.playUrl[ep].path, ep)}
+              fontSize="sm"
+              bg={playParams.totalMark?.[ep] === 'mark' ? 'blackAlpha.200' : 'Background'}
             >
               {ep}
             </Button>
