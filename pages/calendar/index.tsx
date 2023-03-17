@@ -1,11 +1,12 @@
 import { Box, Card, CardBody, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
 import Image from 'next/image';
+
 import { useState } from 'react';
 
 import useSWR from 'swr';
-import { Skeleton } from '~/components/fallback';
-import FallbackCalendar from '~/components/fallback/calendar';
 import { fetcher } from '~/lib/fetcher';
+
+import { FallbackCalendar, Skeleton } from '~/components/fallback';
 
 import type { Calendar as CalendarType, WeekCalendar } from '~/types/calendar';
 
