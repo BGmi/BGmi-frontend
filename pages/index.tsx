@@ -9,6 +9,7 @@ import { FallbackBangumi } from '~/components/fallback';
 import type { BangumiData } from '~/hooks/use-bangumi';
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
+import { BASE_PATH } from '~/lib/contant';
 
 interface PlayerCardProps {
   bangumiData: BangumiData
@@ -16,12 +17,12 @@ interface PlayerCardProps {
 
 function PlayerCard({ bangumiData }: PlayerCardProps) {
   const { colorMode } = useColorMode();
-  const [hasHover, setHasHover] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   const router = useRouter();
 
   const { bangumi_name: title, cover: coverUrl, episode } = bangumiData;
 
-  const handlePlay = () => {
+  const handleToPlayer = () => {
     router.push({
       pathname: `/player/${title}`,
       query: {
@@ -36,14 +37,14 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
       mx="2"
       boxShadow="base"
       >
-      <Box cursor="pointer" onClick={handlePlay} bg="blackAlpha.300" roundedTop="md">
+      <Box cursor="pointer" onClick={handleToPlayer} bg="blackAlpha.300" roundedTop="md">
         <Image
           roundedTop="md"
           h="48"
           w="full"
           backgroundRepeat="no-repeat"
           fit="cover"
-          src={coverUrl}
+          src={BASE_PATH + coverUrl}
           alt="bangumi cover"
           />
       </Box>
@@ -53,19 +54,19 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
         >
           <Heading
             maxW="70%"
-            whiteSpace={hasHover ? 'unset' : 'nowrap'}
-            overflow={hasHover ? 'unset' : 'hidden'}
-            textOverflow={hasHover ? 'unset' : 'ellipsis'}
+            whiteSpace={isHover ? 'unset' : 'nowrap'}
+            overflow={isHover ? 'unset' : 'hidden'}
+            textOverflow={isHover ? 'unset' : 'ellipsis'}
             fontSize="xl"
             fontFamily="body"
-            onMouseEnter={() => setHasHover(true)}
-            onMouseLeave={() => setHasHover(false)}
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
         >
             {title}
           </Heading>
           <IconButton
             aria-label="play"
-            onClick={handlePlay}
+            onClick={handleToPlayer}
             icon={<BsPlayBtnFill size="40" />}
             variant="ghost"
             style={{ WebkitTapHighlightColor: 'transparent' }}
