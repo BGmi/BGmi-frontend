@@ -1,4 +1,5 @@
-import { Box, Heading, Highlight, Link, ListItem, Text, UnorderedList } from '@chakra-ui/react';
+import { Box, Fade, Heading, Highlight, Link, ListItem, Text, UnorderedList } from '@chakra-ui/react';
+
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
 
@@ -7,7 +8,7 @@ export default function About() {
   const { colorMode } = useColorMode();
   return (
     <>
-      <Heading>BGmi {data?.version}</Heading>
+      <Heading>BGmi <Fade style={{ display: 'inline' }} in={!!data?.version}>{data?.version}</Fade></Heading>
       <Text mt="2">一个用来追番的命令行程序</Text>
       <Text>
         HTTP Service 基于
