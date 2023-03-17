@@ -5,9 +5,9 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  distDir: 'bundle',
   basePath: nextBasePath,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -18,11 +18,11 @@ const nextConfig = {
   rewrites: async () => {
     return [
       {
-        source: nextBasePath + '/api/:slug*',
+        source: '/api/:slug*',
         destination: 'https://home.kahosan.top/bgmidev/api/:slug*'
       },
       {
-        source: nextBasePath + '/bangumi/:slug*',
+        source: '/bangumi/:slug*',
         destination: 'https://home.kahosan.top/bgmidev/bangumi/:slug*'
       }
     ]

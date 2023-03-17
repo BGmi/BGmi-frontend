@@ -9,6 +9,7 @@ specifiers:
   '@types/node': ^18.15.3
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
+  cookies-next: ^2.1.1
   dplayer: ^1.27.1
   eslint: ^8.36.0
   eslint-config-kaho: ^0.9.6
@@ -18,6 +19,7 @@ specifiers:
   jotai: ^2.0.3
   md5: ^2.3.0
   next: ^13.2.4
+  next-nginx-routes: ^1.1.1
   next-themes: ^0.2.1
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -30,11 +32,13 @@ dependencies:
   '@chakra-ui/react': 2.5.1_gcrlffzskddxcmr2d3qt4h4wtq
   '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
   '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
+  cookies-next: 2.1.1
   dplayer: 1.27.1
   framer-motion: 10.2.5_biqbaboplfbrettd7655fr4n2y
   jotai: 2.0.3_react@18.2.0
   md5: 2.3.0
   next: 13.2.4_biqbaboplfbrettd7655fr4n2y
+  next-nginx-routes: 1.1.1_next@13.2.4
   next-themes: 0.2.1_ld2jel3hspngo3u5lti2kgl2sq
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -1636,6 +1640,10 @@ packages:
       tslib: 2.5.0
     dev: false
 
+  /@types/cookie/0.4.1:
+    resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
+    dev: false
+
   /@types/dplayer/1.25.2:
     resolution: {integrity: sha512-bkTVZkK3Vi7N7eX2FUBnqKhCjTaeRLkhvY8H6zolatbSTtjPPdxyUzhE3C29sIBYRRq1kQHSduFgCHKg5VF3Jw==}
     dev: true
@@ -1663,6 +1671,10 @@ packages:
     dependencies:
       '@types/unist': 2.0.6
     dev: true
+
+  /@types/node/16.18.16:
+    resolution: {integrity: sha512-ZOzvDRWp8dCVBmgnkIqYCArgdFOO9YzocZp8Ra25N/RStKiWvMOXHMz+GjSeVNe5TstaTmTWPucGJkDw0XXJWA==}
+    dev: false
 
   /@types/node/18.15.3:
     resolution: {integrity: sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==}
@@ -2135,6 +2147,19 @@ packages:
 
   /convert-source-map/1.9.0:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
+    dev: false
+
+  /cookie/0.4.2:
+    resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  /cookies-next/2.1.1:
+    resolution: {integrity: sha512-AZGZPdL1hU3jCjN2UMJTGhLOYzNUN9Gm+v8BdptYIHUdwz397Et1p+sZRfvAl8pKnnmMdX2Pk9xDRKCGBum6GA==}
+    dependencies:
+      '@types/cookie': 0.4.1
+      '@types/node': 16.18.16
+      cookie: 0.4.2
     dev: false
 
   /copy-to-clipboard/3.3.3:
@@ -3891,6 +3916,15 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
+
+  /next-nginx-routes/1.1.1_next@13.2.4:
+    resolution: {integrity: sha512-t+QWkbOBct8beifGoHLcpaBI4XA4oFUzXY8LcLoeKjj3FP4FL6/5cEXL3pfUuNxg9h0EYpvsNmg0ZpFNhInhJA==}
+    hasBin: true
+    peerDependencies:
+      next: ^12.x || ^13.x
+    dependencies:
+      next: 13.2.4_biqbaboplfbrettd7655fr4n2y
+    dev: false
 
   /next-themes/0.2.1_ld2jel3hspngo3u5lti2kgl2sq:
     resolution: {integrity: sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==}
