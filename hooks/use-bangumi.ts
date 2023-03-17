@@ -23,7 +23,7 @@ export interface BangumiResponse {
 }
 
 export const useBangumi = () => {
-  const { data, error, isLoading } = useSWR<BangumiResponse>('/api/index', fetcher);
+  const { data, error, isLoading } = useSWR<BangumiResponse>(['/api/index'], fetcher);
 
   return {
     data,
