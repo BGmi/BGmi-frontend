@@ -16,7 +16,7 @@ import type { IconType } from 'react-icons';
 import { useRouter } from 'next/router';
 import Link from '../router-link';
 
-import { LogoPath } from '~/lib/contant';
+import { LOGO_PATH } from '~/lib/contant';
 import { useColorMode } from '~/hooks/use-color-mode';
 
 interface NavItemProps {
@@ -28,6 +28,7 @@ interface NavItemProps {
 
 const NavItem = (props: NavItemProps) => {
   const { colorMode } = useColorMode();
+
   const hoverColor = colorMode === 'light' ? 'gray.900' : 'gray.200';
   const hoverBg = colorMode === 'light' ? 'gray.50' : 'gray.900';
   const activeBg = colorMode === 'light' ? 'gray.200' : 'gray.900';
@@ -74,7 +75,7 @@ export const SidebarContent = ({ onClose, ...props }: BoxProps & { onClose?: () 
       {...props}
     >
       <Flex px="6" py="6" alignItems="center">
-        <Image src={LogoPath} width="42" height="42" style={{ borderRadius: '50%' }} alt="logo" placeholder="empty" />
+        <Image src={LOGO_PATH} width="42" height="42" style={{ borderRadius: '50%' }} alt="logo" placeholder="empty" />
         <Text fontSize="2xl" ml="4" fontWeight="semibold">BGmi</Text>
       </Flex>
       <Divider />
