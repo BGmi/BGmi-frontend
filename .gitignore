@@ -27,3 +27,6 @@ dist
 bundle
 
 .env
+
+# nginx routes
+next-routes.conf
