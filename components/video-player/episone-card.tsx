@@ -20,6 +20,8 @@ export default function EpisodeCard({ onDPlay, playParams, ...props }: Props & B
   if (!playParams)
     return <FallbackEpisodeCard />;
 
+  const markBgColor = colorMode === 'dark' ? 'blackAlpha.400' : 'whiteAlpha.600';
+
   return (
     <Box
       bg={colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.100'}
@@ -32,7 +34,7 @@ export default function EpisodeCard({ onDPlay, playParams, ...props }: Props & B
       {...props}
     >
       <Text mb="4">选集</Text>
-      <Grid templateColumns="repeat(auto-fill, minmax(3.75rem, 1fr))" gap={6}>
+      <Grid templateColumns="repeat(auto-fill, minmax(3.75rem, 1fr))" gap={4}>
         {playParams.episode.map(ep => (
           <GridItem key={ep}>
             <Button
@@ -40,7 +42,7 @@ export default function EpisodeCard({ onDPlay, playParams, ...props }: Props & B
               maxW="16"
               onClick={() => onDPlay(playParams.playUrl[ep].path, ep)}
               fontSize="sm"
-              bg={playParams.totalMark?.[ep] === 'mark' ? 'blackAlpha.200' : 'Background'}
+              bg={playParams.totalMark?.[ep] === 'mark' ? markBgColor : 'Background'}
             >
               {ep}
             </Button>
