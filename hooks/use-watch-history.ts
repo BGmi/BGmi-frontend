@@ -10,5 +10,5 @@ export const useWatchHistory = () => useAtom(watchHistoryAtom);
 export const useHasWatched = (bangumiName: string, episode: string) => {
   const [watchHistory] = useAtom(watchHistoryAtom);
 
-  return watchHistory?.[bangumiName]?.[episode] ?? false;
+  return watchHistory?.[bangumiName]?.[episode] === 'mark';
 };
