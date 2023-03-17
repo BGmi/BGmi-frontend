@@ -29,9 +29,9 @@ interface NavItemProps {
 const NavItem = (props: NavItemProps) => {
   const { colorMode } = useColorMode();
 
-  const hoverColor = colorMode === 'light' ? 'gray.900' : 'gray.200';
+  const hoverColor = colorMode === 'light' ? 'gray.900' : 'gray.300';
   const hoverBg = colorMode === 'light' ? 'gray.50' : 'gray.900';
-  const activeBg = colorMode === 'light' ? 'gray.200' : 'gray.900';
+  const activeBg = colorMode === 'light' ? 'gray.200' : 'gray.700';
   const textColor = colorMode === 'light' ? 'inherit' : 'gray.400';
 
   const { icon, children, active, onClick } = props;
