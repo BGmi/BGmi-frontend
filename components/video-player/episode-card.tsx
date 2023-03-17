@@ -1,7 +1,7 @@
 import type { BoxProps } from '@chakra-ui/react';
 import { Box, Button, Grid, GridItem, Text } from '@chakra-ui/react';
 
-import { FallbackEpisodeCard } from '../fallback/';
+import { FallbackEpisodeCard } from '../fallback';
 
 import { useColorMode } from '~/hooks/use-color-mode';
 

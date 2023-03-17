@@ -3,7 +3,7 @@ import { Box, useColorMode } from '@chakra-ui/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import type DPlayer from 'dplayer';
-import EpisodeCard from './episone-card';
+import EpisodeCard from './episode-card';
 
 import type { BangumiData } from '~/hooks/use-bangumi';
 import { useWatchHistory } from '~/hooks/use-watch-history';
@@ -11,9 +11,9 @@ import { BASE_PATH } from '~/lib/contant';
 
 interface Props {
   bangumiData: BangumiData
-  episone: number
+  episode: number
 }
-export default function VideoPlayer({ bangumiData, episone }: Props) {
+export default function VideoPlayer({ bangumiData, episode }: Props) {
   const { colorMode } = useColorMode();
   const [watchHistory, setWatchHistory] = useWatchHistory();
 
@@ -50,7 +50,7 @@ export default function VideoPlayer({ bangumiData, episone }: Props) {
   useEffect(() => {
     // ssr error self is not defined
     if (bangumiData.player) {
-      setPlayUrl(bangumiData.player?.[episone]?.path);
+      setPlayUrl(bangumiData.player?.[episode]?.path);
       import('dplayer').then((pack) => {
         const DPlayer = pack.default;
 
@@ -66,7 +66,7 @@ export default function VideoPlayer({ bangumiData, episone }: Props) {
     }
 
     return () => dPlayerRef.current?.destroy();
-  }, [bangumiData.cover, bangumiData.player, episone, playUrl]);
+  }, [bangumiData.cover, bangumiData.player, episode, playUrl]);
   return (
     <>
       <Box
