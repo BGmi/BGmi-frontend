@@ -46,7 +46,7 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
 }
 
 export default function Calendar() {
-  const { data } = useSWR<CalendarType>('/api/cal', fetcher);
+  const { data } = useSWR<CalendarType>(['/api/cal'], fetcher);
 
   if (!data)
     return <FallbackCalendar />;
