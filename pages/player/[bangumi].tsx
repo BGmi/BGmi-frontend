@@ -13,7 +13,7 @@ export default function Player() {
 
   const [watchHistory] = useWatchHistory();
   // 如果没有观看历史默认选择第一集
-  const episone = watchHistory[bangumiData?.bangumi_name]?.['cur-watch'] as number || 1;
+  const episode = watchHistory[bangumiData?.bangumi_name]?.['cur-watch'] as number || 1;
 
   return (
     <Box>
@@ -21,10 +21,10 @@ export default function Player() {
         <title>{`BGmi - ${bangumiData.bangumi_name}`}</title>
       </Head>
       <Heading ml={{ lg: '10', base: '5' }} mb="6" fontSize="2xl" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
-        {bangumiData.bangumi_name} {episone ? `- 第 ${episone} 集` : ''}
+        {bangumiData.bangumi_name} {episode ? `- 第 ${episode} 集` : ''}
       </Heading>
       <Flex position="relative" mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>
-        <VideoPlayer bangumiData={bangumiData} episone={episone} />
+        <VideoPlayer bangumiData={bangumiData} episode={episode} />
       </Flex>
     </Box>
   );
