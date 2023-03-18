@@ -16,6 +16,7 @@ import '~/styles/globals.css';
 export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
   const { colorMode } = useColorMode();
+
   const headTitle = `BGmi - ${pathname === '/' ? 'Bangumi' : handleSecondaryTitle(pathname)}`;
 
   // 防止闪烁
@@ -33,9 +34,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="BGmi" />
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        <link rel="icon" type="image/png" sizes="144x144" href={LOGO_PATH} />
-        <link rel="apple-touch-icon" type="image/png" sizes="144x144" href={LOGO_PATH} />
-        <link rel="apple-touch-icon-precomposed" type="image/png" sizes="144x144" href={LOGO_PATH} />
+        <link rel="icon" type="image/jpeg" sizes="144x144" href={LOGO_PATH} />
+        <link rel="shortcut icon" type="image/jpeg" href={LOGO_PATH} />
+        <link rel="apple-touch-icon" sizes="144x144" href={LOGO_PATH} />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href={LOGO_PATH} />
       </Head>
       <Layout>
         <Component {...pageProps} />
