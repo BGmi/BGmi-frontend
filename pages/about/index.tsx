@@ -76,6 +76,9 @@ export default function About() {
           基于 Next.js Chakra UI 构建
         </Highlight>
       </Text>
+      <Text mt="2">
+        支持视频历史观看时长记录
+      </Text>
 
       <Heading size="md" mb="3" mt="6">致谢</Heading>
       <UnorderedList>
