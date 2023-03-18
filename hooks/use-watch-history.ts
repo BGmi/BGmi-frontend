@@ -34,7 +34,9 @@ export const useVideoCurrentTime = (bangumiName: string) => {
 
   const getCurrentTimeWithLocal = () => {
     const wh = JSON.parse(localStorage.getItem('watch-history') ?? '') as WatchHistory;
-    return parseFloat(wh[bangumiName]?.['current-watch']?.seek ?? '0');
+    const seek = wh[bangumiName]?.['current-watch']?.seek ?? '0';
+
+    return parseFloat(seek);
   };
 
   return {
