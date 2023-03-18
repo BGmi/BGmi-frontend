@@ -7,8 +7,8 @@ export interface CurrentWatchHistoryItem {
   seek?: string
 }
 export interface WatchHistoryItem {
-  [episode: string]: 'mark' | CurrentWatchHistoryItem
-  'current-watch': CurrentWatchHistoryItem
+  [episode: string]: 'mark' | CurrentWatchHistoryItem | undefined
+  'current-watch': CurrentWatchHistoryItem | undefined
 }
 export interface WatchHistory {
   /** 动画片名称 */
@@ -34,7 +34,7 @@ export const useVideoCurrentTime = (bangumiName: string) => {
 
   const getCurrentTimeWithLocal = () => {
     const wh = JSON.parse(localStorage.getItem('watch-history') ?? '') as WatchHistory;
-    return parseFloat(wh[bangumiName]?.['current-watch'].seek ?? '0');
+    return parseFloat(wh[bangumiName]?.['current-watch']?.seek ?? '0');
   };
 
   return {

@@ -16,7 +16,7 @@ export default function Player() {
   const currentBangumiHistory = currentWatchHistory[bangumiData.bangumi_name];
 
   // 如果没有观看历史默认选择第一集
-  const episode = currentBangumiHistory?.['current-watch'].episode ?? '1';
+  const episode = currentBangumiHistory?.['current-watch']?.episode ?? '1';
 
   return (
     <Box>
