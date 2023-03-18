@@ -47,7 +47,7 @@ export default function Auth() {
       router.push(router.asPath);
     } catch (error) {
       const authError = error as { status: string; message: string };
-      console.info(authError);
+      console.error(authError);
       toast({
         title: `验证失败: ${authError.message}`,
         status: 'error',
