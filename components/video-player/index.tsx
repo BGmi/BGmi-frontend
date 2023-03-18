@@ -105,7 +105,7 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
         position="relative"
       >
         <Spinner display={loading ? 'block' : 'none'} zIndex="100" position="absolute" left="0" right="0" top="0" bottom="0" m="auto" />
-        <Box display={loading ? 'none' : 'block'} id="DPlayer" ref={containerRef} />
+        <Box id="DPlayer" ref={containerRef} />
       </Box>
       <EpisodeCard boxShadow="base" setPlayState={setPlayState} bangumiData={episodeCardProps} />
     </>
