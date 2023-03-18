@@ -21,26 +21,31 @@ export const useVideoCurrentTime = (bangumiName: string) => {
   const [watchHistory] = useWatchHistory();
 
   // TODO 有没有人浇浇我怎么写这个更新啊
-  const updateCurrentTimeToLocal = (currentTime: number) => localStorage.setItem('watch-history', JSON.stringify({
-    ...watchHistory,
-    [bangumiName]: {
-      ...watchHistory[bangumiName],
-      'current-watch': {
-        ...watchHistory[bangumiName]?.['current-watch'],
-        currentTime
+  const updateCurrentTimeInLocalStorage = (currentTime: number) => {
+    const newWatchHistory = {
+      ...watchHistory,
+      [bangumiName]: {
+        ...watchHistory[bangumiName],
+        'current-watch': {
+          ...(watchHistory[bangumiName]?.['current-watch'] || {}),
+          currentTime
+        }
       }
-    }
-  }));
+    };
 
-  const getCurrentTimeWithLocal = () => {
-    const wh = JSON.parse(localStorage.getItem('watch-history') ?? '') as WatchHistory;
-    const seek = wh[bangumiName]?.['current-watch']?.currentTime ?? '0';
+    localStorage.setItem('watch-history', JSON.stringify(newWatchHistory));
+  };
 
-    return parseFloat(seek);
+  const getCurrentTimeFromLocalStorage = (): number => {
+    const watchHistoryJson = localStorage.getItem('watch-history') ?? '{}';
+    const watchHistory = JSON.parse(watchHistoryJson) as WatchHistory;
+    const currentTime = watchHistory[bangumiName]?.['current-watch']?.currentTime ?? '0';
+
+    return parseFloat(currentTime);
   };
 
   return {
-    updateCurrentTimeToLocal,
-    getCurrentTimeWithLocal
+    updateCurrentTimeInLocalStorage,
+    getCurrentTimeFromLocalStorage
   };
 };

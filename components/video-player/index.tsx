@@ -27,7 +27,7 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
   const [playUrl, setPlayUrl] = useState<string>();
   const [autoPlay, setAutoPlay] = useState(false);
 
-  const { updateCurrentTimeToLocal, getCurrentTimeWithLocal } = useVideoCurrentTime(bangumiData.bangumi_name);
+  const { updateCurrentTimeInLocalStorage, getCurrentTimeFromLocalStorage } = useVideoCurrentTime(bangumiData.bangumi_name);
 
   // 视频加载状态
   const [loading, setLoading] = useState(true);
@@ -62,7 +62,7 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
     const timeUpdateListener = () => {
       if (dpInstanceRef.current) {
         // 时刻更新 seek，感觉会有性能影响 一直在更新 localstorage
-        updateCurrentTimeToLocal(dpInstanceRef.current.video.currentTime);
+        updateCurrentTimeInLocalStorage(dpInstanceRef.current.video.currentTime);
       }
     };
 
@@ -78,15 +78,14 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
     dpInstanceRef.current.video.addEventListener('canplay', canPlayListener);
     dpInstanceRef.current.video.addEventListener('timeupdate', timeUpdateListener);
 
-    if (getCurrentTimeWithLocal())
-      dpInstanceRef.current.video.currentTime = getCurrentTimeWithLocal();
+    dpInstanceRef.current.video.currentTime = getCurrentTimeFromLocalStorage();
 
     return () => {
       dpInstanceRef.current?.video.removeEventListener('canplay', () => canPlayListener);
       dpInstanceRef.current?.video.removeEventListener('timeupdate', timeUpdateListener);
       dpInstanceRef.current?.destroy();
     };
-  }, [autoPlay, bangumiData.player, episode, getCurrentTimeWithLocal, playUrl, updateCurrentTimeToLocal]);
+  }, [autoPlay, bangumiData.player, episode, getCurrentTimeFromLocalStorage, playUrl, updateCurrentTimeInLocalStorage]);
 
   return (
     <>
