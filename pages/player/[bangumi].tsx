@@ -1,12 +1,16 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 
 import { useRouter } from 'next/router';
 
-import VideoPlayer from '~/components/video-player';
-
 import type { BangumiData } from '~/hooks/use-bangumi';
 import { useWatchHistory } from '~/hooks/use-watch-history';
+
+// fix self is not defined
+const VideoPlayer = dynamic(() => import('~/components/video-player'), {
+  ssr: false
+});
 
 export default function Player() {
   const router = useRouter();
