@@ -1,72 +1,98 @@
-import { Box, useColorMode } from '@chakra-ui/react';
+import { Box, Spinner } from '@chakra-ui/react';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import type DPlayer from 'dplayer';
+
 import EpisodeCard from './episode-card';
 
 import type { BangumiData } from '~/hooks/use-bangumi';
-import { useWatchHistory } from '~/hooks/use-watch-history';
+import { useVideoCurrentTime } from '~/hooks/use-watch-history';
+
+import { useColorMode } from '~/hooks/use-color-mode';
+
 import { BASE_PATH } from '~/lib/contant';
 
 interface Props {
   bangumiData: BangumiData
-  episode: number
+  episode: string
 }
 export default function VideoPlayer({ bangumiData, episode }: Props) {
   const { colorMode } = useColorMode();
-  const [watchHistory, setWatchHistory] = useWatchHistory();
 
-  const dPlayerRef = useRef<DPlayer>();
+  const dpInstanceRef = useRef<DPlayer>();
   const containerRef = useRef<HTMLDivElement>(null);
 
   // 触发 DPlayer 重新加载
   const [playUrl, setPlayUrl] = useState<string>();
+  const [autoPlay, setAutoPlay] = useState(false);
 
-  const onDPlay = (url: string, ep: number) => {
-    setPlayUrl(url);
+  const { updateCurrentTimeToLocal, getCurrentTimeWithLocal } = useVideoCurrentTime(bangumiData.bangumi_name);
 
-    setWatchHistory({
-      ...watchHistory,
-      [bangumiData.bangumi_name]: {
-        ...watchHistory[bangumiData.bangumi_name],
-        [ep]: 'mark',
-        'cur-watch': ep
-      }
-    });
-  };
+  // 视频加载状态
+  const [loading, setLoading] = useState(true);
 
   // 传给 Episode Card
-  const playParams = useMemo(() => {
+  const setPlayState = (url: string) => {
+    setLoading(true);
+    setPlayUrl(url);
+    setAutoPlay(true);
+  };
+
+  const episodeCardProps = useMemo(() => {
     if (bangumiData.player) {
       return {
-        episode: Object.keys(bangumiData.player).map(ep => parseInt(ep, 10)),
+        totalEpisode: Object.keys(bangumiData.player),
         playUrl: bangumiData.player, // { episode: "path": "/bangumi_file.mp4" }
-        totalMark: watchHistory[bangumiData.bangumi_name] as Record<string, 'mark' | undefined>
+        bangumiName: bangumiData.bangumi_name
       };
     }
-  }, [bangumiData.bangumi_name, bangumiData.player, watchHistory]);
+  }, [bangumiData.bangumi_name, bangumiData.player]);
 
   useEffect(() => {
-    // ssr error self is not defined
-    if (bangumiData.player) {
+    if (bangumiData.player)
       setPlayUrl(bangumiData.player?.[episode]?.path);
-      import('dplayer').then((pack) => {
-        const DPlayer = pack.default;
 
-        dPlayerRef.current = new DPlayer({
-          container: containerRef.current,
-          video: {
-            url: playUrl ? `${BASE_PATH}/bangumi${playUrl}` : ''
-            // TODO 裁剪封面图
-            // pic: playUrl ? bangumiData.cover : ''
-          }
-        });
+    const canPlayListener = () => {
+      setLoading(false);
+      if (autoPlay && dpInstanceRef.current)
+        dpInstanceRef.current.play();
+    };
+
+    const timeUpdateListener = () => {
+      if (dpInstanceRef.current) {
+        // 时刻更新 seek，感觉会有性能影响 一直在更新 localstorage
+        updateCurrentTimeToLocal(dpInstanceRef.current.video.currentTime);
+      }
+    };
+
+    // ssr error self is not defined
+    import('dplayer').then((pack) => {
+      const DPlayer = pack.default;
+      dpInstanceRef.current = new DPlayer({
+        container: containerRef.current,
+        video: {
+          url: playUrl ? `${BASE_PATH}/bangumi${playUrl}` : ''
+          // TODO 裁剪封面图
+          // pic: playUrl ? bangumiData.cover : ''
+        }
       });
-    }
 
-    return () => dPlayerRef.current?.destroy();
-  }, [bangumiData.cover, bangumiData.player, episode, playUrl]);
+      // 异步加载的库，监听器只能放在里面嘛？为什么在 useEffect 里不起作用呢
+      dpInstanceRef.current.video.addEventListener('canplay', canPlayListener);
+      dpInstanceRef.current.video.addEventListener('timeupdate', timeUpdateListener);
+
+      if (getCurrentTimeWithLocal())
+        dpInstanceRef.current.video.currentTime = getCurrentTimeWithLocal();
+    });
+
+    return () => {
+      dpInstanceRef.current?.video.removeEventListener('canplay', () => canPlayListener);
+      dpInstanceRef.current?.video.removeEventListener('timeupdate', timeUpdateListener);
+      dpInstanceRef.current?.destroy();
+    };
+  }, [autoPlay, bangumiData.player, episode, getCurrentTimeWithLocal, playUrl, updateCurrentTimeToLocal]);
+
   return (
     <>
       <Box
@@ -75,16 +101,13 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
         bg={colorMode === 'dark' ? 'whiteAlpha.200' : 'blackAlpha.200'}
         boxShadow="base"
         transition=".5s width"
-        minH={{ base: '16rem', lg: 'md', xl: 'xl' }}
         w="full"
+        position="relative"
       >
-        <Box
-          h="full"
-          id="DPlayer"
-          ref={containerRef}
-          />
+        <Spinner display={loading ? 'block' : 'none'} zIndex="100" position="absolute" left="0" right="0" top="0" bottom="0" m="auto" />
+        <Box display={loading ? 'none' : 'block'} id="DPlayer" ref={containerRef} />
       </Box>
-      <EpisodeCard boxShadow="base" onDPlay={onDPlay} playParams={playParams} />
+      <EpisodeCard boxShadow="base" setPlayState={setPlayState} bangumiData={episodeCardProps} />
     </>
   );
 }
