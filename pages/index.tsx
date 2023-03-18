@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Heading, IconButton, Image, Stack, Text } from '@chakra-ui/react';
+import { Badge, Box, Flex, Grid, GridItem, Heading, IconButton, Image, Stack, Text } from '@chakra-ui/react';
 import { BsPlayBtnFill } from 'react-icons/bs';
 
 import { useRouter } from 'next/router';
@@ -72,8 +72,13 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
             style={{ WebkitTapHighlightColor: 'transparent' }}
           />
         </Flex>
-        <Text mt="0.25rem!" fontSize="sm" color="gray.500">
-          {episode > 0 ? `最新：第 ${episode} 集` : ''}
+        <Text mt="0.25rem!" fontSize="sm" color="gray.500" alignContent="center">
+          <Badge
+            colorScheme="gray"
+            variant="solid"
+          >
+            最新{episode > 0 ? `：第 ${episode} 集` : ''}
+          </Badge>
         </Text>
       </Stack>
     </Box>
