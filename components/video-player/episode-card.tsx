@@ -32,10 +32,10 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
     setWatchHistory({
       ...watchHistory,
       [bangumiName]: {
-        ...watchHistory[bangumiName],
+        ...(watchHistory[bangumiName] ?? {}),
         [episode]: 'mark',
         'current-watch': {
-          ...watchHistory[bangumiName]?.['current-watch'],
+          ...(watchHistory[bangumiName]?.['current-watch'] ?? {}),
           episode
         }
       }
