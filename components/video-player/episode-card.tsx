@@ -36,7 +36,8 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
         [episode]: 'mark',
         'current-watch': {
           ...(watchHistory[bangumiName]?.['current-watch'] ?? {}),
-          episode
+          episode,
+          seek: '0'
         }
       }
     });
