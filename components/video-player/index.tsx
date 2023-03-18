@@ -2,7 +2,7 @@ import { Box, Spinner } from '@chakra-ui/react';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import type DPlayer from 'dplayer';
+import DPlayer from 'dplayer';
 
 import EpisodeCard from './episode-card';
 
@@ -66,25 +66,20 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
       }
     };
 
-    // ssr error self is not defined
-    import('dplayer').then((pack) => {
-      const DPlayer = pack.default;
-      dpInstanceRef.current = new DPlayer({
-        container: containerRef.current,
-        video: {
-          url: playUrl ? `${BASE_PATH}/bangumi${playUrl}` : ''
-          // TODO 裁剪封面图
-          // pic: playUrl ? bangumiData.cover : ''
-        }
-      });
-
-      // 异步加载的库，监听器只能放在里面嘛？为什么在 useEffect 里不起作用呢
-      dpInstanceRef.current.video.addEventListener('canplay', canPlayListener);
-      dpInstanceRef.current.video.addEventListener('timeupdate', timeUpdateListener);
-
-      if (getCurrentTimeWithLocal())
-        dpInstanceRef.current.video.currentTime = getCurrentTimeWithLocal();
+    dpInstanceRef.current = new DPlayer({
+      container: containerRef.current,
+      video: {
+        url: playUrl ? `${BASE_PATH}/bangumi${playUrl}` : ''
+        // TODO 裁剪封面图
+        // pic: playUrl ? bangumiData.cover : ''
+      }
     });
+
+    dpInstanceRef.current.video.addEventListener('canplay', canPlayListener);
+    dpInstanceRef.current.video.addEventListener('timeupdate', timeUpdateListener);
+
+    if (getCurrentTimeWithLocal())
+      dpInstanceRef.current.video.currentTime = getCurrentTimeWithLocal();
 
     return () => {
       dpInstanceRef.current?.video.removeEventListener('canplay', () => canPlayListener);
