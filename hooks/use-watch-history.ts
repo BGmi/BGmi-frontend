@@ -4,7 +4,7 @@ import { atomWithStorage } from 'jotai/utils';
 /** 正在观看的剧集 记录播放时间戳 */
 export interface CurrentWatchHistoryItem {
   episode: string
-  seek?: string
+  currentTime?: string
 }
 export interface WatchHistoryItem {
   [episode: string]: 'mark' | CurrentWatchHistoryItem | undefined
@@ -21,20 +21,20 @@ export const useVideoCurrentTime = (bangumiName: string) => {
   const [watchHistory] = useWatchHistory();
 
   // TODO 有没有人浇浇我怎么写这个更新啊
-  const updateCurrentTimeToLocal = (seek: number) => localStorage.setItem('watch-history', JSON.stringify({
+  const updateCurrentTimeToLocal = (currentTime: number) => localStorage.setItem('watch-history', JSON.stringify({
     ...watchHistory,
     [bangumiName]: {
       ...watchHistory[bangumiName],
       'current-watch': {
         ...watchHistory[bangumiName]?.['current-watch'],
-        seek
+        currentTime
       }
     }
   }));
 
   const getCurrentTimeWithLocal = () => {
     const wh = JSON.parse(localStorage.getItem('watch-history') ?? '') as WatchHistory;
-    const seek = wh[bangumiName]?.['current-watch']?.seek ?? '0';
+    const seek = wh[bangumiName]?.['current-watch']?.currentTime ?? '0';
 
     return parseFloat(seek);
   };
