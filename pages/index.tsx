@@ -1,4 +1,4 @@
-import { Badge, Box, Flex, Grid, GridItem, Heading, IconButton, Image, Stack, Text } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Heading, IconButton, Image, Stack, Text } from '@chakra-ui/react';
 import { BsPlayBtnFill } from 'react-icons/bs';
 
 import { useRouter } from 'next/router';
@@ -48,37 +48,34 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
           alt="bangumi cover"
           />
       </Box>
-      <Stack minH="5.5rem" p="4" bg={colorMode === 'light' ? 'blackAlpha.200' : 'whiteAlpha.100'}>
-        <Flex
-          justifyContent="space-between"
+      <Stack minH="5.5rem" p="4" bg={colorMode === 'light' ? 'blackAlpha.200' : 'whiteAlpha.100'} position="relative">
+        <Heading
+          maxW="80%"
+          whiteSpace={isHover ? 'unset' : 'nowrap'}
+          overflow={isHover ? 'unset' : 'hidden'}
+          textOverflow={isHover ? 'unset' : 'ellipsis'}
+          fontSize="xl"
+          fontFamily="body"
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
         >
-          <Heading
-            maxW="70%"
-            whiteSpace={isHover ? 'unset' : 'nowrap'}
-            overflow={isHover ? 'unset' : 'hidden'}
-            textOverflow={isHover ? 'unset' : 'ellipsis'}
-            fontSize="xl"
-            fontFamily="body"
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-        >
-            {title}
-          </Heading>
-          <IconButton
-            aria-label="play"
-            onClick={handleToPlayer}
-            icon={<BsPlayBtnFill size="40" />}
-            variant="ghost"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
+          {title}
+        </Heading>
+        <IconButton
+          position="absolute"
+          bottom="6"
+          right="4"
+          _hover={{
+            opacity: 0.8
+          }}
+          aria-label="play"
+          onClick={handleToPlayer}
+          icon={<BsPlayBtnFill size="40" />}
+          variant="ghost"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
           />
-        </Flex>
         <Text mt="0.25rem!" fontSize="sm" color="gray.500" alignContent="center">
-          <Badge
-            colorScheme="gray"
-            variant="solid"
-          >
-            最新{episode > 0 ? `：第 ${episode} 集` : ''}
-          </Badge>
+          最新：{episode > 0 ? `第 ${episode} 集` : ''}
         </Text>
       </Stack>
     </Box>
