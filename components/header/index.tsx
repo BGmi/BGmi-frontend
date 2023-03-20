@@ -35,7 +35,6 @@ export default function Header({ sidebarToggle }: { sidebarToggle: () => void })
             onClick={sidebarToggle}
             icon={<FiMenu />}
             variant="ghost"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
           />
         </Box>
         <Text ml="4" fontSize="x-large">BGmi - {pathname === '/' ? 'Bangumi' : secondaryTitle}</Text>
