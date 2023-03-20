@@ -14,3 +14,7 @@ video[poster] {
   width: 0;
   height: 0;
 }
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}

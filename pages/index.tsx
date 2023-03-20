@@ -72,7 +72,6 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
           onClick={handleToPlayer}
           icon={<BsPlayBtnFill size="40" />}
           variant="ghost"
-          style={{ WebkitTapHighlightColor: 'transparent' }}
           />
         <Text mt="0.25rem!" fontSize="sm" color="gray.500" alignContent="center">
           最新：{episode > 0 ? `第 ${episode} 集` : ''}
