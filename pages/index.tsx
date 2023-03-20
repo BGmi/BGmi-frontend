@@ -1,14 +1,12 @@
-import { Box, Grid, GridItem, Heading, IconButton, Image, Stack, Text } from '@chakra-ui/react';
-import { BsPlayBtnFill } from 'react-icons/bs';
-
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { Box, Grid, GridItem, Heading, Stack, Text } from '@chakra-ui/react';
 
 import { FallbackBangumi } from '~/components/fallback';
+import Link from '~/components/router-link';
 
 import type { BangumiData } from '~/hooks/use-bangumi';
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
+
 import { BASE_PATH } from '~/lib/contant';
 
 interface PlayerCardProps {
@@ -17,62 +15,61 @@ interface PlayerCardProps {
 
 function PlayerCard({ bangumiData }: PlayerCardProps) {
   const { colorMode } = useColorMode();
-  const [isHover, setIsHover] = useState(false);
-  const router = useRouter();
 
   const { bangumi_name: title, cover: coverUrl, episode } = bangumiData;
 
-  const handleToPlayer = () => {
-    router.push({
-      pathname: `/player/${title}`,
-      query: {
-        bangumi: bangumiData.bangumi_name
-      }
-    });
-  };
-
   return (
     <Box
-      roundedTop="md"
       mx="2"
       boxShadow="base"
+      overflow="hidden"
+      roundedBottom="md"
       >
-      <Box cursor="pointer" onClick={handleToPlayer} bg="blackAlpha.300" roundedTop="md">
-        <Image
-          roundedTop="md"
+      <Link href={`/player/${title}`} overflow="hidden">
+        <Box
           h="48"
           w="full"
+          bg="blackAlpha.300"
+          backgroundImage={BASE_PATH + coverUrl}
           backgroundRepeat="no-repeat"
-          fit="cover"
-          src={BASE_PATH + coverUrl}
-          alt="bangumi cover"
+          backgroundSize="cover"
+          backgroundPosition="50% 50%"
+          position="relative"
+          overflow="hidden"
+        >
+          <Box
+            opacity="0"
+            position="absolute"
+            top="0"
+            zIndex="1"
+            w="full"
+            h="full"
+            transform="scale(1.5)"
+            transition="all 0.3s ease"
+            background={'rgba(0,0,0,0.4) url("data:image/svg+xml,%3C%3Fxml version=\'1.0\' encoding=\'utf-8\'%3F%3E%3C!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version=\'1.1\' id=\'图层_1\' xmlns=\'http://www.w3.org/2000/svg\' xmlns:xlink=\'http://www.w3.org/1999/xlink\' x=\'0px\' y=\'0px\' viewBox=\'0 0 50 50\' style=\'enable-background:new 0 0 50 50;\' xml:space=\'preserve\'%3E%3Cstyle type=\'text/css\'%3E .st0%7Bfill:%23FFFFFF;%7D%0A%3C/style%3E%3Cpath class=\'st0\' d=\'M35.4,28L18.4,38.6c-2.4,1.5-5.4-0.2-5.4-3V14.3c0-2.8,3.1-4.5,5.4-3L35.3,22C37.6,23.3,37.6,26.6,35.4,28z\'/%3E%3C/svg%3E%0A") center no-repeat'}
+            backgroundSize="25% 25%"
+            _hover={{
+              opacity: '1',
+              transform: 'scale(1)'
+            }}
           />
-      </Box>
+        </Box>
+      </Link>
       <Stack minH="5.5rem" p="4" bg={colorMode === 'light' ? 'blackAlpha.200' : 'whiteAlpha.100'} position="relative">
         <Heading
-          maxW="80%"
-          whiteSpace={isHover ? 'unset' : 'nowrap'}
-          overflow={isHover ? 'unset' : 'hidden'}
-          textOverflow={isHover ? 'unset' : 'ellipsis'}
+          whiteSpace="nowrap"
+          overflow="hidden"
+          textOverflow="ellipsis"
           fontSize="xl"
           fontFamily="body"
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
+          _hover={{
+            whiteSpace: 'unset',
+            overflow: 'unset',
+            textOverflow: 'unset'
+          }}
         >
           {title}
         </Heading>
-        <IconButton
-          position="absolute"
-          bottom="6"
-          right="4"
-          _hover={{
-            opacity: 0.8
-          }}
-          aria-label="play"
-          onClick={handleToPlayer}
-          icon={<BsPlayBtnFill size="40" />}
-          variant="ghost"
-          />
         <Text mt="0.25rem!" fontSize="sm" color="gray.500" alignContent="center">
           最新：{episode > 0 ? `第 ${episode} 集` : ''}
         </Text>
