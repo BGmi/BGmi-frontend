@@ -15,13 +15,13 @@ const VideoPlayer = dynamic(() => import('~/components/video-player'), {
 export default function Player() {
   const router = useRouter();
   const [currentWatchHistory] = useWatchHistory();
-  const { data, isLoading } = useBangumi();
-
-  const bangumiData = data?.data?.find(bangumi => bangumi.bangumi_name === router.query.bangumi);
+  const { data } = useBangumi();
 
   // 这里就懒得做骨架屏了
-  if (isLoading)
+  if (!data)
     return null;
+
+  const bangumiData = data.data.find(bangumi => bangumi.bangumi_name === router.query.bangumi);
 
   if (!bangumiData)
     return <div>加载播放器出错，数据不存在</div>;

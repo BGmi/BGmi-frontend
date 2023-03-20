@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
+import { Box, Card, CardBody, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useToast } from '@chakra-ui/react';
 import Image from 'next/image';
 
 import { useState } from 'react';
@@ -47,7 +47,19 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
 }
 
 export default function Calendar() {
-  const { data } = useSWR<CalendarType>(['/api/cal'], fetcher);
+  const toast = useToast();
+  const { data } = useSWR<CalendarType>(['/api/cal'], fetcher, {
+    onError(err) {
+      console.error(err);
+      toast({
+        title: '获取日历失败',
+        description: '请检查网络连接或配置',
+        status: 'error',
+        duration: 5000,
+        position: 'top-right'
+      });
+    }
+  });
 
   if (!data)
     return <FallbackCalendar />;
