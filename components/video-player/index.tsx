@@ -68,13 +68,14 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
 
     // event
     const handleTimeUpdate = () => updateCurrentTime(dp.video.currentTime);
-    const handleCanPlay = () => setLoading(false);
+    const handleCanPlay = () => {
+      setLoading(false);
+      // 恢复播放进度
+      dp.seek(getCurrentTime());
+    };
 
     dp.video.addEventListener('canplay', handleCanPlay);
     dp.video.addEventListener('timeupdate', handleTimeUpdate); // TODO 时刻更新 currentTime; 感觉会有性能影响 一直在更新 localstorage
-
-    // 恢复播放进度
-    dp.seek(getCurrentTime());
 
     return () => {
       dp.video.removeEventListener('canplay', handleCanPlay);
