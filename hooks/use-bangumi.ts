@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import useSWR from 'swr';
 import { fetcher } from '~/lib/fetcher';
 
@@ -23,11 +24,18 @@ export interface BangumiResponse {
 }
 
 export const useBangumi = () => {
-  const { data, error, isLoading } = useSWR<BangumiResponse>(['/api/index'], fetcher);
+  const toast = useToast();
 
-  return {
-    data,
-    error,
-    isLoading
-  };
+  return useSWR<BangumiResponse>(['/api/index'], fetcher, {
+    onError(err) {
+      console.error(err);
+      toast({
+        title: '获取番剧数据失败',
+        description: '请检查网络连接或配置',
+        status: 'error',
+        duration: 3000,
+        position: 'top-right'
+      });
+    }
+  });
 };
