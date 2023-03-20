@@ -26,7 +26,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
     router.push({
       pathname: `/player/${title}`,
       query: {
-        bangumiData: JSON.stringify(bangumiData)
+        bangumi: bangumiData.bangumi_name
       }
     });
   };

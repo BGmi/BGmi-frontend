@@ -1,0 +1,16 @@
+diff --git a/index.d.ts b/index.d.ts
+index 27fcb76d5d4430f4428da9fac8a2c3b793a04303..94dfc673db955f37bbbb693c865f6ca1cfda6eb9 100755
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -178,9 +178,9 @@ export default class DPlayer {
+ 
+   toggle(): void;
+ 
+-  on(event: DPlayerEvents, handler: () => void): void;
++  on(event: DPlayerEvents | keyof typeof DPlayerEvents, handler: () => void): void;
+ 
+-  switchVideo(video: DPlayerVideo, danmaku: DPlayerDanmaku): void;
++  switchVideo(video: DPlayerVideo, danmaku?: DPlayerDanmaku): void;
+ 
+   notice(text: string, time: number, opacity: number): void;
+ 
