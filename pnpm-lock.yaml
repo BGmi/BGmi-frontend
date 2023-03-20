@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  '@types/dplayer@1.25.2':
+    hash: d4tvcc7ojaasxsbrk2vit2w3i4
+    path: patches/@types__dplayer@1.25.2.patch
+
 specifiers:
   '@chakra-ui/next-js': ^2.0.1
   '@chakra-ui/react': ^2.5.1
@@ -46,7 +51,7 @@ dependencies:
   swr: 2.1.0_react@18.2.0
 
 devDependencies:
-  '@types/dplayer': 1.25.2
+  '@types/dplayer': 1.25.2_d4tvcc7ojaasxsbrk2vit2w3i4
   '@types/node': 18.15.3
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -1644,9 +1649,10 @@ packages:
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
     dev: false
 
-  /@types/dplayer/1.25.2:
+  /@types/dplayer/1.25.2_d4tvcc7ojaasxsbrk2vit2w3i4:
     resolution: {integrity: sha512-bkTVZkK3Vi7N7eX2FUBnqKhCjTaeRLkhvY8H6zolatbSTtjPPdxyUzhE3C29sIBYRRq1kQHSduFgCHKg5VF3Jw==}
     dev: true
+    patched: true
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}

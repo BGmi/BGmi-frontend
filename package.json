@@ -48,5 +48,10 @@
     "eslint-config-next": "^13.2.4",
     "husky": "8.0.2",
     "typescript": "4.9.4"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@types/dplayer@1.25.2": "patches/@types__dplayer@1.25.2.patch"
+    }
   }
 }

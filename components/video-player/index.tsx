@@ -2,6 +2,7 @@ import { Box, Spinner } from '@chakra-ui/react';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import type { DPlayerOptions } from 'dplayer';
 import DPlayer from 'dplayer';
 
 import EpisodeCard from './episode-card';
@@ -17,75 +18,70 @@ interface Props {
   bangumiData: BangumiData
   episode: string
 }
+
 export default function VideoPlayer({ bangumiData, episode }: Props) {
   const { colorMode } = useColorMode();
 
   const dpInstanceRef = useRef<DPlayer>();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // 触发 DPlayer 重新加载
-  const [playUrl, setPlayUrl] = useState<string>();
+  // 进入播放器页面时不自动播放，点击剧集时自动播放
   const [autoPlay, setAutoPlay] = useState(false);
 
-  const { updateCurrentTimeInLocalStorage, getCurrentTimeFromLocalStorage } = useVideoCurrentTime(bangumiData.bangumi_name);
+  const { updateCurrentTime, getCurrentTime } = useVideoCurrentTime(bangumiData.bangumi_name);
 
   // 视频加载状态
   const [loading, setLoading] = useState(true);
 
   // 传给 Episode Card
   const setPlayState = (url: string) => {
-    setLoading(true);
-    setPlayUrl(url);
+    dpInstanceRef.current?.switchVideo({ url });
     setAutoPlay(true);
   };
 
   const episodeCardProps = useMemo(() => {
-    if (bangumiData.player) {
+    if (bangumiData) {
       return {
         totalEpisode: Object.keys(bangumiData.player),
         playUrl: bangumiData.player, // { episode: "path": "/bangumi_file.mp4" }
         bangumiName: bangumiData.bangumi_name
       };
     }
-  }, [bangumiData.bangumi_name, bangumiData.player]);
+  }, [bangumiData]);
 
   useEffect(() => {
-    if (bangumiData.player)
-      setPlayUrl(bangumiData.player?.[episode]?.path);
+    if (!bangumiData || !containerRef.current)
+      return;
 
-    const canPlayListener = () => {
-      setLoading(false);
-      if (autoPlay && dpInstanceRef.current)
-        dpInstanceRef.current.play();
-    };
+    const playUrl = bangumiData.player?.[episode]?.path;
 
-    const timeUpdateListener = () => {
-      if (dpInstanceRef.current) {
-        // 时刻更新 seek，感觉会有性能影响 一直在更新 localstorage
-        updateCurrentTimeInLocalStorage(dpInstanceRef.current.video.currentTime);
-      }
-    };
-
-    dpInstanceRef.current = new DPlayer({
+    const options: DPlayerOptions = {
       container: containerRef.current,
       video: {
         url: playUrl ? `${BASE_PATH}/bangumi${playUrl}` : ''
-        // TODO 裁剪封面图
-        // pic: playUrl ? bangumiData.cover : ''
-      }
-    });
+      },
+      autoplay: autoPlay
+    };
 
-    dpInstanceRef.current.video.addEventListener('canplay', canPlayListener);
-    dpInstanceRef.current.video.addEventListener('timeupdate', timeUpdateListener);
+    const dp = new DPlayer(options);
+    dpInstanceRef.current = dp;
 
-    dpInstanceRef.current.video.currentTime = getCurrentTimeFromLocalStorage();
+    // event
+    const handleTimeUpdate = () => updateCurrentTime(dp.video.currentTime);
+    const handleCanPlay = () => setLoading(false);
+
+    dp.video.addEventListener('canplay', handleCanPlay);
+    dp.video.addEventListener('timeupdate', handleTimeUpdate); // TODO 时刻更新 currentTime; 感觉会有性能影响 一直在更新 localstorage
+
+    // 恢复播放进度
+    dp.seek(getCurrentTime());
 
     return () => {
-      dpInstanceRef.current?.video.removeEventListener('canplay', () => canPlayListener);
-      dpInstanceRef.current?.video.removeEventListener('timeupdate', timeUpdateListener);
-      dpInstanceRef.current?.destroy();
+      dp.video.removeEventListener('canplay', handleCanPlay);
+      dp.video.removeEventListener('timeupdate', handleTimeUpdate);
+      dp.destroy();
     };
-  }, [autoPlay, bangumiData.player, episode, getCurrentTimeFromLocalStorage, playUrl, updateCurrentTimeInLocalStorage]);
+  }, [autoPlay, bangumiData, episode, getCurrentTime, updateCurrentTime]);
 
   return (
     <>
@@ -98,7 +94,16 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
         w="full"
         position="relative"
       >
-        <Spinner display={loading ? 'block' : 'none'} zIndex="100" position="absolute" left="0" right="0" top="0" bottom="0" m="auto" />
+        <Spinner
+          display={loading ? 'block' : 'none'}
+          zIndex="100"
+          position="absolute"
+          left="0"
+          right="0"
+          top="0"
+          bottom="0"
+          m="auto"
+        />
         <Box id="DPlayer" ref={containerRef} />
       </Box>
       <EpisodeCard boxShadow="base" setPlayState={setPlayState} bangumiData={episodeCardProps} />
