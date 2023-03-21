@@ -1,4 +1,5 @@
 import { Box, Link, Stack } from '@chakra-ui/react';
+import Layout from '~/components/layout';
 
 export default function Resource() {
   // 与原来保持一致
@@ -11,3 +12,11 @@ export default function Resource() {
     </Box>
   );
 }
+
+Resource.getLayout = function getLayout(page: React.ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  );
+};
