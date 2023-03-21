@@ -5,6 +5,7 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  reactStrictMode: true,
   basePath: nextBasePath,
   images: {
     unoptimized: true,
