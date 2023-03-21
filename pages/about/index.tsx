@@ -1,4 +1,5 @@
 import { Box, Fade, Heading, Highlight, Link, ListItem, Text, UnorderedList } from '@chakra-ui/react';
+import Layout from '~/components/layout';
 
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
@@ -109,3 +110,11 @@ export default function About() {
     </>
   );
 }
+
+About.getLayout = function getLayout(page: React.ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  );
+};
