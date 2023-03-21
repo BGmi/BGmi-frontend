@@ -4,7 +4,6 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import Layout from '~/components/layout';
 import { useColorMode } from '~/hooks/use-color-mode';
 
 import { theme } from '~/lib/chakra-theme';
@@ -13,19 +12,19 @@ import { handleSecondaryTitle } from '~/lib/utils';
 
 import '~/styles/globals.css';
 
-export default function App({ Component, pageProps }: AppProps) {
+type MyAppProps = AppProps & { Component: { getLayout?: (page: React.ReactElement) => React.ReactElement } };
+
+export default function App({ Component, pageProps }: MyAppProps) {
   const { pathname } = useRouter();
   const { colorMode } = useColorMode();
-
-  const headTitle = `BGmi - ${pathname === '/' ? 'Bangumi' : handleSecondaryTitle(pathname)}`;
 
   // 防止闪烁
   if (colorMode === '')
     return null;
 
-  // 防止 error 页面被 Layout 包裹
-  if (pathname === '/_error')
-    return <Component {...pageProps} />;
+  const headTitle = `BGmi - ${pathname === '/' ? 'Bangumi' : handleSecondaryTitle(pathname)}`;
+
+  const getLayout = Component.getLayout ?? (page => page);
 
   return (
     <ChakraProvider theme={theme}>
@@ -39,9 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" sizes="144x144" href={LOGO_PATH} />
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href={LOGO_PATH} />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      {getLayout(<Component {...pageProps} />)}
     </ChakraProvider>
   );
 }
