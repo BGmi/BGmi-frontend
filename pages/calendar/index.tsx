@@ -1,41 +1,50 @@
-import { Box, Card, CardBody, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useToast } from '@chakra-ui/react';
+import { Box, Card, CardBody, Fade, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import useSWR from 'swr';
-import { fetcher } from '~/lib/fetcher';
+import { FallbackCalendar } from '~/components/fallback';
+import Layout from '~/components/layout';
 
-import { FallbackCalendar, Skeleton } from '~/components/fallback';
+import { useCalendar } from '~/hooks/use-calendar';
+import { useColorMode } from '~/hooks/use-color-mode';
 
-import type { Calendar as CalendarType, WeekCalendar } from '~/types/calendar';
+import type { WeekCalendar } from '~/types/calendar';
 
 function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
-  const [hasLoaded, setHasLoaded] = useState(false);
-
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { colorMode } = useColorMode();
   return (
     <Card maxW="xl">
       <CardBody display="flex">
-        <Box minW="32" w="32" display={hasLoaded ? 'block' : 'none'}>
-          <Image
-            src={`https://${bangumi.cover.slice(6)}`}
-            priority
-            width="128"
-            height="128"
-            // TODO https://github.com/vercel/next.js/issues/40762
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
-            alt="cover"
-            placeholder="empty"
-            onLoad={() => setHasLoaded(true)}
-            />
+        <Box
+          position="relative"
+          minW="180px"
+          maxW="180px"
+          minH="250px"
+          maxH="250px"
+          bg={colorMode === 'dark' ? 'gray.900' : 'gray.200'}
+        >
+          <Fade in={isLoaded}>
+            <Image
+              src={`https://${bangumi.cover.slice(6)}`}
+              priority
+              width="180"
+              height="250"
+              // TODO https://github.com/vercel/next.js/issues/40762
+              style={{
+                width: '180px',
+                height: '250px',
+                objectFit: 'cover'
+              }}
+              alt="cover"
+              placeholder="empty"
+              onLoad={() => setIsLoaded(true)}
+          />
+          </Fade>
         </Box>
-        <Skeleton display={hasLoaded ? 'none' : 'block'} h="44" minW="32" w="32" />
 
-        <Text ml="4">
+        <Text ml="4" mr="-2">
           {bangumi.name}
         </Text>
 
@@ -47,40 +56,31 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
 }
 
 export default function Calendar() {
-  const toast = useToast();
-  const { data } = useSWR<CalendarType>(['/api/cal'], fetcher, {
-    onError(err) {
-      console.error(err);
-      toast({
-        title: '获取日历失败',
-        description: '请检查网络连接或配置',
-        status: 'error',
-        duration: 5000,
-        position: 'top-right'
-      });
-    }
-  });
+  const { data } = useCalendar();
 
-  if (!data)
+  const tabListItems = useMemo(() => Object.keys(data?.data ?? []), [data]);
+  const tabPanelsItems = useMemo(() => Object.entries(data?.data ?? []), [data]);
+
+  if (!tabListItems || !tabPanelsItems)
     return <FallbackCalendar />;
 
   return (
-    <Tabs position="relative">
-      <TabList top="4px" borderBottom="none" pb="2px">
-        {Object.keys(data.data).map(week => (
+    <Tabs position="relative" isLazy lazyBehavior="keepMounted">
+      <TabList top="4px" borderBottom="none" pb="2px" minH="42px">
+        {tabListItems.map(week => (
           <Tab mb="-2px" key={week}>{week[0].toUpperCase() + week.slice(1)}</Tab>
         ))}
       </TabList>
       <Box top="46.5px" borderBottom="2px solid" mt="-2.5px" borderBottomColor="inherit" />
       <TabPanels>
-        {Object.entries(data.data).map(([week, bangumis]) => (
+        {tabPanelsItems.map(([week, bangumis]) => (
           <TabPanel
             display="grid"
             gridTemplateColumns="repeat(auto-fill, minmax(22rem, 1fr))"
             justifyContent="center"
             gap={4}
             key={week}
-          >
+            >
             {bangumis.map(bangumi => (
               <CalendarPanel key={bangumi.id} bangumi={bangumi} />
             ))}
@@ -90,3 +90,11 @@ export default function Calendar() {
     </Tabs>
   );
 }
+
+Calendar.getLayout = function getLayout(page: React.ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  );
+};
