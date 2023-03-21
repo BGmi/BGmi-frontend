@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useWatchHistory } from '~/hooks/use-watch-history';
 
+import Layout from '~/components/layout';
+
 // fix self is not defined
 const VideoPlayer = dynamic(() => import('~/components/video-player'), {
   ssr: false
@@ -45,3 +47,11 @@ export default function Player() {
     </Box>
   );
 }
+
+Player.getLayout = function getLayout(page: React.ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  );
+};
