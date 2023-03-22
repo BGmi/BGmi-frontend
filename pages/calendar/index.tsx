@@ -1,7 +1,8 @@
-import { Box, Card, CardBody, Fade, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react';
+import { Box, Card, CardBody, Fade, TabPanel, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 
 import { useMemo, useState } from 'react';
+import CalendarTab from '~/components/calendar-tab';
 
 import { FallbackCalendar } from '~/components/fallback';
 import Layout from '~/components/layout';
@@ -65,29 +66,21 @@ export default function Calendar() {
     return <FallbackCalendar />;
 
   return (
-    <Tabs position="relative" isLazy lazyBehavior="keepMounted">
-      <TabList top="4px" borderBottom="none" pb="2px" minH="42px">
-        {tabListItems.map(week => (
-          <Tab mb="-2px" key={week}>{week[0].toUpperCase() + week.slice(1)}</Tab>
-        ))}
-      </TabList>
-      <Box top="46.5px" borderBottom="2px solid" mt="-2.5px" borderBottomColor="inherit" />
-      <TabPanels>
-        {tabPanelsItems.map(([week, bangumis]) => (
-          <TabPanel
-            display="grid"
-            gridTemplateColumns="repeat(auto-fill, minmax(22rem, 1fr))"
-            justifyContent="center"
-            gap={4}
-            key={week}
+    <CalendarTab tabListItems={tabListItems}>
+      {tabPanelsItems.map(([week, bangumis]) => (
+        <TabPanel
+          display="grid"
+          gridTemplateColumns="repeat(auto-fill, minmax(22rem, 1fr))"
+          justifyContent="center"
+          gap={4}
+          key={week}
             >
-            {bangumis.map(bangumi => (
-              <CalendarPanel key={bangumi.id} bangumi={bangumi} />
-            ))}
-          </TabPanel>
-        ))}
-      </TabPanels>
-    </Tabs>
+          {bangumis.map(bangumi => (
+            <CalendarPanel key={bangumi.id} bangumi={bangumi} />
+          ))}
+        </TabPanel>
+      ))}
+    </CalendarTab>
   );
 }
 
