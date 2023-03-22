@@ -61,7 +61,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
           </Fade>
         </Box>
       </Link>
-      <Stack minH="5.5rem" p="4" bg={colorMode === 'light' ? 'blackAlpha.200' : 'whiteAlpha.100'} position="relative">
+      <Stack minH="5.5rem" p="4" bg={colorMode === 'light' ? 'blackAlpha.50' : 'whiteAlpha.100'} position="relative">
         <Heading
           maxH="6"
           overflow="hidden"
