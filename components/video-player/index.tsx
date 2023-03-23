@@ -1,18 +1,17 @@
 import { Box, Spinner } from '@chakra-ui/react';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import type { DPlayerOptions } from 'dplayer';
 import DPlayer from 'dplayer';
 
 import EpisodeCard from './episode-card';
 
-import type { BangumiData } from '~/hooks/use-bangumi';
 import { useVideoCurrentTime } from '~/hooks/use-watch-history';
-
 import { useColorMode } from '~/hooks/use-color-mode';
 
 import { BASE_PATH } from '~/lib/contant';
+
+import type { BangumiData } from '~/types/bangumi';
 
 interface Props {
   bangumiData: BangumiData
@@ -21,17 +20,15 @@ interface Props {
 
 export default function VideoPlayer({ bangumiData, episode }: Props) {
   const { colorMode } = useColorMode();
-
   const dpInstanceRef = useRef<DPlayer>();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // 进入播放器页面时不自动播放，点击剧集时自动播放
   const [autoPlay, setAutoPlay] = useState(false);
-
-  const { updateCurrentTime, getCurrentTime } = useVideoCurrentTime(bangumiData.bangumi_name);
-
   // 视频加载状态
   const [loading, setLoading] = useState(true);
+
+  const { updateCurrentTime, getCurrentTime } = useVideoCurrentTime(bangumiData.bangumi_name);
 
   // 传给 Episode Card
   const setPlayState = (url: string) => {
@@ -49,40 +46,45 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
     }
   }, [bangumiData]);
 
+  const playUrl = useMemo(() => {
+    return bangumiData?.player?.[episode]?.path ? `${BASE_PATH}/bangumi${bangumiData.player[episode].path}` : '';
+  }, [bangumiData.player, episode]);
+
+  // event
+  const handleTimeUpdate = useCallback(() => {
+    if (dpInstanceRef.current)
+      updateCurrentTime(dpInstanceRef.current.video.currentTime);
+  }, [updateCurrentTime]);
+
+  const handleCanPlay = useCallback(() => setLoading(false), []);
+
   useEffect(() => {
     if (!bangumiData || !containerRef.current)
       return;
 
-    const playUrl = bangumiData.player?.[episode]?.path;
-
-    const options: DPlayerOptions = {
+    const dp = new DPlayer({
       container: containerRef.current,
       video: {
-        url: playUrl ? `${BASE_PATH}/bangumi${playUrl}` : ''
+        url: playUrl
       },
       autoplay: autoPlay
-    };
-
-    const dp = new DPlayer(options);
+    });
     dpInstanceRef.current = dp;
-
-    // event
-    const handleTimeUpdate = () => updateCurrentTime(dp.video.currentTime);
-    const handleCanPlay = () => {
-      setLoading(false);
-      // 恢复播放进度
-      dp.seek(getCurrentTime());
-    };
 
     dp.video.addEventListener('canplay', handleCanPlay);
     dp.video.addEventListener('timeupdate', handleTimeUpdate); // TODO 时刻更新 currentTime; 感觉会有性能影响 一直在更新 localstorage
+
+    if (!loading) {
+      // 恢复播放进度
+      dp.seek(getCurrentTime());
+    }
 
     return () => {
       dp.video.removeEventListener('canplay', handleCanPlay);
       dp.video.removeEventListener('timeupdate', handleTimeUpdate);
       dp.destroy();
     };
-  }, [autoPlay, bangumiData, episode, getCurrentTime, updateCurrentTime]);
+  }, [autoPlay, bangumiData, getCurrentTime, handleCanPlay, handleTimeUpdate, loading, playUrl]);
 
   return (
     <>
