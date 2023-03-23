@@ -1,7 +1,9 @@
 import { Box, Grid } from '@chakra-ui/react';
 import Skeleton from './skeleton';
+import { useColorMode } from '~/hooks/use-color-mode';
 
 function FallbackCard() {
+  const { colorMode } = useColorMode();
   return (
     <Box
       roundedTop="md"
@@ -12,7 +14,7 @@ function FallbackCard() {
         h="48"
         roundedTop="md"
       />
-      <Box minH="5.5rem" p="4" bg="whiteAlpha.100" />
+      <Box minH="5.5rem" p="4" bg={colorMode === 'light' ? 'blackAlpha.50' : 'whiteAlpha.100'} />
     </Box>
   );
 }
