@@ -106,6 +106,7 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
           top="0"
           bottom="0"
           m="auto"
+          color="white"
         />
         <Box id="DPlayer" ref={containerRef} />
       </Box>
