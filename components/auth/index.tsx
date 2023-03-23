@@ -27,10 +27,11 @@ export default function Auth() {
     }
 
     try {
-      const res = await tryAuth(authToken);
-      if (!res.ok)
-        throw await res.json();
+      const { timeoutId, response } = await tryAuth(authToken);
+      if (!response.ok)
+        throw await response.json();
 
+      clearTimeout(timeoutId);
       toast({
         title: '验证成功',
         status: 'success',

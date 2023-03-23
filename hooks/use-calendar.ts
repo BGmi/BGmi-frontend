@@ -1,12 +1,12 @@
 import { useToast } from '@chakra-ui/react';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 import { fetcher } from '~/lib/fetcher';
 import type { Calendar } from '~/types/calendar';
 
 export function useCalendar() {
   const toast = useToast();
 
-  return useSWR<Calendar>(['/api/cal'], fetcher, {
+  return useSWRImmutable<Calendar>(['/api/cal'], fetcher, {
     onError(err) {
       console.error(err);
       toast({

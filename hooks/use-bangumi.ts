@@ -1,32 +1,14 @@
 import { useToast } from '@chakra-ui/react';
-import useSWR from 'swr';
-import { fetcher } from '~/lib/fetcher';
 
-export interface BangumiData {
-  name: string
-  update_time: string
-  cover: string
-  id: number
-  bangumi_name: string
-  episode: number
-  status: number
-  updated_time: number
-  player: Record<string, Record<string & {} | 'path', string>>
-}
-export interface BangumiResponse {
-  version: string
-  latest_version: string
-  frontend_version: string
-  status: string
-  lang: string
-  danmaku_api: string
-  data: BangumiData[]
-}
+import useSWRImmutable from 'swr/immutable';
+
+import { fetcher } from '~/lib/fetcher';
+import type { BangumiResponse } from '~/types/bangumi';
 
 export const useBangumi = () => {
   const toast = useToast();
 
-  return useSWR<BangumiResponse>(['/api/index'], fetcher, {
+  return useSWRImmutable<BangumiResponse>(['/api/index'], fetcher, {
     onError(err) {
       console.error(err);
       toast({
