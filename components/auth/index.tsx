@@ -1,23 +1,21 @@
-import { Box, Button, Card, CardBody, CardHeader, Heading, Input, InputGroup, InputLeftElement, Radio, RadioGroup, Stack, useToast } from '@chakra-ui/react';
+import { Button, Card, CardBody, CardHeader, Heading, Input, InputGroup, InputLeftAddon, Menu, MenuButton, MenuItem, MenuList, useToast } from '@chakra-ui/react';
 
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { setCookie } from 'cookies-next';
 
-import { BsQuestionSquareFill } from 'react-icons/bs';
+import { BsChevronDown } from 'react-icons/bs';
 
 import { useAuth } from '~/hooks/use-auth';
 
 export default function Auth() {
   const [authToken, setAuthToken] = useState('');
-  const [date, setDate] = useState('131557600');
-
   const toast = useToast();
   const { tryAuth } = useAuth();
 
   const router = useRouter();
 
-  const handleAuth = async () => {
+  const handleAuth = async (date: number) => {
     if (authToken === '') {
       toast({
         title: '请输入 Token！',
@@ -41,7 +39,7 @@ export default function Auth() {
       });
 
       setCookie('authToken', authToken, {
-        expires: +date > 0 ? new Date(Date.now() + (+date * 1000)) : undefined
+        expires: date > 0 ? new Date(Date.now() + (date * 1000)) : undefined
       });
 
       router.push(router.asPath);
@@ -64,23 +62,21 @@ export default function Auth() {
       </CardHeader>
       <CardBody>
         <InputGroup>
-          <InputLeftElement pointerEvents="none">
-            <BsQuestionSquareFill />
-          </InputLeftElement>
-          <Input onChange={e => setAuthToken(e.currentTarget.value)} type="password" placeholder="input token..." />
-          <Button onClick={handleAuth} ml="2">验证</Button>
+          <InputLeftAddon pointerEvents="none">
+            TOKEN
+          </InputLeftAddon>
+          <Input onChange={e => setAuthToken(e.currentTarget.value)} type="password" placeholder="..." />
+          <Menu autoSelect={false}>
+            <MenuButton as={Button} ml="2" minW="24" rightIcon={<BsChevronDown size="12" />}>验证</MenuButton>
+            <MenuList minW="12" onClick={e => handleAuth(+(e.target as HTMLButtonElement).value)}>
+              <MenuItem value="0">不记住</MenuItem>
+              <MenuItem value="131557600">记住一年</MenuItem>
+              <MenuItem value="2629800">记住一个月</MenuItem>
+              <MenuItem value="86400">记住一天</MenuItem>
+              <MenuItem value="3600">记住一小时</MenuItem>
+            </MenuList>
+          </Menu>
         </InputGroup>
-        <Box>
-          <RadioGroup onChange={setDate} value={date} mt="4">
-            <Stack direction="row" spacing="5">
-              <Radio value="0">不记住</Radio>
-              <Radio value="131557600">一年</Radio>
-              <Radio value="2629800">一个月</Radio>
-              <Radio value="86400">一天</Radio>
-              <Radio value="3600">一小时</Radio>
-            </Stack>
-          </RadioGroup>
-        </Box>
       </CardBody>
     </Card>
   );
