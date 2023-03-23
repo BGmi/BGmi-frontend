@@ -62,7 +62,7 @@ export default function Calendar() {
   const tabListItems = useMemo(() => Object.keys(data?.data ?? []), [data]);
   const tabPanelsItems = useMemo(() => Object.entries(data?.data ?? []), [data]);
 
-  if (!tabListItems || !tabPanelsItems)
+  if (tabListItems.length === 0 || tabPanelsItems.length === 0)
     return <FallbackCalendar />;
 
   return (
