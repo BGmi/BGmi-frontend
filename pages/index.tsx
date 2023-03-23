@@ -5,11 +5,12 @@ import { FallbackBangumi } from '~/components/fallback';
 import Layout from '~/components/layout';
 import Link from '~/components/router-link';
 
-import type { BangumiData } from '~/hooks/use-bangumi';
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
 
 import { BASE_PATH } from '~/lib/contant';
+
+import type { BangumiData } from '~/types/bangumi';
 
 interface PlayerCardProps {
   bangumiData: BangumiData
