@@ -25,6 +25,7 @@
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "chakra-react-select": "^4.6.0",
     "cookies-next": "^2.1.1",
     "dplayer": "^1.27.1",
     "framer-motion": "^10.2.5",
