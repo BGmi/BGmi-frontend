@@ -124,7 +124,6 @@ server {
 
     # ~/.bgmi/bangumi/
     alias /data/bangumi;
-    add_after_body /autoindex.html;
   }
 
   location /bgmi/ {
