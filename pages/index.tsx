@@ -70,7 +70,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
           fontFamily="body"
           transition="max-height 0.3s ease"
           _hover={{
-            maxH: '16'
+            maxH: '20'
           }}
         >
           {title}
