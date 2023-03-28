@@ -1,64 +1,180 @@
-# bgmi-frontend
+<h1 align="center">BGmi Frontend</h1>
 
-## Project setup
+![demo_img](.github/images/example.png)
+![demo_img2](.github/images/example2.png)
+
+## 项目配置
+
+### 安装
+
+```bash
+git clone github.com/kahosan/BGmi-frontend.git
+
+cd BGmi-frontend && pnpm install && cp .env.example .env
 ```
-npm install
+
+### 部署
+
+有两种可选的部署方式
+
+#### 1. 使用 Next Server
+
+```bash
+pnpm build && pnpm start
 ```
-已经设置好了`proxyTable`,当`bgmi_http`运行在默认端口的情况下,在`npm run dev`后不需要再手动设置后端api地址和解决跨域等问题.
 
+支持 `--port` 指定端口, 会自动代理后端 API, 可在 `next.config.js` 中修改
 
-## Q&A:
+#### 2. 使用 SSG
 
-### 我不想给bgmi分配一个域名,想把它放在我网站的一个子目录下怎么办?
-
-nginx.conf
+```bash
+pnpm export && mv dist ~/.bgmi
 ```
+
+### 配置 SSG
+
+使用 SSG 部署时, 需要配合 NGINX 使用, 配置如下
+
+```nginx
 server {
   listen 80;
-  server_name _;
 
-  root /where/ever;
   autoindex on;
+  sendfile on;
   charset utf-8;
 
-  location /bgmi/bangumi {
-    # ~/.bgmi/bangumi
-    expires 30d;
-    alias /home/ubuntu/.bgmi/bangumi;
+  # 动画片存放目录
+  location /bangumi {
+    proxy_set_header X-Original-URI $request_uri;
+
+    # ~/.bgmi/bangumi/
+    alias /data/bangumi;
   }
 
-  location /bgmi/api {
-    proxy_pass http://127.0.0.1:8888;
-    # Requests to api/update may take more than 60s
-    proxy_connect_timeout 500s;
-    proxy_read_timeout 500s;
-    proxy_send_timeout 500s;
+  # BGmi API
+  location / {
+    proxy_pass http://127.0.0.1:8888/;
   }
 
-  location /bgmi/resource {
-    proxy_pass http://127.0.0.1:8888;
+  location /_next/ {
+    alias /home/user/.bgmi/dist/_next/;
   }
 
-  location /bgmi/ {
-    # ~/.bgmi/front_static/;
-    expires 7d;
-    alias /home/ubuntu/.bgmi/front_static/;
+  # 静态资源
+  location ~* /(.+\.jpg)$ {
+    alias /home/user/.bgmi/dist;
+    try_files /$1 /$1;
   }
 
-  location /bgmi/jsonrpc {
-    # aria2c rpc
-    proxy_pass http://127.0.0.1:6800;
+  location ~ ^(?:/)?$ {
+    alias /home/user/.bgmi/dist/;
+    try_files /index.html /index.html;
+  }
+
+  location ~ ^/about(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /about.html /index.html;
+  }
+
+  location ~ ^/auth(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /auth.html /index.html;
+  }
+
+  location ~ ^/calendar(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /calendar.html /index.html;
+  }
+
+  location ~ ^/resource(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /resource.html /index.html;
+  }
+
+  location ~ ^/subscribe(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /subscribe.html /index.html;
+  }
+
+  location ~ ^/player/([^/]+?)(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /player/[bangumi].html /index.html;
   }
 }
 ```
- thanks to [@wengyusu](https://github.com/wengyusu)
 
-### 我想发一个PR 有什么需要注意的?
+如果你想使用网站的子域名, 按照如下配置
 
-PR到[BGmi/BGmi-frontend](https://github.com/BGmi/BGmi-frontend)
+修改 `.env` 中的 `NEXT_PUBLIC_BASE_PATH` 为你的子域名, 然后重新运行 `pnpm export && rm -r ~/.bgmi/dist && mv dist ~/.bgmi`
 
-其他的..暂时没有
+示例如下
 
-## 已知的无法解决的问题
+```nginx
+# NEXT_PUBLIC_BASE_PATH=/bgmi
 
-[#23](https://github.com/BGmi/BGmi-frontend/issues/23)
+server {
+  listen 80;
+
+  autoindex on;
+  sendfile on;
+  charset utf-8;
+
+  location /bgmi/bangumi {
+    proxy_set_header X-Original-URI $request_uri;
+
+    # ~/.bgmi/bangumi/
+    alias /data/bangumi;
+    add_after_body /autoindex.html;
+  }
+
+  location /bgmi/ {
+    proxy_pass http://127.0.0.1:8888/;
+  }
+
+  location /bgmi/_next/ {
+    alias /home/user/.bgmi/dist/_next/;
+  }
+
+  location ~* /bgmi/(.+\.jpg)$ {
+    alias /home/user/.bgmi/dist;
+    try_files /$1 /$1;
+  }
+
+  location ~ ^/bgmi(?:/)?$ {
+    alias /home/user/.bgmi/dist/;
+    try_files /index.html /index.html;
+  }
+
+  location ~ ^/bgmi/about(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /about.html /index.html;
+  }
+
+  location ~ ^/bgmi/auth(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /auth.html /index.html;
+  }
+
+  location ~ ^/bgmi/calendar(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /calendar.html /index.html;
+  }
+
+  location ~ ^/bgmi/resource(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /resource.html /index.html;
+  }
+
+  location ~ ^/bgmi/subscribe(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /subscribe.html /index.html;
+  }
+
+  location ~ ^/bgmi/player/([^/]+?)(?:/)?$ {
+    alias /home/user/.bgmi/dist;
+    try_files /player/[bangumi].html /index.html;
+  }
+}
+```
+
+## 欢迎 PR
