@@ -20,11 +20,15 @@ const nextConfig = {
     return [
       {
         source: '/api/:slug*',
-        destination: 'https://home.kahosan.top/bgmidev/api/:slug*'
+        destination: 'https://localhost:8888/api/:slug*'
       },
       {
         source: '/bangumi/:slug*',
-        destination: 'https://home.kahosan.top/bgmidev/bangumi/:slug*'
+        destination: 'http://localhost:8888/bangumi/:slug*'
+      },
+      {
+        source: '/resource/:slug*',
+        destination: 'http://localhost:8888/resource/:slug*'
       }
     ]
   },
