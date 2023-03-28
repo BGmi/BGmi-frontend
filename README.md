@@ -45,8 +45,6 @@ server {
 
   # 动画片存放目录
   location /bangumi {
-    proxy_set_header X-Original-URI $request_uri;
-
     # ~/.bgmi/bangumi/
     alias /data/bangumi;
   }
@@ -60,9 +58,9 @@ server {
     alias /home/user/.bgmi/dist/_next/;
   }
 
-  # 静态资源
-  location ~* /(.+\.jpg)$ {
-    alias /home/user/.bgmi/dist;
+  # LOGO
+  location /logo.jpg {
+    alias /home/user/.bgmi/dist/logo.jpg;
     try_files /$1 /$1;
   }
 
@@ -120,8 +118,6 @@ server {
   charset utf-8;
 
   location /bgmi/bangumi {
-    proxy_set_header X-Original-URI $request_uri;
-
     # ~/.bgmi/bangumi/
     alias /data/bangumi;
   }
@@ -134,9 +130,8 @@ server {
     alias /home/user/.bgmi/dist/_next/;
   }
 
-  location ~* /bgmi/(.+\.jpg)$ {
-    alias /home/user/.bgmi/dist;
-    try_files /$1 /$1;
+  location /bgmi/logo.jpg {
+    alias /home/user/.bgmi/dist/logo.jpg;
   }
 
   location ~ ^/bgmi(?:/)?$ {
