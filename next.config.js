@@ -20,7 +20,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:slug*',
-        destination: 'https://localhost:8888/api/:slug*'
+        destination: 'http://localhost:8888/api/:slug*'
       },
       {
         source: '/bangumi/:slug*',
