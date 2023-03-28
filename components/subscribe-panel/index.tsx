@@ -65,7 +65,7 @@ export default function SubscribePanel({ bangumis }: Props) {
         gridTemplateRows="1fr"
         justifyContent="center"
         gap={8}
-    >
+      >
         {bangumis.map(bangumi => (
           <Box key={bangumi.id}>
             <Flex alignItems="center" minH="12" bg={colorMode === 'light' ? 'blackAlpha.50' : 'whiteAlpha.100'} p="4" px="2.5" roundedTop="md">

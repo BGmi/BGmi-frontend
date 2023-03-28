@@ -62,7 +62,7 @@ export default function About() {
           <Highlight
             query={['Windows', '*nux', 'Router']}
             styles={{ px: '1', bg: 'orange.200', rounded: '4px' }}
-            >
+          >
             多平台支持 Windows *nux 以及 Router
           </Highlight>
         </ListItem>
@@ -73,7 +73,7 @@ export default function About() {
         <Highlight
           query={['Next.js', 'Chakra UI']}
           styles={{ px: '1', bg: 'cyan.100', rounded: '4px' }}
-          >
+        >
           基于 Next.js Chakra UI 构建
         </Highlight>
       </Text>

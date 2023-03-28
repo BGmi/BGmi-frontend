@@ -10,6 +10,6 @@ export default function Skeleton(props: SkeletonProps) {
       startColor={colorMode === 'light' ? 'gray.500' : 'blackAlpha.900'}
       endColor={colorMode === 'light' ? 'gray.900' : 'blackAlpha.500'}
       {...props}
-     />
+    />
   );
 }

@@ -101,7 +101,7 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setUnSubsc
                 <Box textAlign="center" my="4">
                   <Spinner />
                 </Box>
-                )
+              )
               : (
                 <Flex>
                   <Stack spacing="2" w="full">
@@ -152,7 +152,7 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setUnSubsc
                     </FormControl>
                   </Stack>
                 </Flex>
-                )
+              )
           }
         </ModalBody>
         <ModalCloseButton />

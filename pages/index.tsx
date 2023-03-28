@@ -28,7 +28,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
       boxShadow="base"
       overflow="hidden"
       roundedBottom="md"
-      >
+    >
       <Link href={`/player/${title}`} overflow="hidden">
         <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.200'} minH="48">
           <Fade in={imageLoaded}>
@@ -41,7 +41,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
                 objectFit="cover"
                 backgroundPosition="50% 50%"
                 onLoad={() => setImageLoaded(true)}
-           />
+              />
               <Box
                 opacity="0"
                 position="absolute"
@@ -57,7 +57,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
                   opacity: '1',
                   transform: 'scale(1)'
                 }}
-            />
+              />
             </Box>
           </Fade>
         </Box>

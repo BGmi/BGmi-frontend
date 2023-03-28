@@ -14,7 +14,7 @@ export default function FallbackEpisodeCard() {
           px="7"
           maxW="16"
           fontSize="sm"
-     />
+        />
       </GridItem>
     );
   }
@@ -26,7 +26,7 @@ export default function FallbackEpisodeCard() {
       mt={{ xl: 'unset', base: '4' }}
       w={{ xl: '30%', base: 'unset' }}
       h="50%"
-  >
+    >
       <Text mb="4">选集</Text>
       <Grid templateColumns="repeat(auto-fill, minmax(3.75rem, 1fr))" gap={6}>
         {...skeletonItems}

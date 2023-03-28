@@ -9,7 +9,7 @@ function FallbackCard() {
       roundedTop="md"
       mx="2"
       boxShadow="base"
-      >
+    >
       <Skeleton
         h="48"
         roundedTop="md"
