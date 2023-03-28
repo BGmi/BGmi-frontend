@@ -7,8 +7,15 @@ import type { BangumiResponse } from '~/types/bangumi';
 
 export const useBangumi = () => {
   const toast = useToast();
+  const multipleFetcher = async <T extends BangumiResponse >(urls: string[], options: ResponseInit) => {
+    const [index, old] = await Promise.all<T>(urls.map(url => fetcher<T>([url], options)));
+    return {
+      ...index,
+      data: [...index.data, ...old.data]
+    };
+  };
 
-  return useSWRImmutable<BangumiResponse>(['/api/index'], fetcher, {
+  return useSWRImmutable<BangumiResponse>(['/api/index', '/api/old'], multipleFetcher, {
     onError(err) {
       console.error(err);
       toast({
