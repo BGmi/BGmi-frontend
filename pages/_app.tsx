@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: MyAppProps) {
   if (colorMode === '')
     return null;
 
-  const headTitle = `BGmi - ${pathname === '/' ? 'Bangumi' : handleSecondaryTitle(pathname)}`;
+  const headTitle = `BGmi - ${pathname === '/' ? 'Bangumi' : handleSecondaryTitle(pathname) ?? ''}`;
 
   const renderWithLayoutAndAuth = (page: React.ReactElement) => {
     const getLayout = Component.getLayout ?? (page => page);

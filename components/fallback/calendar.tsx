@@ -24,7 +24,7 @@ export default function FallbackCalendar() {
         justifyContent="center"
         gap={4}
         key={`tab-panel-${i}`}
-     >
+      >
       {...skeletonTabPanelItems}
       </TabPanel>
     );

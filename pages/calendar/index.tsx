@@ -41,7 +41,7 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
               alt="cover"
               placeholder="empty"
               onLoad={() => setIsLoaded(true)}
-          />
+            />
           </Fade>
         </Box>
 
@@ -74,7 +74,7 @@ export default function Calendar() {
           justifyContent="center"
           gap={4}
           key={week}
-            >
+        >
           {bangumis.map(bangumi => (
             <CalendarPanel key={bangumi.id} bangumi={bangumi} />
           ))}
