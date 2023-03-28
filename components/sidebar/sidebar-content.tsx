@@ -1,6 +1,5 @@
 import {
   Box,
-  Link as ChakraLink,
   Divider,
   Flex,
   Text
@@ -59,9 +58,9 @@ export const SidebarContent = ({ onClose, ...props }: BoxProps & { onClose?: () 
           <SidebarNavItem active={pathname === '/'} icon={BsPlayBtnFill} onClick={onClose}>Bangumi</SidebarNavItem>
         </Link>
 
-        <ChakraLink href="/bangumi" _hover={{ textDecoration: 'none' }}>
+        <Link href="/bangumi">
           <SidebarNavItem icon={BsFolderFill}>Bangumi Files</SidebarNavItem>
-        </ChakraLink>
+        </Link>
 
         <Link href="/calendar">
           <SidebarNavItem active={currentPath === 'calendar'} icon={BsCalendar2CheckFill} onClick={onClose}>Calendar</SidebarNavItem>

@@ -1,8 +1,9 @@
-import { Box, Link, Stack } from '@chakra-ui/react';
+import { Box, Stack } from '@chakra-ui/react';
+
+import Link from '~/components/router-link';
 import Layout from '~/components/layout';
 
 export default function Resource() {
-  // 与原来保持一致
   return (
     <Box>
       <Stack spacing="2">
