@@ -9,7 +9,7 @@ export const fetcher = async <T>([key, authToken]: [string, string?], options: R
     controller.abort();
   }, 10000);
 
-  const res = await fetch(key, { signal: controller.signal, headers, ...options });
+  const res = await fetch(`.${key}`, { signal: controller.signal, headers, ...options });
 
   if (!res.ok)
     throw new Error(`fetcher error ${res.status}`);
@@ -35,7 +35,7 @@ export const fetcherWithMutation = async <T>([key, authToken]: [string, string?]
     controller.abort();
   }, 15000);
 
-  const res = await fetch(key, { signal: controller.signal, ...options });
+  const res = await fetch(`.${key}`, { signal: controller.signal, ...options });
 
   if (!res.ok)
     throw new Error(`fetcher error ${res.status}`);
