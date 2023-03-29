@@ -14,7 +14,7 @@ export const useAuth = () => {
       body: JSON.stringify({ token: authToken })
     };
 
-    return { timeoutId, response: await fetch('/api/auth', options) };
+    return { timeoutId, response: await fetch('./api/auth', options) };
   };
 
   return {
