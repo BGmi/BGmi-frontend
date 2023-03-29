@@ -10,7 +10,7 @@
 ```bash
 git clone github.com/kahosan/BGmi-frontend.git
 
-cd BGmi-frontend && pnpm install && cp .env.example .env
+cd BGmi-frontend && pnpm install
 ```
 
 ### 部署
