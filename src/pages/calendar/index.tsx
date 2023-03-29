@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react';
 import CalendarTab from '~/components/calendar-tab';
 
 import { FallbackCalendar } from '~/components/fallback';
-import Layout from '~/components/layout';
 
 import { useCalendar } from '~/hooks/use-calendar';
 import { useColorMode } from '~/hooks/use-color-mode';
@@ -81,11 +80,3 @@ export default function Calendar() {
     </CalendarTab>
   );
 }
-
-Calendar.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <Layout>
-      {page}
-    </Layout>
-  );
-};
