@@ -52,9 +52,9 @@ export const SidebarContent = ({ onClose, ...props }: BoxProps & { onClose?: () 
           <SidebarNavItem active={pathname === '/'} icon={BsPlayBtnFill} onClick={onClose}>Bangumi</SidebarNavItem>
         </Link>
 
-        <Link href="/bangumi" target="_blank">
+        <a href="./bangumi" target="_blank">
           <SidebarNavItem icon={BsFolderFill}>Bangumi Files</SidebarNavItem>
-        </Link>
+        </a>
 
         <Link href="/calendar">
           <SidebarNavItem active={currentPath === 'calendar'} icon={BsCalendar2CheckFill} onClick={onClose}>Calendar</SidebarNavItem>
