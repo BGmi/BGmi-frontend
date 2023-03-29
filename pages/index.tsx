@@ -1,4 +1,4 @@
-import { Box, Fade, Grid, GridItem, Heading, Image, Stack, Text } from '@chakra-ui/react';
+import { Badge, Box, Fade, Grid, GridItem, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { FallbackBangumi } from '~/components/fallback';
@@ -20,7 +20,10 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
   const { colorMode } = useColorMode();
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const { bangumi_name: title, cover: coverUrl, episode } = bangumiData;
+  const { bangumi_name: title, cover: coverUrl, episode, player, status } = bangumiData;
+
+  const statusText = episode > 0 ? `最新：第 ${episode} 集` : '暂无更新';
+  const downloadStatus = episode > 0 && Object.keys(player).at(-1) !== episode.toString() ? '正在下载' : '';
 
   return (
     <Box
@@ -33,6 +36,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
         <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.200'} minH="48">
           <Fade in={imageLoaded}>
             <Box position="relative" overflow="hidden">
+              {status === 2 ? (<Badge pos="absolute" top="2" right="3" bg="yellow.500" color="white">NEW</Badge>) : ''}
               <Image
                 h="48"
                 w="full"
@@ -76,7 +80,12 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
           {title}
         </Heading>
         <Text mt="0.25rem!" fontSize="sm" color="gray.500" alignContent="center">
-          最新：{episode > 0 ? `第 ${episode} 集` : ''}
+          {statusText}
+          {downloadStatus ? (
+            <Text as="span" color="gray.500" ml="0.5rem">
+              {downloadStatus}
+            </Text>
+          ) : ''}
         </Text>
       </Stack>
     </Box>
