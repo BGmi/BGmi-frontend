@@ -36,7 +36,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
               <Image
                 h="48"
                 w="full"
-                src={coverUrl}
+                src={`.${coverUrl}`}
                 alt="anime cover"
                 objectFit="cover"
                 backgroundPosition="50% 50%"
