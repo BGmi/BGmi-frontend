@@ -39,7 +39,7 @@ location /bangumi {
 #### 2. 使用 SSG
 
 ```bash
-pnpm export && mv dist ~/.bgmi
+pnpm export && mv front_static ~/.bgmi
 ```
 
 ### 配置 SSG
@@ -66,47 +66,47 @@ server {
   }
 
   location /_next/ {
-    alias /home/user/.bgmi/dist/_next/;
+    alias /home/user/.bgmi/front_static/_next/;
   }
 
   # LOGO
   location /logo.jpg {
-    alias /home/user/.bgmi/dist/logo.jpg;
+    alias /home/user/.bgmi/front_static/logo.jpg;
     try_files /$1 /$1;
   }
 
   location ~ ^(?:/)?$ {
-    alias /home/user/.bgmi/dist/;
+    alias /home/user/.bgmi/front_static/;
     try_files /index.html /index.html;
   }
 
   location ~ ^/about(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /about.html /index.html;
   }
 
   location ~ ^/auth(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /auth.html /index.html;
   }
 
   location ~ ^/calendar(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /calendar.html /index.html;
   }
 
   location ~ ^/resource(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /resource.html /index.html;
   }
 
   location ~ ^/subscribe(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /subscribe.html /index.html;
   }
 
   location ~ ^/player/([^/]+?)(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /player/[bangumi].html /index.html;
   }
 }
@@ -114,7 +114,11 @@ server {
 
 如果你想使用网站的子域名, 按照如下配置
 
-修改 `.env` 中的 `NEXT_PUBLIC_BASE_PATH` 为你的子域名, 然后重新运行 `pnpm export && rm -r ~/.bgmi/dist && mv dist ~/.bgmi`
+修改 `.env` 中的 `NEXT_PUBLIC_BASE_PATH` 为你的子域名, 然后重新运行
+
+```bash
+pnpm export && rm -r ~/.bgmi/front_static && mv front_static ~/.bgmi
+```
 
 示例如下
 
@@ -138,45 +142,45 @@ server {
   }
 
   location /bgmi/_next/ {
-    alias /home/user/.bgmi/dist/_next/;
+    alias /home/user/.bgmi/front_static/_next/;
   }
 
   location /bgmi/logo.jpg {
-    alias /home/user/.bgmi/dist/logo.jpg;
+    alias /home/user/.bgmi/front_static/logo.jpg;
   }
 
   location ~ ^/bgmi(?:/)?$ {
-    alias /home/user/.bgmi/dist/;
+    alias /home/user/.bgmi/front_static/;
     try_files /index.html /index.html;
   }
 
   location ~ ^/bgmi/about(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /about.html /index.html;
   }
 
   location ~ ^/bgmi/auth(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /auth.html /index.html;
   }
 
   location ~ ^/bgmi/calendar(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /calendar.html /index.html;
   }
 
   location ~ ^/bgmi/resource(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /resource.html /index.html;
   }
 
   location ~ ^/bgmi/subscribe(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /subscribe.html /index.html;
   }
 
   location ~ ^/bgmi/player/([^/]+?)(?:/)?$ {
-    alias /home/user/.bgmi/dist;
+    alias /home/user/.bgmi/front_static;
     try_files /player/[bangumi].html /index.html;
   }
 }
