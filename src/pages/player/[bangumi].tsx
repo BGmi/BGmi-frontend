@@ -6,8 +6,6 @@ import { useParams } from 'react-router-dom';
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useWatchHistory } from '~/hooks/use-watch-history';
 
-import Layout from '~/components/layout';
-
 import VideoPlayer from '~/components/video-player';
 
 export default function Player() {
@@ -43,11 +41,3 @@ export default function Player() {
     </Box>
   );
 }
-
-Player.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <Layout>
-      {page}
-    </Layout>
-  );
-};

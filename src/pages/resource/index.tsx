@@ -1,7 +1,6 @@
 import { Box, Stack } from '@chakra-ui/react';
 
 import Link from '~/components/router-link';
-import Layout from '~/components/layout';
 
 export default function Resource() {
   return (
@@ -13,11 +12,3 @@ export default function Resource() {
     </Box>
   );
 }
-
-Resource.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <Layout>
-      {page}
-    </Layout>
-  );
-};
