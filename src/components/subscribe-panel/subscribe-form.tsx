@@ -3,6 +3,7 @@ import { Select } from 'chakra-react-select';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useSubscribeAction } from '~/hooks/use-subscribe-action';
+import type { SyncData } from './subscribe-card';
 
 export interface InitialData {
   bangumiName: string
@@ -20,14 +21,17 @@ interface Props {
   isOpen: boolean
   onClose: () => void
   initialData: InitialData | undefined
-  setUnSubscribed: (bangumiName: string) => void
-  setEpisode: (bangumiName: string, newEpisode: number) => void
+  setSyncData: (data: SyncData) => void
+  syncData: SyncData
 }
 
-export default function SubscribeForm({ isOpen, onClose, initialData, setUnSubscribed, setEpisode }: Props) {
+export default function SubscribeForm({ isOpen, onClose, initialData, setSyncData, syncData }: Props) {
   const [formData, setFormData] = useState<InitialData | undefined>();
-  // 每次操作完，关闭面板后 需清除数据
   const { handleSaveFilter, handleSaveMark, handleUnSubscribe } = useSubscribeAction();
+
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
 
   const selectOptions = useMemo(() => {
     return formData?.subtitleGroups.map((subtitleGroup) => {
@@ -48,7 +52,6 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setUnSubsc
   }, [formData]);
 
   const handleClose = () => {
-    setFormData(undefined);
     onClose();
   };
 
@@ -71,23 +74,22 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setUnSubsc
       episode: formData.completedEpisodes
     });
 
-    setEpisode(formData.bangumiName, formData.completedEpisodes);
-    setFormData(undefined);
+    setSyncData({ ...syncData, episode: formData.completedEpisodes });
     onClose();
   };
 
   const handleUnSub = async () => {
-    const data = await handleUnSubscribe(formData?.bangumiName ?? '');
-    if (data)
-      setUnSubscribed(formData?.bangumiName ?? '');
+    if (!formData) {
+      console.error('formData is undefined');
+      return;
+    }
 
-    setFormData(undefined);
+    const data = await handleUnSubscribe(formData.bangumiName);
+    if (data)
+      setSyncData({ ...syncData, status: false });
+
     onClose();
   };
-
-  useEffect(() => {
-    setFormData(initialData);
-  }, [initialData]);
 
   return (
     <Modal onClose={handleClose} isOpen={isOpen} closeOnOverlayClick={false}>
