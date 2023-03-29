@@ -45,7 +45,7 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
   }, [bangumiData]);
 
   const playUrl = useMemo(() => {
-    return bangumiData?.player?.[episode]?.path ? `bangumi${bangumiData.player[episode].path}` : '';
+    return bangumiData?.player?.[episode]?.path ? `/bangumi${bangumiData.player[episode].path}` : '';
   }, [bangumiData.player, episode]);
 
   // event
