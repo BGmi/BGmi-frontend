@@ -1,9 +1,12 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom/client';
-import { Routes } from '@generouted/react-router';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
+import { routes } from '@generouted/react-router';
 
 import './styles/globals.css';
+
+const Routes = () => <RouterProvider router={createHashRouter(routes)} />;
 
 ReactDOM
   .createRoot(document.getElementById('root') as HTMLElement)
