@@ -15,12 +15,23 @@ cd BGmi-frontend && pnpm install && cp .env.example .env
 
 ### 部署
 
+**部署前请先将 bgmi 的 `serve_static_files` 设置为 `true` 并执行 `bgmi cal --download-cover`**
+
 有两种可选的部署方式
 
 #### 1. 使用 Next Server
 
 ```bash
 pnpm build && pnpm start
+```
+
+##### 可选配置动画片的静态目录
+
+```nginx
+location /bangumi {
+  # 默认路径为 ~/.bgmi/bangumi;
+  alias /data/bangumi;
+}
 ```
 
 支持 `--port` 指定端口, 会自动代理后端 API, 可在 `next.config.js` 中修改
