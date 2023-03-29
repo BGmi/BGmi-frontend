@@ -23,7 +23,7 @@ yarn-error.log*
 # next.js
 next-env.d.ts
 .next
-dist
+front_static
 bundle
 
 # nginx routes
