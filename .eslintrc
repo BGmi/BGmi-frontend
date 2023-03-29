@@ -3,13 +3,11 @@
   "ignorePatterns": [
     "dist/**"
   ],
-  "extends": [
-    "next"
-  ],
   "overrides": [
     {
       "rules": {
-        "@fluffyfox/jsx/no-template-literal": "off"
+        "@fluffyfox/jsx/no-template-literal": "off",
+        "@typescript-eslint/object-curly-spacing": ["error", "always"]
       },
       "files": [
         "**/*.d.ts",
