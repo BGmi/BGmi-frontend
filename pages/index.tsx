@@ -20,10 +20,9 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
   const { colorMode } = useColorMode();
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const { bangumi_name: title, cover: coverUrl, episode, player, status } = bangumiData;
+  const { bangumi_name: title, cover: coverUrl, episode, status } = bangumiData;
 
   const statusText = episode > 0 ? `最新：第 ${episode} 集` : '暂无更新';
-  const downloadStatus = episode > 0 && Object.keys(player).at(-1) !== episode.toString() ? '正在下载' : '';
 
   return (
     <Box
@@ -81,11 +80,6 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
         </Heading>
         <Text mt="0.25rem!" fontSize="sm" color="gray.500" alignContent="center">
           {statusText}
-          {downloadStatus ? (
-            <Text as="span" color="gray.500" ml="0.5rem">
-              {downloadStatus}
-            </Text>
-          ) : ''}
         </Text>
       </Stack>
     </Box>

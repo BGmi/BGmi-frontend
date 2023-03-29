@@ -61,7 +61,7 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
     >
       <Text mb="4">选集</Text>
       <Grid templateColumns="repeat(auto-fill, minmax(3.75rem, 1fr))" gap={4}>
-        {bangumiData.totalEpisode.length !== 0 ? bangumiData.totalEpisode.map(episode => (
+        {bangumiData.totalEpisode.map(episode => (
           <GridItem key={episode}>
             <Button
               px="7"
@@ -73,7 +73,7 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
               {episode}
             </Button>
           </GridItem>
-        )) : '正在下载'}
+        ))}
       </Grid>
     </Box>
   );
