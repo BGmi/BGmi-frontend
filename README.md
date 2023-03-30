@@ -8,7 +8,7 @@
 ### 安装
 
 ```bash
-git clone github.com/kahosan/BGmi-frontend.git
+git clone github.com/BGmi/BGmi-frontend.git
 
 cd BGmi-frontend && pnpm install
 ```
@@ -43,7 +43,7 @@ server {
 }
 ```
 
-如果你想使用网站的子域名, 按照如下配置
+如果你想使用网站的子路径, 按照如下配置
 
 ```nginx
 server {
