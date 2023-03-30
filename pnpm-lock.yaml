@@ -1,10 +1,5 @@
 lockfileVersion: '6.0'
 
-patchedDependencies:
-  '@types/dplayer@1.25.2':
-    hash: d4tvcc7ojaasxsbrk2vit2w3i4
-    path: patches/@types__dplayer@1.25.2.patch
-
 dependencies:
   '@chakra-ui/react':
     specifier: ^2.5.1
@@ -61,7 +56,10 @@ dependencies:
 devDependencies:
   '@types/dplayer':
     specifier: ^1.25.2
-    version: 1.25.2(patch_hash=d4tvcc7ojaasxsbrk2vit2w3i4)
+    version: 1.25.2
+  '@types/md5':
+    specifier: ^2.3.2
+    version: 2.3.2
   '@types/react':
     specifier: ^18.0.28
     version: 18.0.28
@@ -1827,10 +1825,9 @@ packages:
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
     dev: false
 
-  /@types/dplayer@1.25.2(patch_hash=d4tvcc7ojaasxsbrk2vit2w3i4):
+  /@types/dplayer@1.25.2:
     resolution: {integrity: sha512-bkTVZkK3Vi7N7eX2FUBnqKhCjTaeRLkhvY8H6zolatbSTtjPPdxyUzhE3C29sIBYRRq1kQHSduFgCHKg5VF3Jw==}
     dev: true
-    patched: true
 
   /@types/json-schema@7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
@@ -1849,6 +1846,10 @@ packages:
   /@types/lodash@4.14.191:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: false
+
+  /@types/md5@2.3.2:
+    resolution: {integrity: sha512-v+JFDu96+UYJ3/UWzB0mEglIS//MZXgRaJ4ubUPwOM0gvLc/kcQ3TWNYwENEK7/EcXGQVrW8h/XqednSjBd/Og==}
+    dev: true
 
   /@types/mdast@3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}

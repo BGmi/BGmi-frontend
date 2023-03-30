@@ -2,6 +2,7 @@ import { Box, Spinner } from '@chakra-ui/react';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import type { DPlayerOptions } from 'dplayer';
 import DPlayer from 'dplayer';
 
 import EpisodeCard from './episode-card';
@@ -9,14 +10,17 @@ import EpisodeCard from './episode-card';
 import { useVideoCurrentTime } from '~/hooks/use-watch-history';
 import { useColorMode } from '~/hooks/use-color-mode';
 
+import md5 from 'md5';
+
 import type { BangumiData } from '~/types/bangumi';
 
 interface Props {
   bangumiData: BangumiData;
+  danmakuApi: string;
   episode: string;
 }
 
-export default function VideoPlayer({ bangumiData, episode }: Props) {
+export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props) {
   const { colorMode } = useColorMode();
   const dpInstanceRef = useRef<DPlayer>();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -28,9 +32,38 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
 
   const { updateCurrentTime, getCurrentTime } = useVideoCurrentTime(bangumiData.bangumi_name);
 
+  const playUrl = useMemo(() => {
+    return bangumiData?.player?.[episode]?.path ? `./bangumi${bangumiData.player[episode].path}` : '';
+  }, [bangumiData.player, episode]);
+
+  const dplayerOptions = useCallback(
+    (id: string) => {
+      const options: DPlayerOptions = {
+        container: containerRef.current,
+        video: {
+          url: playUrl,
+        },
+        screenshot: true,
+        autoplay: autoPlay,
+      };
+
+      if (danmakuApi) {
+        options.danmaku = {
+          id: md5(id),
+          api: danmakuApi,
+        };
+      }
+
+      return options;
+    },
+    [autoPlay, danmakuApi, playUrl]
+  );
+
   // 传给 Episode Card
   const setPlayState = (url: string) => {
-    dpInstanceRef.current?.switchVideo({ url });
+    // https://github.com/DIYgod/DPlayer/blob/master/src/js/player.js#L339
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- 可以是 undefined
+    dpInstanceRef.current?.switchVideo({ url }, dplayerOptions(url).danmaku!);
     setAutoPlay(true);
   };
 
@@ -44,10 +77,6 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
     }
   }, [bangumiData]);
 
-  const playUrl = useMemo(() => {
-    return bangumiData?.player?.[episode]?.path ? `./bangumi${bangumiData.player[episode].path}` : '';
-  }, [bangumiData.player, episode]);
-
   // event
   const handleTimeUpdate = useCallback(() => {
     if (dpInstanceRef.current) updateCurrentTime(dpInstanceRef.current.video.currentTime);
@@ -58,13 +87,7 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
   useEffect(() => {
     if (!bangumiData || !containerRef.current) return;
 
-    const dp = new DPlayer({
-      container: containerRef.current,
-      video: {
-        url: playUrl,
-      },
-      autoplay: autoPlay,
-    });
+    const dp = new DPlayer(dplayerOptions(playUrl));
     dpInstanceRef.current = dp;
 
     dp.video.addEventListener('canplay', handleCanPlay);
@@ -80,7 +103,7 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
       dp.video.removeEventListener('timeupdate', handleTimeUpdate);
       dp.destroy();
     };
-  }, [autoPlay, bangumiData, getCurrentTime, handleCanPlay, handleTimeUpdate, loading, playUrl]);
+  }, [autoPlay, bangumiData, dplayerOptions, getCurrentTime, handleCanPlay, handleTimeUpdate, loading, playUrl]);
 
   return (
     <>

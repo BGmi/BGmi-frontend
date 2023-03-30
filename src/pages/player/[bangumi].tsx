@@ -43,7 +43,7 @@ export default function Player() {
         {bangumiData.bangumi_name} {`- 第 ${episode} 集`}
       </Heading>
       <Flex position="relative" mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>
-        <VideoPlayer episode={episode} bangumiData={bangumiData} />
+        <VideoPlayer episode={episode} bangumiData={bangumiData} danmakuApi={data.danmaku_api} />
       </Flex>
     </Box>
   );
