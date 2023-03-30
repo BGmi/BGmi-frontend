@@ -6,6 +6,7 @@ import Link from '~/components/router-link';
 
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
+import { normalizePath } from '~/lib/utils';
 
 import type { BangumiData } from '~/types/bangumi';
 
@@ -28,7 +29,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
       overflow="hidden"
       roundedBottom="md"
     >
-      <Link href={`/player/${title}`} overflow="hidden">
+      <Link href={`/player/${normalizePath(title)}`} overflow="hidden">
         <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.200'} minH="48">
           <Fade in={imageLoaded}>
             <Box position="relative" overflow="hidden">
