@@ -7,36 +7,32 @@ export default defineConfig({
   base: './',
   build: {
     rollupOptions: {
-      manualChunks: (id) => {
-        if (id.includes('node_modules'))
-          return id.split('node_modules/')[1].split('/')[1];
-      }
+      manualChunks: id => {
+        if (id.includes('node_modules')) return id.split('node_modules/')[1].split('/')[1];
+      },
     },
-    outDir: 'front_static'
+    outDir: 'front_static',
   },
   server: {
     proxy: {
       '/api': {
         target: 'http://localhost:8888',
-        changeOrigin: true
+        changeOrigin: true,
       },
       '/bangumi': {
         target: 'http://localhost:8888',
-        changeOrigin: true
+        changeOrigin: true,
       },
       '/resource': {
         target: 'http://localhost:8888',
-        changeOrigin: true
-      }
-    }
+        changeOrigin: true,
+      },
+    },
   },
-  plugins: [
-    react(),
-    generouted()
-  ],
+  plugins: [react(), generouted()],
   resolve: {
     alias: {
-      '~': '/src'
-    }
-  }
+      '~': '/src',
+    },
+  },
 });

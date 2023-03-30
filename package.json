@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "server": "vite build && vite preview"
+    "server": "vite build && vite preview",
+    "lint": "eslint --fix --ext .ts,.tsx, ./src/",
+    "prepare": "husky install"
   },
   "files": [
     "front_static",
@@ -26,6 +28,7 @@
     "cookies-next": "^2.1.1",
     "dplayer": "^1.27.1",
     "framer-motion": "^10.2.5",
+    "husky": "^8.0.3",
     "jotai": "^2.0.3",
     "md5": "^2.3.0",
     "react": "^18.2.0",
@@ -44,6 +47,9 @@
     "eslint": "^8.36.0",
     "eslint-config-kaho": "^0.9.7",
     "eslint-config-next": "^13.2.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.7",
     "typescript": "4.9.4",
     "vite": "^4.2.1"
   },

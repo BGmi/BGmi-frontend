@@ -10,12 +10,12 @@ import type { WeekCalendar } from '~/types/calendar';
 import type { InitialData } from './subscribe-form';
 
 interface Props {
-  bangumi: WeekCalendar
+  bangumi: WeekCalendar;
 }
 
 export interface SyncData {
-  status: boolean
-  episode: number
+  status: boolean;
+  episode: number;
 }
 
 export default function SubscribeCard({ bangumi }: Props) {
@@ -32,13 +32,13 @@ export default function SubscribeCard({ bangumi }: Props) {
 
   const [syncData, setSyncData] = useState<SyncData>({
     status: !!bangumi.status,
-    episode: bangumi.episode ?? 0
+    episode: bangumi.episode ?? 0,
   });
 
   useEffect(() => {
     setSyncData({
       status: !!bangumi.status,
-      episode: bangumi.episode ?? 0
+      episode: bangumi.episode ?? 0,
     });
   }, [bangumi.episode, bangumi.status, setSyncData]);
 
@@ -52,7 +52,7 @@ export default function SubscribeCard({ bangumi }: Props) {
       await handleSubscribe(name, 0);
       setSyncData({
         ...syncData,
-        status: true
+        status: true,
       });
     }
 
@@ -64,17 +64,24 @@ export default function SubscribeCard({ bangumi }: Props) {
       filterOptions: {
         include: data?.data.include ?? '',
         exclude: data?.data.exclude ?? '',
-        regex: data?.data.regex ?? ''
+        regex: data?.data.regex ?? '',
       },
       subtitleGroups: data?.data.subtitle_group ?? [],
-      follwedSubtitleGroups: data?.data.followed ?? []
+      follwedSubtitleGroups: data?.data.followed ?? [],
     });
   };
 
   return (
     <>
       <Box>
-        <Flex alignItems="center" minH="12" bg={colorMode === 'light' ? 'blackAlpha.50' : 'whiteAlpha.100'} p="4" px="2.5" roundedTop="md">
+        <Flex
+          alignItems="center"
+          minH="12"
+          bg={colorMode === 'light' ? 'blackAlpha.50' : 'whiteAlpha.100'}
+          p="4"
+          px="2.5"
+          roundedTop="md"
+        >
           <Text
             minW="60%"
             maxH="6"
@@ -82,7 +89,7 @@ export default function SubscribeCard({ bangumi }: Props) {
             transition="max-height 0.3s ease"
             fontWeight="medium"
             _hover={{
-              maxH: '28'
+              maxH: '28',
             }}
           >
             {bangumi.name}
@@ -93,7 +100,7 @@ export default function SubscribeCard({ bangumi }: Props) {
             w="full"
             bg={syncData?.status ? buttonSubscribeBg : buttonUnSubscribeBg}
             _hover={{
-              opacity: 0.8
+              opacity: 0.8,
             }}
           >
             {syncData?.status ? '查看' : '订阅'}

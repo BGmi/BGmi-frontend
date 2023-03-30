@@ -7,11 +7,11 @@ import type { BangumiResponse } from '~/types/bangumi';
 
 export const useBangumi = () => {
   const toast = useToast();
-  const multipleFetcher = async <T extends BangumiResponse >(urls: string[], options: ResponseInit) => {
+  const multipleFetcher = async <T extends BangumiResponse>(urls: string[], options: ResponseInit) => {
     const [index, old] = await Promise.all(urls.map(url => fetcher<T>([url], options)));
     return {
       ...index,
-      data: [...index.data, ...old.data]
+      data: [...index.data, ...old.data],
     };
   };
 
@@ -23,8 +23,8 @@ export const useBangumi = () => {
         description: '请检查网络连接或配置',
         status: 'error',
         duration: 3000,
-        position: 'top-right'
+        position: 'top-right',
       });
-    }
+    },
   });
 };

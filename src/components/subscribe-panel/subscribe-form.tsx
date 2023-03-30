@@ -1,4 +1,20 @@
-import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Stack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Spinner,
+  Stack,
+} from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -6,23 +22,23 @@ import { useSubscribeAction } from '~/hooks/use-subscribe-action';
 import type { SyncData } from './subscribe-card';
 
 export interface InitialData {
-  bangumiName: string
-  completedEpisodes: number
+  bangumiName: string;
+  completedEpisodes: number;
   filterOptions: {
-    include: string
-    exclude: string
-    regex: string
-  }
-  subtitleGroups: string[]
-  follwedSubtitleGroups: string[]
+    include: string;
+    exclude: string;
+    regex: string;
+  };
+  subtitleGroups: string[];
+  follwedSubtitleGroups: string[];
 }
 
 interface Props {
-  isOpen: boolean
-  onClose: () => void
-  initialData: InitialData | undefined
-  setSyncData: (data: SyncData) => void
-  syncData: SyncData
+  isOpen: boolean;
+  onClose: () => void;
+  initialData: InitialData | undefined;
+  setSyncData: (data: SyncData) => void;
+  syncData: SyncData;
 }
 
 export default function SubscribeForm({ isOpen, onClose, initialData, setSyncData, syncData }: Props) {
@@ -34,19 +50,19 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
   }, [initialData]);
 
   const selectOptions = useMemo(() => {
-    return formData?.subtitleGroups.map((subtitleGroup) => {
+    return formData?.subtitleGroups.map(subtitleGroup => {
       return {
         label: subtitleGroup,
-        value: subtitleGroup
+        value: subtitleGroup,
       };
     });
   }, [formData]);
 
   const selectDefaultValue = useMemo(() => {
-    return formData?.follwedSubtitleGroups.map((follwedSubtileGroup) => {
+    return formData?.follwedSubtitleGroups.map(follwedSubtileGroup => {
       return {
         label: follwedSubtileGroup,
-        value: follwedSubtileGroup
+        value: follwedSubtileGroup,
       };
     });
   }, [formData]);
@@ -66,12 +82,12 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
       include: formData.filterOptions.include,
       exclude: formData.filterOptions.exclude,
       regex: formData.filterOptions.regex,
-      subtitle: formData.follwedSubtitleGroups.join(',')
+      subtitle: formData.follwedSubtitleGroups.join(','),
     });
 
     await handleSaveMark.trigger({
       name: formData.bangumiName,
-      episode: formData.completedEpisodes
+      episode: formData.completedEpisodes,
     });
 
     setSyncData({ ...syncData, episode: formData.completedEpisodes });
@@ -85,8 +101,7 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
     }
 
     const data = await handleUnSubscribe(formData.bangumiName);
-    if (data)
-      setSyncData({ ...syncData, status: false });
+    if (data) setSyncData({ ...syncData, status: false });
 
     onClose();
   };
@@ -97,71 +112,83 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
       <ModalContent maxW={{ base: 'sm', md: 'md' }}>
         <ModalHeader>订阅设置</ModalHeader>
         <ModalBody>
-          {
-            !formData
-              ? (
-                <Box textAlign="center" my="4">
-                  <Spinner />
-                </Box>
-              )
-              : (
+          {!formData ? (
+            <Box textAlign="center" my="4">
+              <Spinner />
+            </Box>
+          ) : (
+            <Flex>
+              <Stack spacing="2" w="full">
                 <Flex>
-                  <Stack spacing="2" w="full">
-                    <Flex>
-                      <FormControl id="include" mr="1">
-                        <FormLabel>包含字段</FormLabel>
-                        <Input
-                          onChange={e => setFormData({ ...formData, filterOptions: { ...formData.filterOptions, include: e.target.value } })}
-                          defaultValue={formData.filterOptions.include}
-                          type="text"
-                        />
-                      </FormControl>
-                      <FormControl id="exclude" ml="1">
-                        <FormLabel>排除字段</FormLabel>
-                        <Input
-                          onChange={e => setFormData({ ...formData, filterOptions: { ...formData.filterOptions, exclude: e.target.value } })}
-                          defaultValue={formData.filterOptions.exclude}
-                          type="text"
-                        />
-                      </FormControl>
-                    </Flex>
-                    <FormControl id="regex">
-                      <FormLabel>正则表达式</FormLabel>
-                      <Input
-                        onChange={e => setFormData({ ...formData, filterOptions: { ...formData.filterOptions, regex: e.target.value } })}
-                        defaultValue={formData.filterOptions.regex}
-                        type="text"
-                      />
-                    </FormControl>
-                    <FormControl id="completedEpisodes">
-                      <FormLabel>已完成下载的剧集</FormLabel>
-                      <Input
-                        onChange={e => setFormData({ ...formData, completedEpisodes: +e.target.value })}
-                        defaultValue={formData.completedEpisodes}
-                        type="text"
-                      />
-                    </FormControl>
-                    <FormControl id="subtitleGroups">
-                      <FormLabel>选择字幕组</FormLabel>
-                      <Select
-                        isMulti
-                        placeholder=""
-                        options={selectOptions}
-                        defaultValue={selectDefaultValue}
-                        onChange={e => setFormData({ ...formData, follwedSubtitleGroups: e.map(item => item.value) })}
-                        closeMenuOnSelect={false}
-                      />
-                    </FormControl>
-                  </Stack>
+                  <FormControl id="include" mr="1">
+                    <FormLabel>包含字段</FormLabel>
+                    <Input
+                      onChange={e =>
+                        setFormData({
+                          ...formData,
+                          filterOptions: { ...formData.filterOptions, include: e.target.value },
+                        })
+                      }
+                      defaultValue={formData.filterOptions.include}
+                      type="text"
+                    />
+                  </FormControl>
+                  <FormControl id="exclude" ml="1">
+                    <FormLabel>排除字段</FormLabel>
+                    <Input
+                      onChange={e =>
+                        setFormData({
+                          ...formData,
+                          filterOptions: { ...formData.filterOptions, exclude: e.target.value },
+                        })
+                      }
+                      defaultValue={formData.filterOptions.exclude}
+                      type="text"
+                    />
+                  </FormControl>
                 </Flex>
-              )
-          }
+                <FormControl id="regex">
+                  <FormLabel>正则表达式</FormLabel>
+                  <Input
+                    onChange={e =>
+                      setFormData({ ...formData, filterOptions: { ...formData.filterOptions, regex: e.target.value } })
+                    }
+                    defaultValue={formData.filterOptions.regex}
+                    type="text"
+                  />
+                </FormControl>
+                <FormControl id="completedEpisodes">
+                  <FormLabel>已完成下载的剧集</FormLabel>
+                  <Input
+                    onChange={e => setFormData({ ...formData, completedEpisodes: +e.target.value })}
+                    defaultValue={formData.completedEpisodes}
+                    type="text"
+                  />
+                </FormControl>
+                <FormControl id="subtitleGroups">
+                  <FormLabel>选择字幕组</FormLabel>
+                  <Select
+                    isMulti
+                    placeholder=""
+                    options={selectOptions}
+                    defaultValue={selectDefaultValue}
+                    onChange={e => setFormData({ ...formData, follwedSubtitleGroups: e.map(item => item.value) })}
+                    closeMenuOnSelect={false}
+                  />
+                </FormControl>
+              </Stack>
+            </Flex>
+          )}
         </ModalBody>
         <ModalCloseButton />
 
         <ModalFooter>
-          <Button mr="3" onClick={onClose}>返回</Button>
-          <Button colorScheme="red" mr="3" onClick={handleUnSub}>取消订阅</Button>
+          <Button mr="3" onClick={onClose}>
+            返回
+          </Button>
+          <Button colorScheme="red" mr="3" onClick={handleUnSub}>
+            取消订阅
+          </Button>
           <Button
             colorScheme="blue"
             onClick={handleSave}

@@ -7,20 +7,21 @@ import { useColorMode } from '~/hooks/use-color-mode';
 import { useWatchHistory } from '~/hooks/use-watch-history';
 
 interface Props {
-  setPlayState: (url: string) => void
-  bangumiData: {
-    totalEpisode: string[]
-    playUrl: Record<string, Record<string & {} | 'path', string>>
-    bangumiName: string
-  } | undefined
+  setPlayState: (url: string) => void;
+  bangumiData:
+    | {
+        totalEpisode: string[];
+        playUrl: Record<string, Record<(string & {}) | 'path', string>>;
+        bangumiName: string;
+      }
+    | undefined;
 }
 
 export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Props & BoxProps) {
   const { colorMode } = useColorMode();
   const [watchHistory, setWatchHistory] = useWatchHistory();
 
-  if (!bangumiData)
-    return <FallbackEpisodeCard />;
+  if (!bangumiData) return <FallbackEpisodeCard />;
 
   const bangumiName = bangumiData.bangumiName;
   const totalMark = watchHistory[bangumiName];
@@ -37,15 +38,15 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
         'current-watch': {
           ...(watchHistory[bangumiName]?.['current-watch'] ?? {}),
           episode,
-          currentTime: '0'
-        }
-      }
+          currentTime: '0',
+        },
+      },
     });
   };
 
   const checkMark = (episode: string) => {
     // 第一集必定 mark
-    return (totalMark?.[episode] === 'mark' || episode === '1');
+    return totalMark?.[episode] === 'mark' || episode === '1';
   };
 
   return (
