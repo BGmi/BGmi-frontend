@@ -27,14 +27,9 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
           <Fade in={isLoaded}>
             <Image
               src={`https://${bangumi.cover.slice(6)}`}
-              width="180"
-              height="250"
-              // TODO https://github.com/vercel/next.js/issues/40762
-              style={{
-                width: '180px',
-                height: '250px',
-                objectFit: 'cover'
-              }}
+              width="180px"
+              height="250px"
+              objectFit="cover"
               alt="cover"
               placeholder="empty"
               onLoad={() => setIsLoaded(true)}
