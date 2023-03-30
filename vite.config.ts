@@ -17,15 +17,15 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://home.kahosan.top/bgmi',
+        target: 'http://localhost:8888',
         changeOrigin: true
       },
       '/bangumi': {
-        target: 'https://home.kahosan.top/bgmi',
+        target: 'http://localhost:8888',
         changeOrigin: true
       },
       '/resource': {
-        target: 'https://home.kahosan.top/bgmi',
+        target: 'http://localhost:8888',
         changeOrigin: true
       }
     }
