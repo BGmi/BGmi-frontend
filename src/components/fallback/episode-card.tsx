@@ -10,11 +10,7 @@ export default function FallbackEpisodeCard() {
   for (let i = 0; i < 10; ++i) {
     skeletonItems.push(
       <GridItem key={i}>
-        <Skeleton
-          px="7"
-          maxW="16"
-          fontSize="sm"
-        />
+        <Skeleton px="7" maxW="16" fontSize="sm" />
       </GridItem>
     );
   }

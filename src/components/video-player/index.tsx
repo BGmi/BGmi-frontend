@@ -12,8 +12,8 @@ import { useColorMode } from '~/hooks/use-color-mode';
 import type { BangumiData } from '~/types/bangumi';
 
 interface Props {
-  bangumiData: BangumiData
-  episode: string
+  bangumiData: BangumiData;
+  episode: string;
 }
 
 export default function VideoPlayer({ bangumiData, episode }: Props) {
@@ -39,7 +39,7 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
       return {
         totalEpisode: Object.keys(bangumiData.player),
         playUrl: bangumiData.player, // { episode: "path": "/bangumi_file.mp4" }
-        bangumiName: bangumiData.bangumi_name
+        bangumiName: bangumiData.bangumi_name,
       };
     }
   }, [bangumiData]);
@@ -50,22 +50,20 @@ export default function VideoPlayer({ bangumiData, episode }: Props) {
 
   // event
   const handleTimeUpdate = useCallback(() => {
-    if (dpInstanceRef.current)
-      updateCurrentTime(dpInstanceRef.current.video.currentTime);
+    if (dpInstanceRef.current) updateCurrentTime(dpInstanceRef.current.video.currentTime);
   }, [updateCurrentTime]);
 
   const handleCanPlay = useCallback(() => setLoading(false), []);
 
   useEffect(() => {
-    if (!bangumiData || !containerRef.current)
-      return;
+    if (!bangumiData || !containerRef.current) return;
 
     const dp = new DPlayer({
       container: containerRef.current,
       video: {
-        url: playUrl
+        url: playUrl,
       },
-      autoplay: autoPlay
+      autoplay: autoPlay,
     });
     dpInstanceRef.current = dp;
 

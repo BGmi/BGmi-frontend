@@ -11,7 +11,7 @@ export const useAuth = () => {
     const options: RequestInit = {
       signal: controller.signal,
       method: 'POST',
-      body: JSON.stringify({ token: authToken })
+      body: JSON.stringify({ token: authToken }),
     };
 
     return { timeoutId, response: await fetch('./api/auth', options) };
@@ -19,6 +19,6 @@ export const useAuth = () => {
 
   return {
     tryAuth,
-    hasAuth: hasCookie('authToken')
+    hasAuth: hasCookie('authToken'),
   };
 };

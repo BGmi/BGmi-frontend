@@ -25,7 +25,7 @@ export default function FallbackCalendar() {
         gap={4}
         key={`tab-panel-${i}`}
       >
-      {...skeletonTabPanelItems}
+        {...skeletonTabPanelItems}
       </TabPanel>
     );
   }
@@ -35,9 +35,7 @@ export default function FallbackCalendar() {
       <TabList top="4px" borderBottom="none" pb="2px">
         <Skeleton w="60%" h="8" mx="1" />
       </TabList>
-      <TabPanels>
-        {...skeletonTabPanels}
-      </TabPanels>
+      <TabPanels>{...skeletonTabPanels}</TabPanels>
     </Tabs>
   );
 }

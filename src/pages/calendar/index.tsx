@@ -42,7 +42,6 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
         </Text>
 
         {/** TODO 太空了，加点什么 */}
-
       </CardBody>
     </Card>
   );
@@ -54,8 +53,7 @@ export default function Calendar() {
   const tabListItems = useMemo(() => Object.keys(data?.data ?? []), [data]);
   const tabPanelsItems = useMemo(() => Object.entries(data?.data ?? []), [data]);
 
-  if (tabListItems.length === 0 || tabPanelsItems.length === 0)
-    return <FallbackCalendar />;
+  if (tabListItems.length === 0 || tabPanelsItems.length === 0) return <FallbackCalendar />;
 
   return (
     <CalendarTab tabListItems={tabListItems}>

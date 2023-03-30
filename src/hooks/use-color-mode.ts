@@ -15,7 +15,7 @@ export const useColorMode = () => {
 
   useEffect(() => {
     if (isBrowser) {
-      const mode = localStorage.getItem('chakra-ui-color-mode') as typeof colorMode ?? 'light';
+      const mode = (localStorage.getItem('chakra-ui-color-mode') as typeof colorMode) ?? 'light';
       setColorMode(mode);
     }
   }, [color, setColorMode]);

@@ -16,13 +16,11 @@ export default function Player() {
   const { data } = useBangumi();
 
   // 这里就懒得做骨架屏了
-  if (!data)
-    return null;
+  if (!data) return null;
 
   const bangumiData = data.data.find(bangumi => normalizePath(bangumi.bangumi_name) === params.bangumi);
 
-  if (!bangumiData)
-    return <div>加载播放器出错，数据不存在</div>;
+  if (!bangumiData) return <div>加载播放器出错，数据不存在</div>;
 
   const currentBangumiHistory = currentWatchHistory[bangumiData.bangumi_name];
 
@@ -34,7 +32,14 @@ export default function Player() {
       <Helmet>
         <title>{`BGmi - ${bangumiData.bangumi_name}`}</title>
       </Helmet>
-      <Heading ml={{ lg: '10', base: '5' }} mb="6" fontSize="2xl" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
+      <Heading
+        ml={{ lg: '10', base: '5' }}
+        mb="6"
+        fontSize="2xl"
+        whiteSpace="nowrap"
+        overflow="hidden"
+        textOverflow="ellipsis"
+      >
         {bangumiData.bangumi_name} {`- 第 ${episode} 集`}
       </Heading>
       <Flex position="relative" mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>

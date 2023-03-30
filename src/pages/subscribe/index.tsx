@@ -13,13 +13,13 @@ import type { Calendar, CalendarData } from '~/types/calendar';
 import Auth from '~/components/auth';
 
 interface FilterOptionsState {
-  subscribed: boolean
-  unSubscribed: boolean
+  subscribed: boolean;
+  unSubscribed: boolean;
 }
 
 interface FilterOptionsAction {
-  type: 'subscribed' | 'unSubscribed'
-  mutate: () => void
+  type: 'subscribed' | 'unSubscribed';
+  mutate: () => void;
 }
 
 const filterOptionsReducer = (state: FilterOptionsState, action: FilterOptionsAction) => {
@@ -28,13 +28,13 @@ const filterOptionsReducer = (state: FilterOptionsState, action: FilterOptionsAc
       action.mutate();
       return {
         subscribed: !state.subscribed,
-        unSubscribed: false
+        unSubscribed: false,
       };
     case 'unSubscribed':
       action.mutate();
       return {
         unSubscribed: !state.unSubscribed,
-        subscribed: false
+        subscribed: false,
       };
     default:
       throw new Error('Unexpected action');
@@ -43,13 +43,13 @@ const filterOptionsReducer = (state: FilterOptionsState, action: FilterOptionsAc
 
 const initialFilterOptionsState: FilterOptionsState = {
   subscribed: false,
-  unSubscribed: false
+  unSubscribed: false,
 };
 
 interface FilterOptionsMenuProps {
-  state: FilterOptionsState
-  dispatch: (action: FilterOptionsAction) => void
-  mutate: () => void
+  state: FilterOptionsState;
+  dispatch: (action: FilterOptionsAction) => void;
+  mutate: () => void;
 }
 
 function FilterOptionsMenu({ state, dispatch, mutate }: FilterOptionsMenuProps) {
@@ -97,23 +97,20 @@ export default function Subscribe() {
   const [state, dispatch] = useReducer(filterOptionsReducer, initialFilterOptionsState);
 
   const calendarData = useMemo(() => {
-    if (!data)
-      return;
+    if (!data) return;
 
     // deep clone
     const sortData = window.structuredClone(data) as Calendar;
-    Object.values(sortData.data).forEach((week) => {
+    Object.values(sortData.data).forEach(week => {
       week.sort(b => (!b.status ? 1 : -1));
     });
 
     const filterData = sortData.data;
     for (const [week, weekData] of Object.entries(sortData.data)) {
-      filterData[week as keyof CalendarData] = weekData.filter((bangumi) => {
-        if (state.subscribed)
-          return bangumi.status;
+      filterData[week as keyof CalendarData] = weekData.filter(bangumi => {
+        if (state.subscribed) return bangumi.status;
 
-        if (state.unSubscribed)
-          return !bangumi.status;
+        if (state.unSubscribed) return !bangumi.status;
 
         return true;
       });
@@ -125,8 +122,7 @@ export default function Subscribe() {
   const tabListItems = useMemo(() => Object.keys(calendarData ?? []), [calendarData]);
   const tabPanelsItems = useMemo(() => Object.entries(calendarData ?? []), [calendarData]);
 
-  if (!calendarData || !tabListItems || !tabPanelsItems)
-    return null;
+  if (!calendarData || !tabListItems || !tabPanelsItems) return null;
 
   return (
     <Auth to="/subscribe">
@@ -137,10 +133,7 @@ export default function Subscribe() {
         boxProps={{ mr: '16' }}
       >
         {tabPanelsItems.map(([week, bangumis]) => (
-          <SubscribePanel
-            key={week}
-            bangumis={bangumis}
-          />
+          <SubscribePanel key={week} bangumis={bangumis} />
         ))}
       </CalendarTab>
     </Auth>

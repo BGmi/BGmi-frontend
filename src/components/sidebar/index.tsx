@@ -1,16 +1,11 @@
-import {
-  Box,
-  Drawer,
-  DrawerContent,
-  DrawerOverlay
-} from '@chakra-ui/react';
+import { Box, Drawer, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
 import { memo } from 'react';
 
 import { SidebarContent } from './sidebar-content';
 
 interface Props {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 function Sidebar({ isOpen, onClose }: Props) {

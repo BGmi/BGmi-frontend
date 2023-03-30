@@ -14,8 +14,8 @@ export function useCalendar() {
         description: '请检查网络连接或配置',
         status: 'error',
         duration: 5000,
-        position: 'top-right'
+        position: 'top-right',
       });
-    }
+    },
   });
 }

@@ -3,7 +3,7 @@ import type { WeekCalendar } from '~/types/calendar';
 import SubscribeCard from './subscribe-card';
 
 interface Props {
-  bangumis: WeekCalendar[]
+  bangumis: WeekCalendar[];
 }
 
 export default function SubscribePanel({ bangumis }: Props) {

@@ -20,7 +20,8 @@
       },
       "extends": [
         "kaho/react",
-        "kaho/ts"
+        "kaho/ts",
+        "plugin:prettier/recommended"
       ]
     }
   ]
