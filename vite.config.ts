@@ -2,6 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import generouted from '@generouted/react-router/plugin';
 
+import { version } from './package.json';
+process.env.VITE_APP_VERSION = version;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
