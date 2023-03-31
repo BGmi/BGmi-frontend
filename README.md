@@ -15,8 +15,6 @@ cd BGmi-frontend && pnpm install
 
 ### 部署
 
-**部署前请先将 bgmi 的 `serve_static_files` 设置为 `true` 并执行 `bgmi cal --download-cover`**
-
 ```bash
 pnpm build && mv front_static ~/.bgmi
 ```
