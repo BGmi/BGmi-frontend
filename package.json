@@ -18,7 +18,7 @@
     "package.json"
   ],
   "engines": {
-    "node": ">=16.8"
+    "node": ">=v18.15.0"
   },
   "lint-staged": {
     "*.{js,cjs,mjs,jsx,ts,tsx,css,less,scss,html,json,yml,yaml}": [
