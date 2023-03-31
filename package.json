@@ -7,8 +7,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "format": "prettier -w .",
     "server": "vite build && vite preview",
     "lint": "eslint --fix --ext .ts,.tsx, ./src/",
+    "lint-staged": "lint-staged",
     "prepare": "husky install"
   },
   "files": [
@@ -17,6 +19,14 @@
   ],
   "engines": {
     "node": ">=16.8"
+  },
+  "lint-staged": {
+    "*.{js,cjs,mjs,jsx,ts,tsx,css,less,scss,html,json,yml,yaml}": [
+      "prettier --ignore-path ./.prettierignore --write "
+    ],
+    "*.{js,cjs,mjs,jsx,ts,tsx}": [
+      "eslint --fix "
+    ]
   },
   "license": "MIT",
   "dependencies": {
@@ -50,6 +60,7 @@
     "eslint-config-next": "^13.2.4",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "lint-staged": "^13.2.0",
     "prettier": "^2.8.7",
     "typescript": "4.9.4",
     "vite": "^4.2.1"

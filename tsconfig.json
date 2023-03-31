@@ -17,18 +17,11 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "~/*": [ "src/*" ]
+      "~/*": ["src/*"]
     },
     "strictNullChecks": true
   },
-  "include": [
-    "**/*.tsx",
-    "**/*.ts",
-    "**/*.spec.ts",
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "dist/types/**/*.ts"
-  ],
+  "include": ["**/*.tsx", "**/*.ts", "**/*.spec.ts", "next-env.d.ts", ".next/types/**/*.ts", "dist/types/**/*.ts"],
   "exclude": ["node_modules", "front_static"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
