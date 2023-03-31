@@ -14,7 +14,6 @@ export default defineConfig({
         if (id.includes('node_modules')) return id.split('node_modules/')[1].split('/')[1];
       },
     },
-    outDir: 'front_static',
   },
   server: {
     proxy: {

@@ -12,7 +12,7 @@
     "prepare": "husky install"
   },
   "files": [
-    "front_static",
+    "dist",
     "package.json"
   ],
   "engines": {
