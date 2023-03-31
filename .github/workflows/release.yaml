@@ -3,24 +3,26 @@ name: Publish
 on:
   push:
     tags:
-      - 'v1*'
+      - 'v2*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
 
-      - name: Setup node
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: '20'
+          cache: 'pnpm'
 
-      - run: yarn
+      - run: pnpm install
 
-      - run: yarn build
-
+      - run: pnpm build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
