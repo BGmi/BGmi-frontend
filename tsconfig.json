@@ -1,45 +1,34 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "esnext",
-    "allowJs": true,
-    "noImplicitAny": true,
-    "strict": true,
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
     "esModuleInterop": false,
-    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
     "baseUrl": ".",
-    "typeRoots": [
-      "./src/typings",
-      "node_modules/@types"
-    ],
-    "types": [
-      "webpack-env",
-      "mocha",
-      "chai",
-      "vuetify",
-      "./node_modules/vue/types"
-    ],
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "~/*": [ "src/*" ]
     },
-    "outDir": "./dist/"
+    "strictNullChecks": true
   },
   "include": [
-    "src/",
-    "tests/**/*.ts"
+    "**/*.tsx",
+    "**/*.ts",
+    "**/*.spec.ts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "dist/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "front_static"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

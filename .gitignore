@@ -19,3 +19,12 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# next.js
+next-env.d.ts
+.next
+front_static
+bundle
+
+# nginx routes
+next-routes.conf

@@ -1,64 +1,73 @@
-# bgmi-frontend
+<h1 align="center">BGmi Frontend</h1>
 
-## Project setup
+![demo_img](.github/images/example.png)
+![demo_img2](.github/images/example2.png)
+
+## 项目配置
+
+### 安装
+
+```bash
+git clone github.com/BGmi/BGmi-frontend.git
+
+cd BGmi-frontend && pnpm install
 ```
-npm install
+
+### 部署
+
+```bash
+pnpm build && mv front_static ~/.bgmi
 ```
-已经设置好了`proxyTable`,当`bgmi_http`运行在默认端口的情况下,在`npm run dev`后不需要再手动设置后端api地址和解决跨域等问题.
 
+### 配置 NGINX
 
-## Q&A:
-
-### 我不想给bgmi分配一个域名,想把它放在我网站的一个子目录下怎么办?
-
-nginx.conf
-```
+```nginx
 server {
   listen 80;
-  server_name _;
 
-  root /where/ever;
   autoindex on;
+  sendfile on;
   charset utf-8;
 
-  location /bgmi/bangumi {
-    # ~/.bgmi/bangumi
-    expires 30d;
-    alias /home/ubuntu/.bgmi/bangumi;
+  # 动画片存放目录
+  location /bangumi {
+    # ~/.bgmi/bangumi/
+    alias /data/bangumi;
   }
 
-  location /bgmi/api {
-    proxy_pass http://127.0.0.1:8888;
-    # Requests to api/update may take more than 60s
-    proxy_connect_timeout 500s;
-    proxy_read_timeout 500s;
-    proxy_send_timeout 500s;
-  }
-
-  location /bgmi/resource {
-    proxy_pass http://127.0.0.1:8888;
-  }
-
-  location /bgmi/ {
-    # ~/.bgmi/front_static/;
-    expires 7d;
-    alias /home/ubuntu/.bgmi/front_static/;
-  }
-
-  location /bgmi/jsonrpc {
-    # aria2c rpc
-    proxy_pass http://127.0.0.1:6800;
+  location / {
+    proxy_pass http://127.0.0.1:8888/;
   }
 }
 ```
- thanks to [@wengyusu](https://github.com/wengyusu)
 
-### 我想发一个PR 有什么需要注意的?
+如果你想使用网站的子路径, 按照如下配置
 
-PR到[BGmi/BGmi-frontend](https://github.com/BGmi/BGmi-frontend)
+```nginx
+server {
+  listen 80;
 
-其他的..暂时没有
+  autoindex on;
+  sendfile on;
+  charset utf-8;
 
-## 已知的无法解决的问题
+  location /bgmi/bangumi {
+    # ~/.bgmi/bangumi/
+    alias /data/bangumi;
+  }
 
-[#23](https://github.com/BGmi/BGmi-frontend/issues/23)
+  location /bgmi/api/ {
+    proxy_pass http://127.0.0.1:8888/api/;
+  }
+
+  location /bgmi/resource/ {
+    proxy_pass http://127.0.0.1:8888/resource/;
+  }
+
+  location /bgmi {
+    alias /home/user/.bgmi/front_static/;
+  }
+}
+```
+
+## 欢迎 PR

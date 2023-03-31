@@ -1,0 +1,20 @@
+video[poster] {
+  object-fit: cover;
+}
+
+.chakra-tabs__tablist {
+  overflow-y: hidden;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.chakra-tabs__tablist::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}

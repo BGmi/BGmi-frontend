@@ -16,24 +16,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
 
     name: CI
 
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
 
-      - name: Setup node
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-      - run: yarn
+      - run: pnpm install
 
-      - run: yarn lint
-        env:
-          NODE_ENV: production
+      - run: pnpm lint
 
-      - run: yarn test
-
-      - run: yarn build
+      - run: pnpm build
