@@ -1,7 +1,7 @@
 import { useMemo, useReducer } from 'react';
 
 import { CiFilter } from 'react-icons/ci';
-import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { Button, Flex, Menu, MenuButton, MenuItem, MenuList, Spinner } from '@chakra-ui/react';
 
 import { useCalendar } from '~/hooks/use-calendar';
 import { useColorMode } from '~/hooks/use-color-mode';
@@ -122,7 +122,13 @@ export default function Subscribe() {
   const tabListItems = useMemo(() => Object.keys(calendarData ?? []), [calendarData]);
   const tabPanelsItems = useMemo(() => Object.entries(calendarData ?? []), [calendarData]);
 
-  if (!calendarData || !tabListItems || !tabPanelsItems) return null;
+  if (!calendarData || !tabListItems || !tabPanelsItems) {
+    return (
+      <Flex justifyContent="center" alignContent="center" mt="44">
+        <Spinner />
+      </Flex>
+    );
+  }
 
   return (
     <Auth to="/subscribe">
