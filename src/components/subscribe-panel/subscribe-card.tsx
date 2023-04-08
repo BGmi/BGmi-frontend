@@ -111,7 +111,7 @@ export default function SubscribeCard({ bangumi }: Props) {
             <Image
               h="sm"
               w="full"
-              src={`https://${bangumi.cover.slice(6)}`}
+              src={`./bangumi/cover/${bangumi.cover}`}
               alt="anime cover"
               objectFit="cover"
               backgroundPosition="50% 50%"
