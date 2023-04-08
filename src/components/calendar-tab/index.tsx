@@ -17,12 +17,22 @@ export default function CalendarTab({
   boxProps,
   ...props
 }: Props & TabsProps) {
+  const engToZh: Record<string, string> = {
+    mon: '周一',
+    tue: '周二',
+    wed: '周三',
+    thu: '周四',
+    fri: '周五',
+    sat: '周六',
+    sun: '周日',
+  };
+
   return (
     <Tabs position="relative" isLazy lazyBehavior="keepMounted" {...props}>
       <TabList top="4px" borderBottom="none" pb="2px" minH="42px" {...tabListProps}>
         {tabListItems.map(week => (
-          <Tab mb="-2px" key={week}>
-            {week[0].toUpperCase() + week.slice(1)}
+          <Tab whiteSpace="nowrap" mb="-2px" key={week}>
+            {engToZh[week]}
           </Tab>
         ))}
       </TabList>
