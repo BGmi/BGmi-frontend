@@ -16,7 +16,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useSubscribeAction } from '~/hooks/use-subscribe-action';
 import type { SyncData } from './subscribe-card';
@@ -42,12 +42,10 @@ interface Props {
 }
 
 export default function SubscribeForm({ isOpen, onClose, initialData, setSyncData, syncData }: Props) {
-  const [formData, setFormData] = useState<InitialData | undefined>();
+  const [formData, setFormData] = useState<InitialData>();
   const { handleSaveFilter, handleSaveMark, handleUnSubscribe } = useSubscribeAction();
 
-  useEffect(() => {
-    setFormData(initialData);
-  }, [initialData]);
+  if (initialData && !formData) setFormData(initialData);
 
   const selectOptions = useMemo(() => {
     return formData?.subtitleGroups.map(subtitleGroup => {

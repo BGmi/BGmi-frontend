@@ -1,6 +1,6 @@
 import { Box, Button, Fade, Flex, Image, Text, useDisclosure } from '@chakra-ui/react';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSubscribeAction } from '~/hooks/use-subscribe-action';
 import { useColorMode } from '~/hooks/use-color-mode';
 
@@ -15,7 +15,7 @@ interface Props {
 
 export interface SyncData {
   status: boolean;
-  episode: number;
+  episode: number | undefined;
 }
 
 export default function SubscribeCard({ bangumi }: Props) {
@@ -32,15 +32,8 @@ export default function SubscribeCard({ bangumi }: Props) {
 
   const [syncData, setSyncData] = useState<SyncData>({
     status: !!bangumi.status,
-    episode: bangumi.episode ?? 0,
+    episode: bangumi.episode,
   });
-
-  useEffect(() => {
-    setSyncData({
-      status: !!bangumi.status,
-      episode: bangumi.episode ?? 0,
-    });
-  }, [bangumi.episode, bangumi.status, setSyncData]);
 
   const handleOpen = async (status: boolean, name: string, ep: number) => {
     onOpen();
@@ -98,12 +91,12 @@ export default function SubscribeCard({ bangumi }: Props) {
             onClick={() => handleOpen(syncData.status, bangumi.name, bangumi.episode ?? 0)}
             ml="2"
             w="full"
-            bg={syncData?.status ? buttonSubscribeBg : buttonUnSubscribeBg}
+            bg={syncData.status ? buttonSubscribeBg : buttonUnSubscribeBg}
             _hover={{
               opacity: 0.8,
             }}
           >
-            {syncData?.status ? '查看' : '订阅'}
+            {syncData.status ? '查看' : '订阅'}
           </Button>
         </Flex>
         <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.200'} minW="14rem" minH="sm">
