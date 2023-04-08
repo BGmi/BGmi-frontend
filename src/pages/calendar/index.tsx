@@ -26,7 +26,7 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
         >
           <Fade in={isLoaded}>
             <Image
-              src={`https://${bangumi.cover.slice(6)}`}
+              src={`./bangumi/cover/${bangumi.cover}`}
               width="180px"
               height="250px"
               objectFit="cover"
