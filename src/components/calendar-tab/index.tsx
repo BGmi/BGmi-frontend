@@ -27,14 +27,21 @@ export default function CalendarTab({
     sun: '周日',
   };
 
+  const keys = Object.keys(engToZh);
+
+  // eslint-disable-next-line @fluffyfox/no-unsafe-date -- ignore
+  const toDay = new Date().getDay() - 1;
+
   return (
-    <Tabs position="relative" isLazy lazyBehavior="keepMounted" {...props}>
+    <Tabs position="relative" isLazy lazyBehavior="keepMounted" {...props} defaultIndex={toDay}>
       <TabList top="4px" borderBottom="none" pb="2px" minH="42px" {...tabListProps}>
-        {tabListItems.map(week => (
-          <Tab whiteSpace="nowrap" mb="-2px" key={week}>
-            {engToZh[week]}
-          </Tab>
-        ))}
+        {tabListItems
+          .sort((a, b) => (keys.indexOf(a) > keys.indexOf(b) ? 1 : -1))
+          .map(week => (
+            <Tab whiteSpace="nowrap" mb="-2px" key={week}>
+              {engToZh[week]}
+            </Tab>
+          ))}
       </TabList>
       <Box top="46.5px" borderBottom="2px solid" mt="-2.5px" borderBottomColor="inherit" {...boxProps} />
 
