@@ -1,8 +1,8 @@
-import { Box, Card, CardBody, Fade, TabPanel, Text, Image } from '@chakra-ui/react';
+import { Box, Card, CardBody, Fade, TabPanel, Text, Image, Flex, Tag, Link } from '@chakra-ui/react';
 
 import { useMemo, useState } from 'react';
-import CalendarTab from '~/components/calendar-tab';
 
+import CalendarTab from '~/components/calendar-tab';
 import { FallbackCalendar } from '~/components/fallback';
 
 import { useCalendar } from '~/hooks/use-calendar';
@@ -37,11 +37,14 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
           </Fade>
         </Box>
 
-        <Text ml="4" mr="-2">
-          {bangumi.name}
-        </Text>
-
-        {/** TODO 太空了，加点什么 */}
+        <Flex ml="4" direction="column">
+          <Text mr="-2">{bangumi.name}</Text>
+          <Tag mt="2">
+            <Link color="pink.300" href={`https://bgm.tv/subject_search/${bangumi.name}`} target="_blank">
+              番组计划
+            </Link>
+          </Tag>
+        </Flex>
       </CardBody>
     </Card>
   );
