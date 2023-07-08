@@ -13,6 +13,8 @@ export interface WeekCalendar {
 }
 
 export type CalendarData = Record<'sun' | 'fri' | 'sat' | 'wed' | 'mon' | 'thu' | 'tue' | 'unknown', WeekCalendar[]>;
+export type CalendarDataKey = keyof CalendarData;
+export type CalendarDataEntries = [keyof CalendarData, WeekCalendar[]][];
 
 export interface Calendar {
   version: string;
