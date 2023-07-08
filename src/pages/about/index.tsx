@@ -10,8 +10,8 @@ export default function About() {
     <>
       <Heading>
         BGmi{' '}
-        <Fade style={{ display: 'inline' }} in={!!data.version}>
-          {data.version}
+        <Fade style={{ display: 'inline' }} in={!!data?.version}>
+          {data?.version}
         </Fade>
       </Heading>
       <Text mt="2">一个用来追番的命令行程序</Text>

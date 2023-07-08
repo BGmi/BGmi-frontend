@@ -11,7 +11,7 @@ interface Props {
   bangumiData:
     | {
         totalEpisode: string[];
-        playUrl: Record<string, Record<(string & {}) | 'path', string>>;
+        playUrl: Record<string, Record<(string & {}) | 'path', string> | undefined>;
         bangumiName: string;
       }
     | undefined;
@@ -67,7 +67,7 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
             <Button
               px="7"
               maxW="16"
-              onClick={() => handlePlay(bangumiData.playUrl[episode].path, episode)}
+              onClick={() => handlePlay(bangumiData.playUrl[episode]?.path ?? '', episode)}
               fontSize="sm"
               bg={checkMark(episode) ? markBgColor : 'Background'}
             >

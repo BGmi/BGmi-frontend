@@ -34,7 +34,7 @@ export interface BangumiData {
   episode: number;
   status: number;
   updated_time: number;
-  player: Record<string, Record<(string & {}) | 'path', string>>;
+  player: Record<string, Record<(string & {}) | 'path', string> | undefined>;
 }
 
 export interface BangumiResponse {
