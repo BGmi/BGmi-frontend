@@ -33,7 +33,7 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
   const { updateCurrentTime, getCurrentTime } = useVideoCurrentTime(bangumiData.bangumi_name);
 
   const playUrl = useMemo(() => {
-    return bangumiData.player[episode].path ? `./bangumi${bangumiData.player[episode].path}` : '';
+    return bangumiData.player[episode]?.path ? `./bangumi${bangumiData.player[episode]?.path ?? ''}` : '';
   }, [bangumiData.player, episode]);
 
   const dplayerOptions = useCallback(

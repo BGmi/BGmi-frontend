@@ -76,11 +76,11 @@ export function useSubscribeAction() {
     }
   );
 
-  // why use as? https://github.com/vercel/swr/issues/2500
   return {
     handleSubscribe: (name: string, episode: number) => subscribe({ name, episode }),
     handleUnSubscribe: (name: string) => unSubscribe({ name }),
-    handleFetchFilter: (name: string) => fetchFilter({ name }) as Promise<FetchFilterResp>,
+    // TODO fix `Promise<unknown>` type
+    handleFetchFilter: (name: string) => fetchFilter({ name }) as Promise<FetchFilterResp | undefined>,
     handleSaveFilter: { isMutating: saveFilterMutating, trigger: (body: SaveFilterBody) => saveFilter(body) },
     handleSaveMark: {
       isMutating: saveMarkMutating,

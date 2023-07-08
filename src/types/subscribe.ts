@@ -7,8 +7,8 @@ export interface FetchFilterResp {
   danmaku_api: string;
   data: {
     name: string;
-    subtitle_group: string[];
-    followed: string[];
+    subtitle_group: string[] | null;
+    followed: string[] | null;
     include: string | null;
     exclude: string | null;
     regex: string | null;

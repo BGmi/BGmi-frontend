@@ -122,7 +122,7 @@ export default function Subscribe() {
   const tabListItems = useMemo(() => Object.keys(calendarData ?? []) as CalendarDataKey[], [calendarData]);
   const tabPanelsItems = useMemo(() => Object.entries(calendarData ?? []) as CalendarDataEntries, [calendarData]);
 
-  if (!calendarData || !tabListItems || !tabPanelsItems) {
+  if (!calendarData || tabListItems.length === 0 || tabPanelsItems.length === 0) {
     return (
       <Flex justifyContent="center" alignContent="center" mt="44">
         <Spinner />

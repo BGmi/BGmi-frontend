@@ -53,8 +53,8 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
 export default function Calendar() {
   const { data } = useCalendar();
 
-  const tabListItems = useMemo(() => Object.keys(data.data ?? []) as CalendarDataKey[], [data]);
-  const tabPanelsItems = useMemo(() => Object.entries(data.data ?? []) as CalendarDataEntries, [data]);
+  const tabListItems = useMemo(() => Object.keys(data?.data ?? []) as CalendarDataKey[], [data]);
+  const tabPanelsItems = useMemo(() => Object.entries(data?.data ?? []) as CalendarDataEntries, [data]);
 
   if (tabListItems.length === 0 || tabPanelsItems.length === 0) return <FallbackCalendar />;
 
