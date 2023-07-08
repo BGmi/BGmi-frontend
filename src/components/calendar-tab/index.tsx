@@ -1,10 +1,11 @@
 import type { BoxProps, TabListProps, TabsProps } from '@chakra-ui/react';
 import { Box, Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
+import type { CalendarDataKey } from '~/types/calendar';
 
 interface Props {
   children: React.ReactNode;
   customElement?: React.ReactNode;
-  tabListItems: string[];
+  tabListItems: CalendarDataKey[];
   tabListProps?: TabListProps;
   boxProps?: BoxProps;
 }
@@ -17,7 +18,7 @@ export default function CalendarTab({
   boxProps,
   ...props
 }: Props & TabsProps) {
-  const engToZh: Record<string, string> = {
+  const engToZh: Record<CalendarDataKey, string> = {
     mon: '周一',
     tue: '周二',
     wed: '周三',
@@ -25,6 +26,7 @@ export default function CalendarTab({
     fri: '周五',
     sat: '周六',
     sun: '周日',
+    unknown: '未知',
   };
 
   const keys = Object.keys(engToZh);

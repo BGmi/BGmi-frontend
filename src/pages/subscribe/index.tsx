@@ -8,9 +8,9 @@ import { useColorMode } from '~/hooks/use-color-mode';
 
 import CalendarTab from '~/components/calendar-tab';
 import SubscribePanel from '~/components/subscribe-panel';
-
-import type { Calendar, CalendarData } from '~/types/calendar';
 import Auth from '~/components/auth';
+
+import type { Calendar, CalendarDataEntries, CalendarDataKey } from '~/types/calendar';
 
 interface FilterOptionsState {
   subscribed: boolean;
@@ -106,8 +106,8 @@ export default function Subscribe() {
     });
 
     const filterData = sortData.data;
-    for (const [week, weekData] of Object.entries(sortData.data)) {
-      filterData[week as keyof CalendarData] = weekData.filter(bangumi => {
+    for (const [week, weekData] of Object.entries(sortData.data) as CalendarDataEntries) {
+      filterData[week] = weekData.filter(bangumi => {
         if (state.subscribed) return bangumi.status;
 
         if (state.unSubscribed) return !bangumi.status;
@@ -117,10 +117,10 @@ export default function Subscribe() {
     }
 
     return filterData;
-  }, [data, state.subscribed, state.unSubscribed]);
+  }, [data, state]);
 
-  const tabListItems = useMemo(() => Object.keys(calendarData ?? []), [calendarData]);
-  const tabPanelsItems = useMemo(() => Object.entries(calendarData ?? []), [calendarData]);
+  const tabListItems = useMemo(() => Object.keys(calendarData ?? []) as CalendarDataKey[], [calendarData]);
+  const tabPanelsItems = useMemo(() => Object.entries(calendarData ?? []) as CalendarDataEntries, [calendarData]);
 
   if (!calendarData || !tabListItems || !tabPanelsItems) {
     return (
