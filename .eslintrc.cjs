@@ -12,7 +12,7 @@ module.exports = {
         project: './tsconfig.json',
         sourceType: 'module',
       },
-      extends: ['kaho/react', 'kaho/ts', 'plugin:prettier/recommended'],
+      extends: ['kaho/react', 'kaho/ts', 'prettier'],
     },
   ],
 };

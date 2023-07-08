@@ -55,12 +55,12 @@ export default function SubscribeCard({ bangumi }: Props) {
       bangumiName: name,
       completedEpisodes: syncData.episode ?? ep,
       filterOptions: {
-        include: data?.data.include ?? '',
-        exclude: data?.data.exclude ?? '',
-        regex: data?.data.regex ?? '',
+        include: data.data.include ?? '',
+        exclude: data.data.exclude ?? '',
+        regex: data.data.regex ?? '',
       },
-      subtitleGroups: data?.data.subtitle_group ?? [],
-      follwedSubtitleGroups: data?.data.followed ?? [],
+      subtitleGroups: data.data.subtitle_group ?? [],
+      follwedSubtitleGroups: data.data.followed ?? [],
     });
   };
 
