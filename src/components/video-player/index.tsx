@@ -67,15 +67,14 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
     setAutoPlay(true);
   };
 
-  const episodeCardProps = useMemo(() => {
-    if (bangumiData) {
-      return {
-        totalEpisode: Object.keys(bangumiData.player),
-        playUrl: bangumiData.player, // { episode: "path": "/bangumi_file.mp4" }
-        bangumiName: bangumiData.bangumi_name,
-      };
-    }
-  }, [bangumiData]);
+  const episodeCardProps = useMemo(
+    () => ({
+      totalEpisode: Object.keys(bangumiData.player),
+      playUrl: bangumiData.player, // { episode: "path": "/bangumi_file.mp4" }
+      bangumiName: bangumiData.bangumi_name,
+    }),
+    [bangumiData]
+  );
 
   // event
   const handleTimeUpdate = useCallback(() => {
@@ -85,7 +84,7 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
   const handleCanPlay = useCallback(() => setLoading(false), []);
 
   useEffect(() => {
-    if (!bangumiData || !containerRef.current) return;
+    if (!containerRef.current) return;
 
     const dp = new DPlayer(dplayerOptions(playUrl));
     dpInstanceRef.current = dp;
