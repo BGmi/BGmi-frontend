@@ -30,8 +30,7 @@ export default function CalendarTab({
   };
 
   // eslint-disable-next-line @fluffyfox/no-unsafe-date -- ignore
-  const date = new Date().getDay();
-  const toDay = date;
+  const toDay = new Date().getDay();
 
   return (
     <Tabs position="relative" isLazy lazyBehavior="keepMounted" {...props} defaultIndex={toDay}>
