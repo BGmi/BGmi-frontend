@@ -102,12 +102,12 @@ export default function Subscribe() {
     // deep clone
     const sortData = window.structuredClone(data) as Calendar;
     Object.values(sortData.data).forEach(week => {
-      week.sort(b => (!b.status ? 1 : -1));
+      week?.sort(b => (!b.status ? 1 : -1));
     });
 
     const filterData = sortData.data;
     for (const [week, weekData] of Object.entries(sortData.data) as CalendarDataEntries) {
-      filterData[week] = weekData.filter(bangumi => {
+      filterData[week] = weekData?.filter(bangumi => {
         if (state.subscribed) return bangumi.status;
 
         if (state.unSubscribed) return !bangumi.status;
