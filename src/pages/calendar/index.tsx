@@ -68,9 +68,7 @@ export default function Calendar() {
           gap={4}
           key={week}
         >
-          {bangumis.map(bangumi => (
-            <CalendarPanel key={bangumi.id} bangumi={bangumi} />
-          ))}
+          {bangumis?.map(bangumi => <CalendarPanel key={bangumi.id} bangumi={bangumi} />)}
         </TabPanel>
       ))}
     </CalendarTab>

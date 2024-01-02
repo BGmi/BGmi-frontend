@@ -3,7 +3,7 @@ import type { WeekCalendar } from '~/types/calendar';
 import SubscribeCard from './subscribe-card';
 
 interface Props {
-  bangumis: WeekCalendar[];
+  bangumis: WeekCalendar[] | undefined;
 }
 
 export default function SubscribePanel({ bangumis }: Props) {
@@ -15,9 +15,7 @@ export default function SubscribePanel({ bangumis }: Props) {
       justifyContent="center"
       gap={8}
     >
-      {bangumis.map(bangumi => (
-        <SubscribeCard key={bangumi.id} bangumi={bangumi} />
-      ))}
+      {bangumis?.map(bangumi => <SubscribeCard key={bangumi.id} bangumi={bangumi} />)}
     </TabPanel>
   );
 }
