@@ -39,6 +39,7 @@
     "cookies-next": "^2.1.1",
     "dplayer": "^1.27.1",
     "framer-motion": "^10.2.5",
+    "hls.js": "^1.5.3",
     "husky": "^8.0.3",
     "jotai": "^2.0.3",
     "md5": "^2.3.0",

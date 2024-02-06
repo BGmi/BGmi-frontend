@@ -14,6 +14,8 @@ import md5 from 'md5';
 
 import type { BangumiData } from '~/types/bangumi';
 
+import Hls from 'hls.js';
+
 interface Props {
   bangumiData: BangumiData;
   danmakuApi: string;
@@ -42,6 +44,21 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
         container: containerRef.current,
         video: {
           url: playUrl,
+          type: 'customHls',
+          customType: {
+            customHls (video: HTMLVideoElement) {
+              if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(playUrl);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                  video.play();
+                });
+              } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = playUrl;
+              }
+            },
+          },
         },
         screenshot: true,
         autoplay: autoPlay,
