@@ -14,6 +14,8 @@ import md5 from 'md5';
 
 import type { BangumiData } from '~/types/bangumi';
 
+import Hls from 'hls.js';
+
 interface Props {
   bangumiData: BangumiData;
   danmakuApi: string;
@@ -42,6 +44,30 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
         container: containerRef.current,
         video: {
           url: playUrl,
+          type: 'customHls',
+          customType: {
+            customHls(video: HTMLVideoElement) {
+              if (Hls.isSupported()) {
+                // Assume it's an m3u8 file
+                const hls = new Hls();
+                hls.loadSource(playUrl);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                  video.play();
+                });
+                hls.on(Hls.Events.ERROR, (event, data) => {
+                  if (data.fatal) {
+                    // console.error('HLS fatal error:', data.type, data.details);
+                    // HLS playback failed, try using HTML5 video player
+                    video.src = playUrl;
+                  }
+                });
+              } else {
+                // HLS is not supported, failback to HTML5 video
+                video.src = playUrl;
+              }
+            },
+          },
         },
         screenshot: true,
         autoplay: autoPlay,

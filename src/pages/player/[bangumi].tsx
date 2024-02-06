@@ -31,6 +31,7 @@ export default function Player() {
     <Box>
       <Helmet>
         <title>{`BGmi - ${bangumiData.bangumi_name}`}</title>
+        <meta name="referrer" content="no-referrer" />
       </Helmet>
       <Heading
         ml={{ lg: '10', base: '5' }}
