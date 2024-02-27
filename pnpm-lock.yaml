@@ -15,8 +15,8 @@ dependencies:
     specifier: ^11.10.6
     version: 11.10.6(@emotion/react@11.10.6)(@types/react@18.0.28)(react@18.2.0)
   '@generouted/react-router':
-    specifier: ^1.12.0
-    version: 1.12.0(react-router-dom@6.9.0)(react@18.2.0)(vite@4.2.1)
+    specifier: ^1.18.4
+    version: 1.18.4(react-router-dom@6.9.0)(react@18.2.0)(vite@4.2.1)
   chakra-react-select:
     specifier: ^4.6.0
     version: 4.6.0(@chakra-ui/form-control@2.0.18)(@chakra-ui/icon@3.0.16)(@chakra-ui/layout@2.2.0)(@chakra-ui/media-query@3.2.12)(@chakra-ui/menu@2.1.15)(@chakra-ui/spinner@2.0.13)(@chakra-ui/system@2.5.8)(@emotion/react@11.10.6)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
@@ -1874,15 +1874,15 @@ packages:
       eslint: 8.36.0
     dev: true
 
-  /@generouted/react-router@1.12.0(react-router-dom@6.9.0)(react@18.2.0)(vite@4.2.1):
-    resolution: {integrity: sha512-bakYpXQEySDTLFBNU7fXQYcFIGJFmXfcg7CJp6NEd6/76kythH5PXkq5alNLdrp6EBBcz2qe/5fQ360fat7Quw==}
+  /@generouted/react-router@1.18.4(react-router-dom@6.9.0)(react@18.2.0)(vite@4.2.1):
+    resolution: {integrity: sha512-a/pgvZXqi1r06vfqgjH1uisNlTMKwWsN2ZYsEewdH2XJqfJbBcD9AQ5EYfLXb1mAlBywumCkYl//6w7d49pXJw==}
     peerDependencies:
       react: '>=18'
       react-router-dom: '>=6'
       vite: '>=4'
     dependencies:
-      fast-glob: 3.3.0
-      generouted: 1.12.0(vite@4.2.1)
+      fast-glob: 3.3.2
+      generouted: 1.18.4(vite@4.2.1)
       react: 18.2.0
       react-router-dom: 6.9.0(react-dom@18.2.0)(react@18.2.0)
       vite: 4.2.1
@@ -1937,7 +1937,7 @@ packages:
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dependencies:
       cross-spawn: 7.0.3
-      fast-glob: 3.3.0
+      fast-glob: 3.3.2
       is-glob: 4.0.3
       open: 9.1.0
       picocolors: 1.0.0
@@ -3748,8 +3748,8 @@ packages:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
     dev: true
 
-  /fast-glob@3.3.0:
-    resolution: {integrity: sha512-ChDuvbOypPuNjO8yIDf36x7BlZX1smcUMTTcyoIjycexOxd6DFsKsg21qVBzEmr3G7fUKIRy2/psii+CIUt7FA==}
+  /fast-glob@3.3.2:
+    resolution: {integrity: sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==}
     engines: {node: '>=8.6.0'}
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -3900,8 +3900,8 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
-  /generouted@1.12.0(vite@4.2.1):
-    resolution: {integrity: sha512-3xz3oTa1oEGE/moqkfUKfRoVkIO4VaoYQY1pT1E/w0zZhqHcqMgP8bQv+mGlI3Gnr4zng0IBQcZZbJ5Mg4aQjg==}
+  /generouted@1.18.4(vite@4.2.1):
+    resolution: {integrity: sha512-f1ibsrEIjlXeu2w2eIUV4lnr6cB5BmkUU+H2wI3VkNDD/BiPjO3EB7NVvN1GGJ3qsBBmnstZ2k6NmQk2HeMCDA==}
     peerDependencies:
       vite: '>=3'
     dependencies:
@@ -3996,7 +3996,7 @@ packages:
     dependencies:
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.3.0
+      fast-glob: 3.3.2
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 3.0.0
@@ -4007,7 +4007,7 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       dir-glob: 3.0.1
-      fast-glob: 3.3.0
+      fast-glob: 3.3.2
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 4.0.0
