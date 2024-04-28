@@ -34,7 +34,17 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
 
   const { updateCurrentTime, getCurrentTime } = useVideoCurrentTime(bangumiData.bangumi_name);
 
-  const fileUrl = `./bangumi${bangumiData.player[episode].path}`;
+  const path = bangumiData.player[episode]?.path;
+  if (!path && !toast.isActive(episode))
+    toast({
+      title: '视频文件不存在',
+      status: 'error',
+      duration: 3000,
+      position: 'top-right',
+      id: episode,
+    });
+
+  const fileUrl = `./bangumi${path ?? ''}`;
   const fileType = fileUrl.split('.').pop();
 
   const dplayerOptions = useCallback(
@@ -61,12 +71,14 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
                   }
                 });
               } else {
-                toast({
-                  title: '浏览器不支持 Hls，建议使用最新版本的 Chrome 浏览器',
-                  status: 'error',
-                  duration: 3000,
-                  position: 'top-right',
-                });
+                if (!toast.isActive(`HlsError-${id}`))
+                  toast({
+                    title: '浏览器不支持 Hls，建议使用最新版本的 Chrome 浏览器',
+                    status: 'error',
+                    duration: 3000,
+                    position: 'top-right',
+                    id: `HlsError-${id}`,
+                  });
                 console.error('Hls is not supported');
               }
             },
@@ -96,10 +108,10 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
   const episodeCardProps = useMemo(
     () => ({
       totalEpisode: Object.keys(bangumiData.player),
-      playUrl: bangumiData.player, // { episode: "path": "/bangumi_file.mp4" }
       bangumiName: bangumiData.bangumi_name,
+      currentEpisode: episode,
     }),
-    [bangumiData]
+    [bangumiData.bangumi_name, bangumiData.player, episode]
   );
 
   // event
