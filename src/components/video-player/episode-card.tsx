@@ -1,35 +1,28 @@
 import type { BoxProps } from '@chakra-ui/react';
 import { Box, Button, Grid, GridItem, Text } from '@chakra-ui/react';
 
-import { FallbackEpisodeCard } from '../fallback';
-
 import { useColorMode } from '~/hooks/use-color-mode';
 import { useWatchHistory } from '~/hooks/use-watch-history';
 
 interface Props {
-  setPlayState: (url: string) => void;
-  bangumiData:
-    | {
-        totalEpisode: string[];
-        playUrl: Record<string, Record<(string & {}) | 'path', string> | undefined>;
-        bangumiName: string;
-      }
-    | undefined;
+  setPlayState: () => void;
+  bangumiData: {
+    totalEpisode: string[];
+    bangumiName: string;
+    currentEpisode: string;
+  };
 }
 
 export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Props & BoxProps) {
   const { colorMode } = useColorMode();
   const [watchHistory, setWatchHistory] = useWatchHistory();
 
-  if (!bangumiData) return <FallbackEpisodeCard />;
-
   const bangumiName = bangumiData.bangumiName;
   const totalMark = watchHistory[bangumiName];
   const markBgColor = colorMode === 'dark' ? 'blackAlpha.400' : 'whiteAlpha.600';
 
-  const handlePlay = (url: string, episode: string) => {
-    setPlayState(url);
-
+  const handlePlay = (episode: string) => {
+    // 这里更新 current-watch 的 episode 时，会更新 /pages/player/[bangumi].tsx 的状态来切换播放的视频
     setWatchHistory({
       ...watchHistory,
       [bangumiName]: {
@@ -61,15 +54,21 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
       {...props}
     >
       <Text mb="4">选集</Text>
+      {bangumiData.totalEpisode.length === 0 && (
+        <Text fontSize="sm" opacity="75%">
+          暂无剧集
+        </Text>
+      )}
       <Grid templateColumns="repeat(auto-fill, minmax(3.75rem, 1fr))" gap={4}>
         {bangumiData.totalEpisode.map(episode => (
           <GridItem key={episode}>
             <Button
               px="7"
               maxW="16"
-              onClick={() => handlePlay(bangumiData.playUrl[episode]?.path ?? '', episode)}
+              onClick={() => handlePlay(episode)}
               fontSize="sm"
               bg={checkMark(episode) ? markBgColor : 'Background'}
+              isActive={bangumiData.currentEpisode === episode}
             >
               {episode}
             </Button>

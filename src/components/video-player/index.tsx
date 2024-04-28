@@ -1,20 +1,18 @@
-import { Box, Spinner } from '@chakra-ui/react';
+import { Box, Spinner, useToast } from '@chakra-ui/react';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import type { DPlayerOptions } from 'dplayer';
+import md5 from 'md5';
+import Hls from 'hls.js';
 import DPlayer from 'dplayer';
+import type { DPlayerOptions } from 'dplayer';
 
 import EpisodeCard from './episode-card';
 
-import { useVideoCurrentTime } from '~/hooks/use-watch-history';
 import { useColorMode } from '~/hooks/use-color-mode';
-
-import md5 from 'md5';
+import { useVideoCurrentTime } from '~/hooks/use-watch-history';
 
 import type { BangumiData } from '~/types/bangumi';
-
-import Hls from 'hls.js';
 
 interface Props {
   bangumiData: BangumiData;
@@ -24,6 +22,8 @@ interface Props {
 
 export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props) {
   const { colorMode } = useColorMode();
+  const toast = useToast();
+
   const dpInstanceRef = useRef<DPlayer>();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -34,37 +34,52 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
 
   const { updateCurrentTime, getCurrentTime } = useVideoCurrentTime(bangumiData.bangumi_name);
 
-  const playUrl = useMemo(() => {
-    return bangumiData.player[episode]?.path ? `./bangumi${bangumiData.player[episode]?.path ?? ''}` : '';
-  }, [bangumiData.player, episode]);
+  const path = bangumiData.player[episode]?.path;
+  if (!path && !toast.isActive(episode))
+    toast({
+      title: '视频文件不存在',
+      status: 'error',
+      duration: 3000,
+      position: 'top-right',
+      id: episode,
+    });
+
+  const fileUrl = `./bangumi${path ?? ''}`;
+  const fileType = fileUrl.split('.').pop();
 
   const dplayerOptions = useCallback(
-    (id: string) => {
+    (id: string, hls: Hls) => {
       const options: DPlayerOptions = {
         container: containerRef.current,
         video: {
-          url: playUrl,
-          type: 'customHls',
+          url: fileUrl,
+          type: fileType === 'm3u8' ? 'customHls' : 'auto',
           customType: {
             customHls(video: HTMLVideoElement) {
               if (Hls.isSupported()) {
                 // Assume it's an m3u8 file
-                const hls = new Hls();
-                hls.loadSource(playUrl);
+                hls.loadSource(fileUrl);
                 hls.attachMedia(video);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => {
                   video.play();
                 });
                 hls.on(Hls.Events.ERROR, (event, data) => {
                   if (data.fatal) {
-                    // console.error('HLS fatal error:', data.type, data.details);
+                    console.error('HLS fatal error:', data.type, data.details);
                     // HLS playback failed, try using HTML5 video player
-                    video.src = playUrl;
+                    video.src = fileUrl;
                   }
                 });
               } else {
-                // HLS is not supported, failback to HTML5 video
-                video.src = playUrl;
+                if (!toast.isActive(`HlsError-${id}`))
+                  toast({
+                    title: '浏览器不支持 Hls，建议使用最新版本的 Chrome 浏览器',
+                    status: 'error',
+                    duration: 3000,
+                    position: 'top-right',
+                    id: `HlsError-${id}`,
+                  });
+                console.error('Hls is not supported');
               }
             },
           },
@@ -82,24 +97,21 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
 
       return options;
     },
-    [autoPlay, danmakuApi, playUrl]
+    [autoPlay, danmakuApi, fileType, fileUrl, toast]
   );
 
   // 传给 Episode Card
-  const setPlayState = (url: string) => {
-    // https://github.com/DIYgod/DPlayer/blob/master/src/js/player.js#L339
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- 可以是 undefined
-    dpInstanceRef.current?.switchVideo({ url }, dplayerOptions(url).danmaku!);
+  const setPlayState = () => {
     setAutoPlay(true);
   };
 
   const episodeCardProps = useMemo(
     () => ({
       totalEpisode: Object.keys(bangumiData.player),
-      playUrl: bangumiData.player, // { episode: "path": "/bangumi_file.mp4" }
       bangumiName: bangumiData.bangumi_name,
+      currentEpisode: episode,
     }),
-    [bangumiData]
+    [bangumiData.bangumi_name, bangumiData.player, episode]
   );
 
   // event
@@ -112,7 +124,9 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const dp = new DPlayer(dplayerOptions(playUrl));
+    const hls = new Hls();
+    const dp = new DPlayer(dplayerOptions(fileUrl, hls));
+
     dpInstanceRef.current = dp;
 
     dp.video.addEventListener('canplay', handleCanPlay);
@@ -127,8 +141,9 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
       dp.video.removeEventListener('canplay', handleCanPlay);
       dp.video.removeEventListener('timeupdate', handleTimeUpdate);
       dp.destroy();
+      hls.destroy();
     };
-  }, [autoPlay, bangumiData, dplayerOptions, getCurrentTime, handleCanPlay, handleTimeUpdate, loading, playUrl]);
+  }, [dplayerOptions, getCurrentTime, handleCanPlay, handleTimeUpdate, loading, fileUrl]);
 
   return (
     <>
