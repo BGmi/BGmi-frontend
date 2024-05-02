@@ -1,4 +1,4 @@
-import { Box, Spinner, useToast } from '@chakra-ui/react';
+import { Box, Flex, Spinner, useToast } from '@chakra-ui/react';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -13,6 +13,7 @@ import { useColorMode } from '~/hooks/use-color-mode';
 import { useVideoCurrentTime } from '~/hooks/use-watch-history';
 
 import type { BangumiData } from '~/types/bangumi';
+import ExternalPlayer from './external-player';
 
 interface Props {
   bangumiData: BangumiData;
@@ -147,28 +148,31 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
 
   return (
     <>
-      <Box
-        p="4"
-        rounded="4"
-        bg={colorMode === 'dark' ? 'whiteAlpha.200' : 'blackAlpha.200'}
-        boxShadow="base"
-        transition=".5s width"
-        w="full"
-        position="relative"
-      >
-        <Spinner
-          display={loading ? 'block' : 'none'}
-          zIndex="100"
-          position="absolute"
-          left="0"
-          right="0"
-          top="0"
-          bottom="0"
-          m="auto"
-          color="white"
-        />
-        <Box id="DPlayer" ref={containerRef} />
-      </Box>
+      <Flex flexDirection="column">
+        <Box
+          p="4"
+          rounded="4"
+          bg={colorMode === 'dark' ? 'whiteAlpha.200' : 'blackAlpha.200'}
+          boxShadow="base"
+          transition=".5s width"
+          w="full"
+          position="relative"
+        >
+          <Spinner
+            display={loading ? 'block' : 'none'}
+            zIndex="100"
+            position="absolute"
+            left="0"
+            right="0"
+            top="0"
+            bottom="0"
+            m="auto"
+            color="white"
+          />
+          <Box id="DPlayer" ref={containerRef} />
+        </Box>
+        <ExternalPlayer url={`${window.location.origin}/${encodeURIComponent(fileUrl.replace('./', ''))}`} />
+      </Flex>
       <EpisodeCard boxShadow="base" setPlayState={setPlayState} bangumiData={episodeCardProps} />
     </>
   );
