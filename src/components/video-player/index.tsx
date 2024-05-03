@@ -8,12 +8,14 @@ import DPlayer from 'dplayer';
 import type { DPlayerOptions } from 'dplayer';
 
 import EpisodeCard from './episode-card';
+import ExternalPlayer from './external-player';
 
 import { useColorMode } from '~/hooks/use-color-mode';
 import { useVideoCurrentTime } from '~/hooks/use-watch-history';
 
+import { createAbsoluteUrl } from '~/lib/utils';
+
 import type { BangumiData } from '~/types/bangumi';
-import ExternalPlayer from './external-player';
 
 interface Props {
   bangumiData: BangumiData;
@@ -171,7 +173,7 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
           />
           <Box id="DPlayer" ref={containerRef} />
         </Box>
-        <ExternalPlayer url={`${window.location.origin}/${encodeURIComponent(fileUrl.replace('./', ''))}`} />
+        <ExternalPlayer url={createAbsoluteUrl(fileUrl)} />
       </Flex>
       <EpisodeCard boxShadow="base" setPlayState={setPlayState} bangumiData={episodeCardProps} />
     </>

@@ -11,3 +11,13 @@ export const handleSecondaryTitle = (title: string) => {
 export const normalizePath = (url: string) => {
   return url.replace(/[:*?"<>|']/g, '');
 };
+
+export const createAbsoluteUrl = (url: string) => {
+  const link = document.createElement('a');
+  link.href = url;
+
+  const absoluteUrl = link.href;
+  link.remove();
+
+  return absoluteUrl;
+};
