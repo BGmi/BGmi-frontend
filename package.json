@@ -31,7 +31,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@chakra-ui/react": "^2.5.1",
+    "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@generouted/react-router": "^1.18.4",
