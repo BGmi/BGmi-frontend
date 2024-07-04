@@ -1,16 +1,16 @@
-import { useMemo, useReducer } from 'react';
+import { useMemo, useReducer, useState } from 'react';
 
 import { CiFilter } from 'react-icons/ci';
-import { Button, Flex, Menu, MenuButton, MenuItem, MenuList, Spinner } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, Menu, MenuButton, MenuItem, MenuList, Spinner, TabPanel } from '@chakra-ui/react';
 
 import { useCalendar } from '~/hooks/use-calendar';
 import { useColorMode } from '~/hooks/use-color-mode';
 
+import Auth from '~/components/auth';
 import CalendarTab from '~/components/calendar-tab';
 import SubscribePanel from '~/components/subscribe-panel';
-import Auth from '~/components/auth';
 
-import type { Calendar, CalendarDataEntries, CalendarDataKey } from '~/types/calendar';
+import type { Calendar, CalendarDataEntries, CalendarDataKey, WeekCalendar } from '~/types/calendar';
 
 interface FilterOptionsState {
   subscribed: boolean;
@@ -122,6 +122,8 @@ export default function Subscribe() {
   const tabListItems = useMemo(() => Object.keys(calendarData ?? []) as CalendarDataKey[], [calendarData]);
   const tabPanelsItems = useMemo(() => Object.entries(calendarData ?? []) as CalendarDataEntries, [calendarData]);
 
+  const searchData = useMemo(() => tabPanelsItems.flatMap(([_, bangumis]) => bangumis ?? []), [tabPanelsItems]);
+
   if (!calendarData || tabListItems.length === 0 || tabPanelsItems.length === 0) {
     return (
       <Flex justifyContent="center" alignContent="center" mt="44">
@@ -137,11 +139,39 @@ export default function Subscribe() {
         tabListItems={tabListItems}
         tabListProps={{ mr: '16' }}
         boxProps={{ mr: '16' }}
+        type="subscribe"
       >
         {tabPanelsItems.map(([week, bangumis]) => (
           <SubscribePanel key={week} bangumis={bangumis} />
         ))}
+        <TabPanel mt="6">
+          <SearchPanel data={searchData} />
+        </TabPanel>
       </CalendarTab>
     </Auth>
+  );
+}
+
+function SearchPanel({ data }: { data: WeekCalendar[] }) {
+  const [key, setKey] = useState('');
+
+  const filterData = useMemo(() => {
+    return data.sort(b => (!b.status ? 1 : -1)).filter(_d => _d.name.includes(key));
+  }, [data, key]);
+
+  return (
+    <>
+      <Input
+        placeholder="搜索动画片"
+        maxW="96"
+        value={key}
+        display="block"
+        mx="auto"
+        onChange={e => setKey(e.target.value)}
+      />
+      <Box mt="8">
+        <SubscribePanel bangumis={filterData} />
+      </Box>
+    </>
   );
 }

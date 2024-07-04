@@ -8,6 +8,7 @@ interface Props {
   tabListItems: CalendarDataKey[];
   tabListProps?: TabListProps;
   boxProps?: BoxProps;
+  type?: 'subscribe';
 }
 
 export default function CalendarTab({
@@ -16,6 +17,7 @@ export default function CalendarTab({
   tabListItems,
   tabListProps,
   boxProps,
+  type,
   ...props
 }: Props & TabsProps) {
   const engToZh: Record<CalendarDataKey, string> = {
@@ -40,6 +42,11 @@ export default function CalendarTab({
             {engToZh[week]}
           </Tab>
         ))}
+        {type === 'subscribe' ? (
+          <Tab whiteSpace="nowrap" mb="-2px" key="search">
+            搜索
+          </Tab>
+        ) : null}
       </TabList>
       <Box top="46.5px" borderBottom="2px solid" mt="-2.5px" borderBottomColor="inherit" {...boxProps} />
 
