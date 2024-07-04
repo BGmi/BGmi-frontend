@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^1.25.5
     version: 1.25.5
   '@types/md5':
-    specifier: ^2.3.2
-    version: 2.3.2
+    specifier: ^2.3.5
+    version: 2.3.5
   '@types/react':
     specifier: ^18.0.28
     version: 18.0.28
@@ -2199,8 +2199,8 @@ packages:
     resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
     dev: false
 
-  /@types/md5@2.3.2:
-    resolution: {integrity: sha512-v+JFDu96+UYJ3/UWzB0mEglIS//MZXgRaJ4ubUPwOM0gvLc/kcQ3TWNYwENEK7/EcXGQVrW8h/XqednSjBd/Og==}
+  /@types/md5@2.3.5:
+    resolution: {integrity: sha512-/i42wjYNgE6wf0j2bcTX6kuowmdL/6PE4IVitMpm2eYKBUuYCprdcWVK+xEF0gcV6ufMCRhtxmReGfc6hIK7Jw==}
     dev: true
 
   /@types/mdast@3.0.11:
