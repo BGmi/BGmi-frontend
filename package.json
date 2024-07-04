@@ -36,7 +36,7 @@
     "@emotion/styled": "^11.10.6",
     "@generouted/react-router": "^1.18.4",
     "chakra-react-select": "^4.9.1",
-    "cookies-next": "^2.1.1",
+    "cookies-next": "^2.1.2",
     "dplayer": "^1.27.1",
     "framer-motion": "^10.2.5",
     "hls.js": "^1.5.3",
