@@ -12,7 +12,7 @@ export const bangumiFilterAtom = atomWithStorage<DataKind>(
   'both',
   {
     ...localStorage,
-    getItem: key => (localStorage.getItem(key) ?? '') as DataKind,
+    getItem: key => (localStorage.getItem(key) ?? 'both') as DataKind,
     setItem: (key, value) => localStorage.setItem(key, value),
   },
   { getOnInit: true }
