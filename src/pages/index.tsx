@@ -1,10 +1,12 @@
 import { Badge, Box, Fade, Grid, GridItem, Heading, Image, Stack, Text } from '@chakra-ui/react';
+
 import { useState } from 'react';
+import { useAtomValue } from 'jotai';
 
 import { FallbackBangumi } from '~/components/fallback';
 import Link from '~/components/router-link';
 
-import { useBangumi } from '~/hooks/use-bangumi';
+import { bangumiFilterAtom, useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
 import { normalizePath } from '~/lib/utils';
 
@@ -88,13 +90,18 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
 }
 
 export default function Bangumi() {
-  const { data } = useBangumi();
+  const { data, kind } = useBangumi();
+  const bangumiShow = useAtomValue(bangumiFilterAtom);
 
-  if (!data) return <FallbackBangumi />;
+  let bangumiData = data;
+  if (!bangumiData) return <FallbackBangumi />;
+
+  if (bangumiShow === 'new') bangumiData = kind?.new;
+  if (bangumiShow === 'old') bangumiData = kind?.old;
 
   return (
     <Grid templateColumns="repeat(auto-fill, minmax(20rem, 1fr))" gap={6}>
-      {data.data.map(bangumi => (
+      {bangumiData?.data.map(bangumi => (
         <GridItem key={bangumi.id}>
           <PlayerCard bangumiData={bangumi} />
         </GridItem>
