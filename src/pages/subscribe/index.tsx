@@ -1,10 +1,24 @@
 import { useMemo, useReducer, useState } from 'react';
 
 import { CiFilter } from 'react-icons/ci';
-import { Box, Button, Flex, Input, Menu, MenuButton, MenuItem, MenuList, Spinner, TabPanel } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Spinner,
+  TabPanel,
+} from '@chakra-ui/react';
 
+import { useAtom } from 'jotai';
 import { useCalendar } from '~/hooks/use-calendar';
 import { useColorMode } from '~/hooks/use-color-mode';
+import { bangumiFilterAtom, type DataKind } from '~/hooks/use-bangumi';
 
 import Auth from '~/components/auth';
 import CalendarTab from '~/components/calendar-tab';
@@ -56,6 +70,12 @@ function FilterOptionsMenu({ state, dispatch, mutate }: FilterOptionsMenuProps) 
   const { colorMode } = useColorMode();
   const menuItemBg = colorMode === 'dark' ? 'blackAlpha.400' : 'blackAlpha.200';
 
+  const [bangumiShow, setBangumiShow] = useAtom(bangumiFilterAtom);
+
+  const handleShow = (type: DataKind) => {
+    setBangumiShow(p => (p === type ? 'both' : type));
+  };
+
   return (
     <Menu autoSelect={false} closeOnSelect={false}>
       <MenuButton
@@ -85,6 +105,21 @@ function FilterOptionsMenu({ state, dispatch, mutate }: FilterOptionsMenuProps) 
           onClick={() => dispatch({ type: 'unSubscribed', mutate })}
         >
           未订阅
+        </MenuItem>
+        <Divider />
+        <MenuItem
+          justifyContent="center"
+          bg={bangumiShow === 'new' ? menuItemBg : 'transparent'}
+          onClick={() => handleShow('new')}
+        >
+          仅显示新番
+        </MenuItem>
+        <MenuItem
+          justifyContent="center"
+          bg={bangumiShow === 'old' ? menuItemBg : 'transparent'}
+          onClick={() => handleShow('old')}
+        >
+          仅显示旧番
         </MenuItem>
       </MenuList>
     </Menu>
