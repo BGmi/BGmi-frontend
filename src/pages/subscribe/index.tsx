@@ -72,7 +72,7 @@ function FilterOptionsMenu({ state, dispatch, mutate }: FilterOptionsMenuProps) 
 
   const [bangumiShow, setBangumiShow] = useAtom(bangumiFilterAtom);
 
-  const handleShow = async (type: DataKind) => {
+  const handleShow = (type: DataKind) => {
     setBangumiShow(p => (p === type ? 'both' : type));
   };
 
