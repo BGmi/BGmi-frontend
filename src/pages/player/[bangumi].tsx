@@ -6,8 +6,6 @@ import { useParams } from 'react-router-dom';
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useWatchHistory } from '~/hooks/use-watch-history';
 
-import { normalizePath } from '~/lib/utils';
-
 import VideoPlayer from '~/components/video-player';
 
 export default function Player() {
@@ -18,7 +16,9 @@ export default function Player() {
   // 这里就懒得做骨架屏了
   if (!data) return null;
 
-  const bangumiData = data.data.find(bangumi => normalizePath(bangumi.bangumi_name) === params.bangumi);
+  const bangumiData = data.data.find(bangumi => {
+    return bangumi.bangumi_name === params.bangumi;
+  });
 
   if (!bangumiData) return <div>加载播放器出错，数据不存在</div>;
 
