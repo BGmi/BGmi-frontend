@@ -9,7 +9,7 @@ export const handleSecondaryTitle = (title: string) => {
 };
 
 export const normalizePath = (url: string) => {
-  return encodeURIComponent(url.replace(/[:*?"<>|']/g, ''));
+  return encodeURIComponent(url);
 };
 
 export const createAbsoluteUrl = (url: string) => {
