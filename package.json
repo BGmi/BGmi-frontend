@@ -38,7 +38,7 @@
     "chakra-react-select": "^4.9.1",
     "cookies-next": "^2.1.2",
     "dplayer": "^1.27.1",
-    "framer-motion": "^10.2.5",
+    "framer-motion": "^10.18.0",
     "hls.js": "^1.5.3",
     "husky": "^8.0.3",
     "jotai": "^2.12.0",
