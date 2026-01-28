@@ -39,8 +39,8 @@ importers:
         specifier: ^8.0.3
         version: 8.0.3
       jotai:
-        specifier: ^2.12.0
-        version: 2.12.0(@types/react@18.0.28)(react@18.2.0)
+        specifier: ^2.17.0
+        version: 2.17.0(@types/react@18.0.28)(react@18.2.0)
       md5:
         specifier: ^2.3.0
         version: 2.3.0
@@ -2227,13 +2227,19 @@ packages:
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
-  jotai@2.12.0:
-    resolution: {integrity: sha512-j5B4NmUw8gbuN7AG4NufWw00rfpm6hexL2CVhKD7juoP2YyD9FEUV5ar921JMvadyrxQhU1NpuKUL3QfsAlVpA==}
+  jotai@2.17.0:
+    resolution: {integrity: sha512-DBPT7Vx7E7R/ZJL7Uq7yUA9+LLR0IRiRM+Bw5ugVwv8L8++RjlXVXZ2//ccucypc5lcyuHOW09rYcW77RurduQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
+      '@babel/core': '>=7.0.0'
+      '@babel/template': '>=7.0.0'
       '@types/react': '>=17.0.0'
       react: '>=17.0.0'
     peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
       '@types/react':
         optional: true
       react:
@@ -5609,7 +5615,7 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  jotai@2.12.0(@types/react@18.0.28)(react@18.2.0):
+  jotai@2.17.0(@types/react@18.0.28)(react@18.2.0):
     optionalDependencies:
       '@types/react': 18.0.28
       react: 18.2.0
