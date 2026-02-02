@@ -34,7 +34,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@generouted/react-router": "^1.18.4",
+    "@generouted/react-router": "^1.20.0",
     "chakra-react-select": "^4.10.1",
     "cookies-next": "^2.1.2",
     "dplayer": "^1.27.1",
