@@ -4,7 +4,6 @@ import { CiFilter } from 'react-icons/ci';
 import {
   Box,
   Button,
-  Divider,
   Flex,
   Input,
   Menu,
@@ -13,12 +12,11 @@ import {
   MenuList,
   Spinner,
   TabPanel,
+  Text,
 } from '@chakra-ui/react';
 
-import { useAtom } from 'jotai';
 import { useCalendar } from '~/hooks/use-calendar';
 import { useColorMode } from '~/hooks/use-color-mode';
-import { bangumiFilterAtom, type DataKind } from '~/hooks/use-bangumi';
 
 import Auth from '~/components/auth';
 import CalendarTab from '~/components/calendar-tab';
@@ -70,12 +68,6 @@ function FilterOptionsMenu({ state, dispatch, mutate }: FilterOptionsMenuProps) 
   const { colorMode } = useColorMode();
   const menuItemBg = colorMode === 'dark' ? 'blackAlpha.400' : 'blackAlpha.200';
 
-  const [bangumiShow, setBangumiShow] = useAtom(bangumiFilterAtom);
-
-  const handleShow = (type: DataKind) => {
-    setBangumiShow(p => (p === type ? 'both' : type));
-  };
-
   return (
     <Menu autoSelect={false} closeOnSelect={false}>
       <MenuButton
@@ -105,21 +97,6 @@ function FilterOptionsMenu({ state, dispatch, mutate }: FilterOptionsMenuProps) 
           onClick={() => dispatch({ type: 'unSubscribed', mutate })}
         >
           未订阅
-        </MenuItem>
-        <Divider />
-        <MenuItem
-          justifyContent="center"
-          bg={bangumiShow === 'new' ? menuItemBg : 'transparent'}
-          onClick={() => handleShow('new')}
-        >
-          仅显示新番
-        </MenuItem>
-        <MenuItem
-          justifyContent="center"
-          bg={bangumiShow === 'old' ? menuItemBg : 'transparent'}
-          onClick={() => handleShow('old')}
-        >
-          仅显示旧番
         </MenuItem>
       </MenuList>
     </Menu>
@@ -169,20 +146,32 @@ export default function Subscribe() {
 
   return (
     <Auth to="/subscribe">
-      <CalendarTab
-        customElement={<FilterOptionsMenu state={state} dispatch={dispatch} mutate={mutate} />}
-        tabListItems={tabListItems}
-        tabListProps={{ mr: '16' }}
-        boxProps={{ mr: '16' }}
-        type="subscribe"
-      >
-        {tabPanelsItems.map(([week, bangumis]) => (
-          <SubscribePanel key={week} bangumis={bangumis} />
-        ))}
-        <TabPanel mt="6">
-          <SearchPanel data={searchData} />
-        </TabPanel>
-      </CalendarTab>
+      <>
+        <Flex mb="5" align={{ base: 'start', md: 'center' }} justify="space-between" gap="4">
+          <Box>
+            <Text fontSize="2xl" fontWeight="semibold">
+              Subscribe
+            </Text>
+            <Text mt="1" color="gray.500" fontSize="sm">
+              日历接口当前只返回更新中的番剧，这里仅提供订阅状态筛选。
+            </Text>
+          </Box>
+        </Flex>
+        <CalendarTab
+          customElement={<FilterOptionsMenu state={state} dispatch={dispatch} mutate={mutate} />}
+          tabListItems={tabListItems}
+          tabListProps={{ mr: '16' }}
+          boxProps={{ mr: '16' }}
+          type="subscribe"
+        >
+          {tabPanelsItems.map(([week, bangumis]) => (
+            <SubscribePanel key={week} bangumis={bangumis} />
+          ))}
+          <TabPanel mt="6" px="0">
+            <SearchPanel data={searchData} />
+          </TabPanel>
+        </CalendarTab>
+      </>
     </Auth>
   );
 }

@@ -20,6 +20,7 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
   const bangumiName = bangumiData.bangumiName;
   const totalMark = watchHistory[bangumiName];
   const markBgColor = colorMode === 'dark' ? 'blackAlpha.400' : 'whiteAlpha.600';
+  const panelBg = colorMode === 'dark' ? 'whiteAlpha.100' : 'white';
 
   const handlePlay = (episode: string) => {
     // 这里更新 current-watch 的 episode 时，会更新 /pages/player/[bangumi].tsx 的状态来切换播放的视频
@@ -44,29 +45,34 @@ export default function EpisodeCard({ setPlayState, bangumiData, ...props }: Pro
 
   return (
     <Box
-      bg={colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.100'}
+      bg={panelBg}
+      borderWidth="1px"
+      borderColor={colorMode === 'dark' ? 'whiteAlpha.100' : 'blackAlpha.100'}
+      borderRadius="card"
       p="4"
-      ml={{ xl: '4', base: 'unset' }}
-      mt={{ xl: 'unset', base: '4' }}
-      w={{ xl: '30%', base: 'unset' }}
-      minW="20%"
-      h="50%"
+      w={{ xl: '22rem', base: 'full' }}
+      alignSelf="start"
       {...props}
     >
-      <Text mb="4">选集</Text>
+      <Text mb="4" fontWeight="semibold">
+        选集
+      </Text>
       {bangumiData.totalEpisode.length === 0 && (
         <Text fontSize="sm" opacity="75%">
           暂无剧集
         </Text>
       )}
-      <Grid templateColumns="repeat(auto-fill, minmax(3.75rem, 1fr))" gap={4}>
+      <Grid templateColumns="repeat(auto-fill, minmax(3rem, 1fr))" gap={2}>
         {bangumiData.totalEpisode.map(episode => (
           <GridItem key={episode}>
             <Button
-              px="7"
-              maxW="16"
+              px="0"
+              h="9"
+              minW="0"
               onClick={() => handlePlay(episode)}
               fontSize="sm"
+              variant={bangumiData.currentEpisode === episode ? 'solid' : 'ghost'}
+              colorScheme={bangumiData.currentEpisode === episode ? 'red' : 'gray'}
               bg={checkMark(episode) ? markBgColor : 'Background'}
               isActive={bangumiData.currentEpisode === episode}
             >

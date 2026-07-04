@@ -1,4 +1,4 @@
-import { Flex, Icon } from '@chakra-ui/react';
+import { Flex, Icon, Tooltip } from '@chakra-ui/react';
 import type { IconType } from 'react-icons';
 
 import { useColorMode } from '~/hooks/use-color-mode';
@@ -7,6 +7,7 @@ interface NavItemProps {
   icon: IconType;
   children: React.ReactNode;
   active?: boolean;
+  isCollapsed?: boolean;
   onClick?: () => void;
 }
 
@@ -16,28 +17,41 @@ export default function SidebarNavItem(props: NavItemProps) {
   // 防止闪烁
   if (colorMode === '') return null;
 
-  const hoverBg = colorMode === 'light' ? 'gray.200' : 'gray.700';
-  const activeBg = colorMode === 'light' ? 'gray.200' : 'gray.700';
-  const textColor = colorMode === 'light' ? 'gray.900' : 'gray.300';
+  const { icon, children, active, isCollapsed, onClick } = props;
+  const hoverBg = colorMode === 'light' ? 'blackAlpha.50' : 'whiteAlpha.100';
+  const activeBg = colorMode === 'light' ? 'red.50' : 'whiteAlpha.100';
+  const activeColor = colorMode === 'light' ? 'red.700' : 'red.100';
+  const inactiveColor = colorMode === 'light' ? 'gray.700' : 'gray.300';
+  const textColor = active ? activeColor : inactiveColor;
 
-  const { icon, children, active, onClick } = props;
-  return (
+  const item = (
     <Flex
       align="center"
-      px="4"
-      py="5"
+      justify={isCollapsed ? 'center' : 'flex-start'}
+      px="3"
+      py="3"
+      my="0.5"
       cursor="pointer"
       color={textColor}
+      borderRadius="md"
       _hover={{
         bg: active ? '' : hoverBg,
       }}
       bg={active ? activeBg : ''}
-      fontWeight="semibold"
+      fontWeight={active ? 'semibold' : 'medium'}
       onClick={onClick}
-      transition="0.1s"
+      transition="background 0.15s ease, color 0.15s ease"
     >
-      <Icon ml="3" mr="7" boxSize="6" as={icon} />
-      {children}
+      <Icon mr={isCollapsed ? '0' : '3'} boxSize={isCollapsed ? '22px' : '20px'} flexShrink={0} as={icon} />
+      {isCollapsed ? null : children}
     </Flex>
+  );
+
+  if (!isCollapsed) return item;
+
+  return (
+    <Tooltip label={children} placement="right" openDelay={250}>
+      {item}
+    </Tooltip>
   );
 }

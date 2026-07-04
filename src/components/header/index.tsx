@@ -11,12 +11,14 @@ export default function Header({ sidebarToggle }: { sidebarToggle: () => void })
 
   const { colorMode } = useColorMode();
   return (
-    <Box pb={{ md: 'unset', base: '16' }}>
+    <Box>
       <Flex
         alignItems="center"
-        bg={colorMode === 'dark' ? 'blackAlpha.400' : 'blackAlpha.200'}
-        py="2.5"
-        pl="2"
+        bg={colorMode === 'dark' ? 'blackAlpha.700' : 'whiteAlpha.800'}
+        borderBottomWidth="1px"
+        borderBottomColor={colorMode === 'dark' ? 'whiteAlpha.100' : 'blackAlpha.100'}
+        py="2"
+        px="3"
         as="header"
         w="full"
         pos="fixed"
@@ -30,7 +32,7 @@ export default function Header({ sidebarToggle }: { sidebarToggle: () => void })
         <Box display={{ md: 'none' }}>
           <IconButton aria-label="Menu" onClick={sidebarToggle} icon={<FiMenu />} variant="ghost" />
         </Box>
-        <Text ml="4" fontSize="x-large">
+        <Text ml="3" fontSize="lg" fontWeight="semibold">
           BGmi - {pathname === '/' ? 'Bangumi' : secondaryTitle}
         </Text>
       </Flex>

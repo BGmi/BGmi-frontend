@@ -152,13 +152,13 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
     <>
       <Flex flexDirection="column">
         <Box
-          p="4"
-          rounded="4"
-          bg={colorMode === 'dark' ? 'whiteAlpha.200' : 'blackAlpha.200'}
-          boxShadow="base"
+          p={{ base: '2', md: '3' }}
+          borderRadius="card"
+          bg={colorMode === 'dark' ? 'blackAlpha.500' : 'gray.900'}
           transition=".5s width"
           w="full"
           position="relative"
+          overflow="hidden"
         >
           <Spinner
             display={loading ? 'block' : 'none'}
@@ -175,7 +175,7 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
         </Box>
         <ExternalPlayer url={createAbsoluteUrl(fileUrl)} />
       </Flex>
-      <EpisodeCard boxShadow="base" setPlayState={setPlayState} bangumiData={episodeCardProps} />
+      <EpisodeCard setPlayState={setPlayState} bangumiData={episodeCardProps} />
     </>
   );
 }

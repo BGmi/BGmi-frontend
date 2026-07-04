@@ -1,4 +1,4 @@
-import { Card, CardBody, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Box, Flex, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import Skeleton from './skeleton';
 
 export default function FallbackCalendar() {
@@ -7,12 +7,13 @@ export default function FallbackCalendar() {
 
   for (let i = 0; i < 15; ++i) {
     skeletonTabPanelItems.push(
-      <Card key={`tab-panel-item-${i}`} maxW="xl">
-        <CardBody display="flex">
-          <Skeleton h="250px" minW="180px" />
-          <Skeleton h="10" w="full" ml="4" />
-        </CardBody>
-      </Card>
+      <Flex key={`tab-panel-item-${i}`} borderWidth="1px" borderRadius="card" overflow="hidden">
+        <Skeleton h="8rem" minW="6rem" />
+        <Box p="4" w="full">
+          <Skeleton h="4" w="80%" />
+          <Skeleton h="3" w="40%" mt="3" />
+        </Box>
+      </Flex>
     );
   }
 
@@ -20,9 +21,11 @@ export default function FallbackCalendar() {
     skeletonTabPanels.push(
       <TabPanel
         display="grid"
-        gridTemplateColumns="repeat(auto-fill, minmax(22rem, 1fr))"
+        gridTemplateColumns="repeat(auto-fill, minmax(18rem, 1fr))"
         justifyContent="center"
         gap={4}
+        px="0"
+        pt="5"
         key={`tab-panel-${i}`}
       >
         {...skeletonTabPanelItems}

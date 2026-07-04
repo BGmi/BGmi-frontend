@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet-async';
 
 import { useParams } from 'react-router-dom';
@@ -33,17 +33,15 @@ export default function Player() {
         <title>{`BGmi - ${bangumiData.bangumi_name}`}</title>
         <meta name="referrer" content="no-referrer" />
       </Helmet>
-      <Heading
-        ml={{ lg: '10', base: '5' }}
-        mb="6"
-        fontSize="2xl"
-        whiteSpace="nowrap"
-        overflow="hidden"
-        textOverflow="ellipsis"
-      >
-        {bangumiData.bangumi_name} {`- 第 ${episode} 集`}
-      </Heading>
-      <Flex position="relative" mx={{ lg: '30', base: 'unset' }} flexDirection={{ xl: 'row', base: 'column' }}>
+      <Box mb="6">
+        <Heading fontSize={{ base: '2xl', md: '3xl' }} noOfLines={2}>
+          {bangumiData.bangumi_name}
+        </Heading>
+        <Text mt="2" color="gray.500">
+          第 {episode} 集
+        </Text>
+      </Box>
+      <Flex position="relative" flexDirection={{ xl: 'row', base: 'column' }} gap={{ base: 4, xl: 5 }}>
         <VideoPlayer episode={episode} bangumiData={bangumiData} danmakuApi={data.danmaku_api} />
       </Flex>
     </Box>

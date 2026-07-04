@@ -1,13 +1,13 @@
-import { Box, Grid } from '@chakra-ui/react';
+import { AspectRatio, Box, Grid } from '@chakra-ui/react';
 import Skeleton from './skeleton';
-import { useColorMode } from '~/hooks/use-color-mode';
 
 function FallbackCard() {
-  const { colorMode } = useColorMode();
   return (
-    <Box roundedTop="md" mx="2" boxShadow="base">
-      <Skeleton h="48" roundedTop="md" />
-      <Box minH="5.5rem" p="4" bg={colorMode === 'light' ? 'blackAlpha.50' : 'whiteAlpha.100'} />
+    <Box>
+      <AspectRatio ratio={3 / 4}>
+        <Skeleton borderRadius="card" />
+      </AspectRatio>
+      <Skeleton mt="3" h="4" w="80%" />
     </Box>
   );
 }
@@ -21,7 +21,7 @@ export default function FallbackBangumi() {
 
   return (
     <div>
-      <Grid templateColumns="repeat(auto-fill, minmax(20rem, 1fr))" gap={6}>
+      <Grid templateColumns="repeat(auto-fill, minmax(11rem, 1fr))" gap={{ base: 4, md: 6 }}>
         {...renderBox}
       </Grid>
     </div>

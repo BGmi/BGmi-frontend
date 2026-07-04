@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Text, Image } from '@chakra-ui/react';
+import { Box, Divider, Flex, IconButton, Text } from '@chakra-ui/react';
 import type { BoxProps } from '@chakra-ui/react';
 
 import {
@@ -6,6 +6,7 @@ import {
   BsFillCollectionPlayFill,
   BsFolderFill,
   BsInfoSquareFill,
+  BsLayoutSidebarInset,
   BsMoonFill,
   BsPlayBtnFill,
   BsRssFill,
@@ -19,70 +20,127 @@ import SidebarNavItem from './sidebar-nav-item';
 
 import { useColorMode } from '~/hooks/use-color-mode';
 
-import LOGO from '../../assets/logo.jpg';
-
-export const SidebarContent = ({ onClose, ...props }: BoxProps & { onClose?: () => void }) => {
+export const SidebarContent = ({
+  isCollapsed = false,
+  onClose,
+  onToggleCollapse,
+  ...props
+}: BoxProps & { isCollapsed?: boolean; onClose?: () => void; onToggleCollapse?: () => void }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const { pathname } = useLocation();
   const currentPath = pathname.slice(1).toLowerCase();
 
+  const sidebarBg = colorMode === 'dark' ? 'gray.900' : 'white';
+  const borderColor = colorMode === 'dark' ? 'whiteAlpha.100' : 'blackAlpha.100';
+
   return (
-    <Box as="nav" pos="fixed" top="0" left="0" h="full" borderRightWidth="1px" w="60" {...props}>
-      <Flex px="6" py="6" alignItems="center">
-        <Image src={LOGO} width="42px" height="42px" borderRadius="50%" alt="logo" placeholder="empty" />
-        <Text fontSize="2xl" ml="4" fontWeight="semibold">
-          BGmi
-        </Text>
+    <Box
+      as="nav"
+      pos="fixed"
+      top="0"
+      left="0"
+      h="full"
+      borderRightWidth="1px"
+      borderRightColor={borderColor}
+      bg={sidebarBg}
+      w={isCollapsed ? '20' : '64'}
+      transition="width 0.18s ease"
+      {...props}
+    >
+      <Flex px="3" py="4" alignItems="center" justify={isCollapsed ? 'center' : 'space-between'}>
+        {!isCollapsed ? (
+          <Box px="2">
+            <Text fontSize="xl" fontWeight="semibold" lineHeight="1">
+              BGmi
+            </Text>
+          </Box>
+        ) : null}
+        {onToggleCollapse ? (
+          <IconButton
+            aria-label={isCollapsed ? '展开侧边栏' : '收起侧边栏'}
+            icon={<BsLayoutSidebarInset />}
+            onClick={onToggleCollapse}
+            size="sm"
+            fontSize="18px"
+            variant="ghost"
+          />
+        ) : (
+          <Text px="2" fontSize="xl" fontWeight="semibold" lineHeight="1">
+            BGmi
+          </Text>
+        )}
       </Flex>
-      <Divider />
-      <Flex direction="column" as="nav" fontSize="md" color="gray.600" aria-label="main-navigation">
+      <Divider borderColor={borderColor} />
+      <Flex direction="column" as="nav" fontSize="sm" color="gray.600" aria-label="main-navigation" px="3" py="4">
         {/*
          * 兼容 safari，不知道为什么会导致第一个元素被聚焦
          * Drawer 组件已经设置了 autoFocus={false}
          */}
         <Link href="/" _focusVisible={{ outline: 'none' }}>
-          <SidebarNavItem active={pathname === '/'} icon={BsPlayBtnFill} onClick={onClose}>
+          <SidebarNavItem active={pathname === '/'} icon={BsPlayBtnFill} isCollapsed={isCollapsed} onClick={onClose}>
             Bangumi
           </SidebarNavItem>
         </Link>
 
         <a href="./bangumi" target="_blank">
-          <SidebarNavItem icon={BsFolderFill}>Bangumi Files</SidebarNavItem>
+          <SidebarNavItem icon={BsFolderFill} isCollapsed={isCollapsed}>
+            Bangumi Files
+          </SidebarNavItem>
         </a>
 
         <Link href="/calendar">
-          <SidebarNavItem active={currentPath === 'calendar'} icon={BsCalendar2CheckFill} onClick={onClose}>
+          <SidebarNavItem
+            active={currentPath === 'calendar'}
+            icon={BsCalendar2CheckFill}
+            isCollapsed={isCollapsed}
+            onClick={onClose}
+          >
             Calendar
           </SidebarNavItem>
         </Link>
         <Link href="/resource">
-          <SidebarNavItem active={currentPath === 'resource'} icon={BsRssFill} onClick={onClose}>
+          <SidebarNavItem
+            active={currentPath === 'resource'}
+            icon={BsRssFill}
+            isCollapsed={isCollapsed}
+            onClick={onClose}
+          >
             Resource
           </SidebarNavItem>
         </Link>
 
-        <Divider />
+        <Divider my="3" borderColor={borderColor} />
 
         <Link href="/subscribe">
           <SidebarNavItem
             active={currentPath === 'subscribe' || currentPath === 'auth'}
             icon={BsFillCollectionPlayFill}
+            isCollapsed={isCollapsed}
             onClick={onClose}
           >
             Subscribe
           </SidebarNavItem>
         </Link>
 
-        <Divider />
+        <Divider my="3" borderColor={borderColor} />
 
         <Link href="/about">
-          <SidebarNavItem active={currentPath === 'about'} icon={BsInfoSquareFill} onClick={onClose}>
+          <SidebarNavItem
+            active={currentPath === 'about'}
+            icon={BsInfoSquareFill}
+            isCollapsed={isCollapsed}
+            onClick={onClose}
+          >
             About
           </SidebarNavItem>
         </Link>
 
-        <SidebarNavItem icon={colorMode === 'dark' ? BsSunFill : BsMoonFill} onClick={toggleColorMode}>
+        <SidebarNavItem
+          icon={colorMode === 'dark' ? BsSunFill : BsMoonFill}
+          isCollapsed={isCollapsed}
+          onClick={toggleColorMode}
+        >
           Theme Toggle
         </SidebarNavItem>
       </Flex>

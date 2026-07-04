@@ -1,4 +1,4 @@
-import { Box, Button, Fade, Flex, Image, Text, useDisclosure } from '@chakra-ui/react';
+import { AspectRatio, Badge, Box, Button, Fade, Flex, Image, Link, Text, useDisclosure } from '@chakra-ui/react';
 
 import { useEffect, useState } from 'react';
 import { useSubscribeAction } from '~/hooks/use-subscribe-action';
@@ -28,8 +28,8 @@ export interface SyncData {
 
 export default function SubscribeCard({ bangumi }: Props) {
   const { colorMode } = useColorMode();
-  const buttonSubscribeBg = colorMode === 'dark' ? 'green.400' : 'green.100';
-  const buttonUnSubscribeBg = colorMode === 'dark' ? 'blue.400' : 'blue.100';
+  const surfaceBg = colorMode === 'dark' ? 'whiteAlpha.100' : 'white';
+  const borderColor = colorMode === 'dark' ? 'whiteAlpha.100' : 'blackAlpha.100';
 
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -85,52 +85,66 @@ export default function SubscribeCard({ bangumi }: Props) {
 
   return (
     <>
-      <Box>
-        <Flex
-          alignItems="center"
-          minH="12"
-          bg={colorMode === 'light' ? 'blackAlpha.50' : 'whiteAlpha.100'}
-          p="4"
-          px="2.5"
-          roundedTop="md"
+      <Box
+        display="grid"
+        gridTemplateColumns="5.5rem 1fr"
+        gap="3"
+        p="3"
+        bg={surfaceBg}
+        borderWidth="1px"
+        borderColor={borderColor}
+        borderRadius="card"
+        transition="background 0.16s ease"
+        _hover={{
+          bg: colorMode === 'dark' ? 'whiteAlpha.200' : 'blackAlpha.50',
+        }}
+      >
+        <AspectRatio
+          ratio={3 / 4}
+          bg={colorMode === 'dark' ? 'gray.800' : 'gray.200'}
+          borderRadius="md"
+          overflow="hidden"
         >
-          <Text
-            minW="60%"
-            maxH="6"
-            overflow="hidden"
-            transition="max-height 0.3s ease"
-            fontWeight="medium"
-            _hover={{
-              maxH: '28',
-            }}
-          >
-            {bangumi.name}
-          </Text>
-          <Button
-            onClick={() => handleOpen(syncData.status, bangumi.name, bangumi.episode ?? 0)}
-            ml="2"
-            w="full"
-            bg={syncData.status ? buttonSubscribeBg : buttonUnSubscribeBg}
-            _hover={{
-              opacity: 0.8,
-            }}
-          >
-            {syncData.status ? '查看' : '订阅'}
-          </Button>
-        </Flex>
-        <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.200'} minW="14rem" minH="sm">
           <Fade in={imageLoaded}>
             <Image
-              h="sm"
               w="full"
+              h="full"
               src={createBgmiAssetUrl(bangumi.cover)}
-              alt="anime cover"
+              alt={bangumi.name}
               objectFit="cover"
               backgroundPosition="50% 50%"
               onLoad={() => setImageLoaded(true)}
             />
           </Fade>
-        </Box>
+        </AspectRatio>
+        <Flex minW="0" direction="column" justify="space-between" align="start">
+          <Box minW="0" w="full">
+            <Flex align="center" gap="2" mb="2">
+              <Badge colorScheme={syncData.status ? 'green' : 'gray'} borderRadius="sm">
+                {syncData.status ? '已订阅' : '未订阅'}
+              </Badge>
+              {typeof syncData.episode === 'number' && syncData.episode > 0 ? (
+                <Text color="gray.500" fontSize="xs">
+                  EP {syncData.episode}
+                </Text>
+              ) : null}
+            </Flex>
+            <Text fontWeight="semibold" noOfLines={2}>
+              {bangumi.name}
+            </Text>
+            <Link href={`https://bgm.tv/subject_search/${bangumi.name}`} target="_blank" color="red.300" fontSize="sm">
+              番组计划
+            </Link>
+          </Box>
+          <Button
+            size="sm"
+            colorScheme={syncData.status ? 'gray' : 'red'}
+            variant={syncData.status ? 'outline' : 'solid'}
+            onClick={() => handleOpen(syncData.status, bangumi.name, bangumi.episode ?? 0)}
+          >
+            {syncData.status ? '查看设置' : '订阅'}
+          </Button>
+        </Flex>
       </Box>
       <SubscribeForm
         initialData={initialData}

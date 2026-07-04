@@ -1,20 +1,22 @@
 import {
   Box,
   Button,
+  Divider,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
   FormControl,
   FormLabel,
   Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Spinner,
   Stack,
   Text,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
 import { useEffect, useMemo, useState } from 'react';
@@ -46,6 +48,8 @@ interface Props {
 export default function SubscribeForm({ isOpen, onClose, initialData, setSyncData, syncData }: Props) {
   const [formData, setFormData] = useState<InitialData>();
   const { handleSaveFilter, handleMarkUnwatched, handleMarkWatched, handleUnSubscribe } = useSubscribeAction();
+  const drawerPlacement = useBreakpointValue({ base: 'bottom', md: 'right' } as const) ?? 'right';
+  const drawerSize = useBreakpointValue({ base: 'full', md: 'md' } as const) ?? 'md';
 
   useEffect(() => {
     if (!isOpen) return;
@@ -155,18 +159,30 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
   };
 
   return (
-    <Modal onClose={handleClose} isOpen={isOpen} closeOnOverlayClick={false}>
-      <ModalOverlay />
-      <ModalContent maxW={{ base: 'sm', md: 'md' }}>
-        <ModalHeader>订阅设置</ModalHeader>
-        <ModalBody>
+    <Drawer onClose={handleClose} isOpen={isOpen} placement={drawerPlacement} size={drawerSize}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerHeader borderBottomWidth="1px">
+          <Text fontSize="lg" noOfLines={1}>
+            {formData?.bangumiName ?? '订阅设置'}
+          </Text>
+          <Text mt="1" fontSize="sm" color="gray.500" fontWeight="normal">
+            订阅、过滤和观看状态
+          </Text>
+        </DrawerHeader>
+        <DrawerCloseButton />
+
+        <DrawerBody py="5">
           {!formData ? (
             <Box textAlign="center" my="4">
               <Spinner />
             </Box>
           ) : (
-            <Flex>
-              <Stack spacing="2" w="full">
+            <Stack spacing="6" w="full">
+              <Box>
+                <Text mb="3" fontWeight="semibold">
+                  订阅设置
+                </Text>
                 <Flex>
                   <FormControl id="include" mr="1">
                     <FormLabel>包含字段</FormLabel>
@@ -195,7 +211,7 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
                     />
                   </FormControl>
                 </Flex>
-                <FormControl id="regex">
+                <FormControl id="regex" mt="3">
                   <FormLabel>正则表达式</FormLabel>
                   <Input
                     onChange={e =>
@@ -205,6 +221,11 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
                     type="text"
                   />
                 </FormControl>
+              </Box>
+
+              <Divider />
+
+              <Box>
                 <FormControl id="watchStatus">
                   <FormLabel>标记观看状态</FormLabel>
                   {episodeItems.length === 0 ? (
@@ -244,6 +265,11 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
                     </Box>
                   )}
                 </FormControl>
+              </Box>
+
+              <Divider />
+
+              <Box>
                 <FormControl id="subtitleGroups">
                   <FormLabel>选择字幕组</FormLabel>
                   <Select
@@ -255,24 +281,23 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
                     closeMenuOnSelect={false}
                   />
                 </FormControl>
-              </Stack>
-            </Flex>
+              </Box>
+            </Stack>
           )}
-        </ModalBody>
-        <ModalCloseButton />
+        </DrawerBody>
 
-        <ModalFooter>
+        <DrawerFooter borderTopWidth="1px">
           <Button mr="3" onClick={onClose}>
             返回
           </Button>
-          <Button colorScheme="red" mr="3" onClick={handleUnSub}>
+          <Button colorScheme="red" mr="3" variant="outline" onClick={handleUnSub}>
             取消订阅
           </Button>
-          <Button colorScheme="blue" onClick={handleSave} isLoading={handleSaveFilter.isMutating}>
+          <Button colorScheme="red" onClick={handleSave} isLoading={handleSaveFilter.isMutating}>
             保存
           </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 }

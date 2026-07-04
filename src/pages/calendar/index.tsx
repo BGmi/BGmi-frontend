@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, Fade, TabPanel, Text, Image, Flex, Tag, Link } from '@chakra-ui/react';
+import { AspectRatio, Badge, Box, Fade, TabPanel, Text, Image, Flex, Link } from '@chakra-ui/react';
 
 import { useMemo, useState } from 'react';
 
@@ -15,39 +15,53 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const { colorMode } = useColorMode();
   return (
-    <Card maxW="xl">
-      <CardBody display="flex">
-        <Box
-          position="relative"
-          minW="180px"
-          maxW="180px"
-          minH="250px"
-          maxH="250px"
-          bg={colorMode === 'dark' ? 'gray.900' : 'gray.200'}
-        >
+    <Flex
+      borderWidth="1px"
+      borderColor={colorMode === 'dark' ? 'whiteAlpha.100' : 'blackAlpha.100'}
+      bg={colorMode === 'dark' ? 'whiteAlpha.100' : 'white'}
+      borderRadius="card"
+      overflow="hidden"
+      minH="8rem"
+    >
+      <AspectRatio ratio={3 / 4} minW="6rem" maxW="6rem" bg={colorMode === 'dark' ? 'gray.800' : 'gray.200'}>
+        <Box>
           <Fade in={isLoaded}>
             <Image
               src={createBgmiAssetUrl(bangumi.cover)}
-              width="180px"
-              height="250px"
+              width="full"
+              height="full"
               objectFit="cover"
-              alt="cover"
+              alt={bangumi.name}
               placeholder="empty"
               onLoad={() => setIsLoaded(true)}
             />
           </Fade>
         </Box>
+      </AspectRatio>
 
-        <Flex ml="4" direction="column">
-          <Text mr="-2">{bangumi.name}</Text>
-          <Tag mt="2">
-            <Link color="pink.300" href={`https://bgm.tv/subject_search/${bangumi.name}`} target="_blank">
-              番组计划
-            </Link>
-          </Tag>
-        </Flex>
-      </CardBody>
-    </Card>
+      <Flex p="4" minW="0" direction="column" justify="space-between">
+        <Box>
+          <Text fontWeight="semibold" noOfLines={2}>
+            {bangumi.name}
+          </Text>
+          <Flex mt="2" gap="2" wrap="wrap">
+            {bangumi.status ? (
+              <Badge colorScheme="green" borderRadius="sm">
+                已订阅
+              </Badge>
+            ) : null}
+            {typeof bangumi.episode === 'number' ? (
+              <Badge colorScheme="gray" borderRadius="sm">
+                EP {bangumi.episode}
+              </Badge>
+            ) : null}
+          </Flex>
+        </Box>
+        <Link mt="3" color="red.300" href={`https://bgm.tv/subject_search/${bangumi.name}`} target="_blank">
+          番组计划
+        </Link>
+      </Flex>
+    </Flex>
   );
 }
 
@@ -64,9 +78,11 @@ export default function Calendar() {
       {tabPanelsItems.map(([week, bangumis]) => (
         <TabPanel
           display="grid"
-          gridTemplateColumns="repeat(auto-fill, minmax(22rem, 1fr))"
+          gridTemplateColumns="repeat(auto-fill, minmax(18rem, 1fr))"
           justifyContent="center"
           gap={4}
+          px="0"
+          pt="5"
           key={week}
         >
           {bangumis?.map(bangumi => <CalendarPanel key={bangumi.id} bangumi={bangumi} />)}

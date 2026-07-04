@@ -72,9 +72,9 @@ export default function Auth({ children, to }: { children: React.ReactElement; t
   };
 
   return (
-    <Card display="flex" justifyContent="center" mt="20" mx="auto" maxW="xl">
+    <Card display="flex" justifyContent="center" mt="20" mx="auto" maxW="xl" borderRadius="card" boxShadow="none">
       <CardHeader>
-        <Heading>验证 Token</Heading>
+        <Heading size="lg">验证 Token</Heading>
       </CardHeader>
       <CardBody>
         <InputGroup>

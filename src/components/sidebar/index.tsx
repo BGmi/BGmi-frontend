@@ -4,14 +4,20 @@ import { memo } from 'react';
 import { SidebarContent } from './sidebar-content';
 
 interface Props {
+  isCollapsed: boolean;
   isOpen: boolean;
   onClose: () => void;
+  onToggleCollapse: () => void;
 }
 
-function Sidebar({ isOpen, onClose }: Props) {
+function Sidebar({ isCollapsed, isOpen, onClose, onToggleCollapse }: Props) {
   return (
     <Box>
-      <SidebarContent display={{ base: 'none', md: 'unset' }} />
+      <SidebarContent
+        display={{ base: 'none', md: 'unset' }}
+        isCollapsed={isCollapsed}
+        onToggleCollapse={onToggleCollapse}
+      />
       <Box display={{ md: 'none' }}>
         <Drawer autoFocus={false} isOpen={isOpen} onClose={onClose} placement="left">
           <DrawerOverlay />
