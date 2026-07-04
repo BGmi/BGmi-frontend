@@ -34,6 +34,17 @@ interface PlayerCardProps {
   bangumiData: BangumiData;
 }
 
+const sortUpdatedFirst = (bangumiList: BangumiData[]) =>
+  bangumiList
+    .map((bangumi, index) => ({ bangumi, index }))
+    .sort((a, b) => {
+      const statusDiff = Number(b.bangumi.status === 2) - Number(a.bangumi.status === 2);
+      if (statusDiff !== 0) return statusDiff;
+
+      return a.index - b.index;
+    })
+    .map(({ bangumi }) => bangumi);
+
 function PlayerCard({ bangumiData }: PlayerCardProps) {
   const { colorMode } = useColorMode();
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -123,9 +134,12 @@ export default function Bangumi() {
 
   const filteredBangumi = useMemo(() => {
     const keyword = searchKey.trim().toLowerCase();
-    if (!keyword) return bangumiData?.data ?? [];
+    const sourceData = bangumiData?.data ?? [];
+    const filteredData = keyword
+      ? sourceData.filter(bangumi => bangumi.bangumi_name.toLowerCase().includes(keyword))
+      : sourceData;
 
-    return (bangumiData?.data ?? []).filter(bangumi => bangumi.bangumi_name.toLowerCase().includes(keyword));
+    return sortUpdatedFirst(filteredData);
   }, [bangumiData?.data, searchKey]);
 
   if (!bangumiData) return <FallbackBangumi />;
