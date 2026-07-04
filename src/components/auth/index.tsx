@@ -60,10 +60,10 @@ export default function Auth({ children, to }: { children: React.ReactElement; t
 
       navigate(to);
     } catch (error) {
-      const authError = error as { status: string; message: string };
+      const authError = error as { status?: string; message?: string; detail?: string };
       console.error(authError);
       toast({
-        title: `验证失败: ${authError.message}`,
+        title: `验证失败: ${authError.message ?? authError.detail ?? 'Token 不正确'}`,
         status: 'error',
         duration: 2000,
         position: 'top-right',

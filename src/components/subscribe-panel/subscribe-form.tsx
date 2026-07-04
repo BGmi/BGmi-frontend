@@ -14,16 +14,18 @@ import {
   ModalOverlay,
   Spinner,
   Stack,
+  Text,
 } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useSubscribeAction } from '~/hooks/use-subscribe-action';
 import type { SyncData } from './subscribe-card';
 
 export interface InitialData {
   bangumiName: string;
-  completedEpisodes: number;
+  totalEpisodes: number;
+  watchedEpisodes: number[];
   filterOptions: {
     include: string;
     exclude: string;
@@ -43,9 +45,13 @@ interface Props {
 
 export default function SubscribeForm({ isOpen, onClose, initialData, setSyncData, syncData }: Props) {
   const [formData, setFormData] = useState<InitialData>();
-  const { handleSaveFilter, handleSaveMark, handleUnSubscribe } = useSubscribeAction();
+  const { handleSaveFilter, handleMarkUnwatched, handleMarkWatched, handleUnSubscribe } = useSubscribeAction();
 
-  if (initialData && !formData) setFormData(initialData);
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setFormData(initialData);
+  }, [initialData, isOpen]);
 
   const selectOptions = useMemo(() => {
     return formData?.subtitleGroups.map(subtitleGroup => {
@@ -69,6 +75,56 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
     onClose();
   };
 
+  const episodeItems = useMemo(() => {
+    const total = Number.isFinite(formData?.totalEpisodes) ? formData?.totalEpisodes ?? 0 : 0;
+    return Array.from({ length: total }, (_, index) => index + 1);
+  }, [formData?.totalEpisodes]);
+
+  const watchedEpisodeSet = useMemo(() => new Set(formData?.watchedEpisodes ?? []), [formData?.watchedEpisodes]);
+
+  const handleToggleEpisode = async (episode: number) => {
+    if (!formData) {
+      console.error('formData is undefined');
+      return;
+    }
+
+    const isWatched = watchedEpisodeSet.has(episode);
+    const previousWatchedEpisodes = formData.watchedEpisodes;
+    const nextWatchedEpisodes = isWatched
+      ? previousWatchedEpisodes.filter(item => item !== episode)
+      : [...previousWatchedEpisodes, episode].sort((a, b) => a - b);
+
+    setFormData({
+      ...formData,
+      watchedEpisodes: nextWatchedEpisodes,
+    });
+    setSyncData({ ...syncData, episode: Math.max(...nextWatchedEpisodes, 0) || undefined });
+
+    try {
+      const response = isWatched
+        ? await handleMarkUnwatched.trigger({ name: formData.bangumiName, episode })
+        : await handleMarkWatched.trigger({ name: formData.bangumiName, episode });
+
+      if (response?.seen) {
+        const responseWatchedEpisodes = [...new Set(response.seen)].sort((a, b) => a - b);
+        const responseTotalEpisodes = Number.isFinite(response.total_episode) ? response.total_episode : 0;
+
+        setFormData({
+          ...formData,
+          totalEpisodes: Math.max(formData.totalEpisodes, responseTotalEpisodes, ...responseWatchedEpisodes),
+          watchedEpisodes: responseWatchedEpisodes,
+        });
+        setSyncData({ ...syncData, episode: Math.max(...responseWatchedEpisodes, 0) || undefined });
+      }
+    } catch {
+      setFormData({
+        ...formData,
+        watchedEpisodes: previousWatchedEpisodes,
+      });
+      setSyncData({ ...syncData, episode: Math.max(...previousWatchedEpisodes, 0) || undefined });
+    }
+  };
+
   const handleSave = async () => {
     if (!formData) {
       console.error('formData is undefined');
@@ -80,15 +136,9 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
       include: formData.filterOptions.include,
       exclude: formData.filterOptions.exclude,
       regex: formData.filterOptions.regex,
-      subtitle: formData.follwedSubtitleGroups.join(','),
+      selectedSubtitle: formData.follwedSubtitleGroups,
     });
 
-    await handleSaveMark.trigger({
-      name: formData.bangumiName,
-      episode: formData.completedEpisodes,
-    });
-
-    setSyncData({ ...syncData, episode: formData.completedEpisodes });
     onClose();
   };
 
@@ -155,13 +205,44 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
                     type="text"
                   />
                 </FormControl>
-                <FormControl id="completedEpisodes">
-                  <FormLabel>已完成下载的剧集</FormLabel>
-                  <Input
-                    onChange={e => setFormData({ ...formData, completedEpisodes: +e.target.value })}
-                    defaultValue={formData.completedEpisodes}
-                    type="text"
-                  />
+                <FormControl id="watchStatus">
+                  <FormLabel>标记观看状态</FormLabel>
+                  {episodeItems.length === 0 ? (
+                    <Text color="gray.500" fontSize="sm">
+                      暂无剧集
+                    </Text>
+                  ) : (
+                    <Box display="grid" gridTemplateColumns="repeat(auto-fill, minmax(2.75rem, 1fr))" gap="1">
+                      {episodeItems.map(episode => {
+                        const isWatched = watchedEpisodeSet.has(episode);
+
+                        return (
+                          <Button
+                            key={episode}
+                            aria-label={`标记第 ${episode} 集${isWatched ? '未观看' : '已观看'}`}
+                            variant="ghost"
+                            minW="0"
+                            h="8"
+                            px="0"
+                            bg="transparent"
+                            borderRadius="sm"
+                            color={isWatched ? 'gray.400' : undefined}
+                            fontWeight={isWatched ? 'normal' : 'semibold'}
+                            textDecoration={isWatched ? 'line-through' : 'none'}
+                            _hover={{
+                              bg: isWatched ? 'blackAlpha.50' : 'blackAlpha.100',
+                              color: isWatched ? 'gray.500' : undefined,
+                            }}
+                            _active={{ bg: 'blackAlpha.200' }}
+                            isLoading={handleMarkWatched.isMutating || handleMarkUnwatched.isMutating}
+                            onClick={() => handleToggleEpisode(episode)}
+                          >
+                            {episode}
+                          </Button>
+                        );
+                      })}
+                    </Box>
+                  )}
                 </FormControl>
                 <FormControl id="subtitleGroups">
                   <FormLabel>选择字幕组</FormLabel>
@@ -187,11 +268,7 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
           <Button colorScheme="red" mr="3" onClick={handleUnSub}>
             取消订阅
           </Button>
-          <Button
-            colorScheme="blue"
-            onClick={handleSave}
-            isLoading={handleSaveFilter.isMutating || handleSaveMark.isMutating}
-          >
+          <Button colorScheme="blue" onClick={handleSave} isLoading={handleSaveFilter.isMutating}>
             保存
           </Button>
         </ModalFooter>

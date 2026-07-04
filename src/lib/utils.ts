@@ -21,3 +21,12 @@ export const createAbsoluteUrl = (url: string) => {
 
   return absoluteUrl;
 };
+
+export const createBgmiAssetUrl = (url: string | undefined) => {
+  if (!url) return '';
+
+  if (/^(https?:)?\/\//.test(url) || url.startsWith('data:')) return url;
+  if (url.startsWith('/')) return `.${url}`;
+
+  return `./bangumi/cover/${url}`;
+};

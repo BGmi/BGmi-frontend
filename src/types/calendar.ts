@@ -1,14 +1,14 @@
 export interface WeekCalendar {
   status?: number;
   episode?: number;
-  id: number;
+  id: string;
   name: string;
-  subtitle_group: {
+  subtitle_group?: {
     name: string;
     id: string;
   }[];
-  keyword: string;
-  update_time: string;
+  keyword?: string;
+  update_day: string;
   cover: string;
 }
 
@@ -20,11 +20,5 @@ export type CalendarDataKey = keyof CalendarData;
 export type CalendarDataEntries = [keyof CalendarData, WeekCalendar[] | undefined][];
 
 export interface Calendar {
-  version: string;
-  latest_version: string;
-  frontend_version: string;
-  status: string;
-  lang: string;
-  danmaku_api: string;
   data: CalendarData;
 }

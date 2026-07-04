@@ -26,10 +26,10 @@ export interface Bangumi {
 }
 
 export interface BangumiData {
-  name: string;
-  update_time: string;
+  name?: string;
+  update_time?: string;
   cover: string;
-  id: number;
+  id?: number | string;
   bangumi_name: string;
   episode: number;
   status: number;
@@ -39,10 +39,6 @@ export interface BangumiData {
 
 export interface BangumiResponse {
   version: string;
-  latest_version: string;
-  frontend_version: string;
-  status: string;
-  lang: string;
   danmaku_api: string;
   data: BangumiData[];
 }

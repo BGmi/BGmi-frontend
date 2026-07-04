@@ -1,17 +1,25 @@
 import { Box, Button, Fade, Flex, Image, Text, useDisclosure } from '@chakra-ui/react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSubscribeAction } from '~/hooks/use-subscribe-action';
 import { useColorMode } from '~/hooks/use-color-mode';
+import { createBgmiAssetUrl } from '~/lib/utils';
 
 import SubscribeForm from './subscribe-form';
 
 import type { WeekCalendar } from '~/types/calendar';
+import type { SeenStatusResp } from '~/types/subscribe';
 import type { InitialData } from './subscribe-form';
 
 interface Props {
   bangumi: WeekCalendar;
 }
+
+const uniqueSortedEpisodes = (episodes: number[]) =>
+  [...new Set(episodes.filter(Number.isInteger).filter(episode => episode > 0))].sort((a, b) => a - b);
+
+const getTotalEpisodes = (data: SeenStatusResp | undefined, fallbackEpisode: number, watchedEpisodes: number[]) =>
+  Math.max(fallbackEpisode, ...watchedEpisodes, data?.total_episode ?? 0);
 
 export interface SyncData {
   status: boolean;
@@ -28,12 +36,19 @@ export default function SubscribeCard({ bangumi }: Props) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [initialData, setInitialData] = useState<InitialData>();
 
-  const { handleFetchFilter, handleSubscribe } = useSubscribeAction();
+  const { handleFetchFilter, handleFetchSeen, handleSubscribe } = useSubscribeAction();
 
   const [syncData, setSyncData] = useState<SyncData>({
     status: !!bangumi.status,
     episode: bangumi.episode,
   });
+
+  useEffect(() => {
+    setSyncData({
+      status: !!bangumi.status,
+      episode: bangumi.episode,
+    });
+  }, [bangumi.episode, bangumi.status]);
 
   const handleOpen = async (status: boolean, name: string, ep: number) => {
     onOpen();
@@ -42,25 +57,29 @@ export default function SubscribeCard({ bangumi }: Props) {
      * 先进行订阅操作才能请求 `filter` 获取字幕组数据, 已订阅不操作
      * */
     if (!status) {
-      await handleSubscribe(name, 0);
+      await handleSubscribe(name);
       setSyncData({
         ...syncData,
         status: true,
       });
     }
 
-    const data = await handleFetchFilter(name);
+    const [data, seenData] = await Promise.all([handleFetchFilter(name), handleFetchSeen(name)]);
+    const fallbackEpisode = syncData.episode ?? ep;
+    const watchedEpisodes = uniqueSortedEpisodes(seenData?.seen ?? []);
+    const totalEpisodes = getTotalEpisodes(seenData, fallbackEpisode, watchedEpisodes);
 
     setInitialData({
       bangumiName: name,
-      completedEpisodes: syncData.episode ?? ep,
+      totalEpisodes,
+      watchedEpisodes,
       filterOptions: {
-        include: data?.data.include ?? '',
-        exclude: data?.data.exclude ?? '',
-        regex: data?.data.regex ?? '',
+        include: data?.include.join(', ') ?? '',
+        exclude: data?.exclude.join(', ') ?? '',
+        regex: data?.regex ?? '',
       },
-      subtitleGroups: data?.data.subtitle_group ?? [],
-      follwedSubtitleGroups: data?.data.followed ?? [],
+      subtitleGroups: data?.available_subtitle ?? [],
+      follwedSubtitleGroups: data?.selected_subtitle ?? [],
     });
   };
 
@@ -104,7 +123,7 @@ export default function SubscribeCard({ bangumi }: Props) {
             <Image
               h="sm"
               w="full"
-              src={`./bangumi/cover/${bangumi.cover}`}
+              src={createBgmiAssetUrl(bangumi.cover)}
               alt="anime cover"
               objectFit="cover"
               backgroundPosition="50% 50%"

@@ -11,10 +11,12 @@ export const useAuth = () => {
     const options: RequestInit = {
       signal: controller.signal,
       method: 'POST',
-      body: JSON.stringify({ token: authToken }),
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
     };
 
-    return { timeoutId, response: await fetch('./api/auth', options) };
+    return { timeoutId, response: await fetch('./api/admin/auth', options) };
   };
 
   return {

@@ -31,7 +31,7 @@ export const useBangumi = () => {
   };
 
   const { data, isLoading, mutate } = useSWRImmutable<{ new: BangumiResponse; old: BangumiResponse }>(
-    ['/api/index', '/api/old'],
+    ['/api/index/index', '/api/index/old'],
     multipleFetcher,
     {
       onError(err) {

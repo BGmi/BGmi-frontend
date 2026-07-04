@@ -8,7 +8,7 @@ import Link from '~/components/router-link';
 
 import { bangumiFilterAtom, useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
-import { normalizePath } from '~/lib/utils';
+import { createBgmiAssetUrl, normalizePath } from '~/lib/utils';
 
 import type { BangumiData } from '~/types/bangumi';
 
@@ -40,7 +40,7 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
               <Image
                 h="48"
                 w="full"
-                src={`.${coverUrl}`}
+                src={createBgmiAssetUrl(coverUrl)}
                 alt="anime cover"
                 objectFit="cover"
                 backgroundPosition="50% 50%"
@@ -102,7 +102,7 @@ export default function Bangumi() {
   return (
     <Grid templateColumns="repeat(auto-fill, minmax(20rem, 1fr))" gap={6}>
       {bangumiData?.data.map(bangumi => (
-        <GridItem key={bangumi.id}>
+        <GridItem key={bangumi.id ?? bangumi.bangumi_name}>
           <PlayerCard bangumiData={bangumi} />
         </GridItem>
       ))}

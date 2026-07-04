@@ -7,6 +7,7 @@ import { FallbackCalendar } from '~/components/fallback';
 
 import { useCalendar } from '~/hooks/use-calendar';
 import { useColorMode } from '~/hooks/use-color-mode';
+import { createBgmiAssetUrl } from '~/lib/utils';
 
 import type { CalendarDataEntries, CalendarDataKey, WeekCalendar } from '~/types/calendar';
 
@@ -26,7 +27,7 @@ function CalendarPanel({ bangumi }: { bangumi: WeekCalendar }) {
         >
           <Fade in={isLoaded}>
             <Image
-              src={`./bangumi/cover/${bangumi.cover}`}
+              src={createBgmiAssetUrl(bangumi.cover)}
               width="180px"
               height="250px"
               objectFit="cover"

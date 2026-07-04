@@ -1,6 +1,6 @@
 export const fetcher = async <T>([key, authToken]: [string, string?], options: ResponseInit): Promise<T> => {
   const headers = new Headers();
-  if (authToken) headers.append('bgmi-token', authToken);
+  if (authToken) headers.append('Authorization', `Bearer ${authToken}`);
 
   // request timeout
   const controller = new AbortController();
@@ -21,12 +21,23 @@ export const fetcherWithMutation = async <T>(
   { arg }: { arg: Record<string, any> }
 ): Promise<T> => {
   const headers = new Headers();
-  if (authToken) headers.append('bgmi-token', authToken);
+  headers.append('Content-Type', 'application/json');
+  if (authToken) headers.append('Authorization', `Bearer ${authToken}`);
+
+  const isRequestOptions = 'method' in arg || 'path' in arg || 'body' in arg;
+  const requestArg = isRequestOptions
+    ? (arg as {
+        method?: string;
+        path?: string;
+        body?: Record<string, any>;
+      })
+    : undefined;
+  const body = requestArg ? requestArg.body : arg;
 
   const options: RequestInit = {
     headers,
-    method: 'POST',
-    body: JSON.stringify(arg),
+    method: requestArg?.method ?? 'POST',
+    body: body ? JSON.stringify(body) : undefined,
   };
 
   // request timeout
@@ -35,7 +46,7 @@ export const fetcherWithMutation = async <T>(
     controller.abort();
   }, 15000);
 
-  const res = await fetch(`.${key}`, { signal: controller.signal, ...options });
+  const res = await fetch(`.${key}${requestArg?.path ?? ''}`, { signal: controller.signal, ...options });
 
   if (!res.ok) throw new Error(`fetcher error ${res.status}`);
 

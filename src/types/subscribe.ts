@@ -1,25 +1,22 @@
 export interface FetchFilterResp {
-  version: string;
-  latest_version: string;
-  frontend_version: string;
-  status: string;
-  lang: string;
-  danmaku_api: string;
-  data: {
-    name: string;
-    subtitle_group: string[] | null;
-    followed: string[] | null;
-    include: string | null;
-    exclude: string | null;
-    regex: string | null;
-  };
-  message: string;
+  available_subtitle: string[];
+  selected_subtitle: string[];
+  include: string[];
+  exclude: string[];
+  regex: string;
+}
+
+export interface SeenStatusResp {
+  bangumi: string;
+  episode?: number;
+  total_episode: number;
+  seen: number[];
 }
 
 export interface SaveFilterBody {
   name: string;
-  include: string | null;
-  exclude: string | null;
-  regex: string | null;
-  subtitle: string | null;
+  include: string;
+  exclude: string;
+  regex: string;
+  selectedSubtitle: string[];
 }
