@@ -17,7 +17,7 @@ export interface Bangumi {
   episode: number;
   exclude: string;
   include: string;
-  player: { [keys: number]: { player: string } };
+  player: { [keys: number]: { path: string } };
   regex: string;
   status: 1;
   subtitle: string;
@@ -34,7 +34,7 @@ export interface BangumiData {
   episode: number;
   status: number;
   updated_time: number;
-  player: Record<string, Record<(string & {}) | 'path', string> | undefined>;
+  player: Record<string, { path: string } | undefined>;
 }
 
 export interface BangumiResponse {

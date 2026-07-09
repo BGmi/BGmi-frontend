@@ -48,30 +48,28 @@ export const SidebarContent = ({
       transition="width 0.18s ease"
       {...props}
     >
-      <Flex px="3" py="4" alignItems="center" justify={isCollapsed ? 'center' : 'space-between'}>
-        {!isCollapsed ? (
-          <Box px="2">
-            <Text fontSize="xl" fontWeight="semibold" lineHeight="1">
-              BGmi
-            </Text>
-          </Box>
-        ) : null}
-        {onToggleCollapse ? (
-          <IconButton
-            aria-label={isCollapsed ? '展开侧边栏' : '收起侧边栏'}
-            icon={<BsLayoutSidebarInset />}
-            onClick={onToggleCollapse}
-            size="sm"
-            fontSize="18px"
-            variant="ghost"
-          />
-        ) : (
-          <Text px="2" fontSize="xl" fontWeight="semibold" lineHeight="1">
-            BGmi
-          </Text>
-        )}
-      </Flex>
-      <Divider borderColor={borderColor} />
+      {onToggleCollapse && (
+        <>
+          <Flex px="3" py="4" alignItems="center" justify={isCollapsed ? 'center' : 'space-between'}>
+            {!isCollapsed ? (
+              <Box px="2">
+                <Text fontSize="xl" fontWeight="semibold" lineHeight="1">
+                  BGmi
+                </Text>
+              </Box>
+            ) : null}
+            <IconButton
+              aria-label={isCollapsed ? '展开侧边栏' : '收起侧边栏'}
+              icon={<BsLayoutSidebarInset />}
+              onClick={onToggleCollapse}
+              size="sm"
+              fontSize="18px"
+              variant="ghost"
+            />
+          </Flex>
+          <Divider borderColor={borderColor} />
+        </>
+      )}
       <Flex direction="column" as="nav" fontSize="sm" color="gray.600" aria-label="main-navigation" px="3" py="4">
         {/*
          * 兼容 safari，不知道为什么会导致第一个元素被聚焦

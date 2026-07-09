@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner, useToast } from '@chakra-ui/react';
+import { AspectRatio, Box, Flex, Grid, GridItem, Spinner, Text, useToast } from '@chakra-ui/react';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -10,7 +10,6 @@ import type { DPlayerOptions } from 'dplayer';
 import EpisodeCard from './episode-card';
 import ExternalPlayer from './external-player';
 
-import { useColorMode } from '~/hooks/use-color-mode';
 import { useVideoCurrentTime } from '~/hooks/use-watch-history';
 
 import { createAbsoluteUrl } from '~/lib/utils';
@@ -24,7 +23,6 @@ interface Props {
 }
 
 export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props) {
-  const { colorMode } = useColorMode();
   const toast = useToast();
 
   const dpInstanceRef = useRef<DPlayer>();
@@ -38,15 +36,6 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
   const { updateCurrentTime, getCurrentTime } = useVideoCurrentTime(bangumiData.bangumi_name);
 
   const path = bangumiData.player[episode]?.path;
-  if (!path && !toast.isActive(episode))
-    toast({
-      title: '视频文件不存在',
-      status: 'error',
-      duration: 3000,
-      position: 'top-right',
-      id: episode,
-    });
-
   const fileUrl = `./bangumi${path ?? ''}`;
   const fileType = fileUrl.split('.').pop();
 
@@ -110,7 +99,7 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
 
   const episodeCardProps = useMemo(
     () => ({
-      totalEpisode: Object.keys(bangumiData.player),
+      totalEpisode: Object.keys(bangumiData.player).sort((a, b) => Number(a) - Number(b)),
       bangumiName: bangumiData.bangumi_name,
       currentEpisode: episode,
     }),
@@ -125,7 +114,23 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
   const handleCanPlay = useCallback(() => setLoading(false), []);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!path && !toast.isActive(episode)) {
+      toast({
+        title: '视频文件不存在',
+        status: 'error',
+        duration: 3000,
+        position: 'top-right',
+        id: episode,
+      });
+    }
+  }, [episode, path, toast]);
+
+  useEffect(() => {
+    setLoading(Boolean(path));
+  }, [path]);
+
+  useEffect(() => {
+    if (!containerRef.current || !path) return;
 
     const hls = new Hls();
     const dp = new DPlayer(dplayerOptions(fileUrl, hls));
@@ -135,10 +140,7 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
     dp.video.addEventListener('canplay', handleCanPlay);
     dp.video.addEventListener('timeupdate', handleTimeUpdate); // TODO 时刻更新 currentTime; 感觉会有性能影响 一直在更新 localstorage
 
-    if (!loading) {
-      // 恢复播放进度
-      dp.seek(getCurrentTime());
-    }
+    dp.seek(getCurrentTime());
 
     return () => {
       dp.video.removeEventListener('canplay', handleCanPlay);
@@ -146,36 +148,42 @@ export default function VideoPlayer({ bangumiData, danmakuApi, episode }: Props)
       dp.destroy();
       hls.destroy();
     };
-  }, [dplayerOptions, getCurrentTime, handleCanPlay, handleTimeUpdate, loading, fileUrl]);
+  }, [dplayerOptions, getCurrentTime, handleCanPlay, handleTimeUpdate, fileUrl, path]);
 
   return (
-    <>
-      <Flex flexDirection="column">
-        <Box
-          p={{ base: '2', md: '3' }}
-          borderRadius="card"
-          bg={colorMode === 'dark' ? 'blackAlpha.500' : 'gray.900'}
-          transition=".5s width"
-          w="full"
-          position="relative"
-          overflow="hidden"
-        >
-          <Spinner
-            display={loading ? 'block' : 'none'}
-            zIndex="100"
-            position="absolute"
-            left="0"
-            right="0"
-            top="0"
-            bottom="0"
-            m="auto"
-            color="white"
-          />
-          <Box id="DPlayer" ref={containerRef} />
+    <Grid templateColumns={{ base: '1fr', xl: 'minmax(0, 1fr) 20rem' }} gap={{ base: 4, xl: 5 }} alignItems="start">
+      <GridItem minW="0">
+        <Box bg="black" borderRadius="card" overflow="hidden" boxShadow="0 18px 50px rgba(0,0,0,0.28)">
+          <AspectRatio ratio={16 / 9}>
+            <Box position="relative">
+              {path ? (
+                <>
+                  <Spinner
+                    display={loading ? 'block' : 'none'}
+                    zIndex="100"
+                    position="absolute"
+                    left="0"
+                    right="0"
+                    top="0"
+                    bottom="0"
+                    m="auto"
+                    color="white"
+                  />
+                  <Box id="DPlayer" ref={containerRef} w="full" h="full" />
+                </>
+              ) : (
+                <Flex align="center" justify="center" color="whiteAlpha.800" textAlign="center" px="4">
+                  <Text>视频文件不存在</Text>
+                </Flex>
+              )}
+            </Box>
+          </AspectRatio>
         </Box>
-        <ExternalPlayer url={createAbsoluteUrl(fileUrl)} />
-      </Flex>
-      <EpisodeCard setPlayState={setPlayState} bangumiData={episodeCardProps} />
-    </>
+        {path && <ExternalPlayer url={createAbsoluteUrl(fileUrl)} />}
+      </GridItem>
+      <GridItem>
+        <EpisodeCard setPlayState={setPlayState} bangumiData={episodeCardProps} />
+      </GridItem>
+    </Grid>
   );
 }

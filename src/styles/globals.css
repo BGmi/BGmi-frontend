@@ -2,6 +2,11 @@ video[poster] {
   object-fit: cover;
 }
 
+.dplayer,
+.dplayer-video-wrap {
+  height: 100%;
+}
+
 .chakra-tabs__tablist {
   overflow-y: hidden;
   overflow-x: scroll;
