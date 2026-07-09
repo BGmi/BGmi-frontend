@@ -57,7 +57,7 @@ export default function SubscribeCard({ bangumi }: Props) {
      * 先进行订阅操作才能请求 `filter` 获取字幕组数据, 已订阅不操作
      * */
     if (!status) {
-      await handleSubscribe(name);
+      await handleSubscribe({ name });
       setSyncData({
         ...syncData,
         status: true,
@@ -73,6 +73,9 @@ export default function SubscribeCard({ bangumi }: Props) {
       bangumiName: name,
       totalEpisodes,
       watchedEpisodes,
+      season: data?.season ?? 1,
+      episodeOffset: data?.episode_offset ?? 0,
+      subscribed: true,
       filterOptions: {
         include: data?.include.join(', ') ?? '',
         exclude: data?.exclude.join(', ') ?? '',
@@ -80,6 +83,25 @@ export default function SubscribeCard({ bangumi }: Props) {
       },
       subtitleGroups: data?.available_subtitle ?? [],
       follwedSubtitleGroups: data?.selected_subtitle ?? [],
+    });
+  };
+
+  const handleOpenUnsubscribed = (name: string, ep: number) => {
+    onOpen();
+    setInitialData({
+      bangumiName: name,
+      totalEpisodes: ep,
+      watchedEpisodes: [],
+      season: 1,
+      episodeOffset: 0,
+      subscribed: false,
+      filterOptions: {
+        include: '',
+        exclude: '',
+        regex: '',
+      },
+      subtitleGroups: bangumi.subtitle_group?.map(item => item.name) ?? [],
+      follwedSubtitleGroups: [],
     });
   };
 
@@ -140,7 +162,11 @@ export default function SubscribeCard({ bangumi }: Props) {
             size="sm"
             colorScheme={syncData.status ? 'gray' : 'red'}
             variant={syncData.status ? 'outline' : 'solid'}
-            onClick={() => handleOpen(syncData.status, bangumi.name, bangumi.episode ?? 0)}
+            onClick={() =>
+              syncData.status
+                ? handleOpen(syncData.status, bangumi.name, bangumi.episode ?? 0)
+                : handleOpenUnsubscribed(bangumi.name, bangumi.episode ?? 0)
+            }
           >
             {syncData.status ? '查看设置' : '订阅'}
           </Button>

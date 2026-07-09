@@ -26,7 +26,7 @@ import RouterLink from '~/components/router-link';
 
 import { bangumiFilterAtom, type DataKind, useBangumi } from '~/hooks/use-bangumi';
 import { useColorMode } from '~/hooks/use-color-mode';
-import { createBgmiAssetUrl, normalizePath } from '~/lib/utils';
+import { createBgmiAssetUrl } from '~/lib/utils';
 
 import type { BangumiData } from '~/types/bangumi';
 
@@ -55,7 +55,11 @@ function PlayerCard({ bangumiData }: PlayerCardProps) {
 
   return (
     <Box role="group">
-      <RouterLink href={`/player/${normalizePath(title)}`} display="block" _hover={{ textDecoration: 'none' }}>
+      <RouterLink
+        href={`/player/${encodeURIComponent(String(bangumiData.id))}`}
+        display="block"
+        _hover={{ textDecoration: 'none' }}
+      >
         <AspectRatio
           ratio={3 / 4}
           bg={colorMode === 'dark' ? 'gray.800' : 'gray.200'}

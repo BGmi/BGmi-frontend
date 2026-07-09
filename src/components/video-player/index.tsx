@@ -14,10 +14,10 @@ import { useVideoCurrentTime } from '~/hooks/use-watch-history';
 
 import { createAbsoluteUrl } from '~/lib/utils';
 
-import type { BangumiData } from '~/types/bangumi';
+import type { BangumiPlayerData } from '~/types/bangumi';
 
 interface Props {
-  bangumiData: BangumiData;
+  bangumiData: BangumiPlayerData;
   danmakuApi: string;
   episode: string;
 }

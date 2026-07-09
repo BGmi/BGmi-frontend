@@ -28,6 +28,9 @@ export interface InitialData {
   bangumiName: string;
   totalEpisodes: number;
   watchedEpisodes: number[];
+  season: number;
+  episodeOffset: number;
+  subscribed: boolean;
   filterOptions: {
     include: string;
     exclude: string;
@@ -47,7 +50,9 @@ interface Props {
 
 export default function SubscribeForm({ isOpen, onClose, initialData, setSyncData, syncData }: Props) {
   const [formData, setFormData] = useState<InitialData>();
-  const { handleSaveFilter, handleMarkUnwatched, handleMarkWatched, handleUnSubscribe } = useSubscribeAction();
+  const [offsetInput, setOffsetInput] = useState('0');
+  const { handleSaveFilter, handleMarkUnwatched, handleMarkWatched, handleSubscribe, handleUnSubscribe } =
+    useSubscribeAction();
   const drawerPlacement = useBreakpointValue({ base: 'bottom', md: 'right' } as const) ?? 'right';
   const drawerSize = useBreakpointValue({ base: 'full', md: 'md' } as const) ?? 'md';
 
@@ -55,6 +60,7 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
     if (!isOpen) return;
 
     setFormData(initialData);
+    setOffsetInput(String(initialData?.episodeOffset ?? 0));
   }, [initialData, isOpen]);
 
   const selectOptions = useMemo(() => {
@@ -85,6 +91,27 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
   }, [formData?.totalEpisodes]);
 
   const watchedEpisodeSet = useMemo(() => new Set(formData?.watchedEpisodes ?? []), [formData?.watchedEpisodes]);
+  const previewEpisode = formData?.totalEpisodes && formData.totalEpisodes > 0 ? formData.totalEpisodes : 1;
+
+  const setSeason = (season: number) => {
+    if (!formData) return;
+    setFormData({ ...formData, season: Math.max(1, season || 1) });
+  };
+
+  const setEpisodeOffset = (episodeOffset: number) => {
+    if (!formData) return;
+    setFormData({ ...formData, episodeOffset: episodeOffset || 0 });
+    setOffsetInput(String(episodeOffset || 0));
+  };
+
+  const handleEpisodeOffsetInput = (value: string) => {
+    if (!/^-?\d*$/.test(value) || !formData) return;
+
+    setOffsetInput(value);
+    if (value === '' || value === '-') return;
+
+    setFormData({ ...formData, episodeOffset: Number(value) });
+  };
 
   const handleToggleEpisode = async (episode: number) => {
     if (!formData) {
@@ -135,6 +162,13 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
       return;
     }
 
+    await handleSubscribe({
+      name: formData.bangumiName,
+      season: formData.season,
+      episodeOffset: formData.episodeOffset,
+    });
+    setSyncData({ ...syncData, status: true });
+
     await handleSaveFilter.trigger({
       name: formData.bangumiName,
       include: formData.filterOptions.include,
@@ -183,6 +217,73 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
                 <Text mb="3" fontWeight="semibold">
                   订阅设置
                 </Text>
+                <Flex mb="3" gap="2" align="center" wrap="nowrap">
+                  <FormControl id="season" display="flex" alignItems="center" gap="1.5" w="auto">
+                    <FormLabel m="0" whiteSpace="nowrap">
+                      Season
+                    </FormLabel>
+                    <Input
+                      type="number"
+                      min={1}
+                      value={formData.season}
+                      w="3.75rem"
+                      h="8"
+                      px="1"
+                      textAlign="center"
+                      onChange={e => setSeason(Number(e.target.value))}
+                    />
+                  </FormControl>
+                  <FormControl id="episodeOffset" display="flex" alignItems="center" gap="1.5" w="auto">
+                    <FormLabel m="0" whiteSpace="nowrap">
+                      Offset
+                    </FormLabel>
+                    <Flex w="7.25rem">
+                      <Button
+                        borderRightRadius="0"
+                        minW="1.9rem"
+                        h="8"
+                        px="0"
+                        variant="outline"
+                        onClick={() => setEpisodeOffset(formData.episodeOffset - 1)}
+                      >
+                        -
+                      </Button>
+                      <Input
+                        type="text"
+                        inputMode="numeric"
+                        value={offsetInput}
+                        borderRadius="0"
+                        h="8"
+                        px="1"
+                        textAlign="center"
+                        onChange={e => handleEpisodeOffsetInput(e.target.value)}
+                      />
+                      <Button
+                        borderLeftRadius="0"
+                        minW="1.9rem"
+                        h="8"
+                        px="0"
+                        variant="outline"
+                        onClick={() => setEpisodeOffset(formData.episodeOffset + 1)}
+                      >
+                        +
+                      </Button>
+                    </Flex>
+                  </FormControl>
+                  <Text
+                    h="8"
+                    px="2"
+                    display="flex"
+                    alignItems="center"
+                    bg="blackAlpha.50"
+                    borderRadius="sm"
+                    fontSize="sm"
+                    whiteSpace="nowrap"
+                  >
+                    EP {previewEpisode} {'->'} S{String(formData.season).padStart(2, '0')}E
+                    {String(previewEpisode + formData.episodeOffset).padStart(2, '0')}
+                  </Text>
+                </Flex>
                 <Flex>
                   <FormControl id="include" mr="1">
                     <FormLabel>包含字段</FormLabel>
@@ -294,7 +395,7 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
             取消订阅
           </Button>
           <Button colorScheme="red" onClick={handleSave} isLoading={handleSaveFilter.isMutating}>
-            保存
+            {formData?.subscribed ? '保存' : '订阅并保存'}
           </Button>
         </DrawerFooter>
       </DrawerContent>

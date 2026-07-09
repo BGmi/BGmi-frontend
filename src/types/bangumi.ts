@@ -29,11 +29,14 @@ export interface BangumiData {
   name?: string;
   update_time?: string;
   cover: string;
-  id?: number | string;
+  id: string;
   bangumi_name: string;
   episode: number;
   status: number;
   updated_time: number;
+}
+
+export interface BangumiPlayerData extends BangumiData {
   player: Record<string, { path: string } | undefined>;
 }
 
@@ -41,4 +44,10 @@ export interface BangumiResponse {
   version: string;
   danmaku_api: string;
   data: BangumiData[];
+}
+
+export interface BangumiPlayerResponse {
+  version: string;
+  danmaku_api: string;
+  data: BangumiPlayerData;
 }

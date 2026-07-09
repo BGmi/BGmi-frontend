@@ -4,6 +4,8 @@ export interface FetchFilterResp {
   include: string[];
   exclude: string[];
   regex: string;
+  season: number;
+  episode_offset: number;
 }
 
 export interface SeenStatusResp {

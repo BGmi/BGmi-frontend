@@ -1,45 +1,52 @@
 import { Badge, Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet-async';
 
+import useSWRImmutable from 'swr/immutable';
 import { useParams } from 'react-router-dom';
 
 import { useBangumi } from '~/hooks/use-bangumi';
 import { useWatchHistory } from '~/hooks/use-watch-history';
 
 import VideoPlayer from '~/components/video-player';
+import { fetcher } from '~/lib/fetcher';
 import { createBgmiAssetUrl } from '~/lib/utils';
+import type { BangumiPlayerResponse } from '~/types/bangumi';
 
 export default function Player() {
   const params = useParams();
   const [currentWatchHistory] = useWatchHistory();
   const { data } = useBangumi();
+  const playerId = params.id ?? '';
+  const { data: playerData } = useSWRImmutable<BangumiPlayerResponse>(
+    playerId ? `/api/player/${encodeURIComponent(playerId)}` : null,
+    (url: string) => fetcher<BangumiPlayerResponse>([url], {})
+  );
 
   // 这里就懒得做骨架屏了
-  if (!data) return null;
+  if (!data || !playerData) return null;
 
-  const bangumiData = data.data.find(bangumi => {
-    return bangumi.bangumi_name === params.bangumi;
-  });
+  const bangumiData = data.data.find(bangumi => String(bangumi.id) === playerId);
+  const playerBangumiData = playerData.data;
 
   if (!bangumiData) return <div>加载播放器出错，数据不存在</div>;
 
-  const currentBangumiHistory = currentWatchHistory[bangumiData.bangumi_name];
-  const episodes = Object.keys(bangumiData.player).sort((a, b) => Number(a) - Number(b));
+  const currentBangumiHistory = currentWatchHistory[playerBangumiData.bangumi_name];
+  const episodes = Object.keys(playerBangumiData.player).sort((a, b) => Number(a) - Number(b));
 
   const historyEpisode = currentBangumiHistory?.['current-watch']?.episode;
-  const episode = historyEpisode && bangumiData.player[historyEpisode] ? historyEpisode : episodes[0];
+  const episode = historyEpisode && playerBangumiData.player[historyEpisode] ? historyEpisode : episodes[0];
 
   return (
     <Box>
       <Helmet>
-        <title>{`BGmi - ${bangumiData.bangumi_name}`}</title>
+        <title>{`BGmi - ${playerBangumiData.bangumi_name}`}</title>
         <meta name="referrer" content="no-referrer" />
       </Helmet>
       <Flex mb="5" gap="4" align="center">
         <Image
           display={{ base: 'none', sm: 'block' }}
-          src={createBgmiAssetUrl(bangumiData.cover)}
-          alt={bangumiData.bangumi_name}
+          src={createBgmiAssetUrl(playerBangumiData.cover)}
+          alt={playerBangumiData.bangumi_name}
           boxSize="4.5rem"
           objectFit="cover"
           borderRadius="card"
@@ -48,9 +55,9 @@ export default function Player() {
         <Box minW="0">
           <Flex align="center" gap="2" wrap="wrap">
             <Heading fontSize={{ base: 'xl', md: '2xl' }} noOfLines={2}>
-              {bangumiData.bangumi_name}
+              {playerBangumiData.bangumi_name}
             </Heading>
-            {bangumiData.status === 2 && (
+            {playerBangumiData.status === 2 && (
               <Badge colorScheme="green" borderRadius="sm">
                 NEW
               </Badge>
@@ -61,7 +68,7 @@ export default function Player() {
           </Text>
         </Box>
       </Flex>
-      {episode && <VideoPlayer episode={episode} bangumiData={bangumiData} danmakuApi={data.danmaku_api} />}
+      {episode && <VideoPlayer episode={episode} bangumiData={playerBangumiData} danmakuApi={data.danmaku_api} />}
     </Box>
   );
 }
