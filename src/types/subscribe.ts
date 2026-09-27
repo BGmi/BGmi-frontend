@@ -6,6 +6,7 @@ export interface FetchFilterResp {
   regex: string;
   season: number;
   episode_offset: number;
+  display_name?: string;
 }
 
 export interface SeenStatusResp {

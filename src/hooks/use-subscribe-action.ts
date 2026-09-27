@@ -109,11 +109,12 @@ export function useSubscribeAction() {
   );
 
   return {
-    handleSubscribe: (body: { name: string; season?: number; episodeOffset?: number }) =>
+    handleSubscribe: (body: { name: string; season?: number; episodeOffset?: number; displayName?: string }) =>
       subscribe({
         bangumi: body.name,
         season: body.season,
         episode_offset: body.episodeOffset,
+        display_name: body.displayName,
       }),
     handleUnSubscribe: (name: string) => unSubscribe({ bangumi: name }),
     handleFetchFilter: (name: string) =>

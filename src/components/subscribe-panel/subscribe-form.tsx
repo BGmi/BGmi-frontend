@@ -12,6 +12,7 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  FormHelperText,
   Input,
   Spinner,
   Stack,
@@ -30,6 +31,7 @@ export interface InitialData {
   watchedEpisodes: number[];
   season: number;
   episodeOffset: number;
+  displayName: string;
   subscribed: boolean;
   filterOptions: {
     include: string;
@@ -166,6 +168,7 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
       name: formData.bangumiName,
       season: formData.season,
       episodeOffset: formData.episodeOffset,
+      displayName: formData.displayName,
     });
     setSyncData({ ...syncData, status: true });
 
@@ -217,6 +220,18 @@ export default function SubscribeForm({ isOpen, onClose, initialData, setSyncDat
                 <Text mb="3" fontWeight="semibold">
                   订阅设置
                 </Text>
+                <FormControl id="displayName" mb="4">
+                  <FormLabel>下载保存名称</FormLabel>
+                  <Input
+                    value={formData.displayName}
+                    placeholder="留空使用自动名称"
+                    onChange={e => setFormData({ ...formData, displayName: e.target.value })}
+                  />
+                  <FormHelperText>
+                    例如将「飙马野郎 JOJO的奇妙冒险」保存为「JOJO的奇妙冒险」。留空恢复自动命名，订阅原名不变。
+                    需在后端启用路径格式化；下载完成整理时生效，已整理的文件不会自动改名。
+                  </FormHelperText>
+                </FormControl>
                 <Flex mb="3" gap="2" align="center" wrap="nowrap">
                   <FormControl id="season" display="flex" alignItems="center" gap="1.5" w="auto">
                     <FormLabel m="0" whiteSpace="nowrap">

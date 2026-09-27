@@ -26,6 +26,7 @@ export interface Bangumi {
 }
 
 export interface BangumiData {
+  display_name?: string;
   name?: string;
   update_time?: string;
   cover: string;

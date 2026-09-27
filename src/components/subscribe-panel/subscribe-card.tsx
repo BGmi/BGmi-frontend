@@ -75,6 +75,7 @@ export default function SubscribeCard({ bangumi }: Props) {
       watchedEpisodes,
       season: data?.season ?? 1,
       episodeOffset: data?.episode_offset ?? 0,
+      displayName: data?.display_name ?? '',
       subscribed: true,
       filterOptions: {
         include: data?.include.join(', ') ?? '',
@@ -94,6 +95,7 @@ export default function SubscribeCard({ bangumi }: Props) {
       watchedEpisodes: [],
       season: 1,
       episodeOffset: 0,
+      displayName: '',
       subscribed: false,
       filterOptions: {
         include: '',
